@@ -1,0 +1,103 @@
+{
+  "schema_version": "system_decisions.v1",
+  "job_cd": "K000000997",
+  "job_name": "상품기획자",
+  "difficulty": {
+    "level": "hard",
+    "label": "어려움",
+    "estimated_time_minutes": 20,
+    "material_bundle_style": "work_document_packet",
+    "material_count_range": [
+      3,
+      4
+    ],
+    "task_count_range": [
+      3,
+      4
+    ],
+    "answer_length_hint": "700~1000자",
+    "requires_cross_material_reasoning": true,
+    "requires_tradeoff_judgment": true,
+    "requires_domain_expertise": false
+  },
+  "selected_exec_job": {
+    "exec_job_id": "exec_004",
+    "text": "특정상품 및 서비스에 관한 현재의 판매수준, 소비자의 평가 등에 관한 정보를 체계적으로 수집·분석한다.",
+    "source_ref": {
+      "file": "K000000997/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 4
+    },
+    "selection_reason": "Pilot config selected exec_004."
+  },
+  "primary_task_type": "research_and_analysis",
+  "secondary_task_types": [
+    "decision_making"
+  ],
+  "allowed_material_types": [
+    "email",
+    "chart",
+    "table",
+    "schedule"
+  ],
+  "mission_design": {
+    "schema_version": "mission_design.v1",
+    "mission_design_type": "market_feedback_prioritization",
+    "design_intent": "고객 반응, 판매 흐름, 후보안을 비교해 개선 우선순위를 정하는 미션",
+    "selection_method": "profile_signal_rule",
+    "selection_reason": "Matched signals: 소비자, 구매, 판매, 마케팅, 영업."
+  },
+  "excluded_material_types": [
+    "image",
+    "screenshot"
+  ],
+  "generation_constraints": {
+    "language": "ko",
+    "json_only": true,
+    "no_real_company_names": true,
+    "no_real_person_names": true,
+    "no_external_research": true,
+    "non_expert_friendly": true,
+    "must_use_provided_materials_only": true,
+    "llm_must_not_create_reliability_score": true,
+    "factual_status_required": true
+  },
+  "decision_trace": [
+    {
+      "step": "select_target_exec_job",
+      "method": "pilot_config.preferred_exec_job_id",
+      "selected": "exec_004",
+      "reason": "Pilot config selected exec_004."
+    },
+    {
+      "step": "classify_task_type",
+      "method": "pilot_config.preferred_primary_task_type",
+      "selected": "research_and_analysis",
+      "reason": "Pilot config fixed the primary task type."
+    },
+    {
+      "step": "select_allowed_material_types",
+      "method": "pilot_job_material_config",
+      "selected": [
+        "email",
+        "chart",
+        "table",
+        "schedule"
+      ],
+      "reason": "hard material candidates were selected within max 5."
+    },
+    {
+      "step": "select_mission_design_type",
+      "method": "profile_signal_rule",
+      "selected": "market_feedback_prioritization",
+      "reason": "Matched signals: 소비자, 구매, 판매, 마케팅, 영업.",
+      "scores": {
+        "market_feedback_prioritization": 11,
+        "data_diagnosis": 1,
+        "financial_research_judgment": 4,
+        "product_design_with_constraints": 1
+      }
+    }
+  ],
+  "decision_warnings": []
+}

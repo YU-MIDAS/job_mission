@@ -1,0 +1,115 @@
+{
+  "schema_version": "pilot_summary.v1",
+  "run_id": "pilot_v1_20260524_055451",
+  "created_at": "2026-05-24T06:03:10+09:00",
+  "total_targets": 8,
+  "saved_count": 8,
+  "failed_count": 0,
+  "repair_used_count": 7,
+  "average_reliability_score": 1.0,
+  "llm_usage": {
+    "draft_call_count": 8,
+    "repair_call_count": 7,
+    "mock_draft_count": 0,
+    "mock_repair_count": 0,
+    "input_tokens": 120129,
+    "output_tokens": 83913,
+    "reasoning_tokens": 39039,
+    "total_tokens": 204042
+  },
+  "openai_api_called": true,
+  "results": [
+    {
+      "job_cd": "K000000997",
+      "job_name": "상품기획자",
+      "difficulty_code": "normal",
+      "status": "saved",
+      "mission_id": "mission_K000000997_normal_001",
+      "reliability_score": 0.98,
+      "warning_count": 1,
+      "repair_count": 0,
+      "mission_output_path": "jobs/K000000997/normal/mission_output.json"
+    },
+    {
+      "job_cd": "K000000997",
+      "job_name": "상품기획자",
+      "difficulty_code": "hard",
+      "status": "saved",
+      "mission_id": "mission_K000000997_hard_001",
+      "reliability_score": 1.0,
+      "warning_count": 0,
+      "repair_count": 1,
+      "mission_output_path": "jobs/K000000997/hard/mission_output.json"
+    },
+    {
+      "job_cd": "K000001080",
+      "job_name": "데이터분석가(빅데이터분석가)",
+      "difficulty_code": "normal",
+      "status": "saved",
+      "mission_id": "mission_K000001080_normal_001",
+      "reliability_score": 1.0,
+      "warning_count": 0,
+      "repair_count": 1,
+      "mission_output_path": "jobs/K000001080/normal/mission_output.json"
+    },
+    {
+      "job_cd": "K000001080",
+      "job_name": "데이터분석가(빅데이터분석가)",
+      "difficulty_code": "hard",
+      "status": "saved",
+      "mission_id": "mission_K000001080_hard_001",
+      "reliability_score": 1.0,
+      "warning_count": 0,
+      "repair_count": 1,
+      "mission_output_path": "jobs/K000001080/hard/mission_output.json"
+    },
+    {
+      "job_cd": "K000001179",
+      "job_name": "투자분석가",
+      "difficulty_code": "normal",
+      "status": "saved",
+      "mission_id": "mission_K000001179_normal_001",
+      "reliability_score": 1.0,
+      "warning_count": 0,
+      "repair_count": 1,
+      "mission_output_path": "jobs/K000001179/normal/mission_output.json"
+    },
+    {
+      "job_cd": "K000001179",
+      "job_name": "투자분석가",
+      "difficulty_code": "hard",
+      "status": "saved",
+      "mission_id": "mission_K000001179_hard_001",
+      "reliability_score": 1.0,
+      "warning_count": 0,
+      "repair_count": 1,
+      "mission_output_path": "jobs/K000001179/hard/mission_output.json"
+    },
+    {
+      "job_cd": "K000007519",
+      "job_name": "보험상품개발자",
+      "difficulty_code": "normal",
+      "status": "saved",
+      "mission_id": "mission_K000007519_normal_001",
+      "reliability_score": 1.0,
+      "warning_count": 0,
+      "repair_count": 1,
+      "mission_output_path": "jobs/K000007519/normal/mission_output.json"
+    },
+    {
+      "job_cd": "K000007519",
+      "job_name": "보험상품개발자",
+      "difficulty_code": "hard",
+      "status": "saved",
+      "mission_id": "mission_K000007519_hard_001",
+      "reliability_score": 1.0,
+      "warning_count": 0,
+      "repair_count": 1,
+      "mission_output_path": "jobs/K000007519/hard/mission_output.json"
+    }
+  ],
+  "post_run_checks": {
+    "json_parse_failures": [],
+    "secret_findings": []
+  }
+}

@@ -1,0 +1,480 @@
+{
+  "schema_version": "job_practice_profile.v1",
+  "job_identity": {
+    "job_cd": "K000000997",
+    "job_name": "상품기획자",
+    "category": "024 광고·조사·상품기획·행사기획 전문가",
+    "career_level": "인턴~주니어/대리 초입",
+    "one_line_definition": "시장과 고객 니즈를 상품으로 구체화하는 사람"
+  },
+  "source_summary": {
+    "created_at": "2026-05-23",
+    "source_scope": "한국 자료 기반, 최근 5년 안에 작성·게시·접수된 자료",
+    "source_counts": {
+      "job_postings": 2,
+      "interviews": 2,
+      "retrospectives": 0,
+      "videos": 0,
+      "others": 1
+    },
+    "source_notes": [
+      "조사한 출처 안에서 실제 확인되는 업무·자료·도구·협업 내용만 반영했다.",
+      "v1 구현에서는 직접 요청문을 생성 입력으로 사용하지 않으므로 request_examples는 비워둔다."
+    ]
+  },
+  "practice_tasks": [
+    {
+      "id": "practice_task_01",
+      "name": "시장·고객 조사와 니즈 정의",
+      "description": "시장규모, 타깃, 트렌드, 고객 리뷰·데이터를 조사해 기획 배경과 고객 니즈를 정의한다.",
+      "inputs": [
+        "시장·타깃·트렌드 조사 자료",
+        "고객 리뷰",
+        "고객 데이터"
+      ],
+      "outputs": [
+        "시장 분석 자료",
+        "타깃 정의",
+        "고객 니즈 정의"
+      ],
+      "source_refs": [
+        "P3",
+        "P5"
+      ]
+    },
+    {
+      "id": "practice_task_02",
+      "name": "신상품·브랜드·콘텐츠·상품 라인업 기획",
+      "description": "기획서, 브랜드 컨셉안, 제품 라인업, 교육상품 구성으로 아이디어를 상품 형태로 구체화한다.",
+      "inputs": [
+        "상품 아이디어",
+        "브랜드 히스토리",
+        "시장조사 결과"
+      ],
+      "outputs": [
+        "상품 기획서",
+        "브랜드 컨셉안",
+        "제품 라인업"
+      ],
+      "source_refs": [
+        "P1",
+        "P5"
+      ]
+    },
+    {
+      "id": "practice_task_03",
+      "name": "상품 구성·가격·수익 관리 판단",
+      "description": "상품별 모객 현황, 가격, 수익 관리 요소를 보고 상품 운영 방향과 가격 관련 판단을 한다.",
+      "inputs": [
+        "상품별 모객 현황",
+        "프로모션 현황",
+        "가격·수익 자료"
+      ],
+      "outputs": [
+        "상품 수정안",
+        "액션 플랜",
+        "프로모션 계획"
+      ],
+      "source_refs": [
+        "P2"
+      ]
+    },
+    {
+      "id": "practice_task_04",
+      "name": "개발·출시·운영 전 과정 조율",
+      "description": "마케터, 디자이너, PD, CX, 영업, 파트너와 협업해 상품을 출시·운영한다.",
+      "inputs": [
+        "기획안",
+        "협업 부서 의견",
+        "운영 제약"
+      ],
+      "outputs": [
+        "협업 메모",
+        "실행 일정",
+        "출시 운영안"
+      ],
+      "source_refs": [
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ]
+    },
+    {
+      "id": "practice_task_05",
+      "name": "출시 후 모객·프로모션·고객 반응 점검",
+      "description": "출시 후 고객 반응, 리뷰, 프로모션 성과를 확인해 실행 계획과 리뉴얼 포인트를 조정한다.",
+      "inputs": [
+        "모객 현황",
+        "프로모션 성과",
+        "고객 리뷰",
+        "클레임"
+      ],
+      "outputs": [
+        "리뉴얼 포인트",
+        "전략 수정안",
+        "프로모션 개선안"
+      ],
+      "source_refs": [
+        "P2",
+        "P3",
+        "P5"
+      ]
+    }
+  ],
+  "decision_situations": [
+    {
+      "id": "decision_01",
+      "decision_to_make": "어떤 시장과 타깃 고객을 우선 공략할 것인가",
+      "common_context": "새로운 시장을 분석하거나 신상품·브랜드·교육상품을 기획할 때",
+      "factors": [
+        "시장 규모와 성장 가능성",
+        "타깃·코어 타깃 특성",
+        "고객 리뷰와 데이터 니즈",
+        "트렌드와 경쟁 상황",
+        "구현 가능한 범위"
+      ],
+      "why_no_single_answer": "같은 시장 자료라도 어떤 타깃을 핵심 고객으로 보느냐에 따라 상품 컨셉과 라인업이 달라진다.",
+      "good_vs_bad_branch": {
+        "good": "고객 데이터와 시장조사로 니즈를 정의한다.",
+        "bad": "개인 취향이나 막연한 유행만으로 타깃을 정한다."
+      },
+      "source_refs": [
+        "P3",
+        "P5"
+      ]
+    },
+    {
+      "id": "decision_02",
+      "decision_to_make": "어떤 상품·브랜드 컨셉이 차별화되는가",
+      "common_context": "상품 기획서, 브랜드 컨셉안, 제품 라인업, 교육 상품을 설계할 때",
+      "factors": [
+        "경쟁 상품",
+        "고객이 원하는 요소",
+        "핵심 메시지",
+        "표현 방식",
+        "협업 부서 구현 가능성"
+      ],
+      "why_no_single_answer": "좋은 컨셉은 데이터와 고객 니즈에 근거해야 하지만 표현 방식과 차별화 방향은 여러 선택지가 가능하다.",
+      "good_vs_bad_branch": {
+        "good": "차별화 포인트가 명확하고 고객 니즈와 연결된다.",
+        "bad": "기획자 취향 중심으로 컨셉이 흐려진다."
+      },
+      "source_refs": [
+        "P1",
+        "P3",
+        "P5"
+      ]
+    },
+    {
+      "id": "decision_03",
+      "decision_to_make": "상품 구성, 가격, 운영 방향을 어떻게 정할 것인가",
+      "common_context": "상품별 모객 현황, 프로모션, 가격 결정, 수익 관리를 함께 봐야 할 때",
+      "factors": [
+        "예약·모객 현황",
+        "프로모션",
+        "가격과 수익",
+        "외부 요인",
+        "고객 관점과 객관성"
+      ],
+      "why_no_single_answer": "가격과 구성은 매출, 수익성, 고객 반응, 외부 상황이 동시에 영향을 주므로 한 가지 공식으로 정하기 어렵다.",
+      "good_vs_bad_branch": {
+        "good": "모객·가격·수익·외부 상황을 함께 본다.",
+        "bad": "판매자 관점만으로 가격이나 구성을 정한다."
+      },
+      "source_refs": [
+        "P2"
+      ]
+    },
+    {
+      "id": "decision_04",
+      "decision_to_make": "어떤 협업자와 언제 조율해야 하는가",
+      "common_context": "상품을 기획서에서 실제 출시·판매·운영 단계로 넘길 때",
+      "factors": [
+        "필요한 협업 부서",
+        "운영 협의 시점",
+        "초기 참여 필요성",
+        "파트너 협업",
+        "상품 개선 테스트"
+      ],
+      "why_no_single_answer": "상품 유형과 조직 구조에 따라 누가 먼저 들어와야 하는지, 어떤 정보를 공유해야 하는지가 달라진다.",
+      "good_vs_bad_branch": {
+        "good": "필요한 부서를 적시에 참여시켜 출시 리스크를 줄인다.",
+        "bad": "기획서만 앞서가 실제 구현·판매 단계에서 문제가 생긴다."
+      },
+      "source_refs": [
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ]
+    },
+    {
+      "id": "decision_05",
+      "decision_to_make": "출시 후 무엇을 리뉴얼하거나 프로모션으로 밀 것인가",
+      "common_context": "소비자 반응이 예상과 다르거나 기존 상품을 개선·리뉴얼해야 할 때",
+      "factors": [
+        "모객 현황",
+        "고객 클레임과 리뷰",
+        "프로모션 효과",
+        "메인 상품 컨셉",
+        "커뮤니케이션 키워드"
+      ],
+      "why_no_single_answer": "고객 반응은 예상과 다를 수 있고 어떤 부분을 바꾸는지가 브랜드·상품 성과에 다르게 작용한다.",
+      "good_vs_bad_branch": {
+        "good": "반응 데이터와 클레임을 바탕으로 리뉴얼 포인트를 잡는다.",
+        "bad": "반응 부진의 원인을 확인하지 않은 채 컨셉만 바꾼다."
+      },
+      "source_refs": [
+        "P2",
+        "P5"
+      ]
+    }
+  ],
+  "practice_materials": [
+    {
+      "id": "practice_material_01",
+      "name": "시장조사 자료",
+      "format": "시장 규모, 타깃, 트렌드, 경쟁 상황을 정리한 자료",
+      "provider": "기획자가 직접 조사·정리",
+      "source_refs": [
+        "P5"
+      ]
+    },
+    {
+      "id": "practice_material_02",
+      "name": "고객 리뷰·고객 데이터",
+      "format": "고객이 원하는 것과 좋아하는 것을 확인하는 자료",
+      "provider": "리뷰·데이터 분석 기반",
+      "source_refs": [
+        "P3"
+      ]
+    },
+    {
+      "id": "practice_material_03",
+      "name": "상품 기획서",
+      "format": "상품 아이디어, 구성, 방향을 정리한 문서",
+      "provider": "상품기획자가 작성",
+      "source_refs": [
+        "P1"
+      ]
+    },
+    {
+      "id": "practice_material_04",
+      "name": "상품별 모객 현황·프로모션 현황",
+      "format": "예약·판매 자료와 프로모션 운영 자료",
+      "provider": "상품기획운영팀 업무 자료",
+      "source_refs": [
+        "P2"
+      ]
+    },
+    {
+      "id": "practice_material_05",
+      "name": "브랜드 컨셉안·제품 라인업·포트폴리오",
+      "format": "뷰티 상품 기획과 리뉴얼 산출물",
+      "provider": "BM·상품기획 실무 과제",
+      "source_refs": [
+        "P5"
+      ]
+    },
+    {
+      "id": "practice_material_06",
+      "name": "클레임·기존 브랜드 히스토리",
+      "format": "리뉴얼 포인트를 잡기 위해 검토하는 자료",
+      "provider": "기존 상품 개선 자료",
+      "source_refs": [
+        "P5"
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "id": "tool_01",
+      "name": "기획서 / PPT",
+      "usage": "상품·브랜드·제품 라인업·시장조사 결과를 문서화한다.",
+      "source_refs": [
+        "P1",
+        "P5"
+      ]
+    },
+    {
+      "id": "tool_02",
+      "name": "시장조사 데이터",
+      "usage": "시장 규모, 타깃, 트렌드, 경쟁 상황을 판단한다.",
+      "source_refs": [
+        "P3",
+        "P5"
+      ]
+    },
+    {
+      "id": "tool_03",
+      "name": "고객 리뷰·고객 데이터 분석",
+      "usage": "고객 니즈와 개선 포인트를 찾는다.",
+      "source_refs": [
+        "P3",
+        "P5"
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "id": "term_01",
+      "term": "타깃 / 코어 타깃",
+      "definition": "상품을 가장 먼저 설득해야 할 고객 집단.",
+      "source_refs": [
+        "P5"
+      ]
+    },
+    {
+      "id": "term_02",
+      "term": "고객 니즈",
+      "definition": "고객이 원하거나 좋아하는 요구와 기대.",
+      "source_refs": [
+        "P3"
+      ]
+    },
+    {
+      "id": "term_03",
+      "term": "리뉴얼 포인트",
+      "definition": "기존 상품이나 브랜드를 개선할 때 바꿔야 할 핵심 지점.",
+      "source_refs": [
+        "P5"
+      ]
+    }
+  ],
+  "collaboration_contexts": [
+    {
+      "id": "collab_01",
+      "role": "마케터",
+      "relationship": "상품 출시와 판매를 위한 메시지, 프로모션, 마케팅 실행을 함께 조율한다.",
+      "source_refs": [
+        "P1",
+        "P2"
+      ]
+    },
+    {
+      "id": "collab_02",
+      "role": "디자이너",
+      "relationship": "상품·브랜드·랜딩페이지·패키지 표현 방향을 함께 구체화한다.",
+      "source_refs": [
+        "P1",
+        "P3"
+      ]
+    },
+    {
+      "id": "collab_03",
+      "role": "실무 리더",
+      "relationship": "시장조사 근거와 상품 컨셉안을 검토하고 방향을 요청한다.",
+      "source_refs": [
+        "P5"
+      ]
+    },
+    {
+      "id": "collab_04",
+      "role": "영업/채널 세일즈",
+      "relationship": "상품 판매 채널과 운영 계획을 협의한다.",
+      "source_refs": [
+        "P2"
+      ]
+    }
+  ],
+  "request_examples": [],
+  "response_flow": [
+    {
+      "id": "response_step_01",
+      "step": 1,
+      "action": "요청이 신상품, 리뉴얼, 프로모션, 시장조사 중 무엇인지 확인한다.",
+      "source_refs": [
+        "P2",
+        "P5"
+      ]
+    },
+    {
+      "id": "response_step_02",
+      "step": 2,
+      "action": "시장 규모, 타깃, 트렌드, 고객 리뷰·데이터, 경쟁 상품을 조사한다.",
+      "source_refs": [
+        "P3",
+        "P5"
+      ]
+    },
+    {
+      "id": "response_step_03",
+      "step": 3,
+      "action": "고객 니즈와 차별화 포인트를 정의한다.",
+      "source_refs": [
+        "P3",
+        "P5"
+      ]
+    },
+    {
+      "id": "response_step_04",
+      "step": 4,
+      "action": "상품 기획서, 브랜드 컨셉안, 제품 라인업, 랜딩페이지 방향 등으로 구체화한다.",
+      "source_refs": [
+        "P1",
+        "P5"
+      ]
+    },
+    {
+      "id": "response_step_05",
+      "step": 5,
+      "action": "마케터, 디자이너, PD, CX, 영업, 파트너와 실현 가능성과 운영 방안을 조율한다.",
+      "source_refs": [
+        "P1",
+        "P2",
+        "P3"
+      ]
+    },
+    {
+      "id": "response_step_06",
+      "step": 6,
+      "action": "출시 후 모객 현황, 프로모션, 고객 반응, 클레임을 보고 수정·리뉴얼 포인트를 정한다.",
+      "source_refs": [
+        "P2",
+        "P5"
+      ]
+    }
+  ],
+  "deliverable_formats": [
+    {
+      "id": "deliverable_01",
+      "name": "상품 기획서",
+      "usage": "상품 아이디어, 구성, 목표, 랜딩페이지 방향을 정리할 때 사용.",
+      "source_refs": [
+        "P1"
+      ]
+    },
+    {
+      "id": "deliverable_02",
+      "name": "시장조사 자료 / PPT",
+      "usage": "시장 규모, 타깃, 트렌드, 경쟁 상황, 고객 니즈를 제시할 때 사용.",
+      "source_refs": [
+        "P5"
+      ]
+    },
+    {
+      "id": "deliverable_03",
+      "name": "브랜드 컨셉안",
+      "usage": "신규 브랜드나 제품 기획 방향을 설명할 때 사용.",
+      "source_refs": [
+        "P5"
+      ]
+    },
+    {
+      "id": "deliverable_04",
+      "name": "액션 플랜 / 프로모션 계획",
+      "usage": "상품별 모객 현황과 판매 상황을 보고 운영 계획을 수정할 때 사용.",
+      "source_refs": [
+        "P2"
+      ]
+    }
+  ],
+  "profile_quality": {
+    "request_examples_missing": true,
+    "ready_for_normal_mission": true,
+    "notes": [
+      "normal seed 생성에 필요한 업무, 판단 상황, 자료, 응답 흐름, 산출물 형태가 모두 있다."
+    ]
+  }
+}

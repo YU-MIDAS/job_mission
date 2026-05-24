@@ -1,0 +1,692 @@
+{
+  "schema_version": "repair_request.v1",
+  "attempt": 1,
+  "locked_fields": [
+    "job_identity",
+    "target_exec_job",
+    "mission.difficulty",
+    "mission.task_type",
+    "mission.secondary_task_types",
+    "mission.allowed_material_types"
+  ],
+  "system_decisions": {
+    "schema_version": "system_decisions.v1",
+    "job_cd": "K000007519",
+    "job_name": "보험상품개발자",
+    "difficulty": {
+      "level": "normal",
+      "label": "보통",
+      "estimated_time_minutes": 15,
+      "material_bundle_style": "light_work_material_bundle",
+      "material_count_range": [
+        2,
+        3
+      ],
+      "task_count_range": [
+        2,
+        3
+      ],
+      "answer_length_hint": "400~700자",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "selected_exec_job": {
+      "exec_job_id": "exec_002",
+      "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 2
+      },
+      "selection_reason": "Pilot config selected exec_002."
+    },
+    "primary_task_type": "planning_and_proposal",
+    "secondary_task_types": [
+      "research_and_analysis"
+    ],
+    "allowed_material_types": [
+      "table",
+      "chart",
+      "memo"
+    ],
+    "mission_design": {
+      "schema_version": "mission_design.v1",
+      "mission_design_type": "product_design_with_constraints",
+      "design_intent": "수요, 비용, 제약조건을 고려해 상품 또는 서비스 설계안을 제안하는 미션",
+      "selection_method": "profile_signal_rule",
+      "selection_reason": "Matched signals: 보험, 보험상품, 보험료, 책임준비금, 약관."
+    },
+    "excluded_material_types": [
+      "image",
+      "screenshot"
+    ],
+    "generation_constraints": {
+      "language": "ko",
+      "json_only": true,
+      "no_real_company_names": true,
+      "no_real_person_names": true,
+      "no_external_research": true,
+      "non_expert_friendly": true,
+      "must_use_provided_materials_only": true,
+      "llm_must_not_create_reliability_score": true,
+      "factual_status_required": true
+    },
+    "decision_trace": [
+      {
+        "step": "select_target_exec_job",
+        "method": "pilot_config.preferred_exec_job_id",
+        "selected": "exec_002",
+        "reason": "Pilot config selected exec_002."
+      },
+      {
+        "step": "classify_task_type",
+        "method": "pilot_config.preferred_primary_task_type",
+        "selected": "planning_and_proposal",
+        "reason": "Pilot config fixed the primary task type."
+      },
+      {
+        "step": "select_allowed_material_types",
+        "method": "pilot_job_material_config",
+        "selected": [
+          "table",
+          "chart",
+          "memo"
+        ],
+        "reason": "normal material candidates were selected within max 3."
+      },
+      {
+        "step": "select_mission_design_type",
+        "method": "profile_signal_rule",
+        "selected": "product_design_with_constraints",
+        "reason": "Matched signals: 보험, 보험상품, 보험료, 책임준비금, 약관.",
+        "scores": {
+          "market_feedback_prioritization": 3,
+          "data_diagnosis": 5,
+          "financial_research_judgment": 4,
+          "product_design_with_constraints": 17
+        }
+      }
+    ],
+    "decision_warnings": []
+  },
+  "allowed_evidence_names": [
+    "수리력",
+    "재정 관리",
+    "인적자원 관리",
+    "읽고 이해하기",
+    "논리적 분석",
+    "산수와 수학",
+    "경제와 회계",
+    "사무",
+    "의료",
+    "법",
+    "정확성, 정밀성 유지",
+    "앉아서 근무",
+    "이메일 이용하기",
+    "이미지/평판/재정에 미치는 강도",
+    "자동화 정도",
+    "기준에 따른 정보 평가",
+    "의사 결정, 문제점 해결",
+    "협상, 갈등 해결",
+    "정보, 자료 분석",
+    "목표, 전략 수립",
+    "정보의 의미 해석",
+    "정보 처리",
+    "절차, 자료, 주변환경 관찰",
+    "정보 수집",
+    "사물, 행동, 사건 파악"
+  ],
+  "mission_output_draft": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000007519",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "금융·보험 전문가",
+      "job_smcl_nm": "보험상품개발자",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_002",
+      "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 2
+      },
+      "selection_reason": "Pilot config selected exec_002."
+    },
+    "mission_facts": {
+      "org_name": "가온누리보험 상품기획팀",
+      "domain": "개인 건강보장보험 상품 개발",
+      "period": [
+        "2025.01",
+        "2025.02",
+        "2025.03"
+      ],
+      "trend_pattern": "실속형 상품안의 가입의향이 3개월 연속 상승했고, 보장확대형은 관심은 있으나 가격 부담 때문에 전환 가능성이 낮다.",
+      "main_issue": "월 보험료 상한과 초기 준비금 부담을 함께 고려해 세 가지 신상품안 중 하나를 선택해야 한다.",
+      "feedback_themes": [
+        "월 보험료가 부담되지 않을 것",
+        "보장 구조가 단순할 것",
+        "입원·수술 중심 보장이 체감도가 높을 것",
+        "과도한 특약은 제외해 달라"
+      ],
+      "decision_goal": "수요가 있고 운영 제약을 넘지 않는 상품안을 고르고, 핵심 보장과 제외 요소를 정리한다."
+    },
+    "mission": {
+      "title": "월 보험료 상한 안에서 신상품안 고르기",
+      "task_type": "planning_and_proposal",
+      "secondary_task_types": [
+        "research_and_analysis"
+      ],
+      "difficulty": {
+        "level": "normal",
+        "label": "보통",
+        "estimated_time_minutes": 15,
+        "material_bundle_style": "light_work_material_bundle",
+        "material_count_range": [
+          2,
+          3
+        ],
+        "task_count_range": [
+          2,
+          3
+        ],
+        "answer_length_hint": "400~700자",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "보험상품개발팀 상품기획 담당자",
+        "context": "가상의 보험사 가온누리보험 상품기획팀에서 30~40대 직장인을 겨냥한 건강보장 신상품 출시안을 검토하고 있다. 시장조사 결과와 내부 제약 메모를 바탕으로, 실무에서 바로 검토할 수 있는 상품안을 골라야 한다.",
+        "goal": "세 가지 후보 중 가장 적합한 상품안을 선택하고, 그 상품에 맞는 핵심 설계 원칙과 제외할 요소를 제안한다.",
+        "constraints": [
+          "주어진 자료만 근거로 판단할 것",
+          "월 보험료는 2만원 이하를 우선 고려할 것",
+          "온라인 청약을 전제로 설명이 쉬운 구조를 유지할 것",
+          "과도한 특약 확대는 피할 것"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "m1",
+          "type": "chart",
+          "subtype": "line_chart",
+          "title": "3개월 가입의향 추이",
+          "description": "세 상품안의 가입의향 점수를 월별로 비교한 자료",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "수요 흐름을 보고 우선 후보를 가늠한다.",
+          "evidence_source": [
+            "정보, 자료 분석",
+            "정보 처리",
+            "의사 결정, 문제점 해결"
+          ],
+          "mission_fact_refs": [
+            "period",
+            "trend_pattern",
+            "main_issue"
+          ],
+          "data": {
+            "chart_type": "line",
+            "x_axis": {
+              "label": "월",
+              "values": [
+                "2025.01",
+                "2025.02",
+                "2025.03"
+              ]
+            },
+            "y_axis": {
+              "label": "가입의향지수",
+              "unit": "점"
+            },
+            "series": [
+              {
+                "name": "실속형",
+                "values": [
+                  62,
+                  68,
+                  74
+                ]
+              },
+              {
+                "name": "표준형",
+                "values": [
+                  55,
+                  56,
+                  57
+                ]
+              },
+              {
+                "name": "확장형",
+                "values": [
+                  41,
+                  42,
+                  43
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "항목"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [],
+            "author": "가상시장조사팀",
+            "items": [
+              {
+                "text": "실속형은 3개월 연속 상승",
+                "period": "2025.01~2025.03",
+                "task": "수요 확인",
+                "constraint": "가격 민감도가 높음",
+                "label": "관찰",
+                "status": "checked",
+                "importance": "높음"
+              },
+              {
+                "text": "확장형은 관심이 낮고 상승폭도 작다",
+                "period": "2025.01~2025.03",
+                "task": "후보 제외 판단",
+                "constraint": "보험료 부담이 큼",
+                "label": "관찰",
+                "status": "issue",
+                "importance": "중간"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.91,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m2",
+          "type": "table",
+          "subtype": "option_comparison_table",
+          "title": "신상품안 비교표",
+          "description": "보장 범위와 가격 제약을 함께 본 상품안 비교",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "세 후보 중 우선순위를 정한다.",
+          "evidence_source": [
+            "기준에 따른 정보 평가",
+            "목표, 전략 수립",
+            "경제와 회계",
+            "재정 관리",
+            "논리적 분석"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "상품안",
+              "values": [
+                "실속형 건강보장플랜",
+                "표준형 균형플랜",
+                "확장형 안심플랜"
+              ]
+            },
+            "y_axis": {
+              "label": "평가",
+              "unit": "점"
+            },
+            "series": [
+              {
+                "name": "우선순위",
+                "values": [
+                  1,
+                  2,
+                  3
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "상품안"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [
+              {
+                "option": "실속형 건강보장플랜",
+                "strength": "월 보험료를 낮게 설계하기 쉽고 설명이 단순하다",
+                "weakness": "외래성 보장은 약해 체감 보장이 다소 작다",
+                "priority": 1
+              },
+              {
+                "option": "표준형 균형플랜",
+                "strength": "입원·수술·진단 보장의 균형이 좋아 무난하다",
+                "weakness": "보험료가 상한선에 가까워질 수 있다",
+                "priority": 2
+              },
+              {
+                "option": "확장형 안심플랜",
+                "strength": "보장 범위가 넓고 고액 위험 대응력이 크다",
+                "weakness": "보험료와 준비금 부담이 커 출시 제약이 크다",
+                "priority": 3
+              }
+            ],
+            "author": "가상상품개발실",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.9,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m3",
+          "type": "memo",
+          "subtype": "risk_and_operation_memo",
+          "title": "운영 제약 메모",
+          "description": "출시 전 검토해야 할 가격·운영 조건 메모",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "최종 상품안에 넣을 제약을 정리한다.",
+          "evidence_source": [
+            "읽고 이해하기",
+            "법",
+            "경제와 회계",
+            "기준에 따른 정보 평가",
+            "사무"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "pie",
+            "x_axis": {
+              "label": "메모 항목",
+              "values": [
+                "가격",
+                "보장",
+                "운영",
+                "심사"
+              ]
+            },
+            "y_axis": {
+              "label": "중요도",
+              "unit": "등급"
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "항목"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [],
+            "author": "가상심사파트",
+            "items": [
+              {
+                "text": "월 보험료는 2만원 이하로 유지",
+                "period": "출시안",
+                "task": "가격 설계",
+                "constraint": "대상 고객의 가격 민감도 고려",
+                "label": "필수",
+                "status": "issue",
+                "importance": "높음"
+              },
+              {
+                "text": "초기 상품은 입원·수술 중심으로 단순화",
+                "period": "출시안",
+                "task": "보장 범위",
+                "constraint": "손해율과 설명 난이도 관리",
+                "label": "필수",
+                "status": "checked",
+                "importance": "높음"
+              },
+              {
+                "text": "고액 보장 특약은 1단계에서 제외",
+                "period": "출시안",
+                "task": "특약 구성",
+                "constraint": "준비금 부담 완화",
+                "label": "권고",
+                "status": "checked",
+                "importance": "중간"
+              },
+              {
+                "text": "온라인 청약 기준으로 약관 문구를 짧게 정리",
+                "period": "출시안",
+                "task": "운영 문안",
+                "constraint": "비대면 가입 절차",
+                "label": "권고",
+                "status": "unchecked",
+                "importance": "중간"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.89,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_1",
+          "instruction": "세 자료를 함께 보고, 세 상품안 중 하나를 최종 추천하라. 수요 흐름과 비교표를 근거로 선택 이유를 2~3문장으로 적어라.",
+          "required_materials": [
+            "m1",
+            "m2"
+          ],
+          "expected_action": "상품안 1개를 선택하고 근거를 제시"
+        },
+        {
+          "task_id": "task_2",
+          "instruction": "선택한 상품안에 대해 반드시 유지할 설계 원칙 2개와 제외할 요소 1개를 제안하라. 운영 제약 메모를 반영해 실무적으로 적어라.",
+          "required_materials": [
+            "m2",
+            "m3"
+          ],
+          "expected_action": "보완 설계안 제시"
+        }
+      ],
+      "submission_format": {
+        "type": "한국어 서술형 답안",
+        "estimated_time_minutes": 15,
+        "required_sections": [
+          "선택한 상품안",
+          "선정 이유",
+          "보완 설계 및 우선순위"
+        ],
+        "length_hint": "400~700자"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "실속형 안이 수요 추세와 가격 제약에 가장 잘 맞는다.",
+        "보장 확대보다 월 보험료 상한과 준비금 부담을 먼저 반영해야 한다.",
+        "입원·수술 중심의 단순 구조와 핵심 특약만 남기는 설계가 적합하다."
+      ],
+      "rubric": [
+        {
+          "criterion": "수요-제약 일치성",
+          "description": "가입의향 추이와 운영 제약 메모를 함께 반영해 가장 적합한 상품안을 골랐는지 평가한다.",
+          "points": 4,
+          "linked_evidence": [
+            "정보, 자료 분석",
+            "기준에 따른 정보 평가",
+            "의사 결정, 문제점 해결"
+          ]
+        },
+        {
+          "criterion": "비교 판단의 타당성",
+          "description": "세 상품안의 강점과 약점을 비교해 선택 근거를 분명하게 제시했는지 평가한다.",
+          "points": 4,
+          "linked_evidence": [
+            "논리적 분석",
+            "정보 처리",
+            "경제와 회계"
+          ]
+        },
+        {
+          "criterion": "실행 가능한 설계 제안",
+          "description": "선택안에 대해 유지할 원칙과 제외할 요소를 실무적으로 제안했는지 평가한다.",
+          "points": 4,
+          "linked_evidence": [
+            "목표, 전략 수립",
+            "재정 관리",
+            "읽고 이해하기"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_002",
+        "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다."
+      },
+      "linked_evidence": {
+        "activities": [
+          "의사 결정, 문제점 해결",
+          "정보, 자료 분석",
+          "목표, 전략 수립"
+        ],
+        "knowledge": [
+          "경제와 회계",
+          "산수와 수학",
+          "법"
+        ],
+        "abilities": [
+          "논리적 분석",
+          "재정 관리",
+          "읽고 이해하기"
+        ]
+      },
+      "material_evidence_map": [
+        {
+          "material_id": "m1",
+          "supported_by": [
+            "정보, 자료 분석",
+            "정보 처리",
+            "사물, 행동, 사건 파악"
+          ]
+        },
+        {
+          "material_id": "m2",
+          "supported_by": [
+            "기준에 따른 정보 평가",
+            "의사 결정, 문제점 해결",
+            "논리적 분석"
+          ]
+        },
+        {
+          "material_id": "m3",
+          "supported_by": [
+            "읽고 이해하기",
+            "법",
+            "경제와 회계",
+            "정보의 의미 해석"
+          ]
+        }
+      ]
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "validator_errors": [
+    {
+      "path": "mission.materials[0].data.series",
+      "severity": "fail",
+      "code": "MATERIAL_SCHEMA_INVALID",
+      "message": "chart series max is 2.",
+      "required_fix": "Reduce series.",
+      "repairable": true
+    },
+    {
+      "path": "mission.materials[0].data.x_axis.values",
+      "severity": "fail",
+      "code": "MATERIAL_SIZE_TOO_SMALL",
+      "message": "count 3 is below minimum 4.",
+      "required_fix": "Add items.",
+      "repairable": true
+    }
+  ],
+  "validator_warnings": [
+    {
+      "path": "evaluation.rubric",
+      "severity": "warning",
+      "code": "RUBRIC_POINTS_NOT_100",
+      "message": "rubric points sum is 12.",
+      "required_fix": "Adjust points to 100.",
+      "repairable": true
+    }
+  ],
+  "repair_rules": [
+    "material.evidence_source must use only exact strings from allowed_evidence_names.",
+    "Do not use source_ref file names, XML field names, or invented evidence labels.",
+    "For table materials, data.columns keys must be option, strength, weakness, priority and rows must use the same keys.",
+    "JSON만 출력한다.",
+    "target_exec_job, task_type, secondary_task_types, difficulty는 변경하지 않는다.",
+    "allowed_material_types 밖의 material을 추가하지 않는다.",
+    "reliability는 {\"status\":\"pending_validation\"}로 둔다.",
+    "validator_errors와 validator_warnings에 해당하는 부분만 수정한다."
+  ]
+}

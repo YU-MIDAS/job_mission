@@ -1,0 +1,558 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-mini",
+  "call_type": "draft_generation",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "status": "completed",
+  "output_json": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000000997",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "광고·조사·상품기획·행사기획 전문가",
+      "job_smcl_nm": "상품기획자",
+      "source_ref": {
+        "file": "K000000997/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_004",
+      "text": "특정상품 및 서비스에 관한 현재의 판매수준, 소비자의 평가 등에 관한 정보를 체계적으로 수집·분석한다.",
+      "source_ref": {
+        "file": "K000000997/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 4
+      },
+      "selection_reason": "Pilot config selected exec_004."
+    },
+    "mission_facts": {
+      "org_name": "가상 생활용품 기획팀",
+      "domain": "생활용품 상품기획",
+      "period": [
+        "1주차",
+        "2주차",
+        "3주차",
+        "4주차"
+      ],
+      "trend_pattern": "판매수준은 초반 하락 후 3주차부터 회복세를 보이며, 소비자 평가는 후기 반영 이후 점진적으로 개선되는 흐름이다.",
+      "main_issue": "판매 변동의 원인과 소비자 피드백의 핵심 불만이 무엇인지 정리하고, 다음 기획에서 무엇을 우선 보완할지 결정해야 한다.",
+      "feedback_themes": [
+        "가격 대비 만족도",
+        "사용 편의성",
+        "구성/기능 보완 요구"
+      ],
+      "decision_goal": "현재 판매와 소비자 평가를 바탕으로 개선 우선순위와 다음 기획안을 정한다."
+    },
+    "mission": {
+      "title": "판매 데이터와 소비자 평가를 바탕으로 상품 개선 우선순위 정하기",
+      "task_type": "research_and_analysis",
+      "secondary_task_types": [
+        "decision_making"
+      ],
+      "difficulty": {
+        "level": "normal",
+        "label": "보통",
+        "estimated_time_minutes": 15,
+        "material_bundle_style": "light_work_material_bundle",
+        "material_count_range": [
+          2,
+          3
+        ],
+        "task_count_range": [
+          2,
+          3
+        ],
+        "answer_length_hint": "400~700자",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "상품기획 보조 담당자",
+        "context": "가상의 생활용품 기획팀에서 최근 4주간의 판매 흐름과 소비자 피드백을 함께 검토하고 있다.",
+        "goal": "제공된 자료를 바탕으로 판매 흐름의 특징과 고객 불만을 정리한 뒤, 개선 우선순위를 제안한다.",
+        "constraints": [
+          "외부 검색 없이 제공된 자료만 사용한다.",
+          "실제 회사명, 브랜드명, 인명은 사용하지 않는다.",
+          "답변은 한국어로 작성한다.",
+          "핵심 판단은 자료 간 연결을 통해 설명한다."
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "m1",
+          "type": "chart",
+          "subtype": "trend_analysis_line_chart",
+          "title": "4주 판매수준 및 소비자 평가 추이",
+          "description": "최근 4주 동안의 판매수준과 소비자 평가 변화를 함께 보여주는 가상 추이 자료이다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "판매 흐름과 평가 흐름의 동시 비교",
+          "evidence_source": [
+            "정보 수집",
+            "사물, 행동, 사건 파악"
+          ],
+          "mission_fact_refs": [
+            "trend_pattern",
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "line",
+            "x_axis": {
+              "label": "주차",
+              "values": [
+                "1주차",
+                "2주차",
+                "3주차",
+                "4주차"
+              ]
+            },
+            "y_axis": {
+              "label": "지수",
+              "unit": "점"
+            },
+            "series": [
+              {
+                "name": "판매수준",
+                "values": [
+                  62,
+                  58,
+                  66,
+                  71
+                ]
+              },
+              {
+                "name": "소비자 평가",
+                "values": [
+                  68,
+                  65,
+                  67,
+                  72
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "옵션"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [
+              {
+                "option": "추세 해석",
+                "strength": "판매와 평가를 한눈에 비교할 수 있다",
+                "weakness": "원인 분석은 별도 해석이 필요하다",
+                "priority": 1
+              }
+            ],
+            "author": "가상 분석 담당자",
+            "items": [
+              {
+                "text": "3주차부터 판매와 평가가 함께 개선된다.",
+                "period": "3주차",
+                "task": "변화 확인",
+                "constraint": "제공된 자료만 해석",
+                "label": "관찰",
+                "status": "checked",
+                "importance": "높음"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.93,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m2",
+          "type": "memo",
+          "subtype": "customer_feedback_memo",
+          "title": "소비자 피드백 메모",
+          "description": "구매 후 남겨진 의견을 요약한 내부 메모 형식의 자료이다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "불만과 개선 요구의 핵심 테마 파악",
+          "evidence_source": [
+            "다른 사람과의 접촉",
+            "사물, 서비스, 사람의 질 판단",
+            "갈등 상황"
+          ],
+          "mission_fact_refs": [
+            "feedback_themes",
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "의견 유형",
+              "values": [
+                "불만",
+                "개선요청",
+                "긍정"
+              ]
+            },
+            "y_axis": {
+              "label": "건수",
+              "unit": "건"
+            },
+            "series": [
+              {
+                "name": "피드백",
+                "values": [
+                  8,
+                  5,
+                  7
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "옵션"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [
+              {
+                "option": "편의성 개선",
+                "strength": "사용 중 불편을 직접 줄일 수 있다",
+                "weakness": "구체 기능 조정이 필요하다",
+                "priority": 1
+              }
+            ],
+            "author": "가상 고객지원 메모",
+            "items": [
+              {
+                "text": "가격 대비 가치가 기대보다 낮다는 의견이 있다.",
+                "period": "최근 수집",
+                "task": "의견 요약",
+                "constraint": "중복 의견은 묶어서 정리",
+                "label": "불만",
+                "status": "issue",
+                "importance": "높음"
+              },
+              {
+                "text": "사용 방법이 더 직관적이었으면 좋겠다는 요청이 있다.",
+                "period": "최근 수집",
+                "task": "개선점 추출",
+                "constraint": "외부 사례 인용 금지",
+                "label": "개선요청",
+                "status": "checked",
+                "importance": "높음"
+              },
+              {
+                "text": "기본 성능에는 만족하지만 구성 보완을 원한다는 의견이 있다.",
+                "period": "최근 수집",
+                "task": "긍정/보완점 구분",
+                "constraint": "간단 명료하게 정리",
+                "label": "긍정",
+                "status": "checked",
+                "importance": "중간"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.91,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m3",
+          "type": "table",
+          "subtype": "option_comparison_table",
+          "title": "개선 방향 비교표",
+          "description": "다음 기획에서 고려할 수 있는 개선 방향을 비교한 표이다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "개선 우선순위 결정과 최종 제안",
+          "evidence_source": [
+            "의사 결정, 문제점 해결",
+            "업무 계획, 우선순위 결정",
+            "경영 및 행정"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "decision_goal",
+            "trend_pattern"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "비교 대상",
+              "values": [
+                "가격",
+                "편의성",
+                "구성"
+              ]
+            },
+            "y_axis": {
+              "label": "평가",
+              "unit": "항목"
+            },
+            "series": [
+              {
+                "name": "비교",
+                "values": [
+                  1,
+                  2,
+                  3
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "옵션"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [
+              {
+                "option": "가격 조정 중심",
+                "strength": "즉각적인 반응을 기대할 수 있다",
+                "weakness": "수익성에 부담이 생길 수 있다",
+                "priority": 2
+              },
+              {
+                "option": "사용 편의성 개선 중심",
+                "strength": "만족도와 재구매 가능성을 함께 높일 수 있다",
+                "weakness": "개선 내용 정리가 필요하다",
+                "priority": 1
+              },
+              {
+                "option": "구성/기능 보완 중심",
+                "strength": "불만 포인트를 세밀하게 다룰 수 있다",
+                "weakness": "개선 범위가 넓어질 수 있다",
+                "priority": 3
+              }
+            ],
+            "author": "가상 기획 검토안",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": [
+              {
+                "title": "가격 조정 중심",
+                "attributes": {
+                  "strength": "반응이 빠를 수 있음",
+                  "weakness": "수익성 저하 우려",
+                  "fit": "단기 대응용"
+                }
+              },
+              {
+                "title": "사용 편의성 개선 중심",
+                "attributes": {
+                  "strength": "만족도 향상에 유리",
+                  "weakness": "기획·개발 조정 필요",
+                  "fit": "우선 검토안"
+                }
+              },
+              {
+                "title": "구성/기능 보완 중심",
+                "attributes": {
+                  "strength": "불만 해결 폭이 넓음",
+                  "weakness": "범위가 커질 수 있음",
+                  "fit": "중장기 검토안"
+                }
+              }
+            ]
+          },
+          "confidence": {
+            "score": 0.92,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_1",
+          "instruction": "차트를 보고 최근 4주간 판매수준과 소비자 평가의 변화를 2문장 이내로 요약하라.",
+          "required_materials": [
+            "m1"
+          ],
+          "expected_action": "추세 요약"
+        },
+        {
+          "task_id": "task_2",
+          "instruction": "메모와 표를 함께 참고해 핵심 불만과 개선 우선순위를 정리하라.",
+          "required_materials": [
+            "m2",
+            "m3"
+          ],
+          "expected_action": "비교 분석"
+        },
+        {
+          "task_id": "task_3",
+          "instruction": "가장 우선할 개선 방향 1가지를 선택하고, 그 이유를 자료 근거와 함께 제안하라.",
+          "required_materials": [
+            "m1",
+            "m2",
+            "m3"
+          ],
+          "expected_action": "의사결정 제안"
+        }
+      ],
+      "submission_format": {
+        "type": "text",
+        "estimated_time_minutes": 15,
+        "required_sections": [
+          "1. 핵심 추세",
+          "2. 고객 피드백 분석",
+          "3. 개선 우선순위 및 제안"
+        ],
+        "length_hint": "400~700자"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "판매와 소비자 평가는 3주차 이후 함께 개선되는 흐름이다.",
+        "고객 피드백의 핵심은 가격 대비 만족도와 사용 편의성이다.",
+        "개선 우선순위는 단기 가격 조정보다 사용 편의성 개선이 더 타당하다."
+      ],
+      "rubric": [
+        {
+          "criterion": "추세 해석 정확성",
+          "description": "차트의 판매수준과 소비자 평가 변화를 정확히 읽고 요약했는가.",
+          "points": 5,
+          "linked_evidence": [
+            "사물, 행동, 사건 파악",
+            "정보 수집"
+          ]
+        },
+        {
+          "criterion": "피드백 핵심 파악",
+          "description": "메모의 불만과 개선 요구를 핵심 주제로 정리했는가.",
+          "points": 5,
+          "linked_evidence": [
+            "다른 사람과의 접촉",
+            "사물, 서비스, 사람의 질 판단"
+          ]
+        },
+        {
+          "criterion": "우선순위 제안의 타당성",
+          "description": "표와 차트를 함께 활용해 개선 방향을 합리적으로 선택했는가.",
+          "points": 5,
+          "linked_evidence": [
+            "의사 결정, 문제점 해결",
+            "업무 계획, 우선순위 결정",
+            "경영 및 행정"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_004",
+        "text": "특정상품 및 서비스에 관한 현재의 판매수준, 소비자의 평가 등에 관한 정보를 체계적으로 수집·분석한다."
+      },
+      "linked_evidence": {
+        "activities": [
+          "사물, 행동, 사건 파악",
+          "정보 수집",
+          "의사 결정, 문제점 해결"
+        ],
+        "knowledge": [
+          "영업과 마케팅",
+          "경제와 회계",
+          "경영 및 행정"
+        ],
+        "abilities": [
+          "창의력",
+          "설득",
+          "협상"
+        ]
+      },
+      "material_evidence_map": [
+        {
+          "material_id": "m1",
+          "supported_by": [
+            "사물, 행동, 사건 파악",
+            "정보 수집"
+          ]
+        },
+        {
+          "material_id": "m2",
+          "supported_by": [
+            "다른 사람과의 접촉",
+            "사물, 서비스, 사람의 질 판단",
+            "갈등 상황"
+          ]
+        },
+        {
+          "material_id": "m3",
+          "supported_by": [
+            "의사 결정, 문제점 해결",
+            "업무 계획, 우선순위 결정",
+            "경영 및 행정"
+          ]
+        }
+      ]
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "usage": {
+    "input_tokens": 9052,
+    "output_tokens": 5765,
+    "reasoning_tokens": 3076,
+    "total_tokens": 14817
+  },
+  "errors": []
+}

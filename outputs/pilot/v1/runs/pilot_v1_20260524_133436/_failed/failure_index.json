@@ -1,0 +1,23 @@
+{
+  "schema_version": "failure_index.v1",
+  "run_id": "pilot_v1_20260524_133436",
+  "failed_count": 2,
+  "items": [
+    {
+      "job_cd": "K000000997",
+      "difficulty_code": "hard",
+      "status": "llm_failed",
+      "reason_code": "OUTPUT_PARSE_FAILED",
+      "run_status_path": "jobs/K000000997/hard/run_status.json",
+      "validator_result_path": null
+    },
+    {
+      "job_cd": "K000001179",
+      "difficulty_code": "normal",
+      "status": "llm_failed",
+      "reason_code": "OUTPUT_PARSE_FAILED",
+      "run_status_path": "jobs/K000001179/normal/run_status.json",
+      "validator_result_path": null
+    }
+  ]
+}

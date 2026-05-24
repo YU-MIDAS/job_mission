@@ -1,0 +1,734 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-mini",
+  "call_type": "draft_generation",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "status": "completed",
+  "output_json": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000000997",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "광고·조사·상품기획·행사기획 전문가",
+      "job_smcl_nm": "상품기획자",
+      "source_ref": {
+        "file": "K000000997/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_004",
+      "text": "특정상품 및 서비스에 관한 현재의 판매수준, 소비자의 평가 등에 관한 정보를 체계적으로 수집·분석한다.",
+      "source_ref": {
+        "file": "K000000997/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 4
+      },
+      "selection_reason": "Pilot config selected exec_004."
+    },
+    "mission_facts": {
+      "org_name": "가상 홈케어 상품기획팀",
+      "domain": "생활편의용품 상품기획",
+      "period": [
+        "2025년 1분기",
+        "2025년 2분기",
+        "2025년 3분기"
+      ],
+      "trend_pattern": "판매수준은 상품 A가 상승세이고 상품 B는 보합, 상품 C는 하락세이며 소비자 평가는 상품 A가 꾸준히 개선되고 상품 C는 불만이 누적되는 흐름이다.",
+      "main_issue": "한정된 개발 자원으로 어떤 후보 상품을 우선 개선·출시할지 판단해야 한다.",
+      "feedback_themes": [
+        "가격 대비 가치",
+        "사용 편의성",
+        "내구성·품질",
+        "배송·포장 경험"
+      ],
+      "decision_goal": "판매수준과 소비자 평가를 함께 반영해 우선 추진 상품 1개와 보완 필요 상품 1개를 정하고, 다음 실행 방향을 제시한다."
+    },
+    "mission": {
+      "title": "소비자 평가와 판매수준을 바탕으로 상품 우선순위 결정하기",
+      "task_type": "research_and_analysis",
+      "secondary_task_types": [
+        "decision_making"
+      ],
+      "difficulty": {
+        "level": "hard",
+        "label": "어려움",
+        "estimated_time_minutes": 20,
+        "material_bundle_style": "work_document_packet",
+        "material_count_range": [
+          3,
+          4
+        ],
+        "task_count_range": [
+          3,
+          4
+        ],
+        "answer_length_hint": "700~1000자",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": true,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "상품기획자",
+        "context": "가상의 생활편의용품 팀에서 신규 후보 상품 3종에 대한 판매수준, 소비자 평가, 일정 제약 자료를 검토하는 상황이다.",
+        "goal": "제공된 자료만 바탕으로 우선 추진 상품과 보완 우선 상품을 판단하고 그 이유를 정리한다.",
+        "constraints": [
+          "실제 기업명, 브랜드명, 인명은 사용하지 않는다.",
+          "외부 검색 없이 제공된 자료만 활용한다.",
+          "정량 흐름과 정성 피드백을 함께 반영한다.",
+          "우선순위 판단과 실행 제안을 모두 포함한다."
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "m1",
+          "type": "chart",
+          "subtype": "판매·평가 추이 차트",
+          "title": "최근 3개 분기 판매수준과 소비자 평가 추이",
+          "description": "3개 후보 상품의 분기별 판매지수와 만족도 점수를 함께 보여주는 차트이다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "판매 흐름과 평가 흐름의 동시 해석",
+          "evidence_source": [
+            "사물, 행동, 사건 파악",
+            "정보 수집",
+            "사물, 서비스, 사람의 질 판단"
+          ],
+          "mission_fact_refs": [
+            "period",
+            "trend_pattern",
+            "main_issue"
+          ],
+          "data": {
+            "chart_type": "line",
+            "x_axis": {
+              "label": "분기",
+              "values": [
+                "2025년 1분기",
+                "2025년 2분기",
+                "2025년 3분기"
+              ]
+            },
+            "y_axis": {
+              "label": "점수",
+              "unit": "점"
+            },
+            "series": [
+              {
+                "name": "상품 A 판매지수",
+                "values": [
+                  62,
+                  78,
+                  88
+                ]
+              },
+              {
+                "name": "상품 B 판매지수",
+                "values": [
+                  65,
+                  67,
+                  69
+                ]
+              },
+              {
+                "name": "상품 C 판매지수",
+                "values": [
+                  58,
+                  55,
+                  49
+                ]
+              },
+              {
+                "name": "상품 A 만족도",
+                "values": [
+                  74,
+                  76,
+                  77
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "선택지"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [],
+            "author": "가상 데이터 작성자",
+            "items": [
+              {
+                "text": "상품 A는 판매와 만족도가 함께 상승한다.",
+                "period": "2025년 1~3분기",
+                "task": "추세 파악",
+                "constraint": "제공된 수치만 사용",
+                "label": "핵심 추세",
+                "status": "checked",
+                "importance": "높음"
+              },
+              {
+                "text": "상품 C는 판매와 평가 모두 약세다.",
+                "period": "2025년 1~3분기",
+                "task": "위험 신호 확인",
+                "constraint": "외부 정보 금지",
+                "label": "주의 항목",
+                "status": "issue",
+                "importance": "높음"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.94,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m2",
+          "type": "email",
+          "subtype": "내부 의견 수집 메일",
+          "title": "영업·고객응대 요약 메일",
+          "description": "현장 문의와 소비자 반응을 정리한 내부 메일 스레드이다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "정성 피드백과 이슈 원인 확인",
+          "evidence_source": [
+            "이메일 이용하기",
+            "다른 사람과의 접촉",
+            "말하기",
+            "협상"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "메시지 순서",
+              "values": [
+                "1",
+                "2",
+                "3"
+              ]
+            },
+            "y_axis": {
+              "label": "확인 항목 수",
+              "unit": "건"
+            },
+            "series": [
+              {
+                "name": "확인 건수",
+                "values": [
+                  3,
+                  4,
+                  5
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "선택지"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [],
+            "author": "가상 기획지원 담당",
+            "items": [
+              {
+                "text": "상품 A는 재구매 의사가 높고 기능 개선 요청이 구체적이다.",
+                "period": "2025년 3분기",
+                "task": "고객 반응 정리",
+                "constraint": "내부 메일만 참고",
+                "label": "긍정 반응",
+                "status": "checked",
+                "importance": "높음"
+              },
+              {
+                "text": "상품 C는 포장 불만과 사용 불편이 함께 언급된다.",
+                "period": "2025년 3분기",
+                "task": "불만 유형 분류",
+                "constraint": "외부 검색 금지",
+                "label": "부정 반응",
+                "status": "issue",
+                "importance": "높음"
+              }
+            ],
+            "thread": [
+              {
+                "from": "영업담당",
+                "to": "기획담당",
+                "subject": "상품별 현장 반응 요약",
+                "body": "상품 A는 문의가 늘었고, 상품 B는 반응이 안정적입니다. 상품 C는 포장과 사용성에 대한 불만이 반복됩니다."
+              },
+              {
+                "from": "고객응대담당",
+                "to": "기획담당",
+                "subject": "소비자 평가 정리",
+                "body": "상품 A는 가격 대비 가치가 좋다는 의견이 많습니다. 상품 C는 개선 요청이 많아 보완이 필요합니다."
+              },
+              {
+                "from": "기획담당",
+                "to": "영업담당",
+                "subject": "추가 확인 요청",
+                "body": "재구매 의사와 불만 항목을 분리해 정리해 주면 우선순위 판단에 도움이 되겠습니다."
+              }
+            ],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.91,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m3",
+          "type": "table",
+          "subtype": "상품 비교표",
+          "title": "후보 상품 비교표",
+          "description": "판매 흐름, 소비자 평가, 개선 난이도를 한눈에 비교한 표이다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "우선순위 선택과 트레이드오프 판단",
+          "evidence_source": [
+            "의사 결정, 문제점 해결",
+            "업무 계획, 우선순위 결정",
+            "경제와 회계",
+            "경영 및 행정"
+          ],
+          "mission_fact_refs": [
+            "trend_pattern",
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "선택지",
+              "values": [
+                "상품 A",
+                "상품 B",
+                "상품 C"
+              ]
+            },
+            "y_axis": {
+              "label": "종합평가",
+              "unit": "점"
+            },
+            "series": [
+              {
+                "name": "우선순위 지표",
+                "values": [
+                  1,
+                  2,
+                  3
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "선택지"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [
+              {
+                "option": "상품 A",
+                "strength": "판매 상승과 만족도 개선이 동시에 확인된다.",
+                "weakness": "개선 속도를 유지해야 한다.",
+                "priority": 1
+              },
+              {
+                "option": "상품 B",
+                "strength": "수요가 안정적이다.",
+                "weakness": "차별적 반응이 크지 않다.",
+                "priority": 2
+              },
+              {
+                "option": "상품 C",
+                "strength": "재설계 시 개선 여지가 있다.",
+                "weakness": "판매와 평가가 모두 약세다.",
+                "priority": 3
+              }
+            ],
+            "author": "가상 비교분석 담당",
+            "items": [
+              {
+                "text": "상품 A는 단기 성과와 확장 가능성이 모두 높다.",
+                "period": "2025년 3분기",
+                "task": "비교 판단",
+                "constraint": "자료 내 정보만 활용",
+                "label": "우선 후보",
+                "status": "checked",
+                "importance": "높음"
+              },
+              {
+                "text": "상품 C는 보완 비용이 상대적으로 클 수 있다.",
+                "period": "2025년 3분기",
+                "task": "비용·효과 균형 검토",
+                "constraint": "추정은 자료 범위 내에서만",
+                "label": "보완 후보",
+                "status": "issue",
+                "importance": "중간"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.96,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m4",
+          "type": "schedule",
+          "subtype": "의사결정 일정표",
+          "title": "개선안 검토 일정",
+          "description": "후보 상품의 검토와 결정에 필요한 내부 일정표이다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "일정 제약과 실행 순서 확인",
+          "evidence_source": [
+            "업무, 활동에 대한 일정관리",
+            "사람들의 업무와 활동을 조직, 편성",
+            "목표, 전략 수립",
+            "다른 사람들을 조율하거나 이끌기"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "단계",
+              "values": [
+                "초안 검토",
+                "부서 협의",
+                "수정 반영",
+                "최종 결정"
+              ]
+            },
+            "y_axis": {
+              "label": "순서",
+              "unit": "단계"
+            },
+            "series": [
+              {
+                "name": "진행 단계",
+                "values": [
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "선택지"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [],
+            "author": "가상 일정관리 담당",
+            "items": [
+              {
+                "text": "초안 검토 후 부서 협의를 거쳐 최종 결정을 한다.",
+                "period": "주간",
+                "task": "일정 관리",
+                "constraint": "순서 변경 최소화",
+                "label": "기본 일정",
+                "status": "checked",
+                "importance": "높음"
+              },
+              {
+                "text": "보완이 필요한 상품은 수정 반영 단계가 추가된다.",
+                "period": "주간",
+                "task": "작업 분기",
+                "constraint": "자원 한정",
+                "label": "추가 작업",
+                "status": "unchecked",
+                "importance": "중간"
+              }
+            ],
+            "thread": [],
+            "entries": [
+              {
+                "time": "D1",
+                "actor": "기획팀",
+                "event": "초안 검토",
+                "note": "판매와 평가 자료를 우선 확인한다."
+              },
+              {
+                "time": "D2",
+                "actor": "기획팀+영업팀",
+                "event": "부서 협의",
+                "note": "우선 후보와 보완 후보를 정리한다."
+              },
+              {
+                "time": "D3",
+                "actor": "기획팀",
+                "event": "수정 반영",
+                "note": "보완 요구사항을 반영한다."
+              },
+              {
+                "time": "D4",
+                "actor": "의사결정권자",
+                "event": "최종 결정",
+                "note": "출시 우선순위를 확정한다."
+              }
+            ],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.9,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "t1",
+          "instruction": "차트와 이메일을 활용해 상품별 판매 흐름과 소비자 반응의 핵심 차이를 요약하라.",
+          "required_materials": [
+            "m1",
+            "m2"
+          ],
+          "expected_action": "핵심 추세와 피드백 테마를 정리"
+        },
+        {
+          "task_id": "t2",
+          "instruction": "비교표와 일정표를 활용해 우선 추진 상품과 보완 우선 상품을 고르고, 선택 이유를 트레이드오프로 설명하라.",
+          "required_materials": [
+            "m3",
+            "m4"
+          ],
+          "expected_action": "우선순위 결정"
+        },
+        {
+          "task_id": "t3",
+          "instruction": "제공된 자료만 근거로 다음 1차 실행안 2개를 제시하라.",
+          "required_materials": [
+            "m2",
+            "m4"
+          ],
+          "expected_action": "후속 실행안 제안"
+        },
+        {
+          "task_id": "t4",
+          "instruction": "전체 자료를 종합해 700~1000자 분량의 최종 판단문을 작성하라.",
+          "required_materials": [
+            "m1",
+            "m2",
+            "m3",
+            "m4"
+          ],
+          "expected_action": "종합 서술"
+        }
+      ],
+      "submission_format": {
+        "type": "short_report",
+        "estimated_time_minutes": 20,
+        "required_sections": [
+          "핵심 요약",
+          "근거 분석",
+          "우선순위 결정",
+          "후속 실행안"
+        ],
+        "length_hint": "700~1000자"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "상품 A는 판매수준과 소비자 평가가 함께 개선되어 우선 추진 후보로 타당하다.",
+        "상품 C는 판매와 평가가 동시에 약세여서 보완 또는 재검토 대상이다.",
+        "일정 제약을 고려하면 단기 개선 효과가 큰 선택에 자원을 배분하는 것이 적절하다.",
+        "정량 추이와 정성 피드백을 함께 읽어야 의사결정의 신뢰도가 높아진다."
+      ],
+      "rubric": [
+        {
+          "criterion": "추세 해석",
+          "description": "판매수준과 소비자 평가의 변화 흐름을 정확히 읽었는지 평가한다.",
+          "points": 3,
+          "linked_evidence": [
+            "사물, 행동, 사건 파악",
+            "정보 수집",
+            "사물, 서비스, 사람의 질 판단"
+          ]
+        },
+        {
+          "criterion": "피드백 통합",
+          "description": "이메일 자료의 정성 의견을 핵심 테마로 묶어 설명하는지 평가한다.",
+          "points": 3,
+          "linked_evidence": [
+            "이메일 이용하기",
+            "다른 사람과의 접촉",
+            "말하기"
+          ]
+        },
+        {
+          "criterion": "우선순위 판단",
+          "description": "대안 간 장단점을 비교하고 자원 배분 관점의 결정을 제시하는지 평가한다.",
+          "points": 3,
+          "linked_evidence": [
+            "의사 결정, 문제점 해결",
+            "업무 계획, 우선순위 결정",
+            "경제와 회계"
+          ]
+        },
+        {
+          "criterion": "실행 제안",
+          "description": "일정 제약을 반영한 다음 단계 제안이 구체적인지 평가한다.",
+          "points": 3,
+          "linked_evidence": [
+            "업무, 활동에 대한 일정관리",
+            "목표, 전략 수립",
+            "사람들의 업무와 활동을 조직, 편성"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_004",
+        "text": "특정상품 및 서비스에 관한 현재의 판매수준, 소비자의 평가 등에 관한 정보를 체계적으로 수집·분석한다."
+      },
+      "linked_evidence": {
+        "activities": [
+          "정보 수집",
+          "사물, 행동, 사건 파악",
+          "의사 결정, 문제점 해결",
+          "업무 계획, 우선순위 결정",
+          "목표, 전략 수립"
+        ],
+        "knowledge": [
+          "영업과 마케팅",
+          "경제와 회계",
+          "경영 및 행정"
+        ],
+        "abilities": [
+          "창의력",
+          "협상",
+          "말하기",
+          "설득"
+        ]
+      },
+      "material_evidence_map": [
+        {
+          "material_id": "m1",
+          "supported_by": [
+            "사물, 행동, 사건 파악",
+            "정보 수집",
+            "사물, 서비스, 사람의 질 판단"
+          ]
+        },
+        {
+          "material_id": "m2",
+          "supported_by": [
+            "이메일 이용하기",
+            "다른 사람과의 접촉",
+            "말하기",
+            "협상"
+          ]
+        },
+        {
+          "material_id": "m3",
+          "supported_by": [
+            "의사 결정, 문제점 해결",
+            "업무 계획, 우선순위 결정",
+            "경제와 회계",
+            "경영 및 행정"
+          ]
+        },
+        {
+          "material_id": "m4",
+          "supported_by": [
+            "업무, 활동에 대한 일정관리",
+            "사람들의 업무와 활동을 조직, 편성",
+            "목표, 전략 수립",
+            "다른 사람들을 조율하거나 이끌기"
+          ]
+        }
+      ]
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "usage": {
+    "input_tokens": 9059,
+    "output_tokens": 7270,
+    "reasoning_tokens": 3624,
+    "total_tokens": 16329
+  },
+  "errors": []
+}

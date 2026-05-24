@@ -1,0 +1,35 @@
+{
+  "schema_version": "pilot_generation_config.v1",
+  "source_root": "data/api_raw",
+  "use_kmeans": false,
+  "jobs": [
+    {
+      "job_cd": "K000000997",
+      "job_name": "상품기획자"
+    },
+    {
+      "job_cd": "K000001080",
+      "job_name": "데이터분석가(빅데이터분석가)"
+    },
+    {
+      "job_cd": "K000001179",
+      "job_name": "투자분석가"
+    },
+    {
+      "job_cd": "K000007519",
+      "job_name": "보험상품개발자"
+    }
+  ],
+  "difficulties": [
+    {
+      "code": "normal",
+      "label": "보통"
+    },
+    {
+      "code": "hard",
+      "label": "어려움"
+    }
+  ],
+  "max_repair_attempts": 1,
+  "concurrency": 2
+}

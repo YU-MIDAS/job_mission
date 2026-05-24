@@ -1,0 +1,106 @@
+{
+  "schema_version": "pilot_review.v1",
+  "run_id": "pilot_v1_20260524_144211",
+  "reviewer": "human",
+  "reviewed_at": null,
+  "items": [
+    {
+      "mission_id": "mission_K000000997_normal_001",
+      "job_cd": "K000000997",
+      "difficulty_code": "normal",
+      "review_status": "pending",
+      "checks": {
+        "scenario_natural": null,
+        "materials_useful": null,
+        "difficulty_appropriate": null,
+        "evidence_reasonable": null,
+        "submission_format_clear": null
+      },
+      "notes": ""
+    },
+    {
+      "mission_id": "mission_K000000997_hard_001",
+      "job_cd": "K000000997",
+      "difficulty_code": "hard",
+      "review_status": "pending",
+      "checks": {
+        "scenario_natural": null,
+        "materials_useful": null,
+        "difficulty_appropriate": null,
+        "evidence_reasonable": null,
+        "submission_format_clear": null
+      },
+      "notes": ""
+    },
+    {
+      "mission_id": "mission_K000001080_normal_001",
+      "job_cd": "K000001080",
+      "difficulty_code": "normal",
+      "review_status": "pending",
+      "checks": {
+        "scenario_natural": null,
+        "materials_useful": null,
+        "difficulty_appropriate": null,
+        "evidence_reasonable": null,
+        "submission_format_clear": null
+      },
+      "notes": ""
+    },
+    {
+      "mission_id": "mission_K000001080_hard_001",
+      "job_cd": "K000001080",
+      "difficulty_code": "hard",
+      "review_status": "pending",
+      "checks": {
+        "scenario_natural": null,
+        "materials_useful": null,
+        "difficulty_appropriate": null,
+        "evidence_reasonable": null,
+        "submission_format_clear": null
+      },
+      "notes": ""
+    },
+    {
+      "mission_id": "mission_K000001179_normal_001",
+      "job_cd": "K000001179",
+      "difficulty_code": "normal",
+      "review_status": "pending",
+      "checks": {
+        "scenario_natural": null,
+        "materials_useful": null,
+        "difficulty_appropriate": null,
+        "evidence_reasonable": null,
+        "submission_format_clear": null
+      },
+      "notes": ""
+    },
+    {
+      "mission_id": "mission_K000007519_normal_001",
+      "job_cd": "K000007519",
+      "difficulty_code": "normal",
+      "review_status": "pending",
+      "checks": {
+        "scenario_natural": null,
+        "materials_useful": null,
+        "difficulty_appropriate": null,
+        "evidence_reasonable": null,
+        "submission_format_clear": null
+      },
+      "notes": ""
+    },
+    {
+      "mission_id": "mission_K000007519_hard_001",
+      "job_cd": "K000007519",
+      "difficulty_code": "hard",
+      "review_status": "pending",
+      "checks": {
+        "scenario_natural": null,
+        "materials_useful": null,
+        "difficulty_appropriate": null,
+        "evidence_reasonable": null,
+        "submission_format_clear": null
+      },
+      "notes": ""
+    }
+  ]
+}

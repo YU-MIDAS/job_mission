@@ -1,0 +1,25 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-mini",
+  "call_type": "draft_generation",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "status": "failed",
+  "output_json": null,
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "reasoning_tokens": 0,
+    "total_tokens": 0
+  },
+  "errors": [
+    {
+      "code": "OUTPUT_PARSE_FAILED",
+      "message": "Expecting ',' delimiter: line 1 column 2604 (char 2603)"
+    }
+  ]
+}

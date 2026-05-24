@@ -1,0 +1,22 @@
+{
+  "schema_version": "artifact_index.v1",
+  "run_id": "pilot_v1_20260524_224708",
+  "items": [
+    {
+      "job_cd": "K000000997",
+      "difficulty_code": "normal",
+      "status": "saved",
+      "mission_output_path": "jobs/K000000997/normal/mission_output.json",
+      "validator_result_path": "jobs/K000000997/normal/validator_result_attempt_0.json",
+      "run_status_path": "jobs/K000000997/normal/run_status.json"
+    },
+    {
+      "job_cd": "K000001080",
+      "difficulty_code": "normal",
+      "status": "saved",
+      "mission_output_path": "jobs/K000001080/normal/mission_output.json",
+      "validator_result_path": "jobs/K000001080/normal/validator_result_attempt_0.json",
+      "run_status_path": "jobs/K000001080/normal/run_status.json"
+    }
+  ]
+}

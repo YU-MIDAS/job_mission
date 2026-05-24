@@ -1,0 +1,53 @@
+{
+  "schema_version": "pilot_summary.v1",
+  "run_id": "pilot_v1_20260524_224708",
+  "created_at": "2026-05-24T22:48:59+09:00",
+  "started_at": "2026-05-24T22:47:08+09:00",
+  "finished_at": "2026-05-24T22:48:59+09:00",
+  "duration_seconds": 111.342,
+  "concurrency": 1,
+  "total_targets": 2,
+  "saved_count": 2,
+  "failed_count": 0,
+  "repair_used_count": 0,
+  "average_reliability_score": 1.0,
+  "llm_usage": {
+    "draft_call_count": 2,
+    "repair_call_count": 0,
+    "mock_draft_count": 0,
+    "mock_repair_count": 0,
+    "input_tokens": 23625,
+    "output_tokens": 17014,
+    "reasoning_tokens": 11481,
+    "total_tokens": 40639
+  },
+  "openai_api_called": true,
+  "results": [
+    {
+      "job_cd": "K000000997",
+      "job_name": "상품기획자",
+      "difficulty_code": "normal",
+      "status": "saved",
+      "mission_id": "mission_K000000997_normal_001",
+      "reliability_score": 1.0,
+      "warning_count": 0,
+      "repair_count": 0,
+      "mission_output_path": "jobs/K000000997/normal/mission_output.json"
+    },
+    {
+      "job_cd": "K000001080",
+      "job_name": "데이터분석가(빅데이터분석가)",
+      "difficulty_code": "normal",
+      "status": "saved",
+      "mission_id": "mission_K000001080_normal_001",
+      "reliability_score": 1.0,
+      "warning_count": 0,
+      "repair_count": 0,
+      "mission_output_path": "jobs/K000001080/normal/mission_output.json"
+    }
+  ],
+  "post_run_checks": {
+    "json_parse_failures": [],
+    "secret_findings": []
+  }
+}

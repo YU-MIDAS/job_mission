@@ -1,0 +1,600 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "draft",
+  "job_identity": {
+    "job_cd": "K000001080",
+    "job_lrcl_nm": "연구직 및 공학 기술직",
+    "job_mdcl_nm": "데이터·네트워크 및 시스템 운영 전문가",
+    "job_smcl_nm": "데이터분석가(빅데이터분석가)",
+    "source_ref": {
+      "file": "K000001080/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": null
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_003",
+    "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다.",
+    "source_ref": {
+      "file": "K000001080/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 3
+    },
+    "selection_reason": "대용량 처리 플랫폼에서 발생한 지연과 재처리 흐름을 로그와 지표로 진단하는 미션에 가장 직접적으로 맞는다."
+  },
+  "mission_facts": {
+    "org_name": "가온플로우 데이터운영팀",
+    "domain": "대용량 데이터 처리 플랫폼 운영",
+    "period": [
+      "2026-04-07",
+      "2026-04-11"
+    ],
+    "trend_pattern": "야간 배치 완료시간과 재처리 건수가 함께 증가했으며, 4/9 이후 지연이 빠르게 악화됐다.",
+    "main_issue": "집계 단계의 처리 지연과 재시도로 인해 오전 리포트가 늦어지는 문제",
+    "feedback_themes": [
+      "오전 8시 이전 대시보드 갱신 필요",
+      "재처리 증가로 운영 부담이 커짐",
+      "이번 주 안에 즉시 적용할 수 있는 개선안이 필요함"
+    ],
+    "decision_goal": "이번 주에 적용할 우선 개선안을 고르고, 후속 조치 순서를 정한다."
+  },
+  "mission": {
+    "title": "야간 배치 지연 원인 진단과 개선안 우선순위 판단",
+    "task_type": "research_and_analysis",
+    "secondary_task_types": [],
+    "difficulty": {
+      "level": "hard",
+      "label": "어려움",
+      "estimated_time_minutes": 20,
+      "material_bundle_style": "work_document_packet",
+      "material_count_range": [
+        3,
+        4
+      ],
+      "task_count_range": [
+        3,
+        4
+      ],
+      "answer_length_hint": "700~1000자",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": true,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "운영 데이터 분석가",
+      "context": "가온플로우 데이터운영팀에서 고객용 야간 배치 파이프라인을 관리하고 있다. 최근 오전 리포트가 늦어지면서 현장 문의가 늘었고, 이번 주 안에 원인을 진단한 뒤 실행 가능한 개선안을 정해야 한다.",
+      "goal": "제공된 차트, 로그, 비교표, 제약 체크리스트를 바탕으로 지연의 직접 원인을 진단하고, 제한된 조건에서 우선 적용할 개선안을 선택하라.",
+      "constraints": [
+        "외부 검색이나 추가 데이터 수집 없이 제공된 자료만 사용한다.",
+        "이번 주 안에 1차 조치를 정해야 하며, 장기 재설계는 후순위로 둔다.",
+        "야간 배치 중단 시간은 10분을 넘길 수 없다.",
+        "추가 예산은 거의 없다고 가정한다."
+      ]
+    },
+    "materials": [
+      {
+        "material_id": "m1",
+        "type": "chart",
+        "subtype": "line_trend",
+        "title": "야간 배치 처리 지표 추이",
+        "description": "최근 5일간 야간 배치의 완료시간과 재처리 건수를 함께 정리한 추세 자료",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "지연이 언제부터 얼마나 악화됐는지 추세를 확인한다.",
+        "evidence_source": [
+          "정보, 자료 분석",
+          "수리력",
+          "정보 처리"
+        ],
+        "mission_fact_refs": [
+          "period",
+          "trend_pattern",
+          "main_issue"
+        ],
+        "data": {
+          "chart_type": "line",
+          "x_axis": {
+            "label": "날짜",
+            "values": [
+              "4/7",
+              "4/8",
+              "4/9",
+              "4/10",
+              "4/11",
+              "4/12"
+            ]
+          },
+          "y_axis": {
+            "label": "지표값",
+            "unit": "분/건"
+          },
+          "series": [
+            {
+              "name": "완료시간(분)",
+              "values": [
+                42,
+                45,
+                53,
+                61,
+                69,
+                74
+              ]
+            },
+            {
+              "name": "재처리 건수",
+              "values": [
+                2,
+                2,
+                4,
+                6,
+                8,
+                9
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "항목"
+            },
+            {
+              "key": "strength",
+              "label": "강점"
+            },
+            {
+              "key": "weakness",
+              "label": "약점"
+            },
+            {
+              "key": "priority",
+              "label": "우선순위"
+            }
+          ],
+          "rows": [],
+          "author": "가온플로우 운영분석팀",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.96,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "m2",
+        "type": "log",
+        "subtype": "batch_execution_log",
+        "title": "배치 실행 로그 요약",
+        "description": "문제 발생 구간의 핵심 이벤트를 시간순으로 정리한 로그",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "어느 단계에서 병목과 재시도가 발생했는지 확인한다.",
+        "evidence_source": [
+          "정보 수집",
+          "절차, 자료, 주변환경 관찰",
+          "사물, 행동, 사건 파악"
+        ],
+        "mission_fact_refs": [
+          "main_issue",
+          "trend_pattern",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "line",
+          "x_axis": {
+            "label": "시간",
+            "values": []
+          },
+          "y_axis": {
+            "label": "",
+            "unit": ""
+          },
+          "series": [],
+          "columns": [
+            {
+              "key": "option",
+              "label": "항목"
+            },
+            {
+              "key": "strength",
+              "label": "강점"
+            },
+            {
+              "key": "weakness",
+              "label": "약점"
+            },
+            {
+              "key": "priority",
+              "label": "우선순위"
+            }
+          ],
+          "rows": [],
+          "author": "가온플로우 플랫폼운영팀",
+          "items": [],
+          "thread": [],
+          "entries": [
+            {
+              "time": "01:10",
+              "actor": "배치엔진",
+              "event": "수집 단계 완료",
+              "note": "원천 적재는 정상 종료되었으나 처리량이 평소보다 약간 높음."
+            },
+            {
+              "time": "01:40",
+              "actor": "분석노드-2",
+              "event": "집계 단계 CPU 상승",
+              "note": "조인 연산이 많은 작업에서 처리 시간이 급격히 늘어남."
+            },
+            {
+              "time": "02:05",
+              "actor": "재시도 큐",
+              "event": "타임아웃 후 재시도 증가",
+              "note": "외부 참조 조회가 느려지며 재처리 건수가 연속으로 발생함."
+            },
+            {
+              "time": "02:20",
+              "actor": "스케줄러",
+              "event": "대기열 적체",
+              "note": "후속 작업이 밀리면서 오전 리포트 마감 시점에 영향을 줌."
+            },
+            {
+              "time": "03:10",
+              "actor": "운영자",
+              "event": "임시 완화 조치",
+              "note": "무거운 조회를 비활성화하자 부분적으로 처리 시간이 줄어듦."
+            },
+            {
+              "time": "03:25",
+              "actor": "배치엔진",
+              "event": "재처리 감소 확인",
+              "note": "임시 완화 이후 재시도 간격이 늘어나며 적체 속도가 둔화됨."
+            }
+          ],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.95,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "m3",
+        "type": "table",
+        "subtype": "option_comparison",
+        "title": "개선안 비교표",
+        "description": "이번 주에 검토 가능한 두 가지 개선안을 제약 조건에 맞춰 비교한 표",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "즉시성, 비용, 안정성 사이에서 어떤 대안을 먼저 선택할지 판단한다.",
+        "evidence_source": [
+          "의사 결정, 문제점 해결",
+          "논리적 분석",
+          "목표, 전략 수립"
+        ],
+        "mission_fact_refs": [
+          "decision_goal",
+          "feedback_themes",
+          "main_issue"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "",
+            "values": []
+          },
+          "y_axis": {
+            "label": "",
+            "unit": ""
+          },
+          "series": [],
+          "columns": [
+            {
+              "key": "option",
+              "label": "대안"
+            },
+            {
+              "key": "strength",
+              "label": "강점"
+            },
+            {
+              "key": "weakness",
+              "label": "약점"
+            },
+            {
+              "key": "priority",
+              "label": "우선순위"
+            }
+          ],
+          "rows": [
+            {
+              "option": "A. 배치 슬롯 추가와 임시 확장",
+              "strength": "즉시 처리량을 올리기 쉬워 단기 체감 효과가 빠르다.",
+              "weakness": "추가 비용이 필요하고, 근본 원인이 해결되지 않으면 재발 가능성이 높다.",
+              "priority": 2
+            },
+            {
+              "option": "B. 스케줄 조정과 증분 집계 적용",
+              "strength": "추가 예산이 거의 없어도 적용 가능하고 재시도와 적체를 줄이기 쉽다.",
+              "weakness": "설정 변경과 검증이 필요해 초반에는 효과가 서서히 나타날 수 있다.",
+              "priority": 1
+            }
+          ],
+          "author": "가온플로우 운영기획팀",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.94,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "m4",
+        "type": "checklist",
+        "subtype": "operational_constraints",
+        "title": "현장 제약 및 성공 기준",
+        "description": "이번 주 의사결정에 바로 적용해야 하는 운영 제약과 요구사항을 정리한 체크리스트",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "선택 가능한 개선안의 우선순위와 실행 범위를 확정한다.",
+        "evidence_source": [
+          "정보의 의미 해석",
+          "의사 결정, 문제점 해결",
+          "목표, 전략 수립"
+        ],
+        "mission_fact_refs": [
+          "feedback_themes",
+          "decision_goal",
+          "main_issue"
+        ],
+        "data": {
+          "chart_type": "line",
+          "x_axis": {
+            "label": "",
+            "values": []
+          },
+          "y_axis": {
+            "label": "",
+            "unit": ""
+          },
+          "series": [],
+          "columns": [
+            {
+              "key": "option",
+              "label": "항목"
+            },
+            {
+              "key": "strength",
+              "label": "상태"
+            },
+            {
+              "key": "weakness",
+              "label": "제약"
+            },
+            {
+              "key": "priority",
+              "label": "중요도"
+            }
+          ],
+          "rows": [],
+          "author": "가온플로우 서비스운영팀",
+          "items": [
+            {
+              "text": "오전 8시 이전에 고객용 대시보드가 갱신되어야 한다.",
+              "period": "이번 주",
+              "task": "개선안 선택",
+              "constraint": "반드시 만족",
+              "label": "마감 시각",
+              "status": "checked",
+              "importance": "매우 높음"
+            },
+            {
+              "text": "야간 배치 중단 허용 시간은 10분을 넘길 수 없다.",
+              "period": "이번 주",
+              "task": "개선안 선택",
+              "constraint": "운영 중단 최소화",
+              "label": "중단 시간",
+              "status": "issue",
+              "importance": "매우 높음"
+            },
+            {
+              "text": "이번 주에는 추가 예산을 거의 쓸 수 없다.",
+              "period": "이번 주",
+              "task": "개선안 선택",
+              "constraint": "저비용 우선",
+              "label": "예산",
+              "status": "issue",
+              "importance": "높음"
+            },
+            {
+              "text": "운영 인력은 1명이어서 복잡한 재설계보다 간단한 변경이 적합하다.",
+              "period": "이번 주",
+              "task": "개선안 선택",
+              "constraint": "간단한 변경 선호",
+              "label": "작업 난이도",
+              "status": "checked",
+              "importance": "높음"
+            },
+            {
+              "text": "변경은 한 번에 하나씩 적용하고, 적용 후 바로 되돌릴 수 있어야 한다.",
+              "period": "이번 주",
+              "task": "개선안 선택",
+              "constraint": "안전한 변경",
+              "label": "롤백 가능성",
+              "status": "checked",
+              "importance": "높음"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.93,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "t1",
+        "instruction": "차트(m1)와 로그(m2)를 함께 보고, 배치 지연의 직접 원인 1개와 지연을 키운 배경 요인 1개를 구분해 진단하라. 근거가 되는 수치나 로그도 함께 적어라.",
+        "required_materials": [
+          "m1",
+          "m2"
+        ],
+        "expected_action": "원인 진단"
+      },
+      {
+        "task_id": "t2",
+        "instruction": "개선안 비교표(m3)와 제약 체크리스트(m4)를 바탕으로, 이번 주에 우선 적용할 대안을 하나 고르고 다른 대안을 보류하는 이유를 설명하라.",
+        "required_materials": [
+          "m3",
+          "m4"
+        ],
+        "expected_action": "대안 선택"
+      },
+      {
+        "task_id": "t3",
+        "instruction": "선택한 대안의 실행 순서를 2단계로 제시하고, 다음날 꼭 확인할 모니터링 지표 2개를 제안하라.",
+        "required_materials": [
+          "m1",
+          "m2",
+          "m3",
+          "m4"
+        ],
+        "expected_action": "개선안 제안"
+      }
+    ],
+    "submission_format": {
+      "type": "서술형",
+      "estimated_time_minutes": 20,
+      "required_sections": [
+        "원인 진단",
+        "우선 개선안 판단",
+        "실행 계획/모니터링"
+      ],
+      "length_hint": "700~1000자"
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "야간 지연은 1:40 전후 집계 단계의 CPU 상승과 2:05 이후 재시도 폭증이 겹치며 악화됐고, 무거운 조회가 직접적인 병목으로 보인다.",
+      "4/11 기준 완료시간과 재처리 건수가 함께 상승해 일시적 변동이 아니라 누적된 처리 부담 문제로 읽을 수 있다.",
+      "이번 주 제약은 예산과 중단 시간이 매우 제한적이므로, 배치 슬롯 증설보다 스케줄 조정과 증분 집계를 먼저 선택하는 판단이 타당하다.",
+      "실행안에는 변경 후 완료시간, 재처리 건수, 대기열 적체를 함께 확인하는 모니터링 기준이 들어가야 한다."
+    ],
+    "rubric": [
+      {
+        "criterion": "원인 진단의 정확성",
+        "description": "차트와 로그를 연결해 직접 원인과 배경 요인을 구분해 설명했는지 평가한다.",
+        "points": 34,
+        "linked_evidence": [
+          "정보, 자료 분석",
+          "사물, 행동, 사건 파악",
+          "절차, 자료, 주변환경 관찰"
+        ]
+      },
+      {
+        "criterion": "제약을 반영한 우선순위 판단",
+        "description": "비용, 중단 시간, 즉시성 제약을 고려해 두 개선안을 비교하고 우선안을 선택했는지 평가한다.",
+        "points": 33,
+        "linked_evidence": [
+          "의사 결정, 문제점 해결",
+          "논리적 분석",
+          "목표, 전략 수립"
+        ]
+      },
+      {
+        "criterion": "실행 계획과 모니터링의 구체성",
+        "description": "선택한 개선안을 바로 실행할 순서와 확인 지표를 구체적으로 제시했는지 평가한다.",
+        "points": 33,
+        "linked_evidence": [
+          "정보 처리",
+          "수리력",
+          "정보의 의미 해석"
+        ]
+      }
+    ]
+  },
+  "evidence_chain_draft": {
+    "source_exec_job": {
+      "id": "exec_003",
+      "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다."
+    },
+    "linked_evidence": {
+      "activities": [
+        "정보 수집",
+        "정보 처리",
+        "사물, 행동, 사건 파악",
+        "컴퓨터 업무",
+        "의사 결정, 문제점 해결",
+        "정보, 자료 분석",
+        "절차, 자료, 주변환경 관찰",
+        "목표, 전략 수립"
+      ],
+      "knowledge": [
+        "산수와 수학",
+        "컴퓨터와 전자공학",
+        "공학과 기술",
+        "사무"
+      ],
+      "abilities": [
+        "수리력",
+        "전산",
+        "논리적 분석",
+        "추리력",
+        "기술 분석"
+      ]
+    },
+    "material_evidence_map": [
+      {
+        "material_id": "m1",
+        "supported_by": [
+          "정보, 자료 분석",
+          "수리력",
+          "정보 처리"
+        ]
+      },
+      {
+        "material_id": "m2",
+        "supported_by": [
+          "정보 수집",
+          "절차, 자료, 주변환경 관찰",
+          "사물, 행동, 사건 파악"
+        ]
+      },
+      {
+        "material_id": "m3",
+        "supported_by": [
+          "의사 결정, 문제점 해결",
+          "논리적 분석",
+          "목표, 전략 수립"
+        ]
+      },
+      {
+        "material_id": "m4",
+        "supported_by": [
+          "정보의 의미 해석",
+          "의사 결정, 문제점 해결",
+          "목표, 전략 수립"
+        ]
+      }
+    ]
+  },
+  "reliability": {
+    "status": "pending_validation"
+  }
+}

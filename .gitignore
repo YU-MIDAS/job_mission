@@ -1,0 +1,141 @@
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+.secrets/
+secrets/
+credentials*.json
+service-account*.json
+
+# Large local source datasets
+data/
+
+# Internal working documents
+docx/
+
+# Generated outputs
+output/
+outputs/*
+
+# Keep generated UI exports and matching source artifacts for published UI runs.
+!outputs/ui/
+outputs/ui/*
+!outputs/ui/v1/
+outputs/ui/v1/*
+!outputs/ui/v1/runs/
+outputs/ui/v1/runs/*
+!outputs/ui/v1/runs/**/
+!outputs/ui/v1/runs/**/mission_ui.html
+
+!outputs/profiles/
+outputs/profiles/*
+!outputs/profiles/v1/
+outputs/profiles/v1/*
+!outputs/profiles/v1/*.json
+
+!outputs/pilot/
+outputs/pilot/*
+!outputs/pilot/v1/
+outputs/pilot/v1/*
+!outputs/pilot/v1/runs/
+outputs/pilot/v1/runs/*
+!outputs/pilot/v1/runs/pilot_v1_20260524_055451/
+!outputs/pilot/v1/runs/pilot_v1_20260524_055451/**
+!outputs/pilot/v1/runs/pilot_v1_20260524_133436/
+!outputs/pilot/v1/runs/pilot_v1_20260524_133436/**
+!outputs/pilot/v1/runs/pilot_v1_20260524_144211/
+!outputs/pilot/v1/runs/pilot_v1_20260524_144211/**
+!outputs/pilot/v1/runs/pilot_v1_20260524_224708/
+!outputs/pilot/v1/runs/pilot_v1_20260524_224708/**
+
+# Always exclude local/debug/test output, even under output folders.
+outputs/_test_tmp/
+outputs/**/_test_tmp/
+outputs/**/debug/
+outputs/**/tmp/
+outputs/**/temp/
+
+# Safety: never commit raw prompts, raw API dumps, auth headers, or secrets.
+outputs/**/raw_request*
+outputs/**/raw_response*
+outputs/**/raw_prompt*
+outputs/**/raw_completion*
+outputs/**/prompt_dump*
+outputs/**/response_dump*
+outputs/**/authorization*
+outputs/**/secret*
+
+# Python bytecode / runtime caches
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+.cache/
+.ipynb_checkpoints/
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python test / coverage / build artifacts
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+.pyre/
+.pytype/
+.dmypy.json
+dmypy.json
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+build/
+dist/
+site/
+*.egg-info/
+pip-wheel-metadata/
+
+# Node / frontend local artifacts
+node_modules/
+.npm/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Logs and temporary files
+logs/
+*.log
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.orig
+
+# Office / document editor lock files
+~$*
+.~lock.*#
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

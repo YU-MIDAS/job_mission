@@ -1,0 +1,1456 @@
+{
+  "schema_version": "llm_input_package.v1",
+  "job_profile": {
+    "schema_version": "job_mission_profile.v1",
+    "source_root": "data/api_raw",
+    "job_identity": {
+      "job_cd": "K000001080",
+      "job_lrcl_nm": "연구직 및 공학 기술직",
+      "job_mdcl_nm": "데이터·네트워크 및 시스템 운영 전문가",
+      "job_smcl_nm": "데이터분석가(빅데이터분석가)",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo"
+      }
+    },
+    "work": {
+      "job_summary": {
+        "text": "사람들의 행동패턴 또는 시장의 경제상황 등을 예측하며 데이터 속에 함축된 트렌드나 인사이트를 도출하고 이로부터 새로운 부가가치를 창출하기 위해 데이터(빅데이터)를 분석한다.",
+        "source_ref": {
+          "file": "K000001080/dtlGb_2.xml",
+          "field": "jobsDo.jobSum"
+        }
+      },
+      "exec_jobs": [
+        {
+          "exec_job_id": "exec_001",
+          "text": "분석 목표에 따라 데이터의 분석 방법을 기획한다.",
+          "source_ref": {
+            "file": "K000001080/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 1
+          }
+        },
+        {
+          "exec_job_id": "exec_002",
+          "text": "분석할 데이터 자원을 수집한다.",
+          "source_ref": {
+            "file": "K000001080/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 2
+          }
+        },
+        {
+          "exec_job_id": "exec_003",
+          "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다.",
+          "source_ref": {
+            "file": "K000001080/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 3
+          }
+        },
+        {
+          "exec_job_id": "exec_004",
+          "text": "분석 방법에 따라 마이닝, 네트워크 분석, 복잡계기법 분석, 클러스터 분석 등을 활용한다.",
+          "source_ref": {
+            "file": "K000001080/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 4
+          }
+        },
+        {
+          "exec_job_id": "exec_005",
+          "text": "프로그램을 사용하여 분석 결과를 시각화한다.",
+          "source_ref": {
+            "file": "K000001080/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 5
+          }
+        },
+        {
+          "exec_job_id": "exec_006",
+          "text": "데이터와 관련된 새로운 기술, 유행, 트렌드 등을 수시로 파악한다.",
+          "source_ref": {
+            "file": "K000001080/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 6
+          }
+        }
+      ]
+    },
+    "technical_context": {
+      "techn_know": {
+        "text": "데이터분석가(빅데이터분석가)가 되기 위해서는 빅데이터를 활용하기 위한 고도의 지식과 기술이 필요하다. 대학에서 통계학 또는 컴퓨터공학, 산업공학 등을 전공하면 기술적인 베이스를 갖추는 데에 도움이 된다. 경영학이나 마케팅 분야의 지식과 경험을 쌓아두면 기술적인 베이스와 융합해 시너지 효과를 발휘할 수 있다. 데이터분석가(빅데이터분석가)는 드러난 수치를 단순하게 나열하는 연구를 하는 것이 아니기 때문에 경영학이나 마케팅 분야의 지식이나 경험과 관련이 깊다. 인문학 전공자라면 통계학을 추가로 공부하면 된다. 기존 직장인들은 단기 전문 교육과정을 통해 자기개발 차원에서 빅데이터를 연구하는 추세다. 각 대학의 빅데이터 관련 학사나 석박사 과정에서 준비할 수 있다. 연세대학교 정보대학원, 충북대와 울산과기대 석사과정, 이화여대 석·박사 통합과정, 카이스트, 국민대학교 등 여러 대학에 빅데이터 교육과정이 개설되어 있다. 서강대학교, 한국데이터베이스진흥원에도 단기 교육과정이 있고, 빅데이터활용센터, 빅데이터아카데미에서도 전문가를 양성하고 있다.\n분석에 있어서 창의적인 접근이 필요하기 때문에 호기심도 중요하다. 오랜 시간이 걸리는 분석과정을 인내하기 위한 끈기와 꾸준히 공부하는 자세도 필요하다.",
+        "source_ref": {
+          "file": "K000001080/dtlGb_3.xml",
+          "field": "way.technKnow"
+        }
+      }
+    },
+    "evidence": {
+      "abilities": [
+        {
+          "name": "수리력",
+          "score": 96,
+          "description": "어떤 문제를 해결하기 위해 수학을 사용한다",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 1
+          }
+        },
+        {
+          "name": "전산",
+          "score": 95,
+          "description": "다양한 목적을 위해 소프트웨어나 인터넷을 활용하거나 프로그램을 작성한다",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2
+          }
+        },
+        {
+          "name": "논리적 분석",
+          "score": 92,
+          "description": "문제를 해결하기 위해(혹은 의사결정을 하기 위해) 체계적으로 이치에 맞는 생각을 해낸다",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 3
+          }
+        },
+        {
+          "name": "추리력",
+          "score": 90,
+          "description": "문제해결 및 의사결정을 위해 새로운 정보가 가지는 의미를 파악한다",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 4
+          }
+        },
+        {
+          "name": "기술 분석",
+          "score": 89,
+          "description": "새로운 방법을 고안하고 기존의 방법을 개선하기 위해서 현재 사용되는 도구와 기술을 분석한다",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 5
+          }
+        }
+      ],
+      "knowledge": [
+        {
+          "name": "산수와 수학",
+          "score": 93,
+          "description": "연산, 대수학, 통계, 기하학의 계산 및 응용에 관한 지식",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 1
+          }
+        },
+        {
+          "name": "컴퓨터와 전자공학",
+          "score": 87,
+          "description": "컴퓨터의 하드웨어, 회로판, 처리장치, 반도체, 전자장비에 관한 지식",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 2
+          }
+        },
+        {
+          "name": "영어",
+          "score": 75,
+          "description": "영어를 읽고, 쓰고, 듣고 말하는데 필요한 지식",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 3
+          }
+        },
+        {
+          "name": "공학과 기술",
+          "score": 72,
+          "description": "다양한 물건을 만들고 설계하거나 서비스를 제공하기 위해 필요한 공학적인 원리, 기법, 장비 등을 실제로 적용시키는 지식",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 4
+          }
+        },
+        {
+          "name": "사무",
+          "score": 63,
+          "description": "워드 프로세스, 문서처리 및 기타 다른 사무절차에 관한 지식",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 5
+          }
+        }
+      ],
+      "work_environment": [
+        {
+          "name": "재택근무",
+          "score": 98,
+          "description": "재택근무 가능성",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 1
+          }
+        },
+        {
+          "name": "앉아서 근무",
+          "score": 91,
+          "description": "앉아서 근무하는 빈도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 2
+          }
+        },
+        {
+          "name": "연설, 발표, 회의하기",
+          "score": 84,
+          "description": "사람들 앞에서 공식적으로 연설(발표,회의 등의 상황)",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 3
+          }
+        },
+        {
+          "name": "이메일 이용하기",
+          "score": 82,
+          "description": "업무 수행하면서 이메일 사용하는 정도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 4
+          }
+        },
+        {
+          "name": "자동화 정도",
+          "score": 82,
+          "description": "업무의 자동화 정도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 5
+          }
+        }
+      ],
+      "work_activities": [
+        {
+          "name": "정보 수집",
+          "score": 97,
+          "description": "모든 관련 자료에서 정보를 수집, 관찰하기 중요도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1
+          }
+        },
+        {
+          "name": "정보 처리",
+          "score": 95,
+          "description": "정보 또는 자료를 수집, 분류, 계산, 검증하거나 표로 만들기 활동 중요도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2
+          }
+        },
+        {
+          "name": "사물, 행동, 사건 파악",
+          "score": 95,
+          "description": "차이점과 유사점을 분류하고 어떤 상황에서 변화를 알아차림으로써 정보를 파악하기 활동 중요도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 3
+          }
+        },
+        {
+          "name": "컴퓨터 업무",
+          "score": 95,
+          "description": "프로그램 제작, 소프트웨어 저작, 기능 설정, 정보 입력, 정보 처리를 하기 위한 컴퓨터 시스템 사용하기 활동 중요도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4
+          }
+        },
+        {
+          "name": "의사 결정, 문제점 해결",
+          "score": 93,
+          "description": "가장 좋은 해결책을 선택하기 위해 정보를 분석하고 문제점을 해결하기 위해 결과를 평가하기 활동 중요도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5
+          }
+        },
+        {
+          "name": "정보, 자료 분석",
+          "score": 91,
+          "description": "정보 또는 자료를 분석하여 근본 원리, 이유, 사실을 알아내기 활동 중요도",
+          "rank": 6,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 6
+          }
+        },
+        {
+          "name": "절차, 자료, 주변환경 관찰",
+          "score": 89,
+          "description": "문제점을 확인하고 평가하기 위하여 자료, 사건, 주변 환경에서 정보를 관찰하고 검토하기 활동 중요도",
+          "rank": 7,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 7
+          }
+        },
+        {
+          "name": "창조적 생각",
+          "score": 87,
+          "description": "새로운 소프트웨어, 생각, 시스템, 제품 등을 설계하고 개발하기 활동 중요도",
+          "rank": 8,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 8
+          }
+        },
+        {
+          "name": "정보의 의미 해석",
+          "score": 87,
+          "description": "정보가 뜻하는 바와 그것이 어떻게 사용되는지 번역하거나 설명하기 활동 중요도",
+          "rank": 9,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 9
+          }
+        },
+        {
+          "name": "목표, 전략 수립",
+          "score": 87,
+          "description": "장기 목표를 세우고 그 목표를 달성하기 위한 전략과 실행할 목록을 명시하기 활동 중요도",
+          "rank": 10,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 10
+          }
+        }
+      ]
+    },
+    "source_files": [
+      {
+        "file": "K000001080/dtlGb_2.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000001080/dtlGb_5.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000001080/dtlGb_7.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000001080/dtlGb_3.xml",
+        "required": false,
+        "loaded": true
+      }
+    ],
+    "loader_warnings": [],
+    "loader_errors": []
+  },
+  "system_decisions": {
+    "schema_version": "system_decisions.v1",
+    "job_cd": "K000001080",
+    "job_name": "데이터분석가(빅데이터분석가)",
+    "difficulty": {
+      "level": "hard",
+      "label": "어려움",
+      "estimated_time_minutes": 20,
+      "material_bundle_style": "work_document_packet",
+      "material_count_range": [
+        3,
+        4
+      ],
+      "task_count_range": [
+        3,
+        4
+      ],
+      "answer_length_hint": "700~1000자",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": true,
+      "requires_domain_expertise": false
+    },
+    "selected_exec_job": {
+      "exec_job_id": "exec_003",
+      "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다.",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 3
+      },
+      "selection_reason": "Pilot config selected exec_003."
+    },
+    "primary_task_type": "research_and_analysis",
+    "secondary_task_types": [],
+    "allowed_material_types": [
+      "chart",
+      "table",
+      "log",
+      "memo",
+      "checklist"
+    ],
+    "mission_design": {
+      "schema_version": "mission_design.v1",
+      "mission_design_type": "data_diagnosis",
+      "design_intent": "지표와 로그를 바탕으로 원인을 진단하고 개선 방향을 판단하는 미션",
+      "selection_method": "profile_signal_rule",
+      "selection_reason": "Matched signals: 데이터, 대용량, 처리, 플랫폼, 마이닝."
+    },
+    "excluded_material_types": [
+      "image",
+      "screenshot"
+    ],
+    "generation_constraints": {
+      "language": "ko",
+      "json_only": true,
+      "no_real_company_names": true,
+      "no_real_person_names": true,
+      "no_external_research": true,
+      "non_expert_friendly": true,
+      "must_use_provided_materials_only": true,
+      "llm_must_not_create_reliability_score": true,
+      "factual_status_required": true
+    },
+    "decision_trace": [
+      {
+        "step": "select_target_exec_job",
+        "method": "pilot_config.preferred_exec_job_id",
+        "selected": "exec_003",
+        "reason": "Pilot config selected exec_003."
+      },
+      {
+        "step": "classify_task_type",
+        "method": "pilot_config.preferred_primary_task_type",
+        "selected": "research_and_analysis",
+        "reason": "Pilot config fixed the primary task type."
+      },
+      {
+        "step": "select_allowed_material_types",
+        "method": "pilot_job_material_config",
+        "selected": [
+          "chart",
+          "table",
+          "log",
+          "memo",
+          "checklist"
+        ],
+        "reason": "hard material candidates were selected within max 5."
+      },
+      {
+        "step": "select_mission_design_type",
+        "method": "profile_signal_rule",
+        "selected": "data_diagnosis",
+        "reason": "Matched signals: 데이터, 대용량, 처리, 플랫폼, 마이닝.",
+        "scores": {
+          "market_feedback_prioritization": 2,
+          "data_diagnosis": 17,
+          "financial_research_judgment": 0,
+          "product_design_with_constraints": 2
+        }
+      }
+    ],
+    "decision_warnings": []
+  },
+  "schema_constraints": {
+    "schema_version": "schema_constraints.v1",
+    "output_schema": "mission_output.v1",
+    "material_detail_schema": "material_detail_schema.v1",
+    "task_material_taxonomy": "task_and_material_taxonomy.v1",
+    "difficulty_policy": "mission_difficulty_policy.v1",
+    "json_only": true,
+    "required_top_level_fields": [
+      "schema_version",
+      "mission_id",
+      "job_identity",
+      "target_exec_job",
+      "mission_facts",
+      "mission",
+      "evaluation",
+      "evidence_chain_draft",
+      "reliability"
+    ],
+    "forbidden_fields": [
+      "reliability.score",
+      "reliability.passed",
+      "evidence_chain"
+    ],
+    "must_copy_from_system_decisions": [
+      "target_exec_job",
+      "mission.task_type",
+      "mission.secondary_task_types",
+      "mission.difficulty"
+    ],
+    "material_rules": {
+      "allowed_material_types": [
+        "card",
+        "chart",
+        "checklist",
+        "email",
+        "log",
+        "memo",
+        "schedule",
+        "table"
+      ],
+      "allowed_evidence_names": [
+        "수리력",
+        "전산",
+        "논리적 분석",
+        "추리력",
+        "기술 분석",
+        "산수와 수학",
+        "컴퓨터와 전자공학",
+        "영어",
+        "공학과 기술",
+        "사무",
+        "재택근무",
+        "앉아서 근무",
+        "연설, 발표, 회의하기",
+        "이메일 이용하기",
+        "자동화 정도",
+        "정보 수집",
+        "정보 처리",
+        "사물, 행동, 사건 파악",
+        "컴퓨터 업무",
+        "의사 결정, 문제점 해결",
+        "정보, 자료 분석",
+        "절차, 자료, 주변환경 관찰",
+        "창조적 생각",
+        "정보의 의미 해석",
+        "목표, 전략 수립"
+      ],
+      "use_only_allowed_material_types": true,
+      "excluded_material_types": [
+        "image",
+        "screenshot"
+      ],
+      "factual_status_required": true,
+      "mission_fact_refs_required": true,
+      "evidence_source_required": true,
+      "factual_status_value": "synthetic_mission_material"
+    },
+    "mission_fact_rules": {
+      "must_create_before_materials": true,
+      "all_material_refs_must_exist": true,
+      "no_cross_material_conflict": true
+    },
+    "repair_policy": {
+      "max_repair_attempts": 1,
+      "repair_only_validator_errors": true,
+      "do_not_change_system_decisions": true
+    },
+    "structured_output_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "mission_id",
+        "job_identity",
+        "target_exec_job",
+        "mission_facts",
+        "mission",
+        "evaluation",
+        "evidence_chain_draft",
+        "reliability"
+      ],
+      "properties": {
+        "schema_version": {
+          "enum": [
+            "mission_output.v1"
+          ]
+        },
+        "mission_id": {
+          "enum": [
+            "draft"
+          ]
+        },
+        "job_identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "job_cd",
+            "job_lrcl_nm",
+            "job_mdcl_nm",
+            "job_smcl_nm",
+            "source_ref"
+          ],
+          "properties": {
+            "job_cd": {
+              "type": "string"
+            },
+            "job_lrcl_nm": {
+              "type": "string"
+            },
+            "job_mdcl_nm": {
+              "type": "string"
+            },
+            "job_smcl_nm": {
+              "type": "string"
+            },
+            "source_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "field",
+                "index"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string"
+                },
+                "index": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "target_exec_job": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "exec_job_id",
+            "text",
+            "source_ref",
+            "selection_reason"
+          ],
+          "properties": {
+            "exec_job_id": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "source_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "field",
+                "index"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string"
+                },
+                "index": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "selection_reason": {
+              "type": "string"
+            }
+          }
+        },
+        "mission_facts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "org_name",
+            "domain",
+            "period",
+            "trend_pattern",
+            "main_issue",
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "properties": {
+            "org_name": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "period": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "trend_pattern": {
+              "type": "string"
+            },
+            "main_issue": {
+              "type": "string"
+            },
+            "feedback_themes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "decision_goal": {
+              "type": "string"
+            }
+          }
+        },
+        "mission": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "task_type",
+            "secondary_task_types",
+            "difficulty",
+            "scenario",
+            "materials",
+            "tasks",
+            "submission_format"
+          ],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "task_type": {
+              "type": "string"
+            },
+            "secondary_task_types": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "difficulty": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "level",
+                "label",
+                "estimated_time_minutes",
+                "material_bundle_style",
+                "material_count_range",
+                "task_count_range",
+                "answer_length_hint",
+                "requires_cross_material_reasoning",
+                "requires_tradeoff_judgment",
+                "requires_domain_expertise"
+              ],
+              "properties": {
+                "level": {
+                  "enum": [
+                    "normal",
+                    "hard"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "estimated_time_minutes": {
+                  "type": "integer"
+                },
+                "material_bundle_style": {
+                  "type": "string"
+                },
+                "material_count_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "task_count_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "answer_length_hint": {
+                  "type": "string"
+                },
+                "requires_cross_material_reasoning": {
+                  "type": "boolean"
+                },
+                "requires_tradeoff_judgment": {
+                  "type": "boolean"
+                },
+                "requires_domain_expertise": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "scenario": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "role",
+                "context",
+                "goal",
+                "constraints"
+              ],
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "context": {
+                  "type": "string"
+                },
+                "goal": {
+                  "type": "string"
+                },
+                "constraints": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "materials": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "material_id",
+                  "type",
+                  "subtype",
+                  "title",
+                  "description",
+                  "factual_status",
+                  "used_for",
+                  "evidence_source",
+                  "mission_fact_refs",
+                  "data",
+                  "confidence"
+                ],
+                "properties": {
+                  "material_id": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "card",
+                      "chart",
+                      "checklist",
+                      "email",
+                      "log",
+                      "memo",
+                      "schedule",
+                      "table"
+                    ]
+                  },
+                  "subtype": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "factual_status": {
+                    "enum": [
+                      "synthetic_mission_material"
+                    ]
+                  },
+                  "used_for": {
+                    "type": "string"
+                  },
+                  "evidence_source": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "수리력",
+                        "전산",
+                        "논리적 분석",
+                        "추리력",
+                        "기술 분석",
+                        "산수와 수학",
+                        "컴퓨터와 전자공학",
+                        "영어",
+                        "공학과 기술",
+                        "사무",
+                        "재택근무",
+                        "앉아서 근무",
+                        "연설, 발표, 회의하기",
+                        "이메일 이용하기",
+                        "자동화 정도",
+                        "정보 수집",
+                        "정보 처리",
+                        "사물, 행동, 사건 파악",
+                        "컴퓨터 업무",
+                        "의사 결정, 문제점 해결",
+                        "정보, 자료 분석",
+                        "절차, 자료, 주변환경 관찰",
+                        "창조적 생각",
+                        "정보의 의미 해석",
+                        "목표, 전략 수립"
+                      ]
+                    }
+                  },
+                  "mission_fact_refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "chart_type",
+                      "x_axis",
+                      "y_axis",
+                      "series",
+                      "columns",
+                      "rows",
+                      "author",
+                      "items",
+                      "thread",
+                      "entries",
+                      "cards"
+                    ],
+                    "properties": {
+                      "chart_type": {
+                        "enum": [
+                          "line",
+                          "bar",
+                          "pie"
+                        ]
+                      },
+                      "x_axis": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "label",
+                          "values"
+                        ],
+                        "properties": {
+                          "label": {
+                            "type": "string"
+                          },
+                          "values": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "y_axis": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "label",
+                          "unit"
+                        ],
+                        "properties": {
+                          "label": {
+                            "type": "string"
+                          },
+                          "unit": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "series": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "name",
+                            "values"
+                          ],
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "values": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "columns": {
+                        "type": "array",
+                        "minItems": 4,
+                        "maxItems": 4,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "key",
+                            "label"
+                          ],
+                          "properties": {
+                            "key": {
+                              "enum": [
+                                "option",
+                                "strength",
+                                "weakness",
+                                "priority"
+                              ]
+                            },
+                            "label": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "rows": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "option",
+                            "strength",
+                            "weakness",
+                            "priority"
+                          ],
+                          "properties": {
+                            "option": {
+                              "type": "string"
+                            },
+                            "strength": {
+                              "type": "string"
+                            },
+                            "weakness": {
+                              "type": "string"
+                            },
+                            "priority": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      },
+                      "author": {
+                        "type": "string"
+                      },
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "text",
+                            "period",
+                            "task",
+                            "constraint",
+                            "label",
+                            "status",
+                            "importance"
+                          ],
+                          "properties": {
+                            "text": {
+                              "type": "string"
+                            },
+                            "period": {
+                              "type": "string"
+                            },
+                            "task": {
+                              "type": "string"
+                            },
+                            "constraint": {
+                              "type": "string"
+                            },
+                            "label": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "enum": [
+                                "checked",
+                                "unchecked",
+                                "issue"
+                              ]
+                            },
+                            "importance": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "thread": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "from",
+                            "to",
+                            "subject",
+                            "body"
+                          ],
+                          "properties": {
+                            "from": {
+                              "type": "string"
+                            },
+                            "to": {
+                              "type": "string"
+                            },
+                            "subject": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "entries": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "time",
+                            "actor",
+                            "event",
+                            "note"
+                          ],
+                          "properties": {
+                            "time": {
+                              "type": "string"
+                            },
+                            "actor": {
+                              "type": "string"
+                            },
+                            "event": {
+                              "type": "string"
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "cards": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "title",
+                            "attributes"
+                          ],
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "attributes": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "required": [
+                                "strength",
+                                "weakness",
+                                "fit"
+                              ],
+                              "properties": {
+                                "strength": {
+                                  "type": "string"
+                                },
+                                "weakness": {
+                                  "type": "string"
+                                },
+                                "fit": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "confidence": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "score",
+                      "checks",
+                      "warnings"
+                    ],
+                    "properties": {
+                      "score": {
+                        "type": "number"
+                      },
+                      "checks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "synthetic_material"
+                        ],
+                        "properties": {
+                          "synthetic_material": {
+                            "type": "boolean"
+                          }
+                        }
+                      },
+                      "warnings": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "task_id",
+                  "instruction",
+                  "required_materials",
+                  "expected_action"
+                ],
+                "properties": {
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "instruction": {
+                    "type": "string"
+                  },
+                  "required_materials": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "expected_action": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "submission_format": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "estimated_time_minutes",
+                "required_sections",
+                "length_hint"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "estimated_time_minutes": {
+                  "type": "integer"
+                },
+                "required_sections": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "length_hint": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "evaluation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "expected_insights",
+            "rubric"
+          ],
+          "properties": {
+            "expected_insights": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "rubric": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "criterion",
+                  "description",
+                  "points",
+                  "linked_evidence"
+                ],
+                "properties": {
+                  "criterion": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "points": {
+                    "type": "integer"
+                  },
+                  "linked_evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "evidence_chain_draft": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_exec_job",
+            "linked_evidence",
+            "material_evidence_map"
+          ],
+          "properties": {
+            "source_exec_job": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "text"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              }
+            },
+            "linked_evidence": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "activities",
+                "knowledge",
+                "abilities"
+              ],
+              "properties": {
+                "activities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "knowledge": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "abilities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "material_evidence_map": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "material_id",
+                  "supported_by"
+                ],
+                "properties": {
+                  "material_id": {
+                    "type": "string"
+                  },
+                  "supported_by": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "reliability": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "pending_validation"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

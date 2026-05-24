@@ -1,0 +1,1446 @@
+{
+  "schema_version": "llm_input_package.v1",
+  "job_profile": {
+    "schema_version": "job_mission_profile.v1",
+    "source_root": "data/api_raw",
+    "job_identity": {
+      "job_cd": "K000007519",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "금융·보험 전문가",
+      "job_smcl_nm": "보험상품개발자",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo"
+      }
+    },
+    "work": {
+      "job_summary": {
+        "text": "보험회사의 전반적인 위험을 분석·평가·진단하며 보험상품 개발에 대한 인·허가 업무와 보험료 및 책임준비금 등을 산출한다.",
+        "source_ref": {
+          "file": "K000007519/dtlGb_2.xml",
+          "field": "jobsDo.jobSum"
+        }
+      },
+      "exec_jobs": [
+        {
+          "exec_job_id": "exec_001",
+          "text": "국내외 보험상품 관련 제도를 조사하고, 소비자심리 및 보험료에 영향을 미치는 요인을 분석한다.",
+          "source_ref": {
+            "file": "K000007519/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 1
+          }
+        },
+        {
+          "exec_job_id": "exec_002",
+          "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다.",
+          "source_ref": {
+            "file": "K000007519/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 2
+          }
+        },
+        {
+          "exec_job_id": "exec_003",
+          "text": "수학, 통계학, 재무이론, 확률 등의 지식을 적용해 적절한 보험료와 책임준비금을 산출한다.",
+          "source_ref": {
+            "file": "K000007519/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 3
+          }
+        },
+        {
+          "exec_job_id": "exec_004",
+          "text": "보험약관에 의한 대출금을 계산하고 각종 적립금이나 준비금 등을 평가하여 보험사업 전반에 걸친 수리 및 통계분석 업무를 한다.",
+          "source_ref": {
+            "file": "K000007519/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 4
+          }
+        },
+        {
+          "exec_job_id": "exec_005",
+          "text": "사망률, 재해율, 질병, 장애, 퇴직률 등을 평가하고 각종 통계를 분석한다.",
+          "source_ref": {
+            "file": "K000007519/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 5
+          }
+        },
+        {
+          "exec_job_id": "exec_006",
+          "text": "보험회사의 투자, 경영, 재무 관련 위험성을 분석·평가·진단하여 보험회사의 손익을 계산한다.",
+          "source_ref": {
+            "file": "K000007519/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 6
+          }
+        },
+        {
+          "exec_job_id": "exec_007",
+          "text": "각종 통계자료의 분석을 통해 경영지표를 수립·제시한다. 기타 보험수리와 관련된 업무를 한다.",
+          "source_ref": {
+            "file": "K000007519/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 7
+          }
+        }
+      ]
+    },
+    "technical_context": {
+      "techn_know": {
+        "text": "보험계리사가 되기 위해서는 대학에서 수학, 통계학, (금융)보험학, 경제학 등을 전공하는 것이 유리하며 보험 및 연금회사의 상품개발부, 수리부, 계리부 등이나, 연금컨설팅회사, 보험계리법인 등에서 근무한다.\n금융감독원에서 실시하는 보험계리사 자격증을 취득하면 입직에 유리한데, 보험계리사 자격은 1차, 2차 시험에 합격한 후 일정기간의 수습기간을 거친 후 금융감독원에 등록함으로써 자격을 취득할 수 있다. 객관식으로 치러지는 1차시험은 보험계약법, 경제학원론, 보험수학, 보험원리, 영어 등이 포함되며, 약술형 또는 주관식 풀이형으로 치러지는 2차 시험은 계리리스크관리, 보험수리학, 연금수리학, 계리모형론, 재무관리 및 금융공학 등이 포함된다.\n예전에는 획일화된 상품을 개발하여 판매했다면 고객의 눈높이가 높아지면서 다양화된 고객금융상품에 대한 수요가 늘어나고 고객의 유형을 파악하고 세분하여 맞춤형 금융상품을 판매하는 것이 금융업계의 경쟁력으로 대두되고 있다. 이에 따라 보험계리사 역시 새로운 금융서비스에 수요특성을 파악하는 전문역량을 갖출 필요가 있다. 특히 고령인구의 증가로 노년층을 위한 연금보험, 건강보험 등이 보험시장의 주력상품이 될 가능성도 커지고 있어 이들 보험상품의 개발, 미래예측을 위한 전문성을 갖추는 것이 필요하다.",
+        "source_ref": {
+          "file": "K000007519/dtlGb_3.xml",
+          "field": "way.technKnow"
+        }
+      }
+    },
+    "evidence": {
+      "abilities": [
+        {
+          "name": "수리력",
+          "score": 97,
+          "description": "어떤 문제를 해결하기 위해 수학을 사용한다",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 1
+          }
+        },
+        {
+          "name": "재정 관리",
+          "score": 93,
+          "description": "업무를 완료하기 위해 필요한 비용을 파악하고 구체적 소요 내역을 산출한다",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2
+          }
+        },
+        {
+          "name": "인적자원 관리",
+          "score": 89,
+          "description": "직원의 근로의욕을 높이고 능력을 개발하며 적재적소에 인재를 배치한다",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 3
+          }
+        },
+        {
+          "name": "읽고 이해하기",
+          "score": 89,
+          "description": "업무와 관련된 문서를 읽고 이해한다",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 4
+          }
+        },
+        {
+          "name": "논리적 분석",
+          "score": 88,
+          "description": "문제를 해결하기 위해(혹은 의사결정을 하기 위해) 체계적으로 이치에 맞는 생각을 해낸다",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 5
+          }
+        }
+      ],
+      "knowledge": [
+        {
+          "name": "산수와 수학",
+          "score": 99,
+          "description": "연산, 대수학, 통계, 기하학의 계산 및 응용에 관한 지식",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 1
+          }
+        },
+        {
+          "name": "경제와 회계",
+          "score": 93,
+          "description": "돈의 흐름, 은행업무, 그리고 재무자료의 보고와 분석과 같은 경제 및 회계원리에 관한 지식",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 2
+          }
+        },
+        {
+          "name": "사무",
+          "score": 88,
+          "description": "워드 프로세스, 문서처리 및 기타 다른 사무절차에 관한 지식",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 3
+          }
+        },
+        {
+          "name": "의료",
+          "score": 81,
+          "description": "질병이나 치아의 질환 여부를 진단하고 치료하는 것에 관한 지식",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 4
+          }
+        },
+        {
+          "name": "법",
+          "score": 80,
+          "description": "법률, 규정에 관한 지식",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 5
+          }
+        }
+      ],
+      "work_environment": [
+        {
+          "name": "정확성, 정밀성 유지",
+          "score": 97,
+          "description": "업무 수행을 위해 정밀하거나 정확한 것의 중요성",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 1
+          }
+        },
+        {
+          "name": "앉아서 근무",
+          "score": 90,
+          "description": "앉아서 근무하는 빈도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 2
+          }
+        },
+        {
+          "name": "이메일 이용하기",
+          "score": 90,
+          "description": "업무 수행하면서 이메일 사용하는 정도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 3
+          }
+        },
+        {
+          "name": "이미지/평판/재정에 미치는 강도",
+          "score": 89,
+          "description": "본인의 의사결정이 다른 사람 또는 회사 이미지/평판/재정에 어느 정도의 결과 초래",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 4
+          }
+        },
+        {
+          "name": "자동화 정도",
+          "score": 88,
+          "description": "업무의 자동화 정도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 5
+          }
+        }
+      ],
+      "work_activities": [
+        {
+          "name": "기준에 따른 정보 평가",
+          "score": 96,
+          "description": "사건이나 절차가 법, 규정, 기준을 정확히 준수했는지 판단하기 위해 관련 정보나 개인 의견을 사용하기 활동 중요도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1
+          }
+        },
+        {
+          "name": "의사 결정, 문제점 해결",
+          "score": 94,
+          "description": "가장 좋은 해결책을 선택하기 위해 정보를 분석하고 문제점을 해결하기 위해 결과를 평가하기 활동 중요도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2
+          }
+        },
+        {
+          "name": "협상, 갈등 해결",
+          "score": 94,
+          "description": "불평, 분쟁, 충돌을 해결하고 협상하기 활동 중요도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 3
+          }
+        },
+        {
+          "name": "정보, 자료 분석",
+          "score": 93,
+          "description": "정보 또는 자료를 분석하여 근본 원리, 이유, 사실을 알아내기 활동 중요도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4
+          }
+        },
+        {
+          "name": "목표, 전략 수립",
+          "score": 92,
+          "description": "장기 목표를 세우고 그 목표를 달성하기 위한 전략과 실행할 목록을 명시하기 활동 중요도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5
+          }
+        },
+        {
+          "name": "정보의 의미 해석",
+          "score": 92,
+          "description": "정보가 뜻하는 바와 그것이 어떻게 사용되는지 번역하거나 설명하기 활동 중요도",
+          "rank": 6,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 6
+          }
+        },
+        {
+          "name": "정보 처리",
+          "score": 92,
+          "description": "정보 또는 자료를 수집, 분류, 계산, 검증하거나 표로 만들기 활동 중요도",
+          "rank": 7,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 7
+          }
+        },
+        {
+          "name": "절차, 자료, 주변환경 관찰",
+          "score": 91,
+          "description": "문제점을 확인하고 평가하기 위하여 자료, 사건, 주변 환경에서 정보를 관찰하고 검토하기 활동 중요도",
+          "rank": 8,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 8
+          }
+        },
+        {
+          "name": "정보 수집",
+          "score": 90,
+          "description": "모든 관련 자료에서 정보를 수집, 관찰하기 중요도",
+          "rank": 9,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 9
+          }
+        },
+        {
+          "name": "사물, 행동, 사건 파악",
+          "score": 86,
+          "description": "차이점과 유사점을 분류하고 어떤 상황에서 변화를 알아차림으로써 정보를 파악하기 활동 중요도",
+          "rank": 10,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 10
+          }
+        }
+      ]
+    },
+    "source_files": [
+      {
+        "file": "K000007519/dtlGb_2.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000007519/dtlGb_5.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000007519/dtlGb_7.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000007519/dtlGb_3.xml",
+        "required": false,
+        "loaded": true
+      }
+    ],
+    "loader_warnings": [],
+    "loader_errors": []
+  },
+  "system_decisions": {
+    "schema_version": "system_decisions.v1",
+    "job_cd": "K000007519",
+    "job_name": "보험상품개발자",
+    "difficulty": {
+      "level": "hard",
+      "label": "어려움",
+      "estimated_time_minutes": 20,
+      "material_bundle_style": "work_document_packet",
+      "material_count_range": [
+        3,
+        4
+      ],
+      "task_count_range": [
+        3,
+        4
+      ],
+      "answer_length_hint": "700~1000자",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": true,
+      "requires_domain_expertise": false
+    },
+    "selected_exec_job": {
+      "exec_job_id": "exec_002",
+      "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 2
+      },
+      "selection_reason": "Pilot config selected exec_002."
+    },
+    "primary_task_type": "planning_and_proposal",
+    "secondary_task_types": [
+      "research_and_analysis"
+    ],
+    "allowed_material_types": [
+      "email",
+      "table",
+      "chart",
+      "checklist"
+    ],
+    "excluded_material_types": [
+      "image",
+      "screenshot"
+    ],
+    "generation_constraints": {
+      "language": "ko",
+      "json_only": true,
+      "no_real_company_names": true,
+      "no_real_person_names": true,
+      "no_external_research": true,
+      "non_expert_friendly": true,
+      "must_use_provided_materials_only": true,
+      "llm_must_not_create_reliability_score": true,
+      "factual_status_required": true
+    },
+    "decision_trace": [
+      {
+        "step": "select_target_exec_job",
+        "method": "pilot_config.preferred_exec_job_id",
+        "selected": "exec_002",
+        "reason": "Pilot config selected exec_002."
+      },
+      {
+        "step": "classify_task_type",
+        "method": "pilot_config.preferred_primary_task_type",
+        "selected": "planning_and_proposal",
+        "reason": "Pilot config fixed the primary task type."
+      },
+      {
+        "step": "select_allowed_material_types",
+        "method": "pilot_job_material_config",
+        "selected": [
+          "email",
+          "table",
+          "chart",
+          "checklist"
+        ],
+        "reason": "hard material candidates were selected within max 5."
+      }
+    ],
+    "decision_warnings": []
+  },
+  "schema_constraints": {
+    "schema_version": "schema_constraints.v1",
+    "output_schema": "mission_output.v1",
+    "material_detail_schema": "material_detail_schema.v1",
+    "task_material_taxonomy": "task_and_material_taxonomy.v1",
+    "difficulty_policy": "mission_difficulty_policy.v1",
+    "json_only": true,
+    "required_top_level_fields": [
+      "schema_version",
+      "mission_id",
+      "job_identity",
+      "target_exec_job",
+      "mission_facts",
+      "mission",
+      "evaluation",
+      "evidence_chain_draft",
+      "reliability"
+    ],
+    "forbidden_fields": [
+      "reliability.score",
+      "reliability.passed",
+      "evidence_chain"
+    ],
+    "must_copy_from_system_decisions": [
+      "target_exec_job",
+      "mission.task_type",
+      "mission.secondary_task_types",
+      "mission.difficulty"
+    ],
+    "material_rules": {
+      "allowed_material_types": [
+        "card",
+        "chart",
+        "checklist",
+        "email",
+        "log",
+        "memo",
+        "schedule",
+        "table"
+      ],
+      "allowed_evidence_names": [
+        "수리력",
+        "재정 관리",
+        "인적자원 관리",
+        "읽고 이해하기",
+        "논리적 분석",
+        "산수와 수학",
+        "경제와 회계",
+        "사무",
+        "의료",
+        "법",
+        "정확성, 정밀성 유지",
+        "앉아서 근무",
+        "이메일 이용하기",
+        "이미지/평판/재정에 미치는 강도",
+        "자동화 정도",
+        "기준에 따른 정보 평가",
+        "의사 결정, 문제점 해결",
+        "협상, 갈등 해결",
+        "정보, 자료 분석",
+        "목표, 전략 수립",
+        "정보의 의미 해석",
+        "정보 처리",
+        "절차, 자료, 주변환경 관찰",
+        "정보 수집",
+        "사물, 행동, 사건 파악"
+      ],
+      "use_only_allowed_material_types": true,
+      "excluded_material_types": [
+        "image",
+        "screenshot"
+      ],
+      "factual_status_required": true,
+      "mission_fact_refs_required": true,
+      "evidence_source_required": true,
+      "factual_status_value": "synthetic_mission_material"
+    },
+    "mission_fact_rules": {
+      "must_create_before_materials": true,
+      "all_material_refs_must_exist": true,
+      "no_cross_material_conflict": true
+    },
+    "repair_policy": {
+      "max_repair_attempts": 1,
+      "repair_only_validator_errors": true,
+      "do_not_change_system_decisions": true
+    },
+    "structured_output_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "mission_id",
+        "job_identity",
+        "target_exec_job",
+        "mission_facts",
+        "mission",
+        "evaluation",
+        "evidence_chain_draft",
+        "reliability"
+      ],
+      "properties": {
+        "schema_version": {
+          "enum": [
+            "mission_output.v1"
+          ]
+        },
+        "mission_id": {
+          "enum": [
+            "draft"
+          ]
+        },
+        "job_identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "job_cd",
+            "job_lrcl_nm",
+            "job_mdcl_nm",
+            "job_smcl_nm",
+            "source_ref"
+          ],
+          "properties": {
+            "job_cd": {
+              "type": "string"
+            },
+            "job_lrcl_nm": {
+              "type": "string"
+            },
+            "job_mdcl_nm": {
+              "type": "string"
+            },
+            "job_smcl_nm": {
+              "type": "string"
+            },
+            "source_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "field",
+                "index"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string"
+                },
+                "index": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "target_exec_job": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "exec_job_id",
+            "text",
+            "source_ref",
+            "selection_reason"
+          ],
+          "properties": {
+            "exec_job_id": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "source_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "field",
+                "index"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string"
+                },
+                "index": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "selection_reason": {
+              "type": "string"
+            }
+          }
+        },
+        "mission_facts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "org_name",
+            "domain",
+            "period",
+            "trend_pattern",
+            "main_issue",
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "properties": {
+            "org_name": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "period": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "trend_pattern": {
+              "type": "string"
+            },
+            "main_issue": {
+              "type": "string"
+            },
+            "feedback_themes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "decision_goal": {
+              "type": "string"
+            }
+          }
+        },
+        "mission": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "task_type",
+            "secondary_task_types",
+            "difficulty",
+            "scenario",
+            "materials",
+            "tasks",
+            "submission_format"
+          ],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "task_type": {
+              "type": "string"
+            },
+            "secondary_task_types": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "difficulty": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "level",
+                "label",
+                "estimated_time_minutes",
+                "material_bundle_style",
+                "material_count_range",
+                "task_count_range",
+                "answer_length_hint",
+                "requires_cross_material_reasoning",
+                "requires_tradeoff_judgment",
+                "requires_domain_expertise"
+              ],
+              "properties": {
+                "level": {
+                  "enum": [
+                    "normal",
+                    "hard"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "estimated_time_minutes": {
+                  "type": "integer"
+                },
+                "material_bundle_style": {
+                  "type": "string"
+                },
+                "material_count_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "task_count_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "answer_length_hint": {
+                  "type": "string"
+                },
+                "requires_cross_material_reasoning": {
+                  "type": "boolean"
+                },
+                "requires_tradeoff_judgment": {
+                  "type": "boolean"
+                },
+                "requires_domain_expertise": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "scenario": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "role",
+                "context",
+                "goal",
+                "constraints"
+              ],
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "context": {
+                  "type": "string"
+                },
+                "goal": {
+                  "type": "string"
+                },
+                "constraints": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "materials": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "material_id",
+                  "type",
+                  "subtype",
+                  "title",
+                  "description",
+                  "factual_status",
+                  "used_for",
+                  "evidence_source",
+                  "mission_fact_refs",
+                  "data",
+                  "confidence"
+                ],
+                "properties": {
+                  "material_id": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "card",
+                      "chart",
+                      "checklist",
+                      "email",
+                      "log",
+                      "memo",
+                      "schedule",
+                      "table"
+                    ]
+                  },
+                  "subtype": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "factual_status": {
+                    "enum": [
+                      "synthetic_mission_material"
+                    ]
+                  },
+                  "used_for": {
+                    "type": "string"
+                  },
+                  "evidence_source": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "수리력",
+                        "재정 관리",
+                        "인적자원 관리",
+                        "읽고 이해하기",
+                        "논리적 분석",
+                        "산수와 수학",
+                        "경제와 회계",
+                        "사무",
+                        "의료",
+                        "법",
+                        "정확성, 정밀성 유지",
+                        "앉아서 근무",
+                        "이메일 이용하기",
+                        "이미지/평판/재정에 미치는 강도",
+                        "자동화 정도",
+                        "기준에 따른 정보 평가",
+                        "의사 결정, 문제점 해결",
+                        "협상, 갈등 해결",
+                        "정보, 자료 분석",
+                        "목표, 전략 수립",
+                        "정보의 의미 해석",
+                        "정보 처리",
+                        "절차, 자료, 주변환경 관찰",
+                        "정보 수집",
+                        "사물, 행동, 사건 파악"
+                      ]
+                    }
+                  },
+                  "mission_fact_refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "chart_type",
+                      "x_axis",
+                      "y_axis",
+                      "series",
+                      "columns",
+                      "rows",
+                      "author",
+                      "items",
+                      "thread",
+                      "entries",
+                      "cards"
+                    ],
+                    "properties": {
+                      "chart_type": {
+                        "enum": [
+                          "line",
+                          "bar",
+                          "pie"
+                        ]
+                      },
+                      "x_axis": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "label",
+                          "values"
+                        ],
+                        "properties": {
+                          "label": {
+                            "type": "string"
+                          },
+                          "values": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "y_axis": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "label",
+                          "unit"
+                        ],
+                        "properties": {
+                          "label": {
+                            "type": "string"
+                          },
+                          "unit": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "series": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "name",
+                            "values"
+                          ],
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "values": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "columns": {
+                        "type": "array",
+                        "minItems": 4,
+                        "maxItems": 4,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "key",
+                            "label"
+                          ],
+                          "properties": {
+                            "key": {
+                              "enum": [
+                                "option",
+                                "strength",
+                                "weakness",
+                                "priority"
+                              ]
+                            },
+                            "label": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "rows": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "option",
+                            "strength",
+                            "weakness",
+                            "priority"
+                          ],
+                          "properties": {
+                            "option": {
+                              "type": "string"
+                            },
+                            "strength": {
+                              "type": "string"
+                            },
+                            "weakness": {
+                              "type": "string"
+                            },
+                            "priority": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      },
+                      "author": {
+                        "type": "string"
+                      },
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "text",
+                            "period",
+                            "task",
+                            "constraint",
+                            "label",
+                            "status",
+                            "importance"
+                          ],
+                          "properties": {
+                            "text": {
+                              "type": "string"
+                            },
+                            "period": {
+                              "type": "string"
+                            },
+                            "task": {
+                              "type": "string"
+                            },
+                            "constraint": {
+                              "type": "string"
+                            },
+                            "label": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "enum": [
+                                "checked",
+                                "unchecked",
+                                "issue"
+                              ]
+                            },
+                            "importance": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "thread": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "from",
+                            "to",
+                            "subject",
+                            "body"
+                          ],
+                          "properties": {
+                            "from": {
+                              "type": "string"
+                            },
+                            "to": {
+                              "type": "string"
+                            },
+                            "subject": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "entries": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "time",
+                            "actor",
+                            "event",
+                            "note"
+                          ],
+                          "properties": {
+                            "time": {
+                              "type": "string"
+                            },
+                            "actor": {
+                              "type": "string"
+                            },
+                            "event": {
+                              "type": "string"
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "cards": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "title",
+                            "attributes"
+                          ],
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "attributes": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "required": [
+                                "strength",
+                                "weakness",
+                                "fit"
+                              ],
+                              "properties": {
+                                "strength": {
+                                  "type": "string"
+                                },
+                                "weakness": {
+                                  "type": "string"
+                                },
+                                "fit": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "confidence": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "score",
+                      "checks",
+                      "warnings"
+                    ],
+                    "properties": {
+                      "score": {
+                        "type": "number"
+                      },
+                      "checks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "synthetic_material"
+                        ],
+                        "properties": {
+                          "synthetic_material": {
+                            "type": "boolean"
+                          }
+                        }
+                      },
+                      "warnings": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "task_id",
+                  "instruction",
+                  "required_materials",
+                  "expected_action"
+                ],
+                "properties": {
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "instruction": {
+                    "type": "string"
+                  },
+                  "required_materials": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "expected_action": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "submission_format": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "estimated_time_minutes",
+                "required_sections",
+                "length_hint"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "estimated_time_minutes": {
+                  "type": "integer"
+                },
+                "required_sections": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "length_hint": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "evaluation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "expected_insights",
+            "rubric"
+          ],
+          "properties": {
+            "expected_insights": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "rubric": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "criterion",
+                  "description",
+                  "points",
+                  "linked_evidence"
+                ],
+                "properties": {
+                  "criterion": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "points": {
+                    "type": "integer"
+                  },
+                  "linked_evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "evidence_chain_draft": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_exec_job",
+            "linked_evidence",
+            "material_evidence_map"
+          ],
+          "properties": {
+            "source_exec_job": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "text"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              }
+            },
+            "linked_evidence": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "activities",
+                "knowledge",
+                "abilities"
+              ],
+              "properties": {
+                "activities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "knowledge": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "abilities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "material_evidence_map": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "material_id",
+                  "supported_by"
+                ],
+                "properties": {
+                  "material_id": {
+                    "type": "string"
+                  },
+                  "supported_by": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "reliability": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "pending_validation"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

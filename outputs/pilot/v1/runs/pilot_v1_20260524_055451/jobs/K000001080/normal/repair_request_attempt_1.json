@@ -1,0 +1,668 @@
+{
+  "schema_version": "repair_request.v1",
+  "attempt": 1,
+  "locked_fields": [
+    "job_identity",
+    "target_exec_job",
+    "mission.difficulty",
+    "mission.task_type",
+    "mission.secondary_task_types",
+    "mission.allowed_material_types"
+  ],
+  "system_decisions": {
+    "schema_version": "system_decisions.v1",
+    "job_cd": "K000001080",
+    "job_name": "데이터분석가(빅데이터분석가)",
+    "difficulty": {
+      "level": "normal",
+      "label": "보통",
+      "estimated_time_minutes": 15,
+      "material_bundle_style": "light_work_material_bundle",
+      "material_count_range": [
+        2,
+        3
+      ],
+      "task_count_range": [
+        2,
+        3
+      ],
+      "answer_length_hint": "400~700자",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "selected_exec_job": {
+      "exec_job_id": "exec_003",
+      "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다.",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 3
+      },
+      "selection_reason": "Pilot config selected exec_003."
+    },
+    "primary_task_type": "research_and_analysis",
+    "secondary_task_types": [],
+    "allowed_material_types": [
+      "chart",
+      "table",
+      "log"
+    ],
+    "excluded_material_types": [
+      "image",
+      "screenshot"
+    ],
+    "generation_constraints": {
+      "language": "ko",
+      "json_only": true,
+      "no_real_company_names": true,
+      "no_real_person_names": true,
+      "no_external_research": true,
+      "non_expert_friendly": true,
+      "must_use_provided_materials_only": true,
+      "llm_must_not_create_reliability_score": true,
+      "factual_status_required": true
+    },
+    "decision_trace": [
+      {
+        "step": "select_target_exec_job",
+        "method": "pilot_config.preferred_exec_job_id",
+        "selected": "exec_003",
+        "reason": "Pilot config selected exec_003."
+      },
+      {
+        "step": "classify_task_type",
+        "method": "pilot_config.preferred_primary_task_type",
+        "selected": "research_and_analysis",
+        "reason": "Pilot config fixed the primary task type."
+      },
+      {
+        "step": "select_allowed_material_types",
+        "method": "pilot_job_material_config",
+        "selected": [
+          "chart",
+          "table",
+          "log"
+        ],
+        "reason": "normal material candidates were selected within max 3."
+      }
+    ],
+    "decision_warnings": []
+  },
+  "allowed_evidence_names": [
+    "수리력",
+    "전산",
+    "논리적 분석",
+    "추리력",
+    "기술 분석",
+    "산수와 수학",
+    "컴퓨터와 전자공학",
+    "영어",
+    "공학과 기술",
+    "사무",
+    "재택근무",
+    "앉아서 근무",
+    "연설, 발표, 회의하기",
+    "이메일 이용하기",
+    "자동화 정도",
+    "정보 수집",
+    "정보 처리",
+    "사물, 행동, 사건 파악",
+    "컴퓨터 업무",
+    "의사 결정, 문제점 해결",
+    "정보, 자료 분석",
+    "절차, 자료, 주변환경 관찰",
+    "창조적 생각",
+    "정보의 의미 해석",
+    "목표, 전략 수립"
+  ],
+  "mission_output_draft": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000001080",
+      "job_lrcl_nm": "연구직 및 공학 기술직",
+      "job_mdcl_nm": "데이터·네트워크 및 시스템 운영 전문가",
+      "job_smcl_nm": "데이터분석가(빅데이터분석가)",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_003",
+      "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다.",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 3
+      },
+      "selection_reason": "Pilot config selected exec_003."
+    },
+    "mission_facts": {
+      "org_name": "가상 데이터 운영팀",
+      "domain": "대용량 데이터 처리 운영",
+      "period": [
+        "D1",
+        "D2",
+        "D3",
+        "D4"
+      ],
+      "trend_pattern": "입력 데이터 건수가 증가할수록 평균 처리시간도 함께 상승하는 흐름이 보인다.",
+      "main_issue": "배치 처리량 증가에 비해 처리 설정이 따라가지 못해 지연과 재시도가 늘어나는 상황이다.",
+      "feedback_themes": [
+        "처리 지연 증가",
+        "재시도 빈도 상승",
+        "개선안 우선순위 필요"
+      ],
+      "decision_goal": "차트, 표, 로그를 함께 읽고 병목 원인을 짚은 뒤 가장 먼저 적용할 개선안을 정리한다."
+    },
+    "mission": {
+      "title": "대용량 처리 지연 추세를 읽고 우선 개선안 고르기",
+      "task_type": "research_and_analysis",
+      "secondary_task_types": [],
+      "difficulty": {
+        "level": "normal",
+        "label": "보통",
+        "estimated_time_minutes": 15,
+        "material_bundle_style": "light_work_material_bundle",
+        "material_count_range": [
+          2,
+          3
+        ],
+        "task_count_range": [
+          2,
+          3
+        ],
+        "answer_length_hint": "400~700자",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "데이터분석가",
+        "context": "가상 운영팀이 대용량 배치 작업의 처리 지연 문제를 점검하고 있다.",
+        "goal": "주어진 차트, 표, 로그를 종합해 원인을 요약하고 우선 조치안을 선택한다.",
+        "constraints": [
+          "제공된 자료만 사용한다.",
+          "외부 조사나 실제 기업 사례를 쓰지 않는다.",
+          "짧고 이해하기 쉽게 정리한다."
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "m1",
+          "type": "chart",
+          "subtype": "trend_line",
+          "title": "최근 4구간 데이터량과 평균 처리시간 추이",
+          "description": "데이터량은 증가하고 평균 처리시간도 함께 늘어나는 경향을 보여 주는 추세 차트다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "증가 추세와 지연 확대 여부를 읽는다.",
+          "evidence_source": [
+            "정보, 자료 분석",
+            "정보 처리",
+            "수리력"
+          ],
+          "mission_fact_refs": [
+            "mission_facts.period",
+            "mission_facts.trend_pattern",
+            "mission_facts.main_issue",
+            "mission_facts.decision_goal"
+          ],
+          "data": {
+            "chart_type": "line",
+            "x_axis": {
+              "label": "구간",
+              "values": [
+                "D1",
+                "D2",
+                "D3",
+                "D4"
+              ]
+            },
+            "y_axis": {
+              "label": "처리량/처리시간",
+              "unit": "건, 분"
+            },
+            "series": [
+              {
+                "name": "입력 데이터 건수",
+                "values": [
+                  120,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              {
+                "name": "평균 처리시간",
+                "values": [
+                  18,
+                  22,
+                  29,
+                  37
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "option"
+              },
+              {
+                "key": "strength",
+                "label": "strength"
+              },
+              {
+                "key": "weakness",
+                "label": "weakness"
+              },
+              {
+                "key": "priority",
+                "label": "priority"
+              }
+            ],
+            "rows": [],
+            "author": "가상 시스템",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.94,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m2",
+          "type": "table",
+          "subtype": "decision_table",
+          "title": "개선 विकल्प 비교표",
+          "description": "처리 지연을 줄이기 위한 세 가지 개선 옵션을 장단점과 우선순위로 비교한 표다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "대안별 장단점을 비교하고 우선순위를 정한다.",
+          "evidence_source": [
+            "논리적 분석",
+            "의사 결정, 문제점 해결",
+            "목표, 전략 수립"
+          ],
+          "mission_fact_refs": [
+            "mission_facts.main_issue",
+            "mission_facts.feedback_themes",
+            "mission_facts.decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "항목",
+              "values": [
+                "파티션 기준 조정",
+                "배치 크기 조정",
+                "동시 처리 자원 확대"
+              ]
+            },
+            "y_axis": {
+              "label": "평가",
+              "unit": "점"
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "option"
+              },
+              {
+                "key": "strength",
+                "label": "strength"
+              },
+              {
+                "key": "weakness",
+                "label": "weakness"
+              },
+              {
+                "key": "priority",
+                "label": "priority"
+              }
+            ],
+            "rows": [
+              {
+                "option": "파티션 기준 조정",
+                "strength": "데이터를 고르게 나눠 처리 편차를 줄이기 쉽다.",
+                "weakness": "분할 기준을 다시 검토해야 해서 초기 설정 시간이 든다.",
+                "priority": 1
+              },
+              {
+                "option": "배치 크기 조정",
+                "strength": "한 번에 처리하는 양을 줄여 지연을 완화할 수 있다.",
+                "weakness": "너무 작게 잡으면 실행 횟수가 늘어날 수 있다.",
+                "priority": 2
+              },
+              {
+                "option": "동시 처리 자원 확대",
+                "strength": "처리 능력을 빠르게 높일 수 있다.",
+                "weakness": "자원 사용량이 늘어 비용 부담이 생길 수 있다.",
+                "priority": 3
+              }
+            ],
+            "author": "가상 운영팀",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.92,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m3",
+          "type": "log",
+          "subtype": "processing_log",
+          "title": "배치 처리 관찰 로그",
+          "description": "지연과 재시도가 발생한 시점의 운영 로그를 요약한 기록이다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "지연이 발생한 시점과 반복 신호를 확인한다.",
+          "evidence_source": [
+            "정보 수집",
+            "절차, 자료, 주변환경 관찰",
+            "컴퓨터 업무"
+          ],
+          "mission_fact_refs": [
+            "mission_facts.main_issue",
+            "mission_facts.feedback_themes",
+            "mission_facts.decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "구간",
+              "values": [
+                "D1",
+                "D2",
+                "D3",
+                "D4"
+              ]
+            },
+            "y_axis": {
+              "label": "건수",
+              "unit": "건"
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "option"
+              },
+              {
+                "key": "strength",
+                "label": "strength"
+              },
+              {
+                "key": "weakness",
+                "label": "weakness"
+              },
+              {
+                "key": "priority",
+                "label": "priority"
+              }
+            ],
+            "rows": [],
+            "author": "가상 운영 로그",
+            "items": [
+              {
+                "text": "D1에는 정상 종료가 확인되었고 재시도는 없었다.",
+                "period": "D1",
+                "task": "배치 시작 확인",
+                "constraint": "제공된 로그만 사용",
+                "label": "정상",
+                "status": "checked",
+                "importance": "중간"
+              },
+              {
+                "text": "D3부터 입력 데이터가 늘면서 큐 대기 시간이 길어졌다.",
+                "period": "D3",
+                "task": "지연 관찰",
+                "constraint": "제공된 로그만 사용",
+                "label": "지연",
+                "status": "issue",
+                "importance": "높음"
+              },
+              {
+                "text": "D4에는 임시 파일 생성이 늦어져 재시도가 2회 발생했다.",
+                "period": "D4",
+                "task": "재시도 확인",
+                "constraint": "제공된 로그만 사용",
+                "label": "재시도",
+                "status": "issue",
+                "importance": "높음"
+              }
+            ],
+            "thread": [],
+            "entries": [
+              {
+                "time": "09:10",
+                "actor": "시스템",
+                "event": "작업 시작",
+                "note": "D1 작업은 예정대로 시작됨"
+              },
+              {
+                "time": "09:42",
+                "actor": "시스템",
+                "event": "대기 시간 증가",
+                "note": "D3부터 입력량 증가 영향이 관찰됨"
+              },
+              {
+                "time": "10:05",
+                "actor": "시스템",
+                "event": "재시도 발생",
+                "note": "D4에서 처리 지연으로 재시도 2회 기록"
+              }
+            ],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.9,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "t1",
+          "instruction": "차트와 로그를 함께 보고 최근 구간의 처리량과 처리시간 변화가 어떻게 연결되는지 요약하라.",
+          "required_materials": [
+            "m1",
+            "m3"
+          ],
+          "expected_action": "추세와 이상 신호를 함께 설명한다."
+        },
+        {
+          "task_id": "t2",
+          "instruction": "개선 옵션 표를 보고 가장 먼저 적용할 1개를 고르고, 그 이유를 장단점 기준으로 적으라.",
+          "required_materials": [
+            "m2"
+          ],
+          "expected_action": "대안 비교 후 우선순위를 선택한다."
+        },
+        {
+          "task_id": "t3",
+          "instruction": "위 결과를 종합해 운영팀에 보낼 최종 권고안을 3문장 이내로 작성하라.",
+          "required_materials": [
+            "m1",
+            "m2",
+            "m3"
+          ],
+          "expected_action": "종합 판단과 실행 권고를 제시한다."
+        }
+      ],
+      "submission_format": {
+        "type": "text",
+        "estimated_time_minutes": 15,
+        "required_sections": [
+          "핵심 관찰",
+          "우선순위 판단",
+          "권고안"
+        ],
+        "length_hint": "400~700자"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "입력 데이터 건수가 증가할수록 평균 처리시간도 함께 늘어난다.",
+        "로그에서 지연과 재시도가 함께 나타나 병목 가능성이 높다.",
+        "개선안은 파티션 기준 조정이 가장 먼저 검토할 만하다."
+      ],
+      "rubric": [
+        {
+          "criterion": "추세 해석",
+          "description": "차트와 로그를 연결해 처리량 증가와 지연 확대의 관계를 정확히 읽는다.",
+          "points": 4,
+          "linked_evidence": [
+            "정보, 자료 분석",
+            "정보 처리",
+            "수리력"
+          ]
+        },
+        {
+          "criterion": "대안 비교",
+          "description": "표의 장단점을 비교해 우선순위를 일관되게 정한다.",
+          "points": 3,
+          "linked_evidence": [
+            "논리적 분석",
+            "의사 결정, 문제점 해결",
+            "목표, 전략 수립"
+          ]
+        },
+        {
+          "criterion": "권고의 타당성",
+          "description": "관찰 결과를 바탕으로 실행 가능한 권고를 제시한다.",
+          "points": 3,
+          "linked_evidence": [
+            "정보 수집",
+            "절차, 자료, 주변환경 관찰",
+            "컴퓨터 업무"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_003",
+        "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다."
+      },
+      "linked_evidence": {
+        "activities": [
+          "정보 수집",
+          "정보 처리",
+          "정보, 자료 분석",
+          "의사 결정, 문제점 해결"
+        ],
+        "knowledge": [
+          "산수와 수학",
+          "공학과 기술",
+          "사무"
+        ],
+        "abilities": [
+          "수리력",
+          "전산",
+          "논리적 분석"
+        ]
+      },
+      "material_evidence_map": [
+        {
+          "material_id": "m1",
+          "supported_by": [
+            "정보, 자료 분석",
+            "정보 처리",
+            "수리력"
+          ]
+        },
+        {
+          "material_id": "m2",
+          "supported_by": [
+            "논리적 분석",
+            "의사 결정, 문제점 해결",
+            "목표, 전략 수립"
+          ]
+        },
+        {
+          "material_id": "m3",
+          "supported_by": [
+            "정보 수집",
+            "절차, 자료, 주변환경 관찰",
+            "컴퓨터 업무"
+          ]
+        }
+      ]
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "validator_errors": [
+    {
+      "path": "mission.materials[0].mission_fact_refs",
+      "severity": "fail",
+      "code": "MISSION_FACT_REF_NOT_FOUND",
+      "message": "Unknown fact refs: ['mission_facts.period', 'mission_facts.trend_pattern', 'mission_facts.main_issue', 'mission_facts.decision_goal']",
+      "required_fix": "Use existing mission_facts keys.",
+      "repairable": true
+    },
+    {
+      "path": "mission.materials[1].mission_fact_refs",
+      "severity": "fail",
+      "code": "MISSION_FACT_REF_NOT_FOUND",
+      "message": "Unknown fact refs: ['mission_facts.main_issue', 'mission_facts.feedback_themes', 'mission_facts.decision_goal']",
+      "required_fix": "Use existing mission_facts keys.",
+      "repairable": true
+    },
+    {
+      "path": "mission.materials[2].mission_fact_refs",
+      "severity": "fail",
+      "code": "MISSION_FACT_REF_NOT_FOUND",
+      "message": "Unknown fact refs: ['mission_facts.main_issue', 'mission_facts.feedback_themes', 'mission_facts.decision_goal']",
+      "required_fix": "Use existing mission_facts keys.",
+      "repairable": true
+    },
+    {
+      "path": "mission.materials[2].data.entries",
+      "severity": "fail",
+      "code": "MATERIAL_SIZE_TOO_SMALL",
+      "message": "count 3 is below minimum 4.",
+      "required_fix": "Add items.",
+      "repairable": true
+    }
+  ],
+  "validator_warnings": [
+    {
+      "path": "evaluation.rubric",
+      "severity": "warning",
+      "code": "RUBRIC_POINTS_NOT_100",
+      "message": "rubric points sum is 10.",
+      "required_fix": "Adjust points to 100.",
+      "repairable": true
+    }
+  ],
+  "repair_rules": [
+    "material.evidence_source must use only exact strings from allowed_evidence_names.",
+    "Do not use source_ref file names, XML field names, or invented evidence labels.",
+    "For table materials, data.columns keys must be option, strength, weakness, priority and rows must use the same keys.",
+    "JSON만 출력한다.",
+    "target_exec_job, task_type, secondary_task_types, difficulty는 변경하지 않는다.",
+    "allowed_material_types 밖의 material을 추가하지 않는다.",
+    "reliability는 {\"status\":\"pending_validation\"}로 둔다.",
+    "validator_errors와 validator_warnings에 해당하는 부분만 수정한다."
+  ]
+}

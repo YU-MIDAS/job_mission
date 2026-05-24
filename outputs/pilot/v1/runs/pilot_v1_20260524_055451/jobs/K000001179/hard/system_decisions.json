@@ -1,0 +1,82 @@
+{
+  "schema_version": "system_decisions.v1",
+  "job_cd": "K000001179",
+  "job_name": "투자분석가",
+  "difficulty": {
+    "level": "hard",
+    "label": "어려움",
+    "estimated_time_minutes": 20,
+    "material_bundle_style": "work_document_packet",
+    "material_count_range": [
+      3,
+      4
+    ],
+    "task_count_range": [
+      3,
+      4
+    ],
+    "answer_length_hint": "700~1000자",
+    "requires_cross_material_reasoning": true,
+    "requires_tradeoff_judgment": true,
+    "requires_domain_expertise": false
+  },
+  "selected_exec_job": {
+    "exec_job_id": "exec_001",
+    "text": "국내외 경제상황 및 산업·기업별 정보를 수집·분석한다.",
+    "source_ref": {
+      "file": "K000001179/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 1
+    },
+    "selection_reason": "Pilot config selected exec_001."
+  },
+  "primary_task_type": "research_and_analysis",
+  "secondary_task_types": [],
+  "allowed_material_types": [
+    "email",
+    "chart",
+    "table",
+    "memo"
+  ],
+  "excluded_material_types": [
+    "image",
+    "screenshot"
+  ],
+  "generation_constraints": {
+    "language": "ko",
+    "json_only": true,
+    "no_real_company_names": true,
+    "no_real_person_names": true,
+    "no_external_research": true,
+    "non_expert_friendly": true,
+    "must_use_provided_materials_only": true,
+    "llm_must_not_create_reliability_score": true,
+    "factual_status_required": true
+  },
+  "decision_trace": [
+    {
+      "step": "select_target_exec_job",
+      "method": "pilot_config.preferred_exec_job_id",
+      "selected": "exec_001",
+      "reason": "Pilot config selected exec_001."
+    },
+    {
+      "step": "classify_task_type",
+      "method": "pilot_config.preferred_primary_task_type",
+      "selected": "research_and_analysis",
+      "reason": "Pilot config fixed the primary task type."
+    },
+    {
+      "step": "select_allowed_material_types",
+      "method": "pilot_job_material_config",
+      "selected": [
+        "email",
+        "chart",
+        "table",
+        "memo"
+      ],
+      "reason": "hard material candidates were selected within max 5."
+    }
+  ],
+  "decision_warnings": []
+}

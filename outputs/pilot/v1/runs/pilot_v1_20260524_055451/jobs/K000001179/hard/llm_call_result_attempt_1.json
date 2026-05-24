@@ -1,0 +1,748 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-mini",
+  "call_type": "repair_generation",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.4,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "status": "completed",
+  "output_json": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000001179",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "금융·보험 전문가",
+      "job_smcl_nm": "투자분석가",
+      "source_ref": {
+        "file": "K000001179/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_001",
+      "text": "국내외 경제상황 및 산업·기업별 정보를 수집·분석한다.",
+      "source_ref": {
+        "file": "K000001179/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 1
+      },
+      "selection_reason": "Pilot config selected exec_001."
+    },
+    "mission_facts": {
+      "org_name": "가상 투자리서치팀",
+      "domain": "국내외 경제상황 및 산업·기업별 정보 수집·분석",
+      "period": [
+        "최근 3개월",
+        "향후 1분기"
+      ],
+      "trend_pattern": "금리와 경기 둔화 신호가 혼재해 업종별 차별화가 커지는 흐름",
+      "main_issue": "제공된 자료들 간 신호가 엇갈려 우선순위를 정한 시장 해석이 필요함",
+      "feedback_themes": [
+        "경제 지표와 산업 흐름을 함께 보아야 함",
+        "정량 자료와 정성 메모를 연결해야 함",
+        "결론보다 근거 구조가 명확해야 함"
+      ],
+      "decision_goal": "자료를 종합해 업종 전망의 우선순위와 관찰 포인트를 정리한다."
+    },
+    "mission": {
+      "title": "경제·산업 자료를 종합한 업종 전망 초안 작성",
+      "task_type": "research_and_analysis",
+      "secondary_task_types": [],
+      "difficulty": {
+        "level": "hard",
+        "label": "어려움",
+        "estimated_time_minutes": 20,
+        "material_bundle_style": "work_document_packet",
+        "material_count_range": [
+          3,
+          4
+        ],
+        "task_count_range": [
+          3,
+          4
+        ],
+        "answer_length_hint": "700~1000자",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": true,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "투자분석가",
+        "context": "리서치팀이 업종 점검 회의를 앞두고 있으며, 메모·차트·비교표·메일을 바탕으로 1차 판단 초안을 만들어야 한다.",
+        "goal": "자료 간 차이를 비교해 핵심 업종 방향성과 리스크를 정리한다.",
+        "constraints": [
+          "제공된 자료만 사용한다",
+          "실제 회사명과 인명은 쓰지 않는다",
+          "정답보다 근거와 우선순위가 중요하다",
+          "간단한 비전문가 표현으로 작성한다"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "m1",
+          "type": "memo",
+          "subtype": "internal_brief",
+          "title": "시장 점검 메모",
+          "description": "최근 경기와 업종 흐름을 요약한 내부 메모",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "시장 해석의 기준점과 핵심 변수 확인",
+          "evidence_source": [
+            "정보 수집",
+            "정보, 자료 분석",
+            "목표, 전략 수립"
+          ],
+          "mission_fact_refs": [
+            "period",
+            "trend_pattern",
+            "main_issue"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "점검 항목",
+              "values": [
+                "금리",
+                "경기",
+                "업종차별화"
+              ]
+            },
+            "y_axis": {
+              "label": "참고 강도",
+              "unit": "점"
+            },
+            "series": [
+              {
+                "name": "점검 메모",
+                "values": [
+                  3,
+                  4,
+                  5
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "항목"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [
+              {
+                "option": "금리",
+                "strength": "안정 기대가 일부 반영됨",
+                "weakness": "변동성에 따라 해석이 달라짐",
+                "priority": 2
+              },
+              {
+                "option": "경기",
+                "strength": "회복 여부를 판단하는 핵심 변수",
+                "weakness": "단기 신호가 혼재함",
+                "priority": 1
+              }
+            ],
+            "author": "리서치팀",
+            "items": [
+              {
+                "text": "최근 지표는 경기 둔화와 완만한 회복 기대가 함께 나타난다.",
+                "period": "최근 3개월",
+                "task": "핵심 변수 정리",
+                "constraint": "제공 자료 내 표현만 사용",
+                "label": "시장 메모 1",
+                "status": "checked",
+                "importance": "high"
+              },
+              {
+                "text": "업종별 반응 속도 차이가 커서 단일 결론은 위험하다.",
+                "period": "최근 3개월",
+                "task": "해석 기준 설정",
+                "constraint": "우선순위 판단 필요",
+                "label": "시장 메모 2",
+                "status": "checked",
+                "importance": "high"
+              },
+              {
+                "text": "금리 방향은 시장 해석에 영향을 주는 핵심 변수로 보인다.",
+                "period": "최근 3개월",
+                "task": "변수 보완",
+                "constraint": "자료 범위 내 표현 사용",
+                "label": "시장 메모 3",
+                "status": "checked",
+                "importance": "medium"
+              },
+              {
+                "text": "업종별 차별화가 커져 선별적 판단이 필요하다.",
+                "period": "최근 3개월",
+                "task": "우선순위 보완",
+                "constraint": "과도한 단정 금지",
+                "label": "시장 메모 4",
+                "status": "checked",
+                "importance": "medium"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.95,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m2",
+          "type": "chart",
+          "subtype": "trend_chart",
+          "title": "업종 흐름 차트",
+          "description": "세 개 업종의 최근 추세를 비교한 차트",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "업종별 상대 강약 판단",
+          "evidence_source": [
+            "정보 처리",
+            "정보, 자료 분석",
+            "산수와 수학",
+            "논리적 분석"
+          ],
+          "mission_fact_refs": [
+            "period",
+            "trend_pattern",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "line",
+            "x_axis": {
+              "label": "기간",
+              "values": [
+                "1분기 초",
+                "1분기 중",
+                "1분기 말",
+                "2분기 초",
+                "2분기 중",
+                "2분기 말"
+              ]
+            },
+            "y_axis": {
+              "label": "상대 흐름",
+              "unit": "지수"
+            },
+            "series": [
+              {
+                "name": "방어형 업종",
+                "values": [
+                  100,
+                  102,
+                  103,
+                  104,
+                  105,
+                  106
+                ]
+              },
+              {
+                "name": "기술 관련 업종",
+                "values": [
+                  100,
+                  101,
+                  102,
+                  103,
+                  104,
+                  105
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "업종"
+              },
+              {
+                "key": "strength",
+                "label": "최근 추세 강점"
+              },
+              {
+                "key": "weakness",
+                "label": "유의점"
+              },
+              {
+                "key": "priority",
+                "label": "관찰 우선순위"
+              }
+            ],
+            "rows": [
+              {
+                "option": "방어형 업종",
+                "strength": "완만한 상승",
+                "weakness": "상승 속도는 크지 않음",
+                "priority": 1
+              },
+              {
+                "option": "경기민감 업종",
+                "strength": "저점 인식 가능",
+                "weakness": "회복 신호가 약함",
+                "priority": 3
+              },
+              {
+                "option": "기술 관련 업종",
+                "strength": "반등 흐름이 보임",
+                "weakness": "변동성이 큼",
+                "priority": 2
+              }
+            ],
+            "author": "분석담당",
+            "items": [
+              {
+                "text": "방어형 업종은 추세가 가장 안정적이다.",
+                "period": "최근 3개월",
+                "task": "추세 비교",
+                "constraint": "상대 흐름 중심",
+                "label": "차트 메모 1",
+                "status": "checked",
+                "importance": "high"
+              },
+              {
+                "text": "기술 관련 업종은 반등하지만 지속성 확인이 필요하다.",
+                "period": "최근 3개월",
+                "task": "추세 해석",
+                "constraint": "과도한 단정 금지",
+                "label": "차트 메모 2",
+                "status": "unchecked",
+                "importance": "medium"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.97,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m3",
+          "type": "table",
+          "subtype": "option_compare",
+          "title": "업종 대응안 비교표",
+          "description": "세 가지 대응안을 강점·약점·우선순위로 비교한 표",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "대응안 간 트레이드오프 판단",
+          "evidence_source": [
+            "판단과 의사결정",
+            "의사 결정, 문제점 해결",
+            "목표, 전략 수립",
+            "치열한 경쟁"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "대응안",
+              "values": [
+                "보수적 관망",
+                "선별적 비중확대",
+                "공격적 비중확대"
+              ]
+            },
+            "y_axis": {
+              "label": "상대 적합도",
+              "unit": "점"
+            },
+            "series": [
+              {
+                "name": "적합도",
+                "values": [
+                  85,
+                  92,
+                  78
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "대응안"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [
+              {
+                "option": "보수적 관망",
+                "strength": "변동성 대응에 유리",
+                "weakness": "기회 포착이 늦을 수 있음",
+                "priority": 2
+              },
+              {
+                "option": "선별적 비중확대",
+                "strength": "자료 간 신호를 반영하기 좋음",
+                "weakness": "선정 기준이 필요함",
+                "priority": 1
+              },
+              {
+                "option": "공격적 비중확대",
+                "strength": "회복 시 수익 확대 가능",
+                "weakness": "오판 위험이 큼",
+                "priority": 3
+              }
+            ],
+            "author": "투자전략담당",
+            "items": [
+              {
+                "text": "자료가 엇갈리므로 하나의 강한 결론보다 선별 전략이 적합하다.",
+                "period": "이번 분기",
+                "task": "대응안 비교",
+                "constraint": "리스크와 기회를 함께 고려",
+                "label": "비교표 1",
+                "status": "checked",
+                "importance": "high"
+              },
+              {
+                "text": "공격적 대응은 근거가 충분할 때만 제한적으로 검토한다.",
+                "period": "이번 분기",
+                "task": "리스크 점검",
+                "constraint": "과도한 확신 배제",
+                "label": "비교표 2",
+                "status": "checked",
+                "importance": "medium"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.96,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "m4",
+          "type": "email",
+          "subtype": "feedback_mail",
+          "title": "회의 전 의견 요청 메일",
+          "description": "회의 전에 보낸 내부 의견 요청 메일",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "피드백 쟁점과 회의 목적 확인",
+          "evidence_source": [
+            "이메일 이용하기",
+            "연설, 발표, 회의하기",
+            "사람들에게 조언, 상담",
+            "대인관계 유지"
+          ],
+          "mission_fact_refs": [
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "의견 항목",
+              "values": [
+                "우선순위",
+                "리스크",
+                "결론형식"
+              ]
+            },
+            "y_axis": {
+              "label": "요청 강도",
+              "unit": "건"
+            },
+            "series": [
+              {
+                "name": "요청 수",
+                "values": [
+                  1,
+                  1,
+                  1
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "의견 항목"
+              },
+              {
+                "key": "strength",
+                "label": "현재 상태"
+              },
+              {
+                "key": "weakness",
+                "label": "보완점"
+              },
+              {
+                "key": "priority",
+                "label": "중요도"
+              }
+            ],
+            "rows": [
+              {
+                "option": "우선순위",
+                "strength": "업종별 관찰 순서가 필요함",
+                "weakness": "기준이 아직 단순함",
+                "priority": 1
+              },
+              {
+                "option": "리스크",
+                "strength": "변동성 경계 필요",
+                "weakness": "구체 사례가 부족함",
+                "priority": 2
+              }
+            ],
+            "author": "리서치 매니저",
+            "items": [
+              {
+                "text": "회의 전까지 자료를 종합해 업종별 우선순위와 리스크를 정리해 달라.",
+                "period": "당일",
+                "task": "의견 요청",
+                "constraint": "짧고 명확하게 정리",
+                "label": "메일 요청 1",
+                "status": "checked",
+                "importance": "high"
+              },
+              {
+                "text": "결론은 단정형보다 조건부 표현이 좋다.",
+                "period": "당일",
+                "task": "작성 기준 안내",
+                "constraint": "불확실성 반영",
+                "label": "메일 요청 2",
+                "status": "checked",
+                "importance": "medium"
+              }
+            ],
+            "thread": [
+              {
+                "from": "리서치 매니저",
+                "to": "분석담당",
+                "subject": "업종 점검 회의 전 초안 요청",
+                "body": "차트와 비교표를 함께 보고, 우선순위와 리스크 중심으로 짧게 정리해 주세요."
+              }
+            ],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.94,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "t1",
+          "instruction": "메모와 차트를 함께 읽고, 현재 시장 해석의 기준이 되는 핵심 변수 2가지를 고르세요.",
+          "required_materials": [
+            "m1",
+            "m2"
+          ],
+          "expected_action": "핵심 변수 선택과 근거 제시"
+        },
+        {
+          "task_id": "t2",
+          "instruction": "차트와 비교표를 연결해 가장 우선적으로 볼 업종 방향성을 판단하세요.",
+          "required_materials": [
+            "m2",
+            "m3"
+          ],
+          "expected_action": "우선순위 판단"
+        },
+        {
+          "task_id": "t3",
+          "instruction": "메일의 요청 의도와 비교표의 판단을 반영해, 회의용 결론 문장을 2개 수준으로 정리하세요.",
+          "required_materials": [
+            "m3",
+            "m4"
+          ],
+          "expected_action": "조건부 결론 작성"
+        },
+        {
+          "task_id": "t4",
+          "instruction": "제공된 모든 자료를 종합해, 700~1000자 분량의 업종 전망 초안을 작성하세요.",
+          "required_materials": [
+            "m1",
+            "m2",
+            "m3",
+            "m4"
+          ],
+          "expected_action": "종합 보고서 작성"
+        }
+      ],
+      "submission_format": {
+        "type": "analysis_note",
+        "estimated_time_minutes": 20,
+        "required_sections": [
+          "핵심 판단",
+          "근거 요약",
+          "리스크와 보완점",
+          "최종 결론"
+        ],
+        "length_hint": "700~1000자"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "방어형 업종과 기술 관련 업종이 상대적으로 더 안정적이거나 개선 신호를 보인다",
+        "경기민감 업종은 회복 신호가 약해 보수적 해석이 필요하다",
+        "자료 간 신호가 엇갈리므로 선별적 대응이 적합하다",
+        "결론은 단정형보다 조건부 표현으로 제시하는 것이 좋다"
+      ],
+      "rubric": [
+        {
+          "criterion": "자료 종합 정확성",
+          "description": "메모, 차트, 표, 메일의 핵심 내용을 충돌 없이 종합했는가",
+          "points": 35,
+          "linked_evidence": [
+            "정보 수집",
+            "정보, 자료 분석",
+            "정보 처리"
+          ]
+        },
+        {
+          "criterion": "우선순위 판단",
+          "description": "업종 또는 대응안의 우선순위를 논리적으로 제시했는가",
+          "points": 30,
+          "linked_evidence": [
+            "판단과 의사결정",
+            "목표, 전략 수립",
+            "의사 결정, 문제점 해결"
+          ]
+        },
+        {
+          "criterion": "근거와 리스크 표현",
+          "description": "강점과 약점을 함께 제시하고 불확실성을 적절히 반영했는가",
+          "points": 20,
+          "linked_evidence": [
+            "논리적 분석",
+            "사물, 행동, 사건 파악",
+            "절차, 자료, 주변환경 관찰"
+          ]
+        },
+        {
+          "criterion": "전달 명확성",
+          "description": "비전문가도 이해할 수 있게 간결하고 구조적으로 작성했는가",
+          "points": 15,
+          "linked_evidence": [
+            "이메일 이용하기",
+            "연설, 발표, 회의하기",
+            "사람들에게 조언, 상담"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_001",
+        "text": "국내외 경제상황 및 산업·기업별 정보를 수집·분석한다."
+      },
+      "linked_evidence": {
+        "activities": [
+          "정보 수집",
+          "정보, 자료 분석",
+          "정보 처리",
+          "의사 결정, 문제점 해결",
+          "목표, 전략 수립"
+        ],
+        "knowledge": [
+          "경제와 회계",
+          "산수와 수학",
+          "사무",
+          "경영 및 행정"
+        ],
+        "abilities": [
+          "수리력",
+          "판단과 의사결정",
+          "선택적 집중력",
+          "논리적 분석"
+        ]
+      },
+      "material_evidence_map": [
+        {
+          "material_id": "m1",
+          "supported_by": [
+            "정보 수집",
+            "정보, 자료 분석",
+            "목표, 전략 수립"
+          ]
+        },
+        {
+          "material_id": "m2",
+          "supported_by": [
+            "정보 처리",
+            "정보, 자료 분석",
+            "산수와 수학",
+            "논리적 분석"
+          ]
+        },
+        {
+          "material_id": "m3",
+          "supported_by": [
+            "판단과 의사결정",
+            "의사 결정, 문제점 해결",
+            "목표, 전략 수립",
+            "치열한 경쟁"
+          ]
+        },
+        {
+          "material_id": "m4",
+          "supported_by": [
+            "이메일 이용하기",
+            "연설, 발표, 회의하기",
+            "사람들에게 조언, 상담",
+            "대인관계 유지"
+          ]
+        }
+      ]
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "usage": {
+    "input_tokens": 7372,
+    "output_tokens": 5696,
+    "reasoning_tokens": 2121,
+    "total_tokens": 13068
+  },
+  "errors": []
+}

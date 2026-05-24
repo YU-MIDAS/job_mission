@@ -1,0 +1,436 @@
+{
+  "schema_version": "validator_result.v1",
+  "attempt": 1,
+  "status": "pass",
+  "passed": true,
+  "repairable": false,
+  "discarded": false,
+  "reliability": {
+    "score_breakdown": {
+      "schema": {
+        "max": 20,
+        "earned": 20
+      },
+      "system_decisions": {
+        "max": 15,
+        "earned": 15
+      },
+      "materials": {
+        "max": 20,
+        "earned": 20
+      },
+      "mission_facts": {
+        "max": 15,
+        "earned": 15
+      },
+      "evidence": {
+        "max": 20,
+        "earned": 20
+      },
+      "evaluation": {
+        "max": 10,
+        "earned": 10
+      }
+    },
+    "raw_score": 100,
+    "score": 1.0,
+    "passed": true,
+    "calculated_by": "validator.v1",
+    "human_review_required": true,
+    "warning_count": 0,
+    "fail_count": 0
+  },
+  "errors": [],
+  "warnings": [],
+  "checks": {
+    "json_parse": {
+      "passed": true
+    },
+    "schema": {
+      "required_checked": true
+    },
+    "system_decisions": {
+      "aligned": true
+    },
+    "mission_facts": {
+      "fact_key_count": 7
+    },
+    "materials": {
+      "count": 4,
+      "material_ids": [
+        "m1",
+        "m2",
+        "m3",
+        "m4"
+      ]
+    },
+    "tasks": {
+      "count": 4
+    },
+    "evaluation": {
+      "rubric_points": 100
+    },
+    "evidence": {
+      "final_evidence_chain_created": true,
+      "item_count": 4
+    },
+    "difficulty": {}
+  },
+  "final_evidence_chain": {
+    "created_by": "validator.v1",
+    "source_exec_job": {
+      "exec_job_id": "exec_001",
+      "text": "국내외 경제상황 및 산업·기업별 정보를 수집·분석한다.",
+      "source_ref": {
+        "file": "K000001179/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 1
+      },
+      "selection_reason": "Pilot config selected exec_001."
+    },
+    "linked_evidence": {
+      "activities": [
+        {
+          "name": "정보 수집",
+          "score": 98,
+          "description": "모든 관련 자료에서 정보를 수집, 관찰하기 중요도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1
+          }
+        },
+        {
+          "name": "목표, 전략 수립",
+          "score": 97,
+          "description": "장기 목표를 세우고 그 목표를 달성하기 위한 전략과 실행할 목록을 명시하기 활동 중요도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2
+          }
+        },
+        {
+          "name": "사물, 행동, 사건 파악",
+          "score": 95,
+          "description": "차이점과 유사점을 분류하고 어떤 상황에서 변화를 알아차림으로써 정보를 파악하기 활동 중요도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 3
+          }
+        },
+        {
+          "name": "정보의 의미 해석",
+          "score": 95,
+          "description": "정보가 뜻하는 바와 그것이 어떻게 사용되는지 번역하거나 설명하기 활동 중요도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4
+          }
+        },
+        {
+          "name": "사람들에게 조언, 상담",
+          "score": 94,
+          "description": "경영진이나 다른 사람들에게 기술, 시스템 또는 관련 절차를 전문적으로 조언하고 안내하기 활동 중요도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "수리력",
+          "score": 99,
+          "description": "어떤 문제를 해결하기 위해 수학을 사용한다",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 1
+          }
+        },
+        {
+          "name": "판단과 의사결정",
+          "score": 95,
+          "description": "이득과 손실을 평가해서 결정을 내린다",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2
+          }
+        },
+        {
+          "name": "선택적 집중력",
+          "score": 94,
+          "description": "주의를 산만하게 하는 자극에도 불구하고 원하는 일에 집중한다",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 3
+          }
+        }
+      ],
+      "knowledge": [
+        {
+          "name": "경제와 회계",
+          "score": 97,
+          "description": "돈의 흐름, 은행업무, 그리고 재무자료의 보고와 분석과 같은 경제 및 회계원리에 관한 지식",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 1
+          }
+        },
+        {
+          "name": "영어",
+          "score": 84,
+          "description": "영어를 읽고, 쓰고, 듣고 말하는데 필요한 지식",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 2
+          }
+        },
+        {
+          "name": "사무",
+          "score": 80,
+          "description": "워드 프로세스, 문서처리 및 기타 다른 사무절차에 관한 지식",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 3
+          }
+        }
+      ],
+      "work_environment": [
+        {
+          "name": "치열한 경쟁",
+          "score": 93,
+          "description": "동료 혹은 다른 사람들과의 경쟁 정도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 1
+          }
+        },
+        {
+          "name": "마감시간",
+          "score": 89,
+          "description": "마감시간을 엄격하게 지켜야하는 빈도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 2
+          }
+        },
+        {
+          "name": "이메일 이용하기",
+          "score": 87,
+          "description": "업무 수행하면서 이메일 사용하는 정도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 3
+          }
+        }
+      ]
+    },
+    "material_evidence_map": [
+      {
+        "material_id": "m1",
+        "supported_by": [
+          "정보 수집",
+          "정보, 자료 분석",
+          "목표, 전략 수립"
+        ]
+      },
+      {
+        "material_id": "m2",
+        "supported_by": [
+          "정보 처리",
+          "정보, 자료 분석",
+          "산수와 수학",
+          "논리적 분석"
+        ]
+      },
+      {
+        "material_id": "m3",
+        "supported_by": [
+          "판단과 의사결정",
+          "의사 결정, 문제점 해결",
+          "목표, 전략 수립",
+          "치열한 경쟁"
+        ]
+      },
+      {
+        "material_id": "m4",
+        "supported_by": [
+          "이메일 이용하기",
+          "연설, 발표, 회의하기",
+          "사람들에게 조언, 상담",
+          "대인관계 유지"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "target_type": "material",
+        "target_id": "m1",
+        "mission_fact_refs": [
+          "period",
+          "trend_pattern",
+          "main_issue"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 7,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      },
+      {
+        "target_type": "material",
+        "target_id": "m2",
+        "mission_fact_refs": [
+          "period",
+          "trend_pattern",
+          "decision_goal"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 9,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 7,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 5,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 4,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      },
+      {
+        "target_type": "material",
+        "target_id": "m3",
+        "mission_fact_refs": [
+          "main_issue",
+          "feedback_themes",
+          "decision_goal"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 6,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 1,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      },
+      {
+        "target_type": "material",
+        "target_id": "m4",
+        "mission_fact_refs": [
+          "feedback_themes",
+          "decision_goal"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 3,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 5,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 10,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      }
+    ]
+  }
+}

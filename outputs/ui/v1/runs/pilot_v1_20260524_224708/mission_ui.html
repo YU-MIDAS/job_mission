@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOBSIM Mission UI - pilot_v1_20260524_224708</title>
+<style>
+:root {
+  --bg:#08090a; --bg2:#0f1011; --bg3:#161718; --bg4:#1c1d1f;
+  --b0:rgba(255,255,255,.06); --b1:rgba(255,255,255,.1); --b2:rgba(255,255,255,.16);
+  --t1:#f7f8f8; --t2:#b8bbc1; --t3:#8c929c; --t4:#626872;
+  --a:#5e6ad2; --ah:#7777ff; --ab:rgba(94,106,210,.12); --ab2:rgba(94,106,210,.26);
+  --ok:#47c07b; --warn:#f2c94c; --dng:#eb5757;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--t1);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;-webkit-font-smoothing:antialiased}
+button,textarea{font:inherit} button{cursor:pointer}
+nav{position:fixed;inset:0 0 auto;height:64px;display:flex;align-items:center;gap:18px;padding:0 24px;background:rgba(8,9,10,.78);backdrop-filter:blur(20px);border-bottom:1px solid var(--b0);z-index:50}
+.logo{font-weight:650;letter-spacing:-.01em} .logo span{color:var(--a)} .nav-meta{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto} .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--b1);background:var(--bg2);color:var(--t2);border-radius:999px;padding:4px 10px;font-size:12px} .chip.ok{color:var(--ok);border-color:rgba(71,192,123,.25)} .chip.a{color:var(--a);border-color:var(--ab2);background:var(--ab)}
+.wrap{max-width:1180px;margin:0 auto;padding:104px 24px 72px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:28px} .eyebrow{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:14px} h1{margin:0 0 10px;font-size:42px;line-height:1.08;font-weight:620;letter-spacing:-.025em} .hero p{margin:0;max-width:680px;color:var(--t2)} .hero-actions{display:flex;gap:8px}
+.btn{border:1px solid var(--b1);background:var(--bg2);color:var(--t1);border-radius:7px;padding:9px 13px;transition:.15s} .btn:hover{border-color:var(--b2);background:var(--bg3)} .btn.primary{background:var(--a);border-color:var(--a);color:white} .btn.primary:hover{background:var(--ah)}
+.job-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:22px} .job-group{border:1px solid var(--b0);background:var(--bg2);border-radius:8px;padding:15px} .job-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:12px} .job-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--t4)} .job-name{font-weight:650;letter-spacing:-.01em} .job-summary{font-size:12px;color:var(--t3)} .slot-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px} .slot-card{border:1px solid var(--b0);background:var(--bg3);border-radius:7px;padding:12px;min-height:116px;text-align:left;color:inherit;transition:.15s} .slot-card.saved:hover{border-color:var(--b2);background:var(--bg4)} .slot-card.saved.active{border-color:var(--ab2);background:var(--ab)} .slot-card.failed,.slot-card.missing{cursor:not-allowed;opacity:.82} .slot-card.failed{border-color:rgba(235,87,87,.22)} .slot-card.missing{border-color:rgba(242,201,76,.22)} .slot-top{display:flex;justify-content:space-between;gap:8px;margin-bottom:8px} .slot-diff{font-size:12px;color:var(--a)} .slot-status{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;text-transform:uppercase;color:var(--t4)} .slot-card.failed .slot-status{color:var(--dng)} .slot-card.missing .slot-status{color:var(--warn)} .slot-title{font-size:13px;color:var(--t2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden} .slot-reason{font-size:12px;color:var(--t3);line-height:1.35;margin-top:6px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start} .main{display:flex;flex-direction:column;gap:12px} .panel,.section{background:var(--bg2);border:1px solid var(--b0);border-radius:8px} .section{padding:24px} .panel{position:sticky;top:88px;padding:22px;display:flex;flex-direction:column;gap:18px} .breadcrumb{font-size:12px;color:var(--t3);margin-bottom:12px} .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px} h2{margin:0 0 10px;font-size:28px;line-height:1.24;font-weight:620;letter-spacing:-.018em} h3{margin:0 0 14px;font-size:17px;font-weight:620} .scenario{color:var(--t2);margin-bottom:14px} .constraints{display:grid;gap:7px;margin:14px 0 0;padding:0;list-style:none} .constraints li{border:1px solid var(--b0);background:var(--bg3);border-radius:6px;padding:9px 11px;color:var(--t2);font-size:13px}
+.material-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px} .tab{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--b1);background:var(--bg3);color:var(--t2)} .tab.active{color:white;background:var(--a);border-color:var(--a)} .material{display:none} .material.active{display:block} .mat-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px} .mat-title{font-weight:620} .mat-desc{color:var(--t2);font-size:13px;margin-top:4px} .type{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--t3);text-transform:uppercase} table{width:100%;border-collapse:collapse;border:1px solid var(--b0);border-radius:6px;overflow:hidden;font-size:13px} th{background:var(--bg4);color:var(--t3);font-size:11px;text-align:left;padding:9px 12px;border-bottom:1px solid var(--b0)} td{padding:9px 12px;border-bottom:1px solid var(--b0);color:var(--t2)} tr:last-child td{border-bottom:0} .num{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--a);text-align:right}
+.chart{height:260px;border:1px solid var(--b0);border-radius:7px;background:var(--bg3);padding:10px} .chart svg{width:100%;height:100%;display:block} .card-list{display:grid;gap:8px} .info-card{border:1px solid var(--b0);background:var(--bg3);border-radius:7px;padding:13px} .info-card b{display:block;margin-bottom:5px} .muted{color:var(--t3)} .timeline{display:grid;gap:8px} .timeline .item{border-left:2px solid var(--a);padding:4px 0 8px 12px;color:var(--t2)} .check-row{display:flex;gap:9px;align-items:flex-start} .check-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--ab);color:var(--a);font-size:12px;flex:0 0 auto;margin-top:2px}
+.task-list{display:grid;gap:10px;counter-reset:task} .task{border:1px solid var(--b0);background:var(--bg3);border-radius:7px;padding:14px;counter-increment:task} .task-meta{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--a);margin-bottom:6px;text-transform:uppercase} .task-instruction{color:var(--t1)} .task-answer{margin-top:12px;min-height:132px} .refs{margin-top:8px;display:flex;gap:5px;flex-wrap:wrap} .ref{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--t3);border:1px solid var(--b0);border-radius:999px;padding:2px 7px}
+.panel-label{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin-bottom:8px} .timer{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:34px;line-height:1} textarea{width:100%;min-height:180px;border:1px solid var(--b1);background:var(--bg3);border-radius:7px;padding:12px;color:var(--t1);resize:vertical;outline:none} textarea:focus{border-color:var(--a);box-shadow:0 0 0 2px var(--ab)} .char{text-align:right;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--t4)} .rubric{display:grid;gap:8px} .rubric-row{display:grid;grid-template-columns:1fr auto;gap:8px;color:var(--t2);font-size:13px} .score{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ok)} .empty{color:var(--t4);font-size:13px}
+@media (max-width:980px){.job-grid{grid-template-columns:1fr} .layout{grid-template-columns:1fr} .panel{position:static} .hero{grid-template-columns:1fr}}
+@media (max-width:620px){nav{height:auto;min-height:64px;align-items:flex-start;flex-direction:column;padding:14px 16px} .nav-meta{margin-left:0} .wrap{padding:126px 14px 48px} h1{font-size:32px} .slot-row{grid-template-columns:1fr} .section{padding:18px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">JOB<span>SIM</span> Mission UI</div>
+  <div class="nav-meta" id="navMeta"></div>
+</nav>
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">mission pilot viewer</div>
+      <h1>생성 미션을 실제 과제 화면처럼 검토합니다</h1>
+      <p>파일럿 run의 8개 미션을 직무와 난이도별로 선택해 자료, 수행 과제, 제출 형식, 평가 기준을 한 화면에서 확인합니다.</p>
+    </div>
+    <div class="hero-actions">
+      <button class="btn" id="prevBtn">이전</button>
+      <button class="btn primary" id="nextBtn">다음</button>
+    </div>
+  </header>
+  <section class="job-grid" id="jobGrid" aria-label="mission target slots"></section>
+  <section class="layout">
+    <div class="main">
+      <article class="section" id="missionHeader"></article>
+      <article class="section">
+        <h3>제공 자료</h3>
+        <div class="material-tabs" id="materialTabs"></div>
+        <div id="materialBody"></div>
+      </article>
+      <article class="section">
+        <h3>수행 과제</h3>
+        <div class="task-list" id="taskList"></div>
+      </article>
+    </div>
+    <aside class="panel">
+      <div>
+        <div class="panel-label">time limit</div>
+        <div class="timer" id="timerVal">15:00</div>
+      </div>
+      <div>
+        <div class="panel-label">submission format</div>
+        <div id="submissionBox" class="muted"></div>
+      </div>
+      <div>
+        <div class="panel-label">rubric</div>
+        <div class="rubric" id="rubricBox"></div>
+      </div>
+      <div>
+        <div class="panel-label">reliability</div>
+        <div id="reliabilityBox"></div>
+      </div>
+    </aside>
+  </section>
+</main>
+<script id="missionPayload" type="application/json">{"schema_version": "mission_ui_payload.v1.1", "run_id": "pilot_v1_20260524_224708", "summary": {"total_targets": 2, "saved_count": 2, "failed_count": 0, "repair_used_count": 0, "average_reliability_score": 1.0, "openai_api_called": true, "post_run_checks": {"json_parse_failures": [], "secret_findings": []}}, "mission_slots": [{"slot_key": "K000000997:normal", "job_cd": "K000000997", "job_name": "상품기획자", "difficulty_code": "normal", "difficulty_label": "보통", "status": "saved", "selectable": true, "mission": {"mission_id": "mission_K000000997_normal_001", "job_cd": "K000000997", "job_name": "상품기획자", "difficulty": {"level": "normal", "label": "보통", "estimated_time_minutes": 15, "material_bundle_style": "light_work_material_bundle", "material_count_range": [2, 3], "task_count_range": [2, 3], "answer_length_hint": "400~700자", "requires_cross_material_reasoning": true, "requires_tradeoff_judgment": false, "requires_domain_expertise": false}, "title": "시장 반응을 보고 우선 타깃 정하기", "task_type": "research_and_analysis", "secondary_task_types": ["decision_making"], "target_exec_job": {"exec_job_id": "exec_004", "text": "특정상품 및 서비스에 관한 현재의 판매수준, 소비자의 평가 등에 관한 정보를 체계적으로 수집·분석한다.", "source_ref": {"file": "K000000997/dtlGb_2.xml", "field": "jobsDo.execJob", "index": 4}, "selection_reason": "Pilot config selected exec_004."}, "mission_facts": {"org_name": "오름플랜 기획실", "domain": "소형 취미 키트 상품", "period": ["2026년 2월", "2026년 3월", "2026년 4월", "2026년 5월", "2026년 6월"], "trend_pattern": "입문자용 후보의 관심도는 꾸준히 상승하고, 심화형 후보는 정체에서 소폭 하락으로 이어진다.", "main_issue": "두 후보 타깃 중 어디를 먼저 공략할지 정해야 한다.", "feedback_themes": ["처음 시작하기 쉽다는 반응이 많다", "가격 대비 구성품이 적다는 의견이 있다", "짧은 시간에 끝나는 상품을 선호한다", "다음 단계 상품이 있으면 좋겠다는 요청이 있다"], "decision_goal": "고객 반응과 판매 흐름을 근거로 우선 공략할 시장과 타깃을 1순위로 정하고 다음 상품 방향을 제안한다."}, "scenario": {"role": "신입 상품기획자", "context": "사내 마케터와 함께 신규 소형 취미 키트 상품을 검토하는 상황이다. 시장 반응과 고객 의견을 함께 보고, 어떤 타깃을 먼저 공략할지 정해야 한다.", "goal": "제공된 자료만 근거로 우선 공략할 시장과 타깃 1개를 고르고, 다음 실행 제안을 정리한다.", "constraints": ["실제 회사명, 브랜드명, 인명은 쓰지 않는다.", "주어진 자료 밖의 사실은 추측해서 단정하지 않는다.", "우선 공략 타깃은 1개만 정한다.", "고객 반응과 판매 흐름을 함께 연결해 설명한다."]}, "materials": [{"material_id": "mat_01", "type": "chart", "subtype": "관심도 추이", "title": "후보 타깃 관심도 추이", "description": "최근 5개월 동안 두 후보 타깃의 관심도 변화를 비교한 차트이다.", "factual_status": "synthetic_mission_material", "used_for": "어느 타깃의 관심도가 더 빠르게 커지는지 판단한다.", "evidence_source": ["정보 수집", "사물, 행동, 사건 파악", "업무 계획, 우선순위 결정"], "mission_fact_refs": ["org_name", "domain", "period", "trend_pattern", "main_issue", "decision_goal"], "data": {"chart_type": "line", "x_axis": {"label": "월", "values": ["2월", "3월", "4월", "5월", "6월"]}, "y_axis": {"label": "관심도 지수", "unit": "점"}, "series": [{"name": "입문자용 10분 완성 키트", "values": [48, 52, 57, 63, 70]}, {"name": "주말 심화 키트", "values": [64, 62, 60, 58, 57]}], "columns": [{"key": "option", "label": "대상"}, {"key": "strength", "label": "강점"}, {"key": "weakness", "label": "약점"}, {"key": "priority", "label": "우선순위"}], "rows": [], "author": "오름플랜 리서치팀", "items": [], "thread": [], "entries": [], "cards": []}, "confidence": {"score": 0.94, "checks": {"synthetic_material": true}, "warnings": []}}, {"material_id": "mat_02", "type": "memo", "subtype": "고객 반응 메모", "title": "고객 리뷰·고객 데이터 메모", "description": "최근 설문과 상담 기록을 묶어 고객 반응을 요약한 메모이다.", "factual_status": "synthetic_mission_material", "used_for": "고객이 무엇을 좋아하고 불편해하는지 해석한다.", "evidence_source": ["정보 수집", "사물, 서비스, 사람의 질 판단", "사물, 행동, 사건 파악"], "mission_fact_refs": ["org_name", "domain", "period", "feedback_themes", "main_issue", "decision_goal"], "data": {"chart_type": "bar", "x_axis": {"label": "", "values": []}, "y_axis": {"label": "", "unit": ""}, "series": [], "columns": [{"key": "option", "label": "항목"}, {"key": "strength", "label": "좋은 반응"}, {"key": "weakness", "label": "불편 반응"}, {"key": "priority", "label": "시사점"}], "rows": [], "author": "오름플랜 리서치팀", "items": [{"text": "처음 해보는 사람도 설명이 쉬워서 바로 시작할 수 있었다는 반응이 많다.", "period": "최근 2주", "task": "해석", "constraint": "입문 장벽", "label": "입문 편의", "status": "checked", "importance": "높음"}, {"text": "가격은 크게 문제되지 않지만 구성품이 조금 적게 느껴진다는 의견이 있다.", "period": "최근 2주", "task": "해석", "constraint": "가성비", "label": "구성 만족도", "status": "issue", "importance": "높음"}, {"text": "완성 시간이 10~15분 정도라 평일 저녁에 쓰기 좋다는 반응이 있다.", "period": "최근 2주", "task": "해석", "constraint": "사용 시간", "label": "짧은 체험", "status": "checked", "importance": "중간"}, {"text": "난이도를 더 높이기보다 다음 단계 상품이 있으면 좋겠다는 의견이 많다.", "period": "최근 2주", "task": "해석", "constraint": "재구매", "label": "후속 상품 수요", "status": "checked", "importance": "높음"}], "thread": [], "entries": [], "cards": []}, "confidence": {"score": 0.92, "checks": {"synthetic_material": true}, "warnings": []}}, {"material_id": "mat_03", "type": "table", "subtype": "후보안 비교표", "title": "우선 공략 후보 비교표", "description": "우선 공략할 세 가지 상품 방향을 강점, 약점, 우선순위로 비교한 표이다.", "factual_status": "synthetic_mission_material", "used_for": "자료를 종합해 1순위 후보를 고른다.", "evidence_source": ["의사 결정, 문제점 해결", "업무 계획, 우선순위 결정", "목표, 전략 수립"], "mission_fact_refs": ["org_name", "domain", "main_issue", "decision_goal", "feedback_themes"], "data": {"chart_type": "bar", "x_axis": {"label": "", "values": []}, "y_axis": {"label": "", "unit": ""}, "series": [], "columns": [{"key": "option", "label": "후보안"}, {"key": "strength", "label": "강점"}, {"key": "weakness", "label": "약점"}, {"key": "priority", "label": "비교 우선순위"}], "rows": [{"option": "입문자용 10분 완성 키트", "strength": "관심도 상승이 뚜렷하고 처음 구매로 연결되기 쉽다.", "weakness": "단가를 크게 올리기 어렵다.", "priority": 1}, {"option": "주말 심화 키트", "strength": "체험 만족도가 높고 구성 확장 여지가 있다.", "weakness": "설명이 복잡해 첫 진입 장벽이 높다.", "priority": 3}, {"option": "선물용 소포장 키트", "strength": "시즌성 수요를 만들기 쉽다.", "weakness": "재구매 흐름으로 이어지기 약하다.", "priority": 2}], "author": "오름플랜 기획실", "items": [], "thread": [], "entries": [], "cards": []}, "confidence": {"score": 0.91, "checks": {"synthetic_material": true}, "warnings": []}}], "tasks": [{"task_id": "task_01", "instruction": "차트와 메모를 함께 보고, 지금 가장 먼저 확인해야 할 변화나 문제를 1~2개로 정리하세요.", "required_materials": ["mat_01", "mat_02"], "expected_action": "observe"}, {"task_id": "task_02", "instruction": "차트, 메모, 비교표를 연결해 어떤 타깃을 우선 공략하는 것이 더 적절한지 판단하고, 근거를 두 가지로 설명하세요.", "required_materials": ["mat_01", "mat_02", "mat_03"], "expected_action": "compare"}, {"task_id": "task_03", "instruction": "상품 기획서 초안으로 우선 공략 타깃 1개와 다음 실행 제안을 제시하세요. 실행 제안에는 고객 니즈와 보완 포인트를 함께 적으세요.", "required_materials": ["mat_02", "mat_03"], "expected_action": "recommend"}], "submission_format": {"type": "상품 기획서 초안", "estimated_time_minutes": 15, "required_sections": ["우선 공략 타깃", "근거 요약", "다음 실행 제안"], "length_hint": "400~700자"}, "evaluation": {"expected_insights": ["입문자용 타깃의 관심도 상승과 긍정 반응이 서로 맞물린다.", "심화형 후보는 만족도는 있지만 첫 공략 타깃으로는 진입 장벽이 높다.", "우선 타깃을 하나로 좁히고 다음 단계 보완안을 함께 제시해야 한다."], "rubric": [{"criterion": "자료 해석 정확성", "description": "차트와 메모의 흐름을 연결해 핵심 변화와 고객 반응을 정확히 짚는다.", "points": 40, "linked_evidence": ["정보 수집", "사물, 행동, 사건 파악", "사물, 서비스, 사람의 질 판단"]}, {"criterion": "우선순위 판단", "description": "후보 타깃을 비교해 어느 시장을 먼저 공략할지 자료 근거로 판단한다.", "points": 35, "linked_evidence": ["의사 결정, 문제점 해결", "업무 계획, 우선순위 결정", "목표, 전략 수립"]}, {"criterion": "실행 제안의 구체성", "description": "상품 기획서 초안으로 다음 행동과 보완 포인트를 한 가지로 정리한다.", "points": 25, "linked_evidence": ["창조적 생각", "사람들의 업무와 활동을 조직, 편성", "설득"]}]}, "reliability": {"score": 1.0, "warning_count": 0, "fail_count": 0, "repair_count": 0}, "relative_path": "jobs/K000000997/normal/mission_output.json"}, "mission_output_path": "jobs/K000000997/normal/mission_output.json", "run_status_path": "jobs/K000000997/normal/run_status.json"}, {"slot_key": "K000001080:normal", "job_cd": "K000001080", "job_name": "데이터분석가(빅데이터분석가)", "difficulty_code": "normal", "difficulty_label": "보통", "status": "saved", "selectable": true, "mission": {"mission_id": "mission_K000001080_normal_001", "job_cd": "K000001080", "job_name": "데이터분석가(빅데이터분석가)", "difficulty": {"level": "normal", "label": "보통", "estimated_time_minutes": 15, "material_bundle_style": "light_work_material_bundle", "material_count_range": [2, 3], "task_count_range": [2, 3], "answer_length_hint": "400~700자", "requires_cross_material_reasoning": true, "requires_tradeoff_judgment": false, "requires_domain_expertise": false}, "title": "주문 정체 원인 진단과 주 KPI 재설계", "task_type": "research_and_analysis", "secondary_task_types": [], "target_exec_job": {"exec_job_id": "exec_003", "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다.", "source_ref": {"file": "K000001080/dtlGb_2.xml", "field": "jobsDo.execJob", "index": 3}, "selection_reason": "Pilot config selected exec_003."}, "mission_facts": {"org_name": "세움서비스랩", "domain": "모바일 구독형 서비스 데이터 분석", "period": ["최근 5주"], "trend_pattern": "방문수는 꾸준히 증가했지만 주문수는 거의 정체되어 있고, 재방문율은 소폭 상승했다.", "main_issue": "유입 확대에 비해 주문 전환이 따라오지 않아 주 KPI를 무엇으로 둘지 다시 정해야 한다.", "feedback_themes": ["방문 대비 주문 효율이 낮다", "재방문은 늘지만 구매로 이어지지 않는다", "이벤트 수집 오류는 크지 않다"], "decision_goal": "주간 대시보드의 핵심 KPI 1개와 보조 지표를 정해 팀의 다음 분석 방향을 확정한다."}, "scenario": {"role": "주니어 데이터분석가", "context": "세움서비스랩의 PM / PD / 엔지니어가 주간 운영회의에서 성과 확인과 서비스 개선을 위해 대시보드 기준을 다시 잡아달라고 요청했다. 제공된 자료를 바탕으로 무엇을 주 KPI로 볼지 판단해야 한다.", "goal": "고객 행동 지표와 주문 추이, 이벤트 수집 점검 로그를 함께 보고 이번 대시보드의 핵심 KPI와 보조 지표를 제안한다.", "constraints": ["제공된 자료만 사용한다.", "실제 기업명, 제품명, 인명은 쓰지 않는다.", "주 KPI는 1개로 제안하되 보조 지표도 함께 적는다.", "데이터 수집 문제와 실제 서비스 문제를 구분해 해석한다."]}, "materials": [{"material_id": "mat_01", "type": "table", "subtype": "kpi_comparison_table", "title": "주간 KPI 후보 비교표", "description": "방문수, 재방문율, 전환율, 주문수를 비교해 이번 대시보드의 주 지표를 고를 수 있게 정리한 표이다. 우선순위 열은 참고용이다.", "factual_status": "synthetic_mission_material", "used_for": "주 KPI 후보를 비교하고 우선순위를 고른다.", "evidence_source": ["정보 처리", "정보, 자료 분석", "의사 결정, 문제점 해결", "정보의 의미 해석"], "mission_fact_refs": ["org_name", "domain", "decision_goal", "main_issue"], "data": {"chart_type": "bar", "x_axis": {"label": "비교 항목", "values": ["방문수", "재방문율", "전환율", "주문수"]}, "y_axis": {"label": "상대적 적합성", "unit": "점"}, "series": [{"name": "적합성 참고값", "values": [3, 4, 5, 4]}], "columns": [{"key": "option", "label": "지표 후보"}, {"key": "strength", "label": "강점"}, {"key": "weakness", "label": "약점"}, {"key": "priority", "label": "우선순위(참고)"}], "rows": [{"option": "방문수", "strength": "유입 규모를 빠르게 볼 수 있다.", "weakness": "전환 문제를 직접 보여주지 못한다.", "priority": 3}, {"option": "재방문율", "strength": "고객 충성도 변화를 볼 수 있다.", "weakness": "주문 증가와의 연결이 약하다.", "priority": 2}, {"option": "전환율", "strength": "유입 대비 성과를 가장 직접적으로 보여준다.", "weakness": "절대 주문 규모는 따로 봐야 한다.", "priority": 1}, {"option": "주문수", "strength": "매출 흐름과 가장 가깝다.", "weakness": "유입과 전환 원인을 분리하기 어렵다.", "priority": 2}], "author": "분석지원팀", "items": [], "thread": [], "entries": [], "cards": []}, "confidence": {"score": 0.94, "checks": {"synthetic_material": true}, "warnings": []}}, {"material_id": "mat_02", "type": "chart", "subtype": "weekly_trend_line", "title": "주간 방문수와 주문수 추이", "description": "최근 5주 동안 방문은 늘었지만 주문은 거의 제자리인 흐름을 보여주는 차트이다.", "factual_status": "synthetic_mission_material", "used_for": "유입 대비 주문 정체 여부를 확인한다.", "evidence_source": ["정보 수집", "정보 처리", "정보, 자료 분석", "논리적 분석"], "mission_fact_refs": ["org_name", "domain", "period", "trend_pattern", "main_issue"], "data": {"chart_type": "line", "x_axis": {"label": "주차", "values": ["1주차", "2주차", "3주차", "4주차", "5주차"]}, "y_axis": {"label": "건수", "unit": "건"}, "series": [{"name": "방문수", "values": [820, 860, 910, 930, 980]}, {"name": "주문수", "values": [102, 101, 104, 103, 105]}], "columns": [{"key": "option", "label": "항목"}, {"key": "strength", "label": "강점"}, {"key": "weakness", "label": "약점"}, {"key": "priority", "label": "우선순위"}], "rows": [], "author": "분석지원팀", "items": [], "thread": [], "entries": [], "cards": []}, "confidence": {"score": 0.96, "checks": {"synthetic_material": true}, "warnings": []}}, {"material_id": "mat_03", "type": "log", "subtype": "event_quality_log", "title": "이벤트 수집 점검 로그", "description": "주문 이벤트가 실제로 누락됐는지, 아니면 서비스 지표가 정체된 것인지 확인하는 점검 기록이다.", "factual_status": "synthetic_mission_material", "used_for": "지표 하락이 데이터 수집 문제인지 서비스 문제인지 가늠한다.", "evidence_source": ["정보 수집", "절차, 자료, 주변환경 관찰", "정보 처리", "사물, 행동, 사건 파악"], "mission_fact_refs": ["org_name", "domain", "trend_pattern", "main_issue"], "data": {"chart_type": "bar", "x_axis": {"label": "점검 항목", "values": ["앱 주문", "웹 주문", "결제완료", "재시도", "집계지연"]}, "y_axis": {"label": "상태 점검", "unit": "건"}, "series": [{"name": "점검 결과", "values": [0, 0, 1, 0, 1]}], "columns": [{"key": "option", "label": "점검 항목"}, {"key": "strength", "label": "확인 포인트"}, {"key": "weakness", "label": "한계"}, {"key": "priority", "label": "중요도"}], "rows": [], "author": "데이터운영팀", "items": [{"text": "앱 주문 이벤트 집계 지연 여부를 확인했다.", "period": "5주차", "task": "점검", "constraint": "누락 건수는 거의 없었다.", "label": "앱 주문", "status": "checked", "importance": "높음"}, {"text": "웹 주문 이벤트 집계 상태를 확인했다.", "period": "5주차", "task": "점검", "constraint": "지연이 관측되지 않았다.", "label": "웹 주문", "status": "checked", "importance": "높음"}, {"text": "결제완료 이벤트 샘플을 검증했다.", "period": "5주차", "task": "검증", "constraint": "소수 지연만 확인되었다.", "label": "결제완료", "status": "issue", "importance": "중간"}, {"text": "일별 집계 마감 결과를 확인했다.", "period": "5주차", "task": "정리", "constraint": "주문 정체를 설명할 수준의 수집 오류는 아니었다.", "label": "집계", "status": "checked", "importance": "높음"}], "thread": [], "entries": [{"time": "09:10", "actor": "데이터운영팀", "event": "앱 주문 이벤트 집계 확인", "note": "전일 누락 건수는 확인되지 않았다."}, {"time": "10:30", "actor": "데이터운영팀", "event": "웹 주문 이벤트 집계 확인", "note": "지연 발생이 없었다."}, {"time": "13:20", "actor": "QA", "event": "결제완료 이벤트 샘플 검증", "note": "샘플 일부에서 짧은 지연이 있었다."}, {"time": "15:00", "actor": "운영", "event": "재시도 로그 확인", "note": "동일 사용자 중복 집계는 없었다."}, {"time": "17:40", "actor": "분석", "event": "일별 집계 마감", "note": "주문 정체는 수집 오류보다 실제 흐름과 더 가깝다."}], "cards": []}, "confidence": {"score": 0.91, "checks": {"synthetic_material": true}, "warnings": []}}], "tasks": [{"task_id": "task_01", "instruction": "고객 행동 데이터와 주문 추이 차트를 함께 보고, 이번 대시보드에서 가장 먼저 봐야 할 핵심 변화 1가지를 고르세요. 선택 이유도 간단히 적으세요.", "required_materials": ["mat_01", "mat_02"], "expected_action": "observe"}, {"task_id": "task_02", "instruction": "이벤트 수집 점검 로그를 확인해, 1번에서 고른 변화가 실제 서비스 문제인지 데이터 수집 문제인지 진단하세요. 근거는 두 자료를 함께 연결해서 쓰세요.", "required_materials": ["mat_02", "mat_03"], "expected_action": "diagnose"}, {"task_id": "task_03", "instruction": "세 자료를 바탕으로 주 KPI 1개와 보조 지표 2개를 제안하고, 어떤 순서로 모니터링할지 적으세요.", "required_materials": ["mat_01", "mat_02", "mat_03"], "expected_action": "recommend"}], "submission_format": {"type": "짧은 분석 보고서", "estimated_time_minutes": 15, "required_sections": ["핵심 변화 요약", "원인 진단", "KPI 및 대시보드 제안"], "length_hint": "400~700자"}, "evaluation": {"expected_insights": ["방문수 증가와 주문수 정체의 괴리를 핵심 문제로 파악한다.", "점검 로그를 근거로 수집 오류보다 실제 전환 문제에 가깝다고 해석한다.", "주 KPI는 주문수 단독보다 전환율 중심으로 두고 보조 지표를 함께 제안한다."], "rubric": [{"criterion": "핵심 변화 식별", "description": "주간 방문 증가와 주문 정체의 차이를 정확히 짚고, 어떤 변화가 먼저 봐야 할 문제인지 분명하게 제시했는지 본다.", "points": 30, "linked_evidence": ["정보 수집", "정보 처리", "정보, 자료 분석"]}, {"criterion": "자료 연결 진단", "description": "주문 추이 차트와 이벤트 수집 점검 로그를 함께 연결해 실제 서비스 문제인지 데이터 수집 문제인지 진단했는지 본다.", "points": 35, "linked_evidence": ["논리적 분석", "추리력", "사물, 행동, 사건 파악"]}, {"criterion": "KPI 제안의 실행성", "description": "주 KPI 1개와 보조 지표 2개가 의사결정에 바로 쓸 수 있게 정리되었는지 본다.", "points": 35, "linked_evidence": ["의사 결정, 문제점 해결", "목표, 전략 수립", "정보의 의미 해석"]}]}, "reliability": {"score": 1.0, "warning_count": 0, "fail_count": 0, "repair_count": 0}, "relative_path": "jobs/K000001080/normal/mission_output.json"}, "mission_output_path": "jobs/K000001080/normal/mission_output.json", "run_status_path": "jobs/K000001080/normal/run_status.json"}], "missions": [{"mission_id": "mission_K000000997_normal_001", "job_cd": "K000000997", "job_name": "상품기획자", "difficulty": {"level": "normal", "label": "보통", "estimated_time_minutes": 15, "material_bundle_style": "light_work_material_bundle", "material_count_range": [2, 3], "task_count_range": [2, 3], "answer_length_hint": "400~700자", "requires_cross_material_reasoning": true, "requires_tradeoff_judgment": false, "requires_domain_expertise": false}, "title": "시장 반응을 보고 우선 타깃 정하기", "task_type": "research_and_analysis", "secondary_task_types": ["decision_making"], "target_exec_job": {"exec_job_id": "exec_004", "text": "특정상품 및 서비스에 관한 현재의 판매수준, 소비자의 평가 등에 관한 정보를 체계적으로 수집·분석한다.", "source_ref": {"file": "K000000997/dtlGb_2.xml", "field": "jobsDo.execJob", "index": 4}, "selection_reason": "Pilot config selected exec_004."}, "mission_facts": {"org_name": "오름플랜 기획실", "domain": "소형 취미 키트 상품", "period": ["2026년 2월", "2026년 3월", "2026년 4월", "2026년 5월", "2026년 6월"], "trend_pattern": "입문자용 후보의 관심도는 꾸준히 상승하고, 심화형 후보는 정체에서 소폭 하락으로 이어진다.", "main_issue": "두 후보 타깃 중 어디를 먼저 공략할지 정해야 한다.", "feedback_themes": ["처음 시작하기 쉽다는 반응이 많다", "가격 대비 구성품이 적다는 의견이 있다", "짧은 시간에 끝나는 상품을 선호한다", "다음 단계 상품이 있으면 좋겠다는 요청이 있다"], "decision_goal": "고객 반응과 판매 흐름을 근거로 우선 공략할 시장과 타깃을 1순위로 정하고 다음 상품 방향을 제안한다."}, "scenario": {"role": "신입 상품기획자", "context": "사내 마케터와 함께 신규 소형 취미 키트 상품을 검토하는 상황이다. 시장 반응과 고객 의견을 함께 보고, 어떤 타깃을 먼저 공략할지 정해야 한다.", "goal": "제공된 자료만 근거로 우선 공략할 시장과 타깃 1개를 고르고, 다음 실행 제안을 정리한다.", "constraints": ["실제 회사명, 브랜드명, 인명은 쓰지 않는다.", "주어진 자료 밖의 사실은 추측해서 단정하지 않는다.", "우선 공략 타깃은 1개만 정한다.", "고객 반응과 판매 흐름을 함께 연결해 설명한다."]}, "materials": [{"material_id": "mat_01", "type": "chart", "subtype": "관심도 추이", "title": "후보 타깃 관심도 추이", "description": "최근 5개월 동안 두 후보 타깃의 관심도 변화를 비교한 차트이다.", "factual_status": "synthetic_mission_material", "used_for": "어느 타깃의 관심도가 더 빠르게 커지는지 판단한다.", "evidence_source": ["정보 수집", "사물, 행동, 사건 파악", "업무 계획, 우선순위 결정"], "mission_fact_refs": ["org_name", "domain", "period", "trend_pattern", "main_issue", "decision_goal"], "data": {"chart_type": "line", "x_axis": {"label": "월", "values": ["2월", "3월", "4월", "5월", "6월"]}, "y_axis": {"label": "관심도 지수", "unit": "점"}, "series": [{"name": "입문자용 10분 완성 키트", "values": [48, 52, 57, 63, 70]}, {"name": "주말 심화 키트", "values": [64, 62, 60, 58, 57]}], "columns": [{"key": "option", "label": "대상"}, {"key": "strength", "label": "강점"}, {"key": "weakness", "label": "약점"}, {"key": "priority", "label": "우선순위"}], "rows": [], "author": "오름플랜 리서치팀", "items": [], "thread": [], "entries": [], "cards": []}, "confidence": {"score": 0.94, "checks": {"synthetic_material": true}, "warnings": []}}, {"material_id": "mat_02", "type": "memo", "subtype": "고객 반응 메모", "title": "고객 리뷰·고객 데이터 메모", "description": "최근 설문과 상담 기록을 묶어 고객 반응을 요약한 메모이다.", "factual_status": "synthetic_mission_material", "used_for": "고객이 무엇을 좋아하고 불편해하는지 해석한다.", "evidence_source": ["정보 수집", "사물, 서비스, 사람의 질 판단", "사물, 행동, 사건 파악"], "mission_fact_refs": ["org_name", "domain", "period", "feedback_themes", "main_issue", "decision_goal"], "data": {"chart_type": "bar", "x_axis": {"label": "", "values": []}, "y_axis": {"label": "", "unit": ""}, "series": [], "columns": [{"key": "option", "label": "항목"}, {"key": "strength", "label": "좋은 반응"}, {"key": "weakness", "label": "불편 반응"}, {"key": "priority", "label": "시사점"}], "rows": [], "author": "오름플랜 리서치팀", "items": [{"text": "처음 해보는 사람도 설명이 쉬워서 바로 시작할 수 있었다는 반응이 많다.", "period": "최근 2주", "task": "해석", "constraint": "입문 장벽", "label": "입문 편의", "status": "checked", "importance": "높음"}, {"text": "가격은 크게 문제되지 않지만 구성품이 조금 적게 느껴진다는 의견이 있다.", "period": "최근 2주", "task": "해석", "constraint": "가성비", "label": "구성 만족도", "status": "issue", "importance": "높음"}, {"text": "완성 시간이 10~15분 정도라 평일 저녁에 쓰기 좋다는 반응이 있다.", "period": "최근 2주", "task": "해석", "constraint": "사용 시간", "label": "짧은 체험", "status": "checked", "importance": "중간"}, {"text": "난이도를 더 높이기보다 다음 단계 상품이 있으면 좋겠다는 의견이 많다.", "period": "최근 2주", "task": "해석", "constraint": "재구매", "label": "후속 상품 수요", "status": "checked", "importance": "높음"}], "thread": [], "entries": [], "cards": []}, "confidence": {"score": 0.92, "checks": {"synthetic_material": true}, "warnings": []}}, {"material_id": "mat_03", "type": "table", "subtype": "후보안 비교표", "title": "우선 공략 후보 비교표", "description": "우선 공략할 세 가지 상품 방향을 강점, 약점, 우선순위로 비교한 표이다.", "factual_status": "synthetic_mission_material", "used_for": "자료를 종합해 1순위 후보를 고른다.", "evidence_source": ["의사 결정, 문제점 해결", "업무 계획, 우선순위 결정", "목표, 전략 수립"], "mission_fact_refs": ["org_name", "domain", "main_issue", "decision_goal", "feedback_themes"], "data": {"chart_type": "bar", "x_axis": {"label": "", "values": []}, "y_axis": {"label": "", "unit": ""}, "series": [], "columns": [{"key": "option", "label": "후보안"}, {"key": "strength", "label": "강점"}, {"key": "weakness", "label": "약점"}, {"key": "priority", "label": "비교 우선순위"}], "rows": [{"option": "입문자용 10분 완성 키트", "strength": "관심도 상승이 뚜렷하고 처음 구매로 연결되기 쉽다.", "weakness": "단가를 크게 올리기 어렵다.", "priority": 1}, {"option": "주말 심화 키트", "strength": "체험 만족도가 높고 구성 확장 여지가 있다.", "weakness": "설명이 복잡해 첫 진입 장벽이 높다.", "priority": 3}, {"option": "선물용 소포장 키트", "strength": "시즌성 수요를 만들기 쉽다.", "weakness": "재구매 흐름으로 이어지기 약하다.", "priority": 2}], "author": "오름플랜 기획실", "items": [], "thread": [], "entries": [], "cards": []}, "confidence": {"score": 0.91, "checks": {"synthetic_material": true}, "warnings": []}}], "tasks": [{"task_id": "task_01", "instruction": "차트와 메모를 함께 보고, 지금 가장 먼저 확인해야 할 변화나 문제를 1~2개로 정리하세요.", "required_materials": ["mat_01", "mat_02"], "expected_action": "observe"}, {"task_id": "task_02", "instruction": "차트, 메모, 비교표를 연결해 어떤 타깃을 우선 공략하는 것이 더 적절한지 판단하고, 근거를 두 가지로 설명하세요.", "required_materials": ["mat_01", "mat_02", "mat_03"], "expected_action": "compare"}, {"task_id": "task_03", "instruction": "상품 기획서 초안으로 우선 공략 타깃 1개와 다음 실행 제안을 제시하세요. 실행 제안에는 고객 니즈와 보완 포인트를 함께 적으세요.", "required_materials": ["mat_02", "mat_03"], "expected_action": "recommend"}], "submission_format": {"type": "상품 기획서 초안", "estimated_time_minutes": 15, "required_sections": ["우선 공략 타깃", "근거 요약", "다음 실행 제안"], "length_hint": "400~700자"}, "evaluation": {"expected_insights": ["입문자용 타깃의 관심도 상승과 긍정 반응이 서로 맞물린다.", "심화형 후보는 만족도는 있지만 첫 공략 타깃으로는 진입 장벽이 높다.", "우선 타깃을 하나로 좁히고 다음 단계 보완안을 함께 제시해야 한다."], "rubric": [{"criterion": "자료 해석 정확성", "description": "차트와 메모의 흐름을 연결해 핵심 변화와 고객 반응을 정확히 짚는다.", "points": 40, "linked_evidence": ["정보 수집", "사물, 행동, 사건 파악", "사물, 서비스, 사람의 질 판단"]}, {"criterion": "우선순위 판단", "description": "후보 타깃을 비교해 어느 시장을 먼저 공략할지 자료 근거로 판단한다.", "points": 35, "linked_evidence": ["의사 결정, 문제점 해결", "업무 계획, 우선순위 결정", "목표, 전략 수립"]}, {"criterion": "실행 제안의 구체성", "description": "상품 기획서 초안으로 다음 행동과 보완 포인트를 한 가지로 정리한다.", "points": 25, "linked_evidence": ["창조적 생각", "사람들의 업무와 활동을 조직, 편성", "설득"]}]}, "reliability": {"score": 1.0, "warning_count": 0, "fail_count": 0, "repair_count": 0}, "relative_path": "jobs/K000000997/normal/mission_output.json"}, {"mission_id": "mission_K000001080_normal_001", "job_cd": "K000001080", "job_name": "데이터분석가(빅데이터분석가)", "difficulty": {"level": "normal", "label": "보통", "estimated_time_minutes": 15, "material_bundle_style": "light_work_material_bundle", "material_count_range": [2, 3], "task_count_range": [2, 3], "answer_length_hint": "400~700자", "requires_cross_material_reasoning": true, "requires_tradeoff_judgment": false, "requires_domain_expertise": false}, "title": "주문 정체 원인 진단과 주 KPI 재설계", "task_type": "research_and_analysis", "secondary_task_types": [], "target_exec_job": {"exec_job_id": "exec_003", "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다.", "source_ref": {"file": "K000001080/dtlGb_2.xml", "field": "jobsDo.execJob", "index": 3}, "selection_reason": "Pilot config selected exec_003."}, "mission_facts": {"org_name": "세움서비스랩", "domain": "모바일 구독형 서비스 데이터 분석", "period": ["최근 5주"], "trend_pattern": "방문수는 꾸준히 증가했지만 주문수는 거의 정체되어 있고, 재방문율은 소폭 상승했다.", "main_issue": "유입 확대에 비해 주문 전환이 따라오지 않아 주 KPI를 무엇으로 둘지 다시 정해야 한다.", "feedback_themes": ["방문 대비 주문 효율이 낮다", "재방문은 늘지만 구매로 이어지지 않는다", "이벤트 수집 오류는 크지 않다"], "decision_goal": "주간 대시보드의 핵심 KPI 1개와 보조 지표를 정해 팀의 다음 분석 방향을 확정한다."}, "scenario": {"role": "주니어 데이터분석가", "context": "세움서비스랩의 PM / PD / 엔지니어가 주간 운영회의에서 성과 확인과 서비스 개선을 위해 대시보드 기준을 다시 잡아달라고 요청했다. 제공된 자료를 바탕으로 무엇을 주 KPI로 볼지 판단해야 한다.", "goal": "고객 행동 지표와 주문 추이, 이벤트 수집 점검 로그를 함께 보고 이번 대시보드의 핵심 KPI와 보조 지표를 제안한다.", "constraints": ["제공된 자료만 사용한다.", "실제 기업명, 제품명, 인명은 쓰지 않는다.", "주 KPI는 1개로 제안하되 보조 지표도 함께 적는다.", "데이터 수집 문제와 실제 서비스 문제를 구분해 해석한다."]}, "materials": [{"material_id": "mat_01", "type": "table", "subtype": "kpi_comparison_table", "title": "주간 KPI 후보 비교표", "description": "방문수, 재방문율, 전환율, 주문수를 비교해 이번 대시보드의 주 지표를 고를 수 있게 정리한 표이다. 우선순위 열은 참고용이다.", "factual_status": "synthetic_mission_material", "used_for": "주 KPI 후보를 비교하고 우선순위를 고른다.", "evidence_source": ["정보 처리", "정보, 자료 분석", "의사 결정, 문제점 해결", "정보의 의미 해석"], "mission_fact_refs": ["org_name", "domain", "decision_goal", "main_issue"], "data": {"chart_type": "bar", "x_axis": {"label": "비교 항목", "values": ["방문수", "재방문율", "전환율", "주문수"]}, "y_axis": {"label": "상대적 적합성", "unit": "점"}, "series": [{"name": "적합성 참고값", "values": [3, 4, 5, 4]}], "columns": [{"key": "option", "label": "지표 후보"}, {"key": "strength", "label": "강점"}, {"key": "weakness", "label": "약점"}, {"key": "priority", "label": "우선순위(참고)"}], "rows": [{"option": "방문수", "strength": "유입 규모를 빠르게 볼 수 있다.", "weakness": "전환 문제를 직접 보여주지 못한다.", "priority": 3}, {"option": "재방문율", "strength": "고객 충성도 변화를 볼 수 있다.", "weakness": "주문 증가와의 연결이 약하다.", "priority": 2}, {"option": "전환율", "strength": "유입 대비 성과를 가장 직접적으로 보여준다.", "weakness": "절대 주문 규모는 따로 봐야 한다.", "priority": 1}, {"option": "주문수", "strength": "매출 흐름과 가장 가깝다.", "weakness": "유입과 전환 원인을 분리하기 어렵다.", "priority": 2}], "author": "분석지원팀", "items": [], "thread": [], "entries": [], "cards": []}, "confidence": {"score": 0.94, "checks": {"synthetic_material": true}, "warnings": []}}, {"material_id": "mat_02", "type": "chart", "subtype": "weekly_trend_line", "title": "주간 방문수와 주문수 추이", "description": "최근 5주 동안 방문은 늘었지만 주문은 거의 제자리인 흐름을 보여주는 차트이다.", "factual_status": "synthetic_mission_material", "used_for": "유입 대비 주문 정체 여부를 확인한다.", "evidence_source": ["정보 수집", "정보 처리", "정보, 자료 분석", "논리적 분석"], "mission_fact_refs": ["org_name", "domain", "period", "trend_pattern", "main_issue"], "data": {"chart_type": "line", "x_axis": {"label": "주차", "values": ["1주차", "2주차", "3주차", "4주차", "5주차"]}, "y_axis": {"label": "건수", "unit": "건"}, "series": [{"name": "방문수", "values": [820, 860, 910, 930, 980]}, {"name": "주문수", "values": [102, 101, 104, 103, 105]}], "columns": [{"key": "option", "label": "항목"}, {"key": "strength", "label": "강점"}, {"key": "weakness", "label": "약점"}, {"key": "priority", "label": "우선순위"}], "rows": [], "author": "분석지원팀", "items": [], "thread": [], "entries": [], "cards": []}, "confidence": {"score": 0.96, "checks": {"synthetic_material": true}, "warnings": []}}, {"material_id": "mat_03", "type": "log", "subtype": "event_quality_log", "title": "이벤트 수집 점검 로그", "description": "주문 이벤트가 실제로 누락됐는지, 아니면 서비스 지표가 정체된 것인지 확인하는 점검 기록이다.", "factual_status": "synthetic_mission_material", "used_for": "지표 하락이 데이터 수집 문제인지 서비스 문제인지 가늠한다.", "evidence_source": ["정보 수집", "절차, 자료, 주변환경 관찰", "정보 처리", "사물, 행동, 사건 파악"], "mission_fact_refs": ["org_name", "domain", "trend_pattern", "main_issue"], "data": {"chart_type": "bar", "x_axis": {"label": "점검 항목", "values": ["앱 주문", "웹 주문", "결제완료", "재시도", "집계지연"]}, "y_axis": {"label": "상태 점검", "unit": "건"}, "series": [{"name": "점검 결과", "values": [0, 0, 1, 0, 1]}], "columns": [{"key": "option", "label": "점검 항목"}, {"key": "strength", "label": "확인 포인트"}, {"key": "weakness", "label": "한계"}, {"key": "priority", "label": "중요도"}], "rows": [], "author": "데이터운영팀", "items": [{"text": "앱 주문 이벤트 집계 지연 여부를 확인했다.", "period": "5주차", "task": "점검", "constraint": "누락 건수는 거의 없었다.", "label": "앱 주문", "status": "checked", "importance": "높음"}, {"text": "웹 주문 이벤트 집계 상태를 확인했다.", "period": "5주차", "task": "점검", "constraint": "지연이 관측되지 않았다.", "label": "웹 주문", "status": "checked", "importance": "높음"}, {"text": "결제완료 이벤트 샘플을 검증했다.", "period": "5주차", "task": "검증", "constraint": "소수 지연만 확인되었다.", "label": "결제완료", "status": "issue", "importance": "중간"}, {"text": "일별 집계 마감 결과를 확인했다.", "period": "5주차", "task": "정리", "constraint": "주문 정체를 설명할 수준의 수집 오류는 아니었다.", "label": "집계", "status": "checked", "importance": "높음"}], "thread": [], "entries": [{"time": "09:10", "actor": "데이터운영팀", "event": "앱 주문 이벤트 집계 확인", "note": "전일 누락 건수는 확인되지 않았다."}, {"time": "10:30", "actor": "데이터운영팀", "event": "웹 주문 이벤트 집계 확인", "note": "지연 발생이 없었다."}, {"time": "13:20", "actor": "QA", "event": "결제완료 이벤트 샘플 검증", "note": "샘플 일부에서 짧은 지연이 있었다."}, {"time": "15:00", "actor": "운영", "event": "재시도 로그 확인", "note": "동일 사용자 중복 집계는 없었다."}, {"time": "17:40", "actor": "분석", "event": "일별 집계 마감", "note": "주문 정체는 수집 오류보다 실제 흐름과 더 가깝다."}], "cards": []}, "confidence": {"score": 0.91, "checks": {"synthetic_material": true}, "warnings": []}}], "tasks": [{"task_id": "task_01", "instruction": "고객 행동 데이터와 주문 추이 차트를 함께 보고, 이번 대시보드에서 가장 먼저 봐야 할 핵심 변화 1가지를 고르세요. 선택 이유도 간단히 적으세요.", "required_materials": ["mat_01", "mat_02"], "expected_action": "observe"}, {"task_id": "task_02", "instruction": "이벤트 수집 점검 로그를 확인해, 1번에서 고른 변화가 실제 서비스 문제인지 데이터 수집 문제인지 진단하세요. 근거는 두 자료를 함께 연결해서 쓰세요.", "required_materials": ["mat_02", "mat_03"], "expected_action": "diagnose"}, {"task_id": "task_03", "instruction": "세 자료를 바탕으로 주 KPI 1개와 보조 지표 2개를 제안하고, 어떤 순서로 모니터링할지 적으세요.", "required_materials": ["mat_01", "mat_02", "mat_03"], "expected_action": "recommend"}], "submission_format": {"type": "짧은 분석 보고서", "estimated_time_minutes": 15, "required_sections": ["핵심 변화 요약", "원인 진단", "KPI 및 대시보드 제안"], "length_hint": "400~700자"}, "evaluation": {"expected_insights": ["방문수 증가와 주문수 정체의 괴리를 핵심 문제로 파악한다.", "점검 로그를 근거로 수집 오류보다 실제 전환 문제에 가깝다고 해석한다.", "주 KPI는 주문수 단독보다 전환율 중심으로 두고 보조 지표를 함께 제안한다."], "rubric": [{"criterion": "핵심 변화 식별", "description": "주간 방문 증가와 주문 정체의 차이를 정확히 짚고, 어떤 변화가 먼저 봐야 할 문제인지 분명하게 제시했는지 본다.", "points": 30, "linked_evidence": ["정보 수집", "정보 처리", "정보, 자료 분석"]}, {"criterion": "자료 연결 진단", "description": "주문 추이 차트와 이벤트 수집 점검 로그를 함께 연결해 실제 서비스 문제인지 데이터 수집 문제인지 진단했는지 본다.", "points": 35, "linked_evidence": ["논리적 분석", "추리력", "사물, 행동, 사건 파악"]}, {"criterion": "KPI 제안의 실행성", "description": "주 KPI 1개와 보조 지표 2개가 의사결정에 바로 쓸 수 있게 정리되었는지 본다.", "points": 35, "linked_evidence": ["의사 결정, 문제점 해결", "목표, 전략 수립", "정보의 의미 해석"]}]}, "reliability": {"score": 1.0, "warning_count": 0, "fail_count": 0, "repair_count": 0}, "relative_path": "jobs/K000001080/normal/mission_output.json"}]}</script>
+<script>
+const DATA = JSON.parse(document.getElementById('missionPayload').textContent);
+const SLOTS = DATA.mission_slots || (DATA.missions || []).map(m => ({
+  slot_key: `${m.job_cd}:${m.difficulty?.level || ''}`,
+  job_cd: m.job_cd,
+  job_name: m.job_name,
+  difficulty_code: m.difficulty?.level || '',
+  difficulty_label: m.difficulty?.label || m.difficulty?.level || '',
+  status: 'saved',
+  selectable: true,
+  mission: m
+}));
+let currentSlotKey = null;
+let activeMaterial = 0;
+
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const nl = value => esc(value).replace(/\n/g, '<br>');
+const savedSlots = () => SLOTS.filter(slot => slot.status === 'saved' && slot.selectable && slot.mission);
+const label = m => `${m.job_cd} / ${m.difficulty?.level || ''}`;
+
+function init() {
+  renderNav();
+  renderJobGrid();
+  const first = savedSlots()[0];
+  if (first) renderMission(first.slot_key);
+  else renderEmptyState();
+  $('prevBtn').onclick = () => moveMission(-1);
+  $('nextBtn').onclick = () => moveMission(1);
+}
+
+function renderNav() {
+  const s = DATA.summary || {};
+  $('navMeta').innerHTML = [
+    `<span class="chip a">${esc(DATA.run_id)}</span>`,
+    `<span class="chip ok">saved ${esc(s.saved_count)} / failed ${esc(s.failed_count)}</span>`,
+    `<span class="chip">API ${s.openai_api_called ? 'on' : 'off'}</span>`
+  ].join('');
+}
+
+function renderJobGrid() {
+  const byJob = new Map();
+  SLOTS.forEach(slot => {
+    if (!byJob.has(slot.job_cd)) {
+      byJob.set(slot.job_cd, { job_cd: slot.job_cd, job_name: slot.job_name, slots: [] });
+    }
+    byJob.get(slot.job_cd).slots.push(slot);
+  });
+  $('jobGrid').innerHTML = [...byJob.values()].map(group => {
+    const saved = group.slots.filter(slot => slot.status === 'saved').length;
+    const unavailable = group.slots.length - saved;
+    return `
+      <article class="job-group">
+        <div class="job-head">
+          <div><div class="job-code">${esc(group.job_cd)}</div><div class="job-name">${esc(group.job_name)}</div></div>
+          <div class="job-summary">${saved} saved / ${unavailable} unavailable</div>
+        </div>
+        <div class="slot-row">${group.slots.map(renderSlotCard).join('')}</div>
+      </article>
+    `;
+  }).join('');
+  document.querySelectorAll('.slot-card.saved').forEach(btn => {
+    btn.addEventListener('click', () => renderMission(btn.dataset.slotKey));
+  });
+}
+
+function renderSlotCard(slot) {
+  const m = slot.mission || {};
+  const failure = slot.failure || {};
+  const title = slot.status === 'saved' ? m.title : (failure.reason_code || slot.status);
+  const detail = slot.status === 'saved' ? (m.mission_id || '') : (failure.message || failure.run_status_path || 'No mission output saved.');
+  const attrs = slot.status === 'saved' ? `data-slot-key="${esc(slot.slot_key)}"` : 'aria-disabled="true"';
+  return `
+    <button class="slot-card ${esc(slot.status)}" id="slot-${esc(slot.slot_key)}" ${attrs}>
+      <div class="slot-top"><span class="slot-diff">${esc(slot.difficulty_label || slot.difficulty_code)}</span><span class="slot-status">${esc(slot.status)}</span></div>
+      <div class="slot-title">${esc(title)}</div>
+      <div class="slot-reason">${esc(detail)}</div>
+    </button>
+  `;
+}
+
+function moveMission(delta) {
+  const saved = savedSlots();
+  if (!saved.length) return;
+  const index = Math.max(0, saved.findIndex(slot => slot.slot_key === currentSlotKey));
+  const next = saved[(index + delta + saved.length) % saved.length];
+  renderMission(next.slot_key);
+}
+
+function renderMission(slotKey) {
+  const slot = SLOTS.find(item => item.slot_key === slotKey);
+  if (!slot || slot.status !== 'saved' || !slot.mission) return;
+  currentSlotKey = slotKey;
+  activeMaterial = 0;
+  const m = slot.mission;
+  document.querySelectorAll('.slot-card').forEach(el => el.classList.remove('active'));
+  const card = document.getElementById('slot-' + currentSlotKey);
+  if (card) card.classList.add('active');
+  $('timerVal').textContent = `${String(m.difficulty?.estimated_time_minutes || 15).padStart(2,'0')}:00`;
+  renderHeader(m);
+  renderMaterials(m);
+  renderTasks(m);
+  renderSide(m);
+}
+
+function renderEmptyState() {
+  $('missionHeader').innerHTML = '<div class="empty">No saved mission is available for this run.</div>';
+  $('materialTabs').innerHTML = '';
+  $('materialBody').innerHTML = '';
+  $('taskList').innerHTML = '';
+  $('submissionBox').innerHTML = '';
+  $('rubricBox').innerHTML = '';
+  $('reliabilityBox').innerHTML = '';
+}
+
+function renderHeader(m) {
+  const scenario = m.scenario || {};
+  $('missionHeader').innerHTML = `
+    <div class="breadcrumb">${esc(label(m))} <span class="muted">/ ${esc(m.mission_id)}</span></div>
+    <div class="pill-row">
+      <span class="chip a">${esc(m.task_type)}</span>
+      ${(m.secondary_task_types || []).map(t => `<span class="chip">${esc(t)}</span>`).join('')}
+      <span class="chip">score ${esc(m.reliability?.score)}</span>
+    </div>
+    <h2>${esc(m.title)}</h2>
+    <p class="scenario"><b>${esc(scenario.role)}</b><br>${esc(scenario.context)}</p>
+    <p class="scenario">${esc(scenario.goal)}</p>
+    <ul class="constraints">${(scenario.constraints || []).map(c => `<li>${esc(c)}</li>`).join('')}</ul>
+  `;
+}
+
+function renderMaterials(m) {
+  const materials = m.materials || [];
+  $('materialTabs').innerHTML = materials.map((mat, i) => `<button class="tab ${i===0?'active':''}" onclick="selectMaterial(${i})">${esc(mat.material_id)} · ${esc(mat.type)}</button>`).join('');
+  $('materialBody').innerHTML = materials.map((mat, i) => `<div class="material ${i===0?'active':''}" id="mat-${i}">${renderMaterial(mat)}</div>`).join('');
+}
+
+function selectMaterial(i) {
+  activeMaterial = i;
+  document.querySelectorAll('.tab').forEach((el, idx) => el.classList.toggle('active', idx === i));
+  document.querySelectorAll('.material').forEach((el, idx) => el.classList.toggle('active', idx === i));
+}
+
+function renderMaterial(mat) {
+  return `
+    <div class="mat-head">
+      <div><div class="mat-title">${esc(mat.title)}</div><div class="mat-desc">${esc(mat.description)}</div></div>
+      <div class="type">${esc(mat.type)} / ${esc(mat.subtype)}</div>
+    </div>
+    ${renderMaterialData(mat)}
+    <div class="refs">${(mat.evidence_source || []).map(e => `<span class="ref">${esc(e)}</span>`).join('')}</div>
+  `;
+}
+
+function renderMaterialData(mat) {
+  const d = mat.data || {};
+  if (mat.type === 'chart') return renderChart(d);
+  if (mat.type === 'table') return renderTable(d);
+  if (mat.type === 'memo') return renderMemo(d);
+  if (mat.type === 'email') return renderEmail(d);
+  if (mat.type === 'log') return renderLog(d);
+  if (mat.type === 'checklist') return renderChecklist(d);
+  if (mat.type === 'schedule') return renderSchedule(d);
+  return `<div class="empty">지원되지 않는 자료 유형입니다.</div>`;
+}
+
+function renderChart(d) {
+  const values = (d.series || []).flatMap(s => s.values || []);
+  if (!values.length) return '<div class="empty">차트 데이터 없음</div>';
+  const min = Math.min(...values), max = Math.max(...values), span = Math.max(max - min, 1);
+  const xVals = d.x_axis?.values || [];
+  const colors = ['#5e6ad2', '#47c07b'];
+  const series = (d.series || []).map((s, si) => {
+    const pts = (s.values || []).map((v, i) => {
+      const x = 48 + (i * (640 / Math.max((s.values || []).length - 1, 1)));
+      const y = 196 - ((v - min) / span) * 150;
+      return `${x},${y}`;
+    }).join(' ');
+    return `<polyline points="${pts}" fill="none" stroke="${colors[si % colors.length]}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }).join('');
+  const labels = xVals.map((x, i) => `<text x="${48 + (i * (640 / Math.max(xVals.length - 1, 1)))}" y="228" text-anchor="middle" fill="#8c929c" font-size="12">${esc(x)}</text>`).join('');
+  const legend = (d.series || []).map((s, i) => `<span class="ref" style="border-color:${colors[i % colors.length]}">${esc(s.name)}</span>`).join('');
+  return `<div class="chart"><svg viewBox="0 0 736 248" role="img" aria-label="chart"><line x1="48" y1="200" x2="688" y2="200" stroke="rgba(255,255,255,.12)"/><line x1="48" y1="36" x2="48" y2="200" stroke="rgba(255,255,255,.12)"/>${series}${labels}</svg></div><div class="refs">${legend}</div>`;
+}
+
+function renderTable(d) {
+  const cols = d.columns || [];
+  const rows = d.rows || [];
+  if (!cols.length || !rows.length) return '<div class="empty">표 데이터 없음</div>';
+  return `<table><thead><tr>${cols.map(c => `<th>${esc(c.label || c.key)}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${cols.map(c => `<td class="${typeof r[c.key] === 'number' ? 'num' : ''}">${esc(r[c.key])}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+
+function renderMemo(d) {
+  const items = d.items || [];
+  return `<div class="card-list">${items.map(it => `<div class="info-card"><b>${esc(it.label || it.period || 'memo')}</b><div>${esc(it.text || it.task)}</div><div class="muted">${esc(it.constraint || '')}</div></div>`).join('') || '<div class="empty">메모 없음</div>'}</div>`;
+}
+
+function renderEmail(d) {
+  const thread = d.thread || [];
+  return `<div class="card-list">${thread.map(mail => `<div class="info-card"><b>${esc(mail.subject)}</b><div class="muted">${esc(mail.from)} → ${esc(mail.to)}</div><p>${nl(mail.body)}</p></div>`).join('') || '<div class="empty">이메일 없음</div>'}</div>`;
+}
+
+function renderLog(d) {
+  const entries = d.entries || [];
+  return `<div class="timeline">${entries.map(e => `<div class="item"><b>${esc(e.time)} · ${esc(e.actor)}</b><br>${esc(e.event)}<div class="muted">${esc(e.note)}</div></div>`).join('') || '<div class="empty">로그 없음</div>'}</div>`;
+}
+
+function renderChecklist(d) {
+  const items = d.items || [];
+  return `<div class="card-list">${items.map(it => `<div class="info-card check-row"><span class="check-dot">${it.status === 'checked' ? '✓' : it.status === 'issue' ? '!' : '-'}</span><div><b>${esc(it.label || it.text)}</b><div class="muted">${esc(it.status)} · ${esc(it.importance)}</div></div></div>`).join('') || '<div class="empty">체크리스트 없음</div>'}</div>`;
+}
+
+function renderSchedule(d) {
+  const items = d.items || [];
+  return `<div class="timeline">${items.map(it => `<div class="item"><b>${esc(it.period)}</b><br>${esc(it.task)}<div class="muted">${esc(it.constraint)}</div></div>`).join('') || '<div class="empty">일정 없음</div>'}</div>`;
+}
+
+function renderTasks(m) {
+  $('taskList').innerHTML = (m.tasks || []).map((t, i) => `
+    <div class="task">
+      <div class="task-meta">TASK ${i + 1} / ${esc(t.task_id || '')}</div>
+      <div class="task-instruction">${esc(t.instruction)}</div>
+      <div class="refs">${(t.required_materials || []).map(id => `<span class="ref">${esc(id)}</span>`).join('')}<span class="ref">${esc(t.expected_action)}</span></div>
+      <textarea class="task-answer" data-task-id="${esc(t.task_id || ('task_' + (i + 1)))}" placeholder="이 task에 대한 답변을 작성하세요."></textarea>
+      <div class="char task-char">0자</div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.task-answer').forEach(area => {
+    const counter = area.parentElement.querySelector('.task-char');
+    area.addEventListener('input', () => {
+      counter.textContent = `${area.value.length}자`;
+    });
+  });
+}
+
+function renderSide(m) {
+  const sf = m.submission_format || {};
+  $('submissionBox').innerHTML = `
+    <div>${esc(sf.type)} · ${esc(sf.estimated_time_minutes)}분</div>
+    <div>${esc(sf.length_hint)}</div>
+    <div class="refs">${(sf.required_sections || []).map(s => `<span class="ref">${esc(s)}</span>`).join('')}</div>
+  `;
+  const rubric = m.evaluation?.rubric || [];
+  $('rubricBox').innerHTML = rubric.map(r => `<div class="rubric-row"><span>${esc(r.criterion)}</span><span>${esc(r.points)}점</span></div>`).join('');
+  const rel = m.reliability || {};
+  $('reliabilityBox').innerHTML = `<span class="score">${esc(rel.score)}</span> <span class="muted">warnings ${esc(rel.warning_count)} · repair ${esc(rel.repair_count)}</span>`;
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,953 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "mission_K000007519_hard_001",
+  "job_identity": {
+    "job_cd": "K000007519",
+    "job_lrcl_nm": "경영·사무·금융·보험직",
+    "job_mdcl_nm": "금융·보험 전문가",
+    "job_smcl_nm": "보험상품개발자",
+    "source_ref": {
+      "file": "K000007519/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": null
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_002",
+    "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다.",
+    "source_ref": {
+      "file": "K000007519/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 2
+    },
+    "selection_reason": "Pilot config selected exec_002."
+  },
+  "mission_facts": {
+    "org_name": "가상 보험상품개발팀",
+    "domain": "보험상품 개발",
+    "period": [
+      "2024 상반기"
+    ],
+    "trend_pattern": "고령층 보장 수요와 생활비 부담을 낮춘 단순형 상품 선호가 함께 높아지는 흐름",
+    "main_issue": "보장 범위와 보험료 수준의 균형을 맞추면서 고객이 이해하기 쉬운 상품 구조를 정해야 함",
+    "feedback_themes": [
+      "보험료 부담 민감도",
+      "보장 범위의 명확성",
+      "고령층·가족단위 수요",
+      "가입 절차의 단순성"
+    ],
+    "decision_goal": "국내 사회환경과 경제실정에 맞는 주력 보험상품 컨셉과 우선 출시안을 정리한다"
+  },
+  "mission": {
+    "title": "국내 환경 적합형 보험상품 출시안 수립",
+    "task_type": "planning_and_proposal",
+    "secondary_task_types": [
+      "research_and_analysis"
+    ],
+    "difficulty": {
+      "level": "hard",
+      "label": "어려움",
+      "estimated_time_minutes": 20,
+      "material_bundle_style": "work_document_packet",
+      "material_count_range": [
+        3,
+        4
+      ],
+      "task_count_range": [
+        3,
+        4
+      ],
+      "answer_length_hint": "700~1000자",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": true,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "보험상품개발팀 실무자",
+      "context": "내부 검토용 자료 묶음을 바탕으로 국내 사회환경과 경제실정에 맞는 보험상품 출시안을 정리해야 한다.",
+      "goal": "고객 반응, 수요 추세, 상품 대안을 종합해 최종 출시 우선순위와 제안 방향을 제시한다.",
+      "constraints": [
+        "제공된 자료만 활용한다",
+        "외부 조사는 하지 않는다",
+        "실제 회사명·인명은 사용하지 않는다",
+        "보험료 부담과 보장 매력의 균형을 고려한다",
+        "고객이 이해하기 쉬운 구조를 우선한다"
+      ]
+    },
+    "materials": [
+      {
+        "material_id": "m1",
+        "type": "email",
+        "subtype": "내부 검토 메일",
+        "title": "고객 반응 요약 메일",
+        "description": "세 고객군의 반응과 우려를 정리한 내부 메일",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "고객 반응을 빠르게 파악하고 주요 쟁점을 추출한다.",
+        "evidence_source": [
+          "읽고 이해하기",
+          "이메일 이용하기",
+          "정보 수집"
+        ],
+        "mission_fact_refs": [
+          "feedback_themes",
+          "main_issue"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "대상",
+            "values": [
+              "고령층",
+              "가족단위",
+              "가계부담 민감층"
+            ]
+          },
+          "y_axis": {
+            "label": "반응 강도",
+            "unit": "점"
+          },
+          "series": [
+            {
+              "name": "긍정 반응",
+              "values": [
+                78,
+                71,
+                64
+              ]
+            },
+            {
+              "name": "우려 반응",
+              "values": [
+                52,
+                49,
+                67
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "항목"
+            },
+            {
+              "key": "strength",
+              "label": "강점"
+            },
+            {
+              "key": "weakness",
+              "label": "약점"
+            },
+            {
+              "key": "priority",
+              "label": "우선순위"
+            }
+          ],
+          "rows": [],
+          "author": "가상 분석팀",
+          "items": [],
+          "thread": [
+            {
+              "from": "시장분석실",
+              "to": "상품개발담당",
+              "subject": "고객 반응 요약",
+              "body": "고령층은 보장 필요성을 높게 보지만 보험료가 너무 높으면 이탈 가능성이 큽니다. 가족단위는 이해하기 쉬운 구조를 선호하고, 가계부담 민감층은 월납 부담을 가장 먼저 확인합니다."
+            },
+            {
+              "from": "상품개발담당",
+              "to": "시장분석실",
+              "subject": "추가 확인",
+              "body": "보장 범위가 넓더라도 설명이 복잡하면 반응이 떨어집니다. 핵심 특약을 줄이고 가입 판단 기준을 단순화하는 방향이 필요합니다."
+            }
+          ],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.89,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "m2",
+        "type": "chart",
+        "subtype": "수요추세 차트",
+        "title": "고객군별 상품 관심도 추세",
+        "description": "월별 관심도 지수를 통해 세 고객군의 수요 변화를 비교한 차트",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "세 고객군의 관심 변화와 성장 방향을 비교한다.",
+        "evidence_source": [
+          "정보, 자료 분석",
+          "산수와 수학",
+          "사물, 행동, 사건 파악"
+        ],
+        "mission_fact_refs": [
+          "trend_pattern",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "line",
+          "x_axis": {
+            "label": "월",
+            "values": [
+              "1월",
+              "2월",
+              "3월",
+              "4월",
+              "5월",
+              "6월"
+            ]
+          },
+          "y_axis": {
+            "label": "관심도 지수",
+            "unit": "점"
+          },
+          "series": [
+            {
+              "name": "고령층 보장형",
+              "values": [
+                62,
+                66,
+                70,
+                74,
+                78,
+                81
+              ]
+            },
+            {
+              "name": "가계부담 완화형",
+              "values": [
+                58,
+                61,
+                65,
+                67,
+                69,
+                72
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "항목"
+            },
+            {
+              "key": "strength",
+              "label": "강점"
+            },
+            {
+              "key": "weakness",
+              "label": "약점"
+            },
+            {
+              "key": "priority",
+              "label": "우선순위"
+            }
+          ],
+          "rows": [],
+          "author": "가상 분석팀",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.88,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "m3",
+        "type": "table",
+        "subtype": "상품안 비교표",
+        "title": "후보 보험상품 대안 비교",
+        "description": "출시 가능한 후보 상품을 장단점과 우선순위로 비교한 표",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "대안별 장단점과 출시 우선순위를 비교한다.",
+        "evidence_source": [
+          "경제와 회계",
+          "재정 관리",
+          "논리적 분석"
+        ],
+        "mission_fact_refs": [
+          "main_issue",
+          "decision_goal",
+          "feedback_themes"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "대안",
+            "values": [
+              "실속형 생활보장",
+              "고령친화 결합형",
+              "가족안심형"
+            ]
+          },
+          "y_axis": {
+            "label": "우선순위",
+            "unit": "순위"
+          },
+          "series": [
+            {
+              "name": "선정 점수",
+              "values": [
+                92,
+                86,
+                81
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "대안"
+            },
+            {
+              "key": "strength",
+              "label": "강점"
+            },
+            {
+              "key": "weakness",
+              "label": "약점"
+            },
+            {
+              "key": "priority",
+              "label": "우선순위"
+            }
+          ],
+          "rows": [
+            {
+              "option": "실속형 생활보장",
+              "strength": "보험료 부담이 낮고 구조가 단순하다",
+              "weakness": "보장 한도가 상대적으로 낮다",
+              "priority": 1
+            },
+            {
+              "option": "고령친화 결합형",
+              "strength": "고령층 수요와 적합성이 높다",
+              "weakness": "설계가 복잡하고 검토 항목이 많다",
+              "priority": 2
+            },
+            {
+              "option": "가족안심형",
+              "strength": "가족단위 수요에 대응하기 쉽다",
+              "weakness": "특약이 많아 이해도가 떨어질 수 있다",
+              "priority": 3
+            }
+          ],
+          "author": "가상 상품기획실",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.9,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "m4",
+        "type": "checklist",
+        "subtype": "출시 점검 체크리스트",
+        "title": "최종 출시 검토 항목",
+        "description": "상품 제안 전 반드시 확인해야 할 핵심 점검 항목",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "최종 제안 전 필수 확인 항목을 정리한다.",
+        "evidence_source": [
+          "기준에 따른 정보 평가",
+          "의사 결정, 문제점 해결",
+          "목표, 전략 수립"
+        ],
+        "mission_fact_refs": [
+          "decision_goal",
+          "main_issue"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "점검 항목",
+            "values": [
+              "가격",
+              "이해도",
+              "타깃 명확성",
+              "약관 단순성",
+              "출시 우선순위"
+            ]
+          },
+          "y_axis": {
+            "label": "점검 상태",
+            "unit": "상태"
+          },
+          "series": [
+            {
+              "name": "점검 결과 점수",
+              "values": [
+                2,
+                1,
+                1,
+                2,
+                2
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "항목"
+            },
+            {
+              "key": "strength",
+              "label": "확인 내용"
+            },
+            {
+              "key": "weakness",
+              "label": "리스크"
+            },
+            {
+              "key": "priority",
+              "label": "중요도"
+            }
+          ],
+          "rows": [],
+          "author": "가상 검토팀",
+          "items": [
+            {
+              "text": "보험료 수준이 목표 고객의 부담 범위 안에 있는가",
+              "period": "출시 전",
+              "task": "보험료 적정성 검토",
+              "constraint": "고객 반응 메모와 비교",
+              "label": "가격",
+              "status": "issue",
+              "importance": "상"
+            },
+            {
+              "text": "보장 범위가 한눈에 이해되는가",
+              "period": "출시 전",
+              "task": "상품 구조 검토",
+              "constraint": "특약 수를 최소화",
+              "label": "이해도",
+              "status": "checked",
+              "importance": "상"
+            },
+            {
+              "text": "주력 타깃이 명확한가",
+              "period": "출시 전",
+              "task": "대상 설정 검토",
+              "constraint": "고령층 또는 가계부담 민감층 중 하나를 우선",
+              "label": "타깃",
+              "status": "unchecked",
+              "importance": "상"
+            },
+            {
+              "text": "약관 설명이 단순한가",
+              "period": "출시 전",
+              "task": "약관 문구 검토",
+              "constraint": "전문용어를 줄일 것",
+              "label": "단순성",
+              "status": "checked",
+              "importance": "중"
+            },
+            {
+              "text": "출시 우선순위가 정해졌는가",
+              "period": "출시 전",
+              "task": "의사결정 정리",
+              "constraint": "대안 비교표와 일치",
+              "label": "우선순위",
+              "status": "checked",
+              "importance": "상"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.87,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "t1",
+        "instruction": "고객 반응 이메일과 관심도 차트를 바탕으로, 핵심 수요와 우려를 2~3문장으로 정리하라.",
+        "required_materials": [
+          "m1",
+          "m2"
+        ],
+        "expected_action": "수요 흐름과 주요 리스크를 요약한다."
+      },
+      {
+        "task_id": "t2",
+        "instruction": "상품안 비교표를 활용해 가장 적합한 출시 후보 1개를 고르고, 선택 이유를 2가지 적으라.",
+        "required_materials": [
+          "m3"
+        ],
+        "expected_action": "대안 비교와 우선순위 판단을 수행한다."
+      },
+      {
+        "task_id": "t3",
+        "instruction": "출시 점검 체크리스트를 바탕으로, 최종 제안 시 보완해야 할 점 1~2개를 제시하라.",
+        "required_materials": [
+          "m4"
+        ],
+        "expected_action": "리스크와 보완 과제를 식별한다."
+      },
+      {
+        "task_id": "t4",
+        "instruction": "위 자료를 종합해 최종 상품 제안문을 작성하라. 타깃, 핵심 보장 방향, 출시 우선순위를 포함하라.",
+        "required_materials": [
+          "m1",
+          "m2",
+          "m3",
+          "m4"
+        ],
+        "expected_action": "종합 판단을 바탕으로 실행 가능한 제안을 작성한다."
+      }
+    ],
+    "submission_format": {
+      "type": "structured_report",
+      "estimated_time_minutes": 20,
+      "required_sections": [
+        "핵심 수요 정리",
+        "후보안 비교",
+        "보완 과제",
+        "최종 상품 제안"
+      ],
+      "length_hint": "700~1000자"
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "고령층과 가계부담 민감층 모두 보험료 부담에 민감하지만, 고령층은 보장 필요성이 더 강하다",
+      "수요 추세상 단순하고 실속 있는 상품이 프리미엄형보다 적합하다",
+      "보장 범위 확대보다 이해하기 쉬운 구조와 월납 부담 관리가 중요하다",
+      "출시 우선순위는 실속형 생활보장안이 가장 높다"
+    ],
+    "rubric": [
+      {
+        "criterion": "수요 해석 정확성",
+        "description": "이메일과 차트의 정보를 함께 읽고 핵심 고객 수요와 우려를 정확히 요약했는가",
+        "points": 25,
+        "linked_evidence": [
+          "읽고 이해하기",
+          "정보, 자료 분석",
+          "정보 수집"
+        ]
+      },
+      {
+        "criterion": "대안 비교의 균형성",
+        "description": "상품 후보의 강점과 약점을 비교하고 우선순위를 합리적으로 선택했는가",
+        "points": 25,
+        "linked_evidence": [
+          "논리적 분석",
+          "경제와 회계",
+          "재정 관리"
+        ]
+      },
+      {
+        "criterion": "제약 반영과 리스크 인식",
+        "description": "보험료 부담, 이해도, 약관 단순성 등 제약과 리스크를 반영했는가",
+        "points": 25,
+        "linked_evidence": [
+          "기준에 따른 정보 평가",
+          "의사 결정, 문제점 해결",
+          "기준에 따른 정보 평가"
+        ]
+      },
+      {
+        "criterion": "최종 제안의 실행가능성",
+        "description": "타깃, 핵심 보장 방향, 출시 우선순위가 한 번에 이해되는 실행 가능한 제안으로 정리되었는가",
+        "points": 25,
+        "linked_evidence": [
+          "목표, 전략 수립",
+          "정보의 의미 해석",
+          "사무"
+        ]
+      }
+    ]
+  },
+  "reliability": {
+    "score": 1.0,
+    "raw_score": 100,
+    "passed": true,
+    "calculated_by": "validator.v1",
+    "human_review_required": true,
+    "warning_count": 0,
+    "fail_count": 0,
+    "repair_count": 1,
+    "score_breakdown": {
+      "schema": {
+        "max": 20,
+        "earned": 20
+      },
+      "system_decisions": {
+        "max": 15,
+        "earned": 15
+      },
+      "materials": {
+        "max": 20,
+        "earned": 20
+      },
+      "mission_facts": {
+        "max": 15,
+        "earned": 15
+      },
+      "evidence": {
+        "max": 20,
+        "earned": 20
+      },
+      "evaluation": {
+        "max": 10,
+        "earned": 10
+      }
+    }
+  },
+  "evidence_chain": {
+    "created_by": "validator.v1",
+    "source_exec_job": {
+      "exec_job_id": "exec_002",
+      "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 2
+      },
+      "selection_reason": "Pilot config selected exec_002."
+    },
+    "linked_evidence": {
+      "activities": [
+        {
+          "name": "기준에 따른 정보 평가",
+          "score": 96,
+          "description": "사건이나 절차가 법, 규정, 기준을 정확히 준수했는지 판단하기 위해 관련 정보나 개인 의견을 사용하기 활동 중요도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1
+          }
+        },
+        {
+          "name": "의사 결정, 문제점 해결",
+          "score": 94,
+          "description": "가장 좋은 해결책을 선택하기 위해 정보를 분석하고 문제점을 해결하기 위해 결과를 평가하기 활동 중요도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2
+          }
+        },
+        {
+          "name": "협상, 갈등 해결",
+          "score": 94,
+          "description": "불평, 분쟁, 충돌을 해결하고 협상하기 활동 중요도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 3
+          }
+        },
+        {
+          "name": "정보, 자료 분석",
+          "score": 93,
+          "description": "정보 또는 자료를 분석하여 근본 원리, 이유, 사실을 알아내기 활동 중요도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4
+          }
+        },
+        {
+          "name": "목표, 전략 수립",
+          "score": 92,
+          "description": "장기 목표를 세우고 그 목표를 달성하기 위한 전략과 실행할 목록을 명시하기 활동 중요도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "수리력",
+          "score": 97,
+          "description": "어떤 문제를 해결하기 위해 수학을 사용한다",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 1
+          }
+        },
+        {
+          "name": "재정 관리",
+          "score": 93,
+          "description": "업무를 완료하기 위해 필요한 비용을 파악하고 구체적 소요 내역을 산출한다",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2
+          }
+        },
+        {
+          "name": "인적자원 관리",
+          "score": 89,
+          "description": "직원의 근로의욕을 높이고 능력을 개발하며 적재적소에 인재를 배치한다",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 3
+          }
+        }
+      ],
+      "knowledge": [
+        {
+          "name": "산수와 수학",
+          "score": 99,
+          "description": "연산, 대수학, 통계, 기하학의 계산 및 응용에 관한 지식",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 1
+          }
+        },
+        {
+          "name": "경제와 회계",
+          "score": 93,
+          "description": "돈의 흐름, 은행업무, 그리고 재무자료의 보고와 분석과 같은 경제 및 회계원리에 관한 지식",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 2
+          }
+        },
+        {
+          "name": "사무",
+          "score": 88,
+          "description": "워드 프로세스, 문서처리 및 기타 다른 사무절차에 관한 지식",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 3
+          }
+        }
+      ],
+      "work_environment": [
+        {
+          "name": "정확성, 정밀성 유지",
+          "score": 97,
+          "description": "업무 수행을 위해 정밀하거나 정확한 것의 중요성",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 1
+          }
+        },
+        {
+          "name": "앉아서 근무",
+          "score": 90,
+          "description": "앉아서 근무하는 빈도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 2
+          }
+        },
+        {
+          "name": "이메일 이용하기",
+          "score": 90,
+          "description": "업무 수행하면서 이메일 사용하는 정도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 3
+          }
+        }
+      ]
+    },
+    "material_evidence_map": [
+      {
+        "material_id": "m1",
+        "supported_by": [
+          "읽고 이해하기",
+          "이메일 이용하기",
+          "정보 수집"
+        ]
+      },
+      {
+        "material_id": "m2",
+        "supported_by": [
+          "정보, 자료 분석",
+          "산수와 수학",
+          "사물, 행동, 사건 파악"
+        ]
+      },
+      {
+        "material_id": "m3",
+        "supported_by": [
+          "경제와 회계",
+          "재정 관리",
+          "논리적 분석"
+        ]
+      },
+      {
+        "material_id": "m4",
+        "supported_by": [
+          "기준에 따른 정보 평가",
+          "의사 결정, 문제점 해결",
+          "목표, 전략 수립"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "target_type": "material",
+        "target_id": "m1",
+        "mission_fact_refs": [
+          "feedback_themes",
+          "main_issue"
+        ],
+        "source_refs": [
+          {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 4,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 3,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 9,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      },
+      {
+        "target_type": "material",
+        "target_id": "m2",
+        "mission_fact_refs": [
+          "trend_pattern",
+          "decision_goal"
+        ],
+        "source_refs": [
+          {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 1,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 10,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      },
+      {
+        "target_type": "material",
+        "target_id": "m3",
+        "mission_fact_refs": [
+          "main_issue",
+          "decision_goal",
+          "feedback_themes"
+        ],
+        "source_refs": [
+          {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 2,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000007519/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 5,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      },
+      {
+        "target_type": "material",
+        "target_id": "m4",
+        "mission_fact_refs": [
+          "decision_goal",
+          "main_issue"
+        ],
+        "source_refs": [
+          {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000007519/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      }
+    ]
+  }
+}

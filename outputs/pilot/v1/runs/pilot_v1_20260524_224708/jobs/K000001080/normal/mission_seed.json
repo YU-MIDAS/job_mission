@@ -1,0 +1,96 @@
+{
+  "schema_version": "mission_seed.normal.v1",
+  "job_cd": "K000001080",
+  "difficulty": "normal",
+  "selected_decision_situation_id": "decision_01",
+  "selected_practice_task_ids": [
+    "practice_task_01",
+    "practice_task_02"
+  ],
+  "selected_collaboration_context_id": "collab_01",
+  "selected_request_example_id": null,
+  "selected_response_step_ids": [
+    "response_step_01",
+    "response_step_02",
+    "response_step_03",
+    "response_step_04"
+  ],
+  "selected_deliverable_format_id": "deliverable_01",
+  "scenario_basis": {
+    "learner_role": "주니어 데이터분석가",
+    "collaborator_role": "PM / PD / 엔지니어",
+    "work_context": "PM / PD / 엔지니어와 함께 팀이나 리더십이 성과 확인, 서비스 개선, 데이터 기반 의사결정을 위해 지표·대시보드·보고서를 요청할 때",
+    "request_sentence": "",
+    "goal": "어떤 KPI와 지표를 기준으로 분석·대시보드를 만들 것인가"
+  },
+  "material_blueprints": [
+    {
+      "source_practice_material_id": "practice_material_04",
+      "learner_visible_material_type": "table",
+      "material_role": "primary",
+      "material_name": "고객 행동 데이터",
+      "sample_generation_instruction": "고객 행동 데이터를 바탕으로 핵심 판단 축이 보이도록 table 자료를 생성한다. 실제 기업명이나 개인명은 사용하지 않는다.",
+      "source_refs": [
+        "D2",
+        "D4",
+        "D7"
+      ]
+    },
+    {
+      "source_practice_material_id": "practice_material_01",
+      "learner_visible_material_type": "chart",
+      "material_role": "supporting",
+      "material_name": "주문 관련 테이블",
+      "sample_generation_instruction": "주문 관련 테이블를 바탕으로 해석을 보완하도록 chart 자료를 생성한다. 실제 기업명이나 개인명은 사용하지 않는다.",
+      "source_refs": [
+        "D7"
+      ]
+    }
+  ],
+  "task_plan": [
+    {
+      "id": "task_01",
+      "instruction": "고객 행동 데이터에서 가장 먼저 확인해야 할 변화나 문제를 1~2개 고른다.",
+      "expected_action": "observe",
+      "material_roles": [
+        "primary"
+      ]
+    },
+    {
+      "id": "task_02",
+      "instruction": "주문 관련 테이블까지 함께 보고 비즈니스 목표, 데이터 범위 기준으로 의미를 해석한다.",
+      "expected_action": "interpret",
+      "material_roles": [
+        "primary",
+        "supporting"
+      ]
+    },
+    {
+      "id": "task_03",
+      "instruction": "SQL 쿼리와 추출 데이터 형식으로 다음 행동 또는 제안을 정리한다.",
+      "expected_action": "recommend",
+      "material_roles": [
+        "primary",
+        "supporting"
+      ]
+    }
+  ],
+  "guide_plan": [
+    "요청자가 원하는 의사결정과 필요한 지표를 확인한다.",
+    "사용할 테이블, 이벤트, 로그, 데이터 범위를 확인한다.",
+    "SQL/BigQuery/Python으로 데이터를 추출·전처리한다.",
+    "데이터 정합성, 앱 이벤트 수집 정확도, 예외 케이스를 점검한다."
+  ],
+  "evaluation_basis": [
+    "자료 근거를 사용해 비즈니스 목표을 고려했는가",
+    "좋은 판단 기준(비즈니스 질문과 지표 정의가 맞고 의사결정으로 이어진다.)을 반영했는가",
+    "SQL 쿼리와 추출 데이터로 다음 행동을 정할 수 있게 정리했는가"
+  ],
+  "source_refs": [
+    "D1",
+    "D2",
+    "D4",
+    "D7",
+    "D3"
+  ]
+}

@@ -1,0 +1,641 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-mini",
+  "call_type": "draft_generation",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 2,
+  "retry_count": 1,
+  "retry_errors": [
+    {
+      "code": "OUTPUT_PARSE_FAILED",
+      "message": "Expecting ',' delimiter: line 1 column 8292 (char 8291)"
+    }
+  ],
+  "status": "completed",
+  "output_json": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000007519",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "금융·보험 전문가",
+      "job_smcl_nm": "보험상품개발자",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_002",
+      "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 2
+      },
+      "selection_reason": "상품 수요, 비용, 내부 제약을 함께 고려해 출시안을 설계하는 과제에 가장 직접적으로 맞는 실행직무다."
+    },
+    "mission_facts": {
+      "org_name": "가온보험준비센터",
+      "domain": "소액 건강보장 상품 개발",
+      "period": [
+        "2026년 1월",
+        "2026년 2월",
+        "2026년 3월",
+        "2026년 4월",
+        "2026년 5월",
+        "2026년 6월"
+      ],
+      "trend_pattern": "간편심사형 건강보장과 소액정액형 보장에 대한 문의가 꾸준히 늘었고, 특히 보험료가 낮고 절차가 단순한 안에 반응이 커졌다.",
+      "main_issue": "한정된 보험료 수준과 준비금 부담 제약 안에서 가장 출시 가능성이 높은 상품 방향을 골라야 한다.",
+      "feedback_themes": [
+        "저렴한 월 보험료를 원한다",
+        "청구 서류와 가입 절차가 복잡하면 이탈이 크다",
+        "입원·수술 중심의 핵심 보장은 필요하다",
+        "보장 제외 조건은 명확해야 한다"
+      ],
+      "decision_goal": "수요가 높은 방향을 우선하되, 보험료와 준비금 부담을 넘지 않는 출시안 1개와 핵심 조건을 제안한다."
+    },
+    "mission": {
+      "title": "제약 조건 안에서 소액 건강보장 상품 출시안 고르기",
+      "task_type": "planning_and_proposal",
+      "secondary_task_types": [
+        "research_and_analysis"
+      ],
+      "difficulty": {
+        "level": "hard",
+        "label": "어려움",
+        "estimated_time_minutes": 20,
+        "material_bundle_style": "work_document_packet",
+        "material_count_range": [
+          3,
+          4
+        ],
+        "task_count_range": [
+          3,
+          4
+        ],
+        "answer_length_hint": "700~1000자",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": true,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "상품기획 담당자",
+        "context": "가온보험준비센터의 신규 건강보장 상품 TF에서 1인 가구와 소액 보장 수요를 겨냥한 출시안을 검토하고 있다.",
+        "goal": "제공된 자료를 바탕으로 가장 적합한 상품 후보를 선택하고, 꼭 넣을 핵심 보장과 제외 조건을 정리해 경영진에 보고한다.",
+        "constraints": [
+          "제공된 자료와 메모만 사용해 판단한다.",
+          "월 보험료 상한과 준비금 부담을 함께 고려해야 한다.",
+          "청구 서류와 설명 문구는 가능한 한 단순해야 한다.",
+          "출시 시점은 8주 안에 가능한 안으로 잡아야 한다."
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "mat_01",
+          "type": "chart",
+          "subtype": "수요추세 차트",
+          "title": "최근 6개월 상품 문의 추이",
+          "description": "두 후보 보장 방향에 대한 월별 문의량 변화를 보여주는 차트다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "최근 수요가 어떤 방향으로 이동하는지 파악하고 우선순위를 정하는 데 사용한다.",
+          "evidence_source": [
+            "정보, 자료 분석",
+            "정보 처리",
+            "정보의 의미 해석",
+            "논리적 분석"
+          ],
+          "mission_fact_refs": [
+            "period",
+            "trend_pattern",
+            "main_issue"
+          ],
+          "data": {
+            "chart_type": "line",
+            "x_axis": {
+              "label": "월",
+              "values": [
+                "1월",
+                "2월",
+                "3월",
+                "4월",
+                "5월",
+                "6월"
+              ]
+            },
+            "y_axis": {
+              "label": "문의 건수",
+              "unit": "건"
+            },
+            "series": [
+              {
+                "name": "간편심사 건강보장 문의",
+                "values": [
+                  120,
+                  132,
+                  145,
+                  159,
+                  176,
+                  190
+                ]
+              },
+              {
+                "name": "소액정액 생활보장 문의",
+                "values": [
+                  85,
+                  92,
+                  101,
+                  112,
+                  126,
+                  141
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "항목"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [],
+            "author": "상품기획지원 AI",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.93,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_02",
+          "type": "table",
+          "subtype": "상품안 비교표",
+          "title": "출시 후보 3안 비교",
+          "description": "수요 적합성, 비용 부담, 구현 난이도를 비교한 내부 검토표다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "세 후보 중 하나를 고르고 포기할 대안을 설명하는 데 사용한다.",
+          "evidence_source": [
+            "의사 결정, 문제점 해결",
+            "목표, 전략 수립",
+            "기준에 따른 정보 평가",
+            "논리적 분석"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "",
+              "values": []
+            },
+            "y_axis": {
+              "label": "",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "후보"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [
+              {
+                "option": "A. 간편심사 입원·수술보장형",
+                "strength": "수요 적합성이 높고 설명이 쉽다",
+                "weakness": "보장 범위가 넓어 보험료와 준비금 부담이 커질 수 있다",
+                "priority": 2
+              },
+              {
+                "option": "B. 소액정액 생활자금형",
+                "strength": "보험료를 낮추기 쉽고 1인가구 반응이 좋다",
+                "weakness": "보장 체감이 약해 판매 설득이 필요하다",
+                "priority": 1
+              },
+              {
+                "option": "C. 저가 실손보완형",
+                "strength": "기존 보장을 보완하는 수요가 있다",
+                "weakness": "심사와 지급 기준이 복잡하다",
+                "priority": 3
+              }
+            ],
+            "author": "상품기획지원 AI",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.91,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_03",
+          "type": "email",
+          "subtype": "부서간 메일",
+          "title": "준법·리스크팀 제약 안내",
+          "description": "신규 상품 검토 시 반드시 반영해야 할 제약 조건을 담은 메일이다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "상품 구조와 문구를 설계할 때 지켜야 할 조건을 확인한다.",
+          "evidence_source": [
+            "읽고 이해하기",
+            "법",
+            "기준에 따른 정보 평가",
+            "사무"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "pie",
+            "x_axis": {
+              "label": "",
+              "values": []
+            },
+            "y_axis": {
+              "label": "",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "항목"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [],
+            "author": "준법리스크팀",
+            "items": [],
+            "thread": [
+              {
+                "from": "준법리스크팀",
+                "to": "상품기획팀",
+                "subject": "신규 상품안 검토 시 제약 조건",
+                "body": "이번 분기에는 월 보험료가 1만2천원 수준을 넘지 않도록 검토해 달라. 또한 준비금 영향이 큰 구조는 우선 제외하고, 청구 서류는 3종 이하로 단순화해야 한다. 고위험 직군은 별도 제외 규정을 두되, 가입 거절 사유는 명확히 안내해야 한다. 출시 시점은 8주 안으로 유지해야 한다."
+              }
+            ],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.95,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_04",
+          "type": "checklist",
+          "subtype": "출시 점검 체크리스트",
+          "title": "선정안 검토 체크리스트",
+          "description": "최종안이 내부 조건을 충족하는지 확인하는 체크리스트다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "선정안을 제약 조건에 맞게 다듬고, 보완이 필요한 항목을 찾는다.",
+          "evidence_source": [
+            "기준에 따른 정보 평가",
+            "정보 처리",
+            "의사 결정, 문제점 해결",
+            "목표, 전략 수립"
+          ],
+          "mission_fact_refs": [
+            "feedback_themes",
+            "decision_goal",
+            "main_issue"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "",
+              "values": []
+            },
+            "y_axis": {
+              "label": "",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "항목"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위"
+              }
+            ],
+            "rows": [],
+            "author": "상품기획지원 AI",
+            "items": [
+              {
+                "text": "월 보험료 상한 1만2천원 이내로 설계했는가?",
+                "period": "출시 전",
+                "task": "보험료 설계 확인",
+                "constraint": "상한 초과 금지",
+                "label": "보험료",
+                "status": "unchecked",
+                "importance": "높음"
+              },
+              {
+                "text": "준비금 부담이 큰 보장 구조를 줄였는가?",
+                "period": "출시 전",
+                "task": "보장 구조 점검",
+                "constraint": "준비금 부담 최소화",
+                "label": "준비금",
+                "status": "issue",
+                "importance": "높음"
+              },
+              {
+                "text": "청구 서류를 3종 이하로 줄였는가?",
+                "period": "출시 전",
+                "task": "청구 절차 확인",
+                "constraint": "서류 간소화",
+                "label": "청구",
+                "status": "unchecked",
+                "importance": "중간"
+              },
+              {
+                "text": "고위험 직군 제외 기준을 명확히 안내하는가?",
+                "period": "출시 전",
+                "task": "가입 기준 점검",
+                "constraint": "제외 사유 명확화",
+                "label": "가입조건",
+                "status": "checked",
+                "importance": "높음"
+              },
+              {
+                "text": "8주 안에 개발·심사·안내가 가능한가?",
+                "period": "출시 전",
+                "task": "일정 확인",
+                "constraint": "일정 준수",
+                "label": "일정",
+                "status": "unchecked",
+                "importance": "중간"
+              },
+              {
+                "text": "가입 설명 문구가 간단한가?",
+                "period": "출시 전",
+                "task": "설명 문구 점검",
+                "constraint": "이해하기 쉬운 문구",
+                "label": "안내",
+                "status": "checked",
+                "importance": "중간"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.9,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_01",
+          "instruction": "차트와 메일을 함께 보고, 최근 6개월 동안 어떤 수요가 더 빠르게 커졌는지 요약한 뒤, 그 변화가 상품 선택에 주는 시사점을 2가지로 정리하시오.",
+          "required_materials": [
+            "mat_01",
+            "mat_03"
+          ],
+          "expected_action": "수요 추세를 요약하고 우선 고려할 고객 반응을 도출한다."
+        },
+        {
+          "task_id": "task_02",
+          "instruction": "비교표를 바탕으로 3개 후보 중 최종 출시 후보 1개를 고르시오. 선택 이유와 함께, 포기한 대안 1개 이상을 비교해 설명하시오.",
+          "required_materials": [
+            "mat_02",
+            "mat_01"
+          ],
+          "expected_action": "후보를 선택하고 대안 대비 장단점을 비교한다."
+        },
+        {
+          "task_id": "task_03",
+          "instruction": "체크리스트와 메일의 제약을 반영하여, 선택한 상품안에 넣을 핵심 보장 2개, 제외 조건 1개, 간소화할 항목 1개를 제안하시오.",
+          "required_materials": [
+            "mat_03",
+            "mat_04"
+          ],
+          "expected_action": "제약을 충족하는 상품 구조와 운영 조건을 제안한다."
+        },
+        {
+          "task_id": "task_04",
+          "instruction": "경영진 보고용으로, 최종 권고안과 함께 우선순위가 높은 실행 항목 3가지를 짧게 정리하시오.",
+          "required_materials": [
+            "mat_01",
+            "mat_02",
+            "mat_03",
+            "mat_04"
+          ],
+          "expected_action": "최종 추천안과 실행 우선순위를 제시한다."
+        }
+      ],
+      "submission_format": {
+        "type": "간단 보고서",
+        "estimated_time_minutes": 20,
+        "required_sections": [
+          "수요 요약",
+          "상품안 선택",
+          "제약 반영",
+          "최종 제안"
+        ],
+        "length_hint": "700~1000자"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "간편심사형 건강보장과 소액정액형 수요가 함께 상승하지만, 더 단순하고 저렴한 구조가 우선이다.",
+        "보험료 상한과 준비금 부담 때문에 보장 범위를 넓히는 안은 불리하다.",
+        "세 후보 중 소액정액 생활자금형이 가장 현실적인 출시 후보이다.",
+        "고위험 직군 제외, 청구서류 단순화, 8주 일정 준수가 필수 조건이다."
+      ],
+      "rubric": [
+        {
+          "criterion": "수요 해석",
+          "description": "차트와 메일을 근거로 최근 수요 흐름과 고객 반응을 정확히 요약했는가.",
+          "points": 25,
+          "linked_evidence": [
+            "정보, 자료 분석",
+            "정보의 의미 해석",
+            "읽고 이해하기"
+          ]
+        },
+        {
+          "criterion": "제약 준수 판단",
+          "description": "보험료 상한, 준비금 부담, 서류 단순화, 출시 일정 같은 제약을 빠짐없이 반영했는가.",
+          "points": 25,
+          "linked_evidence": [
+            "기준에 따른 정보 평가",
+            "법",
+            "경제와 회계"
+          ]
+        },
+        {
+          "criterion": "상품안 선택과 비교",
+          "description": "후보 3안을 비교해 하나를 고르고, 포기한 대안과의 차이를 설득력 있게 설명했는가.",
+          "points": 30,
+          "linked_evidence": [
+            "의사 결정, 문제점 해결",
+            "목표, 전략 수립",
+            "논리적 분석"
+          ]
+        },
+        {
+          "criterion": "실행 가능한 추천",
+          "description": "핵심 보장, 제외 조건, 간소화 항목이 실제 출시 가능한 수준으로 정리되었는가.",
+          "points": 20,
+          "linked_evidence": [
+            "정보 처리",
+            "재정 관리",
+            "사무"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_002",
+        "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다."
+      },
+      "linked_evidence": {
+        "activities": [
+          "정보 수집",
+          "정보 처리",
+          "정보, 자료 분석",
+          "의사 결정, 문제점 해결",
+          "목표, 전략 수립",
+          "기준에 따른 정보 평가"
+        ],
+        "knowledge": [
+          "산수와 수학",
+          "경제와 회계",
+          "법",
+          "사무"
+        ],
+        "abilities": [
+          "수리력",
+          "재정 관리",
+          "읽고 이해하기",
+          "논리적 분석"
+        ]
+      },
+      "material_evidence_map": [
+        {
+          "material_id": "mat_01",
+          "supported_by": [
+            "정보, 자료 분석",
+            "정보 처리",
+            "정보의 의미 해석",
+            "논리적 분석"
+          ]
+        },
+        {
+          "material_id": "mat_02",
+          "supported_by": [
+            "의사 결정, 문제점 해결",
+            "목표, 전략 수립",
+            "기준에 따른 정보 평가",
+            "논리적 분석"
+          ]
+        },
+        {
+          "material_id": "mat_03",
+          "supported_by": [
+            "읽고 이해하기",
+            "법",
+            "기준에 따른 정보 평가",
+            "사무"
+          ]
+        },
+        {
+          "material_id": "mat_04",
+          "supported_by": [
+            "정보 처리",
+            "기준에 따른 정보 평가",
+            "의사 결정, 문제점 해결"
+          ]
+        }
+      ]
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "usage": {
+    "input_tokens": 10100,
+    "output_tokens": 8707,
+    "reasoning_tokens": 5291,
+    "total_tokens": 18807
+  },
+  "errors": []
+}

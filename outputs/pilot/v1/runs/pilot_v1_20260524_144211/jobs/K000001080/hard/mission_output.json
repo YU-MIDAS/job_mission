@@ -1,0 +1,956 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "mission_K000001080_hard_001",
+  "job_identity": {
+    "job_cd": "K000001080",
+    "job_lrcl_nm": "연구직 및 공학 기술직",
+    "job_mdcl_nm": "데이터·네트워크 및 시스템 운영 전문가",
+    "job_smcl_nm": "데이터분석가(빅데이터분석가)",
+    "source_ref": {
+      "file": "K000001080/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": null
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_003",
+    "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다.",
+    "source_ref": {
+      "file": "K000001080/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 3
+    },
+    "selection_reason": "Pilot config selected exec_003."
+  },
+  "mission_facts": {
+    "org_name": "루트파이프 분석운영실",
+    "domain": "야간 대용량 데이터 처리 운영",
+    "period": [
+      "최근 7일",
+      "다음 야간 배치 전"
+    ],
+    "trend_pattern": "배치 성공률은 계속 낮아지고, 재시도와 처리 지연은 후반으로 갈수록 커진다.",
+    "main_issue": "야간 배치가 특정 처리 단계에서 적체되며 지연과 실패가 반복된다.",
+    "feedback_themes": [
+      "결과 도착 지연",
+      "재실행 발생",
+      "임시 파일 누적",
+      "서버 증설은 당장 어렵다"
+    ],
+    "decision_goal": "제약 안에서 가장 먼저 적용할 개선안을 하나 고르고, 보류할 대안을 구분해 제시한다."
+  },
+  "mission": {
+    "title": "야간 배치 적체 원인 진단과 우선 개선안 선택",
+    "task_type": "research_and_analysis",
+    "secondary_task_types": [],
+    "difficulty": {
+      "level": "hard",
+      "label": "어려움",
+      "estimated_time_minutes": 20,
+      "material_bundle_style": "work_document_packet",
+      "material_count_range": [
+        3,
+        4
+      ],
+      "task_count_range": [
+        3,
+        4
+      ],
+      "answer_length_hint": "700~1000자",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": true,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "데이터분석가",
+      "context": "가상의 구독형 리포트 서비스를 운영하는 루트파이프 분석운영실에서, 매일 밤 수집되는 대용량 로그와 처리 결과를 분석해 다음 배치 전까지 병목 원인을 진단해야 한다. 운영팀은 최근 지연 민원이 늘었지만 이번 주에는 서버 증설이 어렵고, 배포 창도 짧다.",
+      "goal": "차트와 로그를 근거로 원인을 진단한 뒤, 제약 조건을 반영해 지금 가장 먼저 적용할 개선안을 선택하라.",
+      "constraints": [
+        "추가 서버 증설은 이번 주에 불가하다.",
+        "배포 창은 10분 이내다.",
+        "다음 야간 배치 전까지 1개 우선안과 1개 보류안을 제시해야 한다."
+      ]
+    },
+    "materials": [
+      {
+        "material_id": "mat_01",
+        "type": "chart",
+        "subtype": "야간 배치 추이",
+        "title": "최근 7일간 배치 성공률과 실패율 추이",
+        "description": "야간 배치의 성공률과 실패율이 7일 동안 어떻게 변했는지 보여주는 추이 그래프다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "지표 하락 추세와 문제 발생 시점을 파악한다.",
+        "evidence_source": [
+          "정보 처리",
+          "정보, 자료 분석",
+          "사물, 행동, 사건 파악"
+        ],
+        "mission_fact_refs": [
+          "period",
+          "trend_pattern",
+          "main_issue"
+        ],
+        "data": {
+          "chart_type": "line",
+          "x_axis": {
+            "label": "일자",
+            "values": [
+              "1일차",
+              "2일차",
+              "3일차",
+              "4일차",
+              "5일차",
+              "6일차",
+              "7일차"
+            ]
+          },
+          "y_axis": {
+            "label": "비율",
+            "unit": "%"
+          },
+          "series": [
+            {
+              "name": "성공률",
+              "values": [
+                99,
+                98,
+                97,
+                95,
+                92,
+                88,
+                86
+              ]
+            },
+            {
+              "name": "실패율",
+              "values": [
+                1,
+                2,
+                3,
+                5,
+                8,
+                12,
+                14
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "대안"
+            },
+            {
+              "key": "strength",
+              "label": "장점"
+            },
+            {
+              "key": "weakness",
+              "label": "단점"
+            },
+            {
+              "key": "priority",
+              "label": "우선순위"
+            }
+          ],
+          "rows": [],
+          "author": "가상 운영팀",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.96,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "mat_02",
+        "type": "log",
+        "subtype": "처리 로그",
+        "title": "배치 처리 단계별 운영 로그",
+        "description": "배치 중 발생한 주요 처리 이벤트와 자원 상태를 기록한 로그다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "병목이 발생한 단계와 자원 압박 여부를 확인한다.",
+        "evidence_source": [
+          "정보 수집",
+          "절차, 자료, 주변환경 관찰",
+          "추리력",
+          "전산"
+        ],
+        "mission_fact_refs": [
+          "main_issue",
+          "trend_pattern"
+        ],
+        "data": {
+          "chart_type": "line",
+          "x_axis": {
+            "label": "시간",
+            "values": [
+              "00:05",
+              "00:21",
+              "00:39",
+              "00:58",
+              "01:14",
+              "01:30",
+              "01:47"
+            ]
+          },
+          "y_axis": {
+            "label": "상태",
+            "unit": "기록"
+          },
+          "series": [],
+          "columns": [
+            {
+              "key": "option",
+              "label": "대안"
+            },
+            {
+              "key": "strength",
+              "label": "장점"
+            },
+            {
+              "key": "weakness",
+              "label": "단점"
+            },
+            {
+              "key": "priority",
+              "label": "우선순위"
+            }
+          ],
+          "rows": [],
+          "author": "가상 운영팀",
+          "items": [],
+          "thread": [],
+          "entries": [
+            {
+              "time": "00:05",
+              "actor": "모니터링 봇",
+              "event": "배치 시작",
+              "note": "입력 데이터 1.3억 행 적재는 정상적으로 완료됨."
+            },
+            {
+              "time": "00:21",
+              "actor": "ETL 워커 A",
+              "event": "압축 해제 단계",
+              "note": "임시 디스크 사용률이 78%까지 올랐고 처리 지연이 평균보다 18% 늘어남."
+            },
+            {
+              "time": "00:39",
+              "actor": "ETL 워커 A",
+              "event": "인덱스 생성 시작",
+              "note": "동시에 실행 가능한 슬롯이 1개뿐이라 대기 큐가 4개로 늘어남."
+            },
+            {
+              "time": "00:58",
+              "actor": "운영 알림",
+              "event": "자원 경고",
+              "note": "메모리 사용률이 90%를 넘었고, 재시도 횟수가 3회로 증가함."
+            },
+            {
+              "time": "01:14",
+              "actor": "네트워크 점검",
+              "event": "외부 연결 확인",
+              "note": "대역폭과 패킷 손실은 정상 범위였고 통신 이상은 발견되지 않음."
+            },
+            {
+              "time": "01:30",
+              "actor": "배치 엔진",
+              "event": "후속 집계 대기",
+              "note": "상위 단계가 끝나지 않아 하위 집계가 27분 동안 대기함."
+            },
+            {
+              "time": "01:47",
+              "actor": "알림 종료",
+              "event": "작업 실패",
+              "note": "임시 파일 사용률이 92%에 도달한 뒤 시간 초과로 종료됨."
+            }
+          ],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.95,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "mat_03",
+        "type": "table",
+        "subtype": "대안 비교표",
+        "title": "즉시 적용 가능한 개선안 비교",
+        "description": "이번 주 제약 안에서 검토 가능한 3가지 개선안을 장단점과 우선순위로 비교한 표다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "제약을 고려해 가장 먼저 실행할 대안을 고른다.",
+        "evidence_source": [
+          "의사 결정, 문제점 해결",
+          "목표, 전략 수립",
+          "기술 분석"
+        ],
+        "mission_fact_refs": [
+          "decision_goal",
+          "main_issue",
+          "feedback_themes"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "대안",
+            "values": [
+              "옵션 A",
+              "옵션 B",
+              "옵션 C"
+            ]
+          },
+          "y_axis": {
+            "label": "평가",
+            "unit": "점"
+          },
+          "series": [],
+          "columns": [
+            {
+              "key": "option",
+              "label": "대안"
+            },
+            {
+              "key": "strength",
+              "label": "장점"
+            },
+            {
+              "key": "weakness",
+              "label": "단점"
+            },
+            {
+              "key": "priority",
+              "label": "우선순위"
+            }
+          ],
+          "rows": [
+            {
+              "option": "작업 순서를 조정해 압축 해제와 인덱싱을 분리한다.",
+              "strength": "추가 예산 없이 바로 적용할 수 있고, 큐 적체를 즉시 줄일 가능성이 크다.",
+              "weakness": "전체 처리 시간은 약간 늘 수 있다.",
+              "priority": 1
+            },
+            {
+              "option": "임시 파일 생성량을 줄이도록 전처리 규칙을 수정한다.",
+              "strength": "디스크 압박을 낮춰 실패율을 줄일 수 있다.",
+              "weakness": "검증이 필요해 즉시 효과는 제한적이다.",
+              "priority": 2
+            },
+            {
+              "option": "처리 노드를 증설하거나 메모리를 늘린다.",
+              "strength": "대량 데이터 처리 여유는 가장 크다.",
+              "weakness": "이번 주 예산과 배포 창 제약 때문에 적용이 어렵다.",
+              "priority": 3
+            }
+          ],
+          "author": "가상 운영팀",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.94,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "mat_04",
+        "type": "memo",
+        "subtype": "운영 메모",
+        "title": "운영팀이 정리한 제약과 민원 요약",
+        "description": "운영 책임자가 남긴 메모로, 이번 판단에 반영해야 할 제약과 민원 포인트를 요약했다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "실행 가능성과 우선순위를 판단할 때 제약과 민원 내용을 반영한다.",
+        "evidence_source": [
+          "사무",
+          "정보의 의미 해석",
+          "이메일 이용하기"
+        ],
+        "mission_fact_refs": [
+          "feedback_themes",
+          "decision_goal",
+          "period",
+          "main_issue"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "항목",
+            "values": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ]
+          },
+          "y_axis": {
+            "label": "메모",
+            "unit": "건"
+          },
+          "series": [],
+          "columns": [
+            {
+              "key": "option",
+              "label": "대안"
+            },
+            {
+              "key": "strength",
+              "label": "장점"
+            },
+            {
+              "key": "weakness",
+              "label": "단점"
+            },
+            {
+              "key": "priority",
+              "label": "우선순위"
+            }
+          ],
+          "rows": [],
+          "author": "운영총괄",
+          "items": [
+            {
+              "text": "최근 3회 배치 중 2회가 20분 이상 지연되었다.",
+              "period": "최근 3일",
+              "task": "현상 확인",
+              "constraint": "지연 원인을 네트워크, 서버 자원, 작업 순서 중에서 구분해야 한다.",
+              "label": "지연 현황",
+              "status": "issue",
+              "importance": "높음"
+            },
+            {
+              "text": "예산 담당이 이번 주 서버 증설은 불가하다고 통보했다.",
+              "period": "이번 주",
+              "task": "대안 선택",
+              "constraint": "추가 장비 구매는 이번 판단에서 제외한다.",
+              "label": "예산",
+              "status": "checked",
+              "importance": "높음"
+            },
+            {
+              "text": "배포 창은 매일 새벽 10분뿐이다.",
+              "period": "매일 새벽",
+              "task": "운영 적용",
+              "constraint": "긴 재배포가 필요한 안은 우선순위가 낮다.",
+              "label": "운영 창",
+              "status": "checked",
+              "importance": "높음"
+            },
+            {
+              "text": "고객 지원팀이 결과 도착 지연과 재실행 문의를 반복 접수했다.",
+              "period": "최근 7일",
+              "task": "피드백 반영",
+              "constraint": "대외 설명이 가능한 형태로 원인을 정리해야 한다.",
+              "label": "고객 피드백",
+              "status": "issue",
+              "importance": "중간"
+            },
+            {
+              "text": "다음 배치부터 큐 적체와 임시 파일 사용량을 함께 확인하자.",
+              "period": "다음 배치",
+              "task": "후속 점검",
+              "constraint": "모니터링 지표를 명확히 지정해야 한다.",
+              "label": "모니터링",
+              "status": "unchecked",
+              "importance": "중간"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.93,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "task_1",
+        "instruction": "차트와 로그를 함께 보고, 최근 7일 동안 배치 품질이 어떻게 변했는지와 가장 유력한 병목 원인을 1개로 정리하라.",
+        "required_materials": [
+          "mat_01",
+          "mat_02"
+        ],
+        "expected_action": "원인 진단"
+      },
+      {
+        "task_id": "task_2",
+        "instruction": "표와 메모를 비교해, 지금 당장 먼저 적용할 개선안 1개를 고르고 그 이유를 제약 조건과 함께 설명하라.",
+        "required_materials": [
+          "mat_03",
+          "mat_04"
+        ],
+        "expected_action": "우선순위 판단"
+      },
+      {
+        "task_id": "task_3",
+        "instruction": "보류할 대안 1개와 즉시 실행할 후속 확인 항목 2개를 제안하라. 왜 그 선택이 합리적인지도 함께 적어라.",
+        "required_materials": [
+          "mat_01",
+          "mat_02",
+          "mat_03",
+          "mat_04"
+        ],
+        "expected_action": "개선안 제안"
+      }
+    ],
+    "submission_format": {
+      "type": "서술형",
+      "estimated_time_minutes": 20,
+      "required_sections": [
+        "원인 진단",
+        "우선순위 판단",
+        "개선안 제안"
+      ],
+      "length_hint": "700~1000자"
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "배치 성공률은 7일 동안 하락하고 실패율은 상승하여 후반부에 문제가 커진다.",
+      "로그상 네트워크 이상은 없고, 압축 해제와 인덱싱이 겹치며 큐 적체와 메모리·임시 디스크 압박이 발생한다.",
+      "이번 주에는 서버 증설이 불가능하므로 작업 순서 조정이나 전처리 조정처럼 바로 적용 가능한 안이 우선이다.",
+      "즉시안과 보류안을 구분하고, 다음 배치에서 큐 길이와 재시도 횟수, 임시 파일 사용량을 확인해야 한다."
+    ],
+    "rubric": [
+      {
+        "criterion": "현상 파악의 정확성",
+        "description": "차트의 추세와 로그의 공통 신호를 읽어 배치 품질 저하를 정확히 설명한다.",
+        "points": 30,
+        "linked_evidence": [
+          "정보 수집",
+          "정보 처리",
+          "사물, 행동, 사건 파악"
+        ]
+      },
+      {
+        "criterion": "원인 해석의 타당성",
+        "description": "지표와 로그를 연결해 병목이 어디서 발생했는지 논리적으로 해석한다.",
+        "points": 30,
+        "linked_evidence": [
+          "정보, 자료 분석",
+          "논리적 분석",
+          "추리력"
+        ]
+      },
+      {
+        "criterion": "제약 반영한 우선순위 판단",
+        "description": "예산과 배포 창 제약을 반영해 가장 먼저 실행할 대안을 선택하고 이유를 제시한다.",
+        "points": 25,
+        "linked_evidence": [
+          "의사 결정, 문제점 해결",
+          "목표, 전략 수립",
+          "전산"
+        ]
+      },
+      {
+        "criterion": "실행 가능한 개선 제안",
+        "description": "즉시 실행안과 후속 점검 항목을 구체적으로 제안해 운영 적용 가능성을 보여준다.",
+        "points": 15,
+        "linked_evidence": [
+          "기술 분석",
+          "컴퓨터 업무",
+          "산수와 수학"
+        ]
+      }
+    ]
+  },
+  "reliability": {
+    "score": 1.0,
+    "raw_score": 100,
+    "passed": true,
+    "calculated_by": "validator.v1",
+    "human_review_required": true,
+    "warning_count": 0,
+    "fail_count": 0,
+    "repair_count": 0,
+    "score_breakdown": {
+      "schema": {
+        "max": 20,
+        "earned": 20
+      },
+      "system_decisions": {
+        "max": 15,
+        "earned": 15
+      },
+      "materials": {
+        "max": 20,
+        "earned": 20
+      },
+      "mission_facts": {
+        "max": 15,
+        "earned": 15
+      },
+      "evidence": {
+        "max": 20,
+        "earned": 20
+      },
+      "evaluation": {
+        "max": 10,
+        "earned": 10
+      }
+    }
+  },
+  "evidence_chain": {
+    "created_by": "validator.v1",
+    "source_exec_job": {
+      "exec_job_id": "exec_003",
+      "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다.",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 3
+      },
+      "selection_reason": "Pilot config selected exec_003."
+    },
+    "linked_evidence": {
+      "activities": [
+        {
+          "name": "정보 수집",
+          "score": 97,
+          "description": "모든 관련 자료에서 정보를 수집, 관찰하기 중요도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1
+          }
+        },
+        {
+          "name": "정보 처리",
+          "score": 95,
+          "description": "정보 또는 자료를 수집, 분류, 계산, 검증하거나 표로 만들기 활동 중요도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2
+          }
+        },
+        {
+          "name": "사물, 행동, 사건 파악",
+          "score": 95,
+          "description": "차이점과 유사점을 분류하고 어떤 상황에서 변화를 알아차림으로써 정보를 파악하기 활동 중요도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 3
+          }
+        },
+        {
+          "name": "컴퓨터 업무",
+          "score": 95,
+          "description": "프로그램 제작, 소프트웨어 저작, 기능 설정, 정보 입력, 정보 처리를 하기 위한 컴퓨터 시스템 사용하기 활동 중요도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4
+          }
+        },
+        {
+          "name": "의사 결정, 문제점 해결",
+          "score": 93,
+          "description": "가장 좋은 해결책을 선택하기 위해 정보를 분석하고 문제점을 해결하기 위해 결과를 평가하기 활동 중요도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "수리력",
+          "score": 96,
+          "description": "어떤 문제를 해결하기 위해 수학을 사용한다",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 1
+          }
+        },
+        {
+          "name": "전산",
+          "score": 95,
+          "description": "다양한 목적을 위해 소프트웨어나 인터넷을 활용하거나 프로그램을 작성한다",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2
+          }
+        },
+        {
+          "name": "논리적 분석",
+          "score": 92,
+          "description": "문제를 해결하기 위해(혹은 의사결정을 하기 위해) 체계적으로 이치에 맞는 생각을 해낸다",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 3
+          }
+        }
+      ],
+      "knowledge": [
+        {
+          "name": "산수와 수학",
+          "score": 93,
+          "description": "연산, 대수학, 통계, 기하학의 계산 및 응용에 관한 지식",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 1
+          }
+        },
+        {
+          "name": "컴퓨터와 전자공학",
+          "score": 87,
+          "description": "컴퓨터의 하드웨어, 회로판, 처리장치, 반도체, 전자장비에 관한 지식",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 2
+          }
+        },
+        {
+          "name": "영어",
+          "score": 75,
+          "description": "영어를 읽고, 쓰고, 듣고 말하는데 필요한 지식",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 3
+          }
+        }
+      ],
+      "work_environment": [
+        {
+          "name": "재택근무",
+          "score": 98,
+          "description": "재택근무 가능성",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 1
+          }
+        },
+        {
+          "name": "앉아서 근무",
+          "score": 91,
+          "description": "앉아서 근무하는 빈도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 2
+          }
+        },
+        {
+          "name": "연설, 발표, 회의하기",
+          "score": 84,
+          "description": "사람들 앞에서 공식적으로 연설(발표,회의 등의 상황)",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 3
+          }
+        }
+      ]
+    },
+    "material_evidence_map": [
+      {
+        "material_id": "mat_01",
+        "supported_by": [
+          "정보 처리",
+          "정보, 자료 분석",
+          "사물, 행동, 사건 파악"
+        ]
+      },
+      {
+        "material_id": "mat_02",
+        "supported_by": [
+          "정보 수집",
+          "절차, 자료, 주변환경 관찰",
+          "추리력",
+          "전산"
+        ]
+      },
+      {
+        "material_id": "mat_03",
+        "supported_by": [
+          "의사 결정, 문제점 해결",
+          "목표, 전략 수립",
+          "기술 분석"
+        ]
+      },
+      {
+        "material_id": "mat_04",
+        "supported_by": [
+          "사무",
+          "정보의 의미 해석",
+          "이메일 이용하기"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "target_type": "material",
+        "target_id": "mat_01",
+        "mission_fact_refs": [
+          "period",
+          "trend_pattern",
+          "main_issue"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 6,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 3,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      },
+      {
+        "target_type": "material",
+        "target_id": "mat_02",
+        "mission_fact_refs": [
+          "main_issue",
+          "trend_pattern"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 7,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 4,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      },
+      {
+        "target_type": "material",
+        "target_id": "mat_03",
+        "mission_fact_refs": [
+          "decision_goal",
+          "main_issue",
+          "feedback_themes"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 10,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 5,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      },
+      {
+        "target_type": "material",
+        "target_id": "mat_04",
+        "mission_fact_refs": [
+          "feedback_themes",
+          "decision_goal",
+          "period",
+          "main_issue"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 5,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001080/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 9,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001080/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 4,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      }
+    ]
+  }
+}

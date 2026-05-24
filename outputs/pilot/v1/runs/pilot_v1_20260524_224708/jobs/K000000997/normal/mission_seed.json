@@ -1,0 +1,93 @@
+{
+  "schema_version": "mission_seed.normal.v1",
+  "job_cd": "K000000997",
+  "difficulty": "normal",
+  "selected_decision_situation_id": "decision_01",
+  "selected_practice_task_ids": [
+    "practice_task_01",
+    "practice_task_02"
+  ],
+  "selected_collaboration_context_id": "collab_01",
+  "selected_request_example_id": null,
+  "selected_response_step_ids": [
+    "response_step_01",
+    "response_step_02",
+    "response_step_03",
+    "response_step_04"
+  ],
+  "selected_deliverable_format_id": "deliverable_01",
+  "scenario_basis": {
+    "learner_role": "신입 상품기획자",
+    "collaborator_role": "마케터",
+    "work_context": "마케터와 함께 새로운 시장을 분석하거나 신상품·브랜드·교육상품을 기획할 때",
+    "request_sentence": "",
+    "goal": "어떤 시장과 타깃 고객을 우선 공략할 것인가"
+  },
+  "material_blueprints": [
+    {
+      "source_practice_material_id": "practice_material_01",
+      "learner_visible_material_type": "chart",
+      "material_role": "primary",
+      "material_name": "시장조사 자료",
+      "sample_generation_instruction": "시장조사 자료를 바탕으로 핵심 판단 축이 보이도록 chart 자료를 생성한다. 실제 기업명이나 개인명은 사용하지 않는다.",
+      "source_refs": [
+        "P5"
+      ]
+    },
+    {
+      "source_practice_material_id": "practice_material_02",
+      "learner_visible_material_type": "memo",
+      "material_role": "supporting",
+      "material_name": "고객 리뷰·고객 데이터",
+      "sample_generation_instruction": "고객 리뷰·고객 데이터를 바탕으로 해석을 보완하도록 memo 자료를 생성한다. 실제 기업명이나 개인명은 사용하지 않는다.",
+      "source_refs": [
+        "P3"
+      ]
+    }
+  ],
+  "task_plan": [
+    {
+      "id": "task_01",
+      "instruction": "시장조사 자료에서 가장 먼저 확인해야 할 변화나 문제를 1~2개 고른다.",
+      "expected_action": "observe",
+      "material_roles": [
+        "primary"
+      ]
+    },
+    {
+      "id": "task_02",
+      "instruction": "고객 리뷰·고객 데이터까지 함께 보고 시장 규모와 성장 가능성, 타깃·코어 타깃 특성 기준으로 의미를 해석한다.",
+      "expected_action": "interpret",
+      "material_roles": [
+        "primary",
+        "supporting"
+      ]
+    },
+    {
+      "id": "task_03",
+      "instruction": "상품 기획서 형식으로 다음 행동 또는 제안을 정리한다.",
+      "expected_action": "recommend",
+      "material_roles": [
+        "primary",
+        "supporting"
+      ]
+    }
+  ],
+  "guide_plan": [
+    "요청이 신상품, 리뉴얼, 프로모션, 시장조사 중 무엇인지 확인한다.",
+    "시장 규모, 타깃, 트렌드, 고객 리뷰·데이터, 경쟁 상품을 조사한다.",
+    "고객 니즈와 차별화 포인트를 정의한다.",
+    "상품 기획서, 브랜드 컨셉안, 제품 라인업, 랜딩페이지 방향 등으로 구체화한다."
+  ],
+  "evaluation_basis": [
+    "자료 근거를 사용해 시장 규모와 성장 가능성을 고려했는가",
+    "좋은 판단 기준(고객 데이터와 시장조사로 니즈를 정의한다.)을 반영했는가",
+    "상품 기획서로 다음 행동을 정할 수 있게 정리했는가"
+  ],
+  "source_refs": [
+    "P3",
+    "P5",
+    "P1",
+    "P2"
+  ]
+}
