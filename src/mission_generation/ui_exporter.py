@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -249,7 +250,7 @@ class MissionUIExporter:
             "secondary_task_types": mission.get("secondary_task_types", []),
             "target_exec_job": data.get("target_exec_job", {}),
             "mission_facts": data.get("mission_facts", {}),
-            "scenario": mission.get("scenario", {}),
+            "scenario": self._scenario_with_glossary_notes(mission.get("scenario", {})),
             "materials": mission.get("materials", []),
             "tasks": mission.get("tasks", []),
             "submission_format": mission.get("submission_format", {}),
@@ -320,7 +321,7 @@ class MissionUIExporter:
                 self._task_type_label(item) for item in mission.get("secondary_task_types", [])
             ],
             "title": mission.get("title"),
-            "scenario": self._strip_private_fields(mission.get("scenario", {})),
+            "scenario": self._learner_scenario(mission.get("scenario", {})),
             "materials": materials,
             "tasks": [
                 self._learner_task(task, task_index, material_labels)
@@ -330,6 +331,60 @@ class MissionUIExporter:
             "submission_format": self._learner_submission(mission.get("submission_format", {})),
             "evaluation": self._learner_evaluation(mission.get("evaluation", {})),
         }
+
+    def _learner_scenario(self, scenario: dict[str, Any]) -> dict[str, Any]:
+        cleaned = self._strip_private_fields(scenario)
+        if not isinstance(cleaned, dict):
+            return {}
+        return self._scenario_with_glossary_notes(cleaned)
+
+    def _scenario_with_glossary_notes(self, scenario: dict[str, Any]) -> dict[str, Any]:
+        if not isinstance(scenario, dict):
+            return {}
+        cleaned = dict(scenario)
+        glossary = [
+            {"term": str(item.get("term", "")).strip(), "definition": str(item.get("definition", "")).strip()}
+            for item in cleaned.get("glossary", [])
+            if isinstance(item, dict) and str(item.get("term", "")).strip() and str(item.get("definition", "")).strip()
+        ]
+        context, context_glossary = self._extract_glossary_note(str(cleaned.get("context") or ""))
+        glossary.extend(context_glossary)
+
+        constraints: list[Any] = []
+        for item in cleaned.get("constraints", []):
+            if not isinstance(item, str):
+                constraints.append(item)
+                continue
+            stripped_item, item_glossary = self._extract_glossary_note(item)
+            glossary.extend(item_glossary)
+            if stripped_item:
+                constraints.append(stripped_item)
+
+        cleaned["context"] = context
+        cleaned["constraints"] = constraints
+        cleaned["glossary"] = glossary
+        return cleaned
+
+    def _extract_glossary_note(self, text: str) -> tuple[str, list[dict[str, str]]]:
+        match = re.search(r"\s*(용어\s*(?:설명|정리)\s*[:：]\s*)(.+?)\s*$", text, flags=re.S)
+        if not match:
+            return text, []
+        before = text[: match.start()].strip()
+        note = match.group(2).strip()
+        parsed = self._parse_glossary_note(note)
+        return before, [parsed] if parsed else []
+
+    def _parse_glossary_note(self, note: str) -> dict[str, str] | None:
+        note = note.strip()
+        if not note:
+            return None
+        match = re.match(r"[‘'\"“]?([^’'\"”:=：은는]+?)[’'\"”]?\s*(?:은|는|이란|란|=|:|：)\s*(.+)", note, flags=re.S)
+        if match:
+            term = match.group(1).strip(" ‘'\"“”")
+            definition = match.group(2).strip()
+            if term and definition:
+                return {"term": term, "definition": definition}
+        return {"term": "용어", "definition": note}
 
     def _learner_material(self, material: dict[str, Any], index: int) -> dict[str, Any]:
         material_type = material.get("type")
@@ -433,7 +488,7 @@ nav{{position:fixed;inset:0 0 auto;height:64px;display:flex;align-items:center;g
 .hero{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:28px}} .eyebrow{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:14px}} h1{{margin:0 0 10px;font-size:42px;line-height:1.08;font-weight:620;letter-spacing:-.025em}} .hero p{{margin:0;max-width:680px;color:var(--t2)}} .hero-actions{{display:flex;gap:8px}}
 .btn{{border:1px solid var(--b1);background:var(--bg2);color:var(--t1);border-radius:7px;padding:9px 13px;transition:.15s}} .btn:hover{{border-color:var(--b2);background:var(--bg3)}} .btn.primary{{background:var(--a);border-color:var(--a);color:white}} .btn.primary:hover{{background:var(--ah)}}
 .job-grid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:22px}} .job-group{{border:1px solid var(--b0);background:var(--bg2);border-radius:8px;padding:15px}} .job-head{{display:flex;justify-content:space-between;gap:10px;margin-bottom:12px}} .job-code{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--t4)}} .job-name{{font-weight:650;letter-spacing:-.01em}} .job-summary{{font-size:12px;color:var(--t3)}} .slot-row{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}} .slot-card{{border:1px solid var(--b0);background:var(--bg3);border-radius:7px;padding:12px;min-height:116px;text-align:left;color:inherit;transition:.15s}} .slot-card.saved:hover{{border-color:var(--b2);background:var(--bg4)}} .slot-card.saved.active{{border-color:var(--ab2);background:var(--ab)}} .slot-card.failed,.slot-card.missing{{cursor:not-allowed;opacity:.82}} .slot-card.failed{{border-color:rgba(235,87,87,.22)}} .slot-card.missing{{border-color:rgba(242,201,76,.22)}} .slot-top{{display:flex;justify-content:space-between;gap:8px;margin-bottom:8px}} .slot-diff{{font-size:12px;color:var(--a)}} .slot-status{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;text-transform:uppercase;color:var(--t4)}} .slot-card.failed .slot-status{{color:var(--dng)}} .slot-card.missing .slot-status{{color:var(--warn)}} .slot-title{{font-size:13px;color:var(--t2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}} .slot-reason{{font-size:12px;color:var(--t3);line-height:1.35;margin-top:6px}}
-.layout{{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}} .main{{display:flex;flex-direction:column;gap:12px}} .panel,.section{{background:var(--bg2);border:1px solid var(--b0);border-radius:8px}} .section{{padding:24px}} .panel{{position:sticky;top:88px;padding:22px;display:flex;flex-direction:column;gap:18px}} .breadcrumb{{font-size:12px;color:var(--t3);margin-bottom:12px}} .pill-row{{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}} h2{{margin:0 0 10px;font-size:28px;line-height:1.24;font-weight:620;letter-spacing:-.018em}} h3{{margin:0 0 14px;font-size:17px;font-weight:620}} .scenario{{color:var(--t2);margin-bottom:14px}} .constraints{{display:grid;gap:7px;margin:14px 0 0;padding:0;list-style:none}} .constraints li{{border:1px solid var(--b0);background:var(--bg3);border-radius:6px;padding:9px 11px;color:var(--t2);font-size:13px}}
+.layout{{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}} .main{{display:flex;flex-direction:column;gap:12px}} .panel,.section{{background:var(--bg2);border:1px solid var(--b0);border-radius:8px}} .section{{padding:24px}} .panel{{position:sticky;top:88px;padding:22px;display:flex;flex-direction:column;gap:18px}} .breadcrumb{{font-size:12px;color:var(--t3);margin-bottom:12px}} .pill-row{{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}} h2{{margin:0 0 10px;font-size:28px;line-height:1.24;font-weight:620;letter-spacing:-.018em}} h3{{margin:0 0 14px;font-size:17px;font-weight:620}} .scenario{{color:var(--t2);margin-bottom:14px}} .constraints{{display:grid;gap:7px;margin:14px 0 0;padding:0;list-style:none}} .constraints li{{border:1px solid var(--b0);background:var(--bg3);border-radius:6px;padding:9px 11px;color:var(--t2);font-size:13px}} .glossary{{margin:14px 0 0}} .glossary-title{{font-size:12px;color:var(--a);font-weight:650;margin-bottom:7px}} .glossary-list{{display:grid;gap:7px}} .glossary-card{{border:1px solid var(--b0);background:var(--bg3);border-radius:6px;padding:10px 12px;color:var(--t2);font-size:13px}} .glossary-card b{{display:block;color:var(--t1);margin-bottom:3px}}
 .material-tabs{{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}} .tab{{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--b1);background:var(--bg3);color:var(--t2)}} .tab.active{{color:white;background:var(--a);border-color:var(--a)}} .material{{display:none}} .material.active{{display:block}} .mat-head{{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px}} .mat-title{{font-weight:620}} .mat-desc{{color:var(--t2);font-size:13px;margin-top:4px}} .type{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--t3);text-transform:uppercase}} table{{width:100%;border-collapse:collapse;border:1px solid var(--b0);border-radius:6px;overflow:hidden;font-size:13px}} th{{background:var(--bg4);color:var(--t3);font-size:11px;text-align:left;padding:9px 12px;border-bottom:1px solid var(--b0)}} td{{padding:9px 12px;border-bottom:1px solid var(--b0);color:var(--t2)}} tr:last-child td{{border-bottom:0}} .num{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--a);text-align:right}}
 .chart{{height:260px;border:1px solid var(--b0);border-radius:7px;background:var(--bg3);padding:10px}} .chart svg{{width:100%;height:100%;display:block}} .card-list{{display:grid;gap:8px}} .info-card{{border:1px solid var(--b0);background:var(--bg3);border-radius:7px;padding:13px}} .info-card b{{display:block;margin-bottom:5px}} .muted{{color:var(--t3)}} .timeline{{display:grid;gap:8px}} .timeline .item{{border-left:2px solid var(--a);padding:4px 0 8px 12px;color:var(--t2)}} .check-row{{display:flex;gap:9px;align-items:flex-start}} .check-dot{{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--ab);color:var(--a);font-size:12px;flex:0 0 auto;margin-top:2px}}
 .task-list{{display:grid;gap:10px;counter-reset:task}} .task{{border:1px solid var(--b0);background:var(--bg3);border-radius:7px;padding:14px;counter-increment:task}} .task-meta{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--a);margin-bottom:6px;text-transform:uppercase}} .task-instruction{{color:var(--t1)}} .task-answer{{margin-top:12px;min-height:132px}} .refs{{margin-top:8px;display:flex;gap:5px;flex-wrap:wrap}} .ref{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--t3);border:1px solid var(--b0);border-radius:999px;padding:2px 7px}}
@@ -622,7 +677,13 @@ function renderHeader(m) {{
     <p class="scenario"><b>${{esc(scenario.role)}}</b><br>${{esc(scenario.context)}}</p>
     <p class="scenario">${{esc(scenario.goal)}}</p>
     <ul class="constraints">${{(scenario.constraints || []).map(c => `<li>${{esc(c)}}</li>`).join('')}}</ul>
+    ${{renderGlossary(scenario.glossary)}}
   `;
+}}
+
+function renderGlossary(items) {{
+  if (!Array.isArray(items) || !items.length) return '';
+  return `<div class="glossary"><div class="glossary-title">용어 정리</div><div class="glossary-list">${{items.map(item => `<div class="glossary-card"><b>${{esc(item.term)}}</b><div>${{esc(item.definition)}}</div></div>`).join('')}}</div></div>`;
 }}
 
 function renderMaterials(m) {{
@@ -789,7 +850,7 @@ button,textarea{{font:inherit}} button{{cursor:pointer}} button:focus-visible,te
 .workspace{{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}} .main{{display:grid;gap:14px;min-width:0}} .section,.side{{background:var(--surface);border:1px solid var(--line);border-radius:8px;min-width:0}}
 .section{{padding:24px}} .side{{position:sticky;top:82px;padding:20px;display:grid;gap:18px}} h2{{margin:0 0 12px;font-size:28px;line-height:1.25}} h3{{margin:0 0 14px;font-size:18px}} .scenario{{color:var(--muted);margin:0 0 12px}}
 .chip-row{{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}} .chip{{display:inline-flex;border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:4px 10px;color:var(--muted);font-size:12px}} .chip.accent{{color:var(--accent);background:var(--accent2);border-color:var(--accent3)}}
-.constraints{{display:grid;gap:8px;list-style:none;padding:0;margin:14px 0 0}} .constraints li{{background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--muted)}}
+.constraints{{display:grid;gap:8px;list-style:none;padding:0;margin:14px 0 0}} .constraints li{{background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--muted)}} .glossary{{margin:16px 0 0}} .glossary-title{{font-size:13px;color:var(--accent);font-weight:700;margin-bottom:8px}} .glossary-list{{display:grid;gap:8px}} .glossary-card{{background:#fbfcfd;border:1px solid var(--line);border-radius:8px;padding:12px;color:var(--muted)}} .glossary-card b{{display:block;color:var(--text);margin-bottom:4px}}
 .material-tabs{{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}} .tab{{border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:7px 11px;color:var(--muted);font-size:13px}} .tab.active{{background:var(--accent);border-color:var(--accent);color:white}}
 .material{{display:none;min-width:0}} .material.active{{display:block}} .mat-head{{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}} .mat-label{{color:var(--accent);font-weight:700;font-size:13px}} .mat-title{{font-weight:720;margin-top:2px}} .mat-desc{{color:var(--muted);font-size:13px;margin-top:5px}} .type-label{{color:var(--muted);font-size:12px;white-space:nowrap}}
 .table-scroll{{overflow-x:auto;border:1px solid var(--line);border-radius:8px;max-width:100%;min-width:0}} table{{width:100%;min-width:640px;border-collapse:collapse;font-size:13px}} th{{background:var(--surface2);text-align:left;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line)}} td{{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}} tr:last-child td{{border-bottom:0}} .num{{text-align:right;color:var(--accent);font-weight:700}}
@@ -927,7 +988,13 @@ function renderHeader(mission) {{
     <p class="scenario"><b>${{esc(scenario.role)}}</b><br>${{esc(scenario.context)}}</p>
     <p class="scenario">${{esc(scenario.goal)}}</p>
     <ul class="constraints">${{(scenario.constraints || []).map(item => `<li>${{esc(item)}}</li>`).join('')}}</ul>
+    ${{renderGlossary(scenario.glossary)}}
   `;
+}}
+
+function renderGlossary(items) {{
+  if (!Array.isArray(items) || !items.length) return '';
+  return `<div class="glossary"><div class="glossary-title">용어 정리</div><div class="glossary-list">${{items.map(item => `<div class="glossary-card"><b>${{esc(item.term)}}</b><div>${{esc(item.definition)}}</div></div>`).join('')}}</div></div>`;
 }}
 
 function renderMaterials(mission) {{

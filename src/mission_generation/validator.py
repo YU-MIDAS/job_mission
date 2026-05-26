@@ -153,6 +153,25 @@ class MissionValidator:
                     self._add(errors, "REQUIRED_FIELD_MISSING", "fail", f"mission.{field}", f"mission.{field} is required.", "Add the field.")
             if len(str(mission.get("title", "")).strip()) <= 3:
                 self._add(warnings, "TITLE_TOO_GENERIC", "warning", "mission.title", "Mission title is too generic.", "Use a more specific title.")
+            scenario = mission.get("scenario")
+            if isinstance(scenario, dict):
+                for field in ["role", "context", "goal", "constraints", "glossary"]:
+                    if field not in scenario:
+                        self._add(errors, "REQUIRED_FIELD_MISSING", "fail", f"mission.scenario.{field}", f"scenario.{field} is required.", "Add the field.")
+                glossary = scenario.get("glossary")
+                if not isinstance(glossary, list):
+                    self._add(errors, "REQUIRED_FIELD_MISSING", "fail", "mission.scenario.glossary", "scenario.glossary must be an array.", "Use [] when no glossary is needed.")
+                else:
+                    for index, item in enumerate(glossary):
+                        if not isinstance(item, dict) or not item.get("term") or not item.get("definition"):
+                            self._add(
+                                errors,
+                                "GLOSSARY_ITEM_INVALID",
+                                "fail",
+                                f"mission.scenario.glossary[{index}]",
+                                "Each glossary item must include term and definition.",
+                                "Add term and definition, or remove the invalid item.",
+                            )
         checks["schema"] = {"required_checked": True}
 
     def _validate_system_decisions(

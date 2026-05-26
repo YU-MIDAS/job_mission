@@ -27,6 +27,16 @@ class SchemaConstraintsTest(unittest.TestCase):
         )
         self.assertEqual(evidence_source["items"]["enum"], ["evidence_a", "evidence_b"])
 
+    def test_scenario_glossary_is_required_but_can_be_empty(self) -> None:
+        schema = SchemaConstraintsBuilder().structured_output_schema(evidence_names=["evidence_a"])
+        scenario = schema["properties"]["mission"]["properties"]["scenario"]
+        glossary = scenario["properties"]["glossary"]
+
+        self.assertIn("glossary", scenario["required"])
+        self.assertEqual(glossary["type"], "array")
+        self.assertEqual(set(glossary["items"]["required"]), {"term", "definition"})
+        self.assertFalse(glossary["items"]["additionalProperties"])
+
     def _object_nodes(self, node: Any) -> list[dict[str, Any]]:
         found: list[dict[str, Any]] = []
         if isinstance(node, dict):

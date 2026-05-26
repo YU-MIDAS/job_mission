@@ -145,6 +145,8 @@ class PromptBuilder:
             "Quality requirements:\n"
             "- Write all user-facing mission text in natural Korean.\n"
             "- Make the scenario concrete and workplace-like, but use only synthetic organizations, products, customers, and data.\n"
+            "- mission.scenario.glossary is required. Use an empty array when no glossary is needed.\n"
+            "- Put learner-facing term explanations only in mission.scenario.glossary as {\"term\":\"...\",\"definition\":\"...\"}; do not append '용어 설명:' notes to scenario.context, scenario.goal, constraints, tasks, or material text.\n"
             "- Reflect system_decisions.mission_design.mission_design_type and design_intent in the scenario, materials, tasks, and evaluation.\n"
             "- Make every material useful for solving at least one task. Avoid decorative or unrelated materials.\n"
             "- Make task instructions clear about what the learner must notice, choose, compare, explain, or suggest.\n"
@@ -168,7 +170,7 @@ class PromptBuilder:
             "- Use one clear workplace request from a manager, client, customer, or team member instead of a broad report brief.\n"
             "- Keep the mission solvable without prior professional knowledge; put every needed clue inside the provided materials.\n"
             "- If the job normally uses specialist terms, explain or embed the needed meaning in the materials and task text.\n"
-            "- If learner-facing text uses a specialist or potentially confusing term, add a short '용어 설명:' note at the end of the mission text in plain Korean.\n"
+            "- If learner-facing text uses a specialist or potentially confusing term, add the term and a short plain-Korean definition to mission.scenario.glossary.\n"
             "- Ask the learner to notice, choose, compare, explain, or suggest; avoid expert-only analysis, formulas, legal judgment, investment advice, or domain trivia unless fully explained by the materials.\n"
             "- Keep learner-facing text concise: one main question, one concrete situation, and the exact number of guided task steps required by difficulty.\n\n"
             "Stability requirements:\n"
@@ -251,6 +253,7 @@ class MockMissionDraftBuilder:
                         "최소 2개 이상의 자료를 근거로 연결한다.",
                         "외부 검색이나 전문 법률·투자·보험 지식 없이 판단한다.",
                     ],
+                    "glossary": [],
                 },
                 "materials": materials,
                 "tasks": tasks,

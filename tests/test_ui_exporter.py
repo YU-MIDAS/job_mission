@@ -141,6 +141,8 @@ class MissionUIExporterTest(unittest.TestCase):
         self.assertIn("learnerPayload", html)
         self.assertIn("answer-input", html)
         self.assertIn("answer-char", html)
+        self.assertIn("renderGlossary", html)
+        self.assertIn("용어 정리", html)
         self.assertIn("item.text || [item.period, item.task]", html)
         self.assertIn("const table = hasTable ? renderTable(data) : ''", html)
         first = payload["missions"][0]
@@ -171,6 +173,26 @@ class MissionUIExporterTest(unittest.TestCase):
         self.assertNotIn("response did not contain output text", html)
         self.assertNotIn("failed", html)
         self.assertNotIn("missing", html)
+
+    def test_learner_scenario_extracts_legacy_glossary_note(self) -> None:
+        scenario = MissionUIExporter()._learner_scenario(
+            {
+                "role": "데이터팀 인턴",
+                "context": "분석할 항목을 먼저 고릅니다. 용어 설명: ‘데이터 자원’은 분석에 쓰려고 모으는 데이터입니다.",
+                "goal": "항목 1개를 고르세요.",
+                "constraints": ["제공 자료만 사용", "용어 정리: 지표는 숫자로 본 상태입니다."],
+            }
+        )
+
+        self.assertEqual(scenario["context"], "분석할 항목을 먼저 고릅니다.")
+        self.assertEqual(scenario["constraints"], ["제공 자료만 사용"])
+        self.assertEqual(
+            scenario["glossary"],
+            [
+                {"term": "데이터 자원", "definition": "분석에 쓰려고 모으는 데이터입니다."},
+                {"term": "지표", "definition": "숫자로 본 상태입니다."},
+            ],
+        )
 
 
 if __name__ == "__main__":

@@ -186,6 +186,15 @@ class SchemaConstraintsBuilder:
                 "context": {"type": "string"},
                 "goal": {"type": "string"},
                 "constraints": self._string_array(),
+                "glossary": {
+                    "type": "array",
+                    "items": self._object(
+                        {
+                            "term": {"type": "string"},
+                            "definition": {"type": "string"},
+                        }
+                    ),
+                },
             }
         )
 

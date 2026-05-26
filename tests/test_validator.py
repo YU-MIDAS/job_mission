@@ -86,6 +86,32 @@ class MissionValidatorTest(unittest.TestCase):
         self.assertEqual(result["status"], "pass")
         self.assertEqual(result["errors"], [])
 
+    def test_scenario_glossary_is_required_but_empty_array_is_valid(self) -> None:
+        draft = copy.deepcopy(self.draft)
+        self.assertEqual(draft["mission"]["scenario"]["glossary"], [])
+
+        missing = copy.deepcopy(draft)
+        del missing["mission"]["scenario"]["glossary"]
+        result = MissionValidator().validate(
+            job_profile=self.profile,
+            system_decisions=self.decisions,
+            mission_output_draft=missing,
+            attempt=0,
+        )
+        self.assertEqual(result["status"], "repair_required")
+        self.assertIn("REQUIRED_FIELD_MISSING", {item["code"] for item in result["errors"]})
+
+        invalid = copy.deepcopy(draft)
+        invalid["mission"]["scenario"]["glossary"] = [{"term": "데이터 자원"}]
+        result = MissionValidator().validate(
+            job_profile=self.profile,
+            system_decisions=self.decisions,
+            mission_output_draft=invalid,
+            attempt=0,
+        )
+        self.assertEqual(result["status"], "repair_required")
+        self.assertIn("GLOSSARY_ITEM_INVALID", {item["code"] for item in result["errors"]})
+
     def test_reduced_material_item_bounds_are_enforced(self) -> None:
         validator = MissionValidator()
         max_counts = {
