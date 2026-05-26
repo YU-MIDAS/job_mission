@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import copy
 import json
-import re
 from typing import Any
 
 from .config import EXCLUDED_MATERIAL_TYPES, MATERIAL_TYPES
@@ -27,8 +26,6 @@ AREA_BY_CODE = {
     "UNKNOWN_MATERIAL_REFERENCE": "materials",
     "TASK_COUNT_OUT_OF_RANGE": "materials",
     "MATERIAL_COUNT_OUT_OF_RANGE": "materials",
-    "TASK_MULTIPLE_ACTIONS": "tasks",
-    "TASK_NON_DESCRIPTIVE_ANSWER": "tasks",
     "EVIDENCE_SOURCE_NOT_FOUND": "evidence",
     "EXTERNAL_KNOWLEDGE_REQUIRED": "tasks",
     "RUBRIC_POINTS_NOT_100": "evaluation",
@@ -396,24 +393,6 @@ class MissionValidator:
             instruction = str(task.get("instruction", ""))
             if any(word in instruction for word in blocked):
                 self._add(errors, "EXTERNAL_KNOWLEDGE_REQUIRED", "fail", f"{path}.instruction", "task appears to require external knowledge.", "Use provided materials only.")
-            if self._task_has_multiple_actions(instruction):
-                self._add(
-                    errors,
-                    "TASK_MULTIPLE_ACTIONS",
-                    "fail",
-                    f"{path}.instruction",
-                    "task combines multiple learner actions.",
-                    "Keep one learner action or deliverable per task.",
-                )
-            if self._task_discourages_descriptive_answer(instruction):
-                self._add(
-                    errors,
-                    "TASK_NON_DESCRIPTIVE_ANSWER",
-                    "fail",
-                    f"{path}.instruction",
-                    "task asks for a code-only or non-descriptive answer.",
-                    "Ask for one short descriptive written response.",
-                )
         submission = mission.get("submission_format") or {}
         if not isinstance(submission, dict) or not submission.get("required_sections") or not submission.get("length_hint"):
             self._add(warnings, "SUBMISSION_FORMAT_TOO_OPEN", "warning", "mission.submission_format", "submission format is broad.", "Add sections and length_hint.")
@@ -593,22 +572,6 @@ class MissionValidator:
         hard: tuple[int, int],
     ) -> tuple[int, int]:
         return {"easy": easy, "normal": normal, "hard": hard}.get(difficulty, normal)
-
-    def _task_has_multiple_actions(self, instruction: str) -> bool:
-        explicit_markers = ("①", "②", "③", "(1)", "(2)", "(3)", "첫째", "둘째", "셋째", "이어서", "마지막")
-        if any(marker in instruction for marker in explicit_markers):
-            return True
-        action_text = re.sub(r"답(?:변|안)?(?:에는|은|의)?[^.。\n]*(?:작성|적어)[주세하십니다요]+[.]?", "", instruction)
-        action_text = re.sub(r"(?:답변 형식|제출 형식|형식)\s*[:：][^.。\n]+", "", action_text)
-        action_endings = ("하세요", "해보세요", "적어주세요", "정리하세요", "제안하세요", "선택하세요", "고르세요")
-        return sum(action_text.count(ending) for ending in action_endings) > 1
-
-    def _task_discourages_descriptive_answer(self, instruction: str) -> bool:
-        short_answer_markers = ("A/B/C", "A 또는 B", "옵션:", "선택지", "번호", "이름만")
-        restrictive_phrases = ("로만 작성하세요", "로만 적어주세요", "만 작성하세요", "만 적어주세요")
-        return any(marker in instruction for marker in short_answer_markers) and any(
-            phrase in instruction for phrase in restrictive_phrases
-        )
 
     def _evidence_name_map(self, profile: dict[str, Any]) -> dict[str, dict[str, Any]]:
         return {

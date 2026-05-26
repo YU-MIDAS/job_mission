@@ -60,7 +60,7 @@ class MissionValidatorTest(unittest.TestCase):
         codes = {item["code"] for item in result["errors"]}
         self.assertIn("EXCLUDED_MATERIAL_USED", codes)
 
-    def test_task_with_multiple_actions_requires_repair(self) -> None:
+    def test_task_instruction_style_is_not_a_validator_failure(self) -> None:
         draft = copy.deepcopy(self.draft)
         draft["mission"]["tasks"][0]["instruction"] = "자료를 확인하세요. 그리고 개선안을 제안하세요."
         result = MissionValidator().validate(
@@ -70,14 +70,10 @@ class MissionValidatorTest(unittest.TestCase):
             attempt=0,
         )
 
-        self.assertEqual(result["status"], "repair_required")
-        self.assertIn("TASK_MULTIPLE_ACTIONS", {item["code"] for item in result["errors"]})
+        self.assertEqual(result["status"], "pass")
+        self.assertEqual(result["errors"], [])
 
-    def test_answer_format_guidance_is_not_counted_as_second_action(self) -> None:
-        instruction = "옵션 A/B/C 중 1개만 고르세요. 답은 \"옵션: A\"로만 작성하세요."
-        self.assertFalse(MissionValidator()._task_has_multiple_actions(instruction))
-
-    def test_code_only_answer_task_requires_repair(self) -> None:
+    def test_code_only_answer_style_is_not_a_validator_failure(self) -> None:
         draft = copy.deepcopy(self.draft)
         draft["mission"]["tasks"][0]["instruction"] = "옵션 A/B/C 중 1개만 고르세요. 답은 \"옵션: A\"로만 작성하세요."
         result = MissionValidator().validate(
@@ -87,8 +83,8 @@ class MissionValidatorTest(unittest.TestCase):
             attempt=0,
         )
 
-        self.assertEqual(result["status"], "repair_required")
-        self.assertIn("TASK_NON_DESCRIPTIVE_ANSWER", {item["code"] for item in result["errors"]})
+        self.assertEqual(result["status"], "pass")
+        self.assertEqual(result["errors"], [])
 
     def test_reduced_material_item_bounds_are_enforced(self) -> None:
         validator = MissionValidator()
