@@ -158,6 +158,7 @@ def default_pilot_config() -> dict[str, Any]:
         "source_root": SOURCE_ROOT,
         "use_kmeans": False,
         "use_llm_decision_selector": True,
+        "use_practice_sheet_background": True,
         "jobs": PILOT_JOBS,
         "difficulties": DIFFICULTIES,
         "max_repair_attempts": 1,

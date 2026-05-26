@@ -35,7 +35,7 @@ class PilotRunner:
         target_job_codes: list[str] | None = None,
         target_difficulty_codes: list[str] | None = None,
         use_llm_decision_selector: bool = True,
-        use_practice_sheet_background: bool = False,
+        use_practice_sheet_background: bool = True,
         practice_sheet_root: str | Path = "data/additional_search",
     ) -> None:
         self.source_root = Path(source_root)
@@ -658,7 +658,19 @@ def main() -> None:
     parser.add_argument("--jobs", type=_parse_codes, default=None, help="Comma-separated job codes to run, e.g. K000000997,K000001080.")
     parser.add_argument("--difficulties", type=_parse_codes, default=None, help="Comma-separated difficulty codes to run, e.g. normal.")
     parser.add_argument("--no-llm-selector", action="store_true", help="Disable the LLM decision selector and use legacy system decision rules.")
-    parser.add_argument("--practice-sheet-background", action="store_true", help="Use data/additional_search/{job_cd}.md as background instead of mission_seed.")
+    parser.add_argument(
+        "--practice-sheet-background",
+        dest="use_practice_sheet_background",
+        action="store_true",
+        help="Use data/additional_search/{job_cd}.md as background instead of mission_seed. This is the default.",
+    )
+    parser.add_argument(
+        "--mission-seed",
+        dest="use_practice_sheet_background",
+        action="store_false",
+        help="Use the legacy mission_seed flow instead of practice sheet background.",
+    )
+    parser.set_defaults(use_practice_sheet_background=True)
     parser.add_argument("--practice-sheet-root", default="data/additional_search", help="Directory containing {job_cd}.md practice sheet background files.")
     args = parser.parse_args()
     runner = PilotRunner(
@@ -669,7 +681,7 @@ def main() -> None:
         target_job_codes=args.jobs,
         target_difficulty_codes=args.difficulties,
         use_llm_decision_selector=not args.no_llm_selector,
-        use_practice_sheet_background=args.practice_sheet_background,
+        use_practice_sheet_background=args.use_practice_sheet_background,
         practice_sheet_root=args.practice_sheet_root,
     )
     try:

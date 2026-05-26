@@ -11,6 +11,51 @@ from .utils import ensure_inside_workspace, project_path, scan_text_for_secrets
 
 DEFAULT_RUN_ID = "pilot_v1_20260524_055451"
 
+TASK_TYPE_LABELS = {
+    "research_and_analysis": "조사·분석형",
+    "coordination_and_negotiation": "협업·조율형",
+    "communication_and_reporting": "소통·보고형",
+    "planning_and_proposal": "기획·제안형",
+    "decision_making": "의사결정형",
+    "operation_and_scheduling": "운영·일정관리형",
+}
+
+MATERIAL_TYPE_LABELS = {
+    "chart": "차트 자료",
+    "table": "표 자료",
+    "memo": "메모 자료",
+    "email": "이메일 자료",
+    "log": "로그 자료",
+    "checklist": "체크리스트",
+    "schedule": "일정표",
+}
+
+SUBMISSION_TYPE_LABELS = {
+    "text": "서술형",
+    "short_text": "짧은 서술형",
+}
+
+LENGTH_HINT_LABELS = {
+    "1-2 short sentences": "짧은 문장 1~2개",
+    "2-3 short sentences per task": "과제별 짧은 문장 2~3개",
+}
+
+PRIVATE_LEARNER_KEYS = {
+    "confidence",
+    "evidence_chain",
+    "evidence_source",
+    "expected_action",
+    "linked_evidence",
+    "mission_fact_refs",
+    "mission_id",
+    "reliability",
+    "repair_count",
+    "source_ref",
+    "source_refs",
+    "task_id",
+    "warning_count",
+}
+
 
 class MissionUIExporter:
     def __init__(self, *, output_root: str | Path = "outputs") -> None:
@@ -43,6 +88,28 @@ class MissionUIExporter:
         ensure_inside_workspace(output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
         output_path = output_dir / "mission_ui.html"
+        output_path.write_text(html, encoding="utf-8", newline="\n")
+        return output_path
+
+    def export_learner(
+        self,
+        *,
+        run_id: str = DEFAULT_RUN_ID,
+        pilot_run_dir: str | Path | None = None,
+        ui_output_dir: str | Path | None = None,
+    ) -> Path:
+        run_dir = project_path(pilot_run_dir) if pilot_run_dir else self.output_root / "pilot" / "v1" / "runs" / run_id
+        ensure_inside_workspace(run_dir)
+        mission_slots = self._load_mission_slots(run_dir)
+        payload = self._build_learner_payload(mission_slots)
+        html = self._render_learner_html(payload)
+        findings = scan_text_for_secrets(html)
+        if findings:
+            raise ValueError(f"generated learner HTML contains secret-like patterns: {findings}")
+        output_dir = project_path(ui_output_dir) if ui_output_dir else self.output_root / "ui" / "v1" / "runs" / run_id
+        ensure_inside_workspace(output_dir)
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path = output_dir / "mission_learner.html"
         output_path.write_text(html, encoding="utf-8", newline="\n")
         return output_path
 
@@ -219,6 +286,128 @@ class MissionUIExporter:
 
     def _difficulty_label(self, difficulty_code: str) -> str:
         return {"easy": "쉬움", "normal": "보통", "hard": "어려움"}.get(difficulty_code, difficulty_code)
+
+    def _build_learner_payload(self, mission_slots: list[dict[str, Any]]) -> dict[str, Any]:
+        saved_slots = [slot for slot in mission_slots if slot["status"] == "saved" and slot.get("mission")]
+        return {
+            "schema_version": "mission_learner_payload.v1",
+            "missions": [
+                self._learner_mission(slot["mission"], index)
+                for index, slot in enumerate(saved_slots, start=1)
+            ],
+        }
+
+    def _learner_mission(self, mission: dict[str, Any], index: int) -> dict[str, Any]:
+        difficulty = mission.get("difficulty", {})
+        original_materials = mission.get("materials", [])
+        material_labels = {
+            material.get("material_id"): f"자료 {material_index}"
+            for material_index, material in enumerate(original_materials, start=1)
+            if isinstance(material, dict)
+        }
+        materials = [
+            self._learner_material(material, material_index)
+            for material_index, material in enumerate(original_materials, start=1)
+            if isinstance(material, dict)
+        ]
+        return {
+            "uid": f"learner_mission_{index}",
+            "job_name": mission.get("job_name"),
+            "difficulty_label": difficulty.get("label") or self._difficulty_label(difficulty.get("level", "")),
+            "time_limit_minutes": difficulty.get("estimated_time_minutes"),
+            "task_type_label": self._task_type_label(mission.get("task_type")),
+            "secondary_task_type_labels": [
+                self._task_type_label(item) for item in mission.get("secondary_task_types", [])
+            ],
+            "title": mission.get("title"),
+            "scenario": self._strip_private_fields(mission.get("scenario", {})),
+            "materials": materials,
+            "tasks": [
+                self._learner_task(task, task_index, material_labels)
+                for task_index, task in enumerate(mission.get("tasks", []), start=1)
+                if isinstance(task, dict)
+            ],
+            "submission_format": self._learner_submission(mission.get("submission_format", {})),
+            "evaluation": self._learner_evaluation(mission.get("evaluation", {})),
+        }
+
+    def _learner_material(self, material: dict[str, Any], index: int) -> dict[str, Any]:
+        material_type = material.get("type")
+        return {
+            "uid": f"material_{index}",
+            "label": f"자료 {index}",
+            "type": material_type,
+            "type_label": self._material_type_label(material_type),
+            "title": material.get("title"),
+            "description": material.get("description"),
+            "data": self._strip_private_fields(material.get("data", {})),
+        }
+
+    def _learner_task(
+        self,
+        task: dict[str, Any],
+        index: int,
+        material_labels: dict[Any, str],
+    ) -> dict[str, Any]:
+        labels = [
+            material_labels.get(material_id)
+            for material_id in task.get("required_materials", [])
+            if material_labels.get(material_id)
+        ]
+        return {
+            "label": f"과제 {index}",
+            "instruction": task.get("instruction"),
+            "material_labels": labels,
+        }
+
+    def _learner_submission(self, submission_format: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "type_label": self._submission_type_label(submission_format.get("type")),
+            "estimated_time_minutes": submission_format.get("estimated_time_minutes"),
+            "length_hint_label": self._length_hint_label(submission_format.get("length_hint")),
+            "required_sections": self._strip_private_fields(submission_format.get("required_sections", [])),
+        }
+
+    def _learner_evaluation(self, evaluation: dict[str, Any]) -> dict[str, Any]:
+        rubric = evaluation.get("rubric", [])
+        return {
+            "criteria": [
+                item.get("criterion")
+                for item in rubric
+                if isinstance(item, dict) and item.get("criterion")
+            ]
+        }
+
+    def _strip_private_fields(self, value: Any) -> Any:
+        if isinstance(value, dict):
+            return {
+                key: self._strip_private_fields(item)
+                for key, item in value.items()
+                if key not in PRIVATE_LEARNER_KEYS
+            }
+        if isinstance(value, list):
+            return [self._strip_private_fields(item) for item in value]
+        return value
+
+    def _task_type_label(self, task_type: str | None) -> str:
+        if not task_type:
+            return ""
+        return TASK_TYPE_LABELS.get(task_type, "과제형")
+
+    def _material_type_label(self, material_type: str | None) -> str:
+        if not material_type:
+            return "자료"
+        return MATERIAL_TYPE_LABELS.get(material_type, "자료")
+
+    def _submission_type_label(self, submission_type: str | None) -> str:
+        if not submission_type:
+            return ""
+        return SUBMISSION_TYPE_LABELS.get(submission_type, "서술형")
+
+    def _length_hint_label(self, length_hint: str | None) -> str:
+        if not length_hint:
+            return ""
+        return LENGTH_HINT_LABELS.get(length_hint, length_hint)
 
     def _render_html(self, payload: dict[str, Any]) -> str:
         encoded_payload = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
@@ -499,7 +688,7 @@ function renderTable(d) {{
 
 function renderMemo(d) {{
   const items = d.items || [];
-  return `<div class="card-list">${{items.map(it => `<div class="info-card"><b>${{esc(it.label || it.period || 'memo')}}</b><div>${{esc(it.text || it.task)}}</div><div class="muted">${{esc(it.constraint || '')}}</div></div>`).join('') || '<div class="empty">메모 없음</div>'}}</div>`;
+  return `<div class="card-list">${{items.map(it => `<div class="info-card"><b>${{esc(it.label || it.period || 'memo')}}</b><div>${{esc(it.text || it.task)}}</div>${{it.constraint ? `<div class="muted">제약: ${{esc(it.constraint)}}</div>` : ''}}</div>`).join('') || '<div class="empty">메모 없음</div>'}}</div>`;
 }}
 
 function renderEmail(d) {{
@@ -515,12 +704,22 @@ function renderLog(d) {{
 function renderChecklist(d) {{
   const items = d.items || [];
   const statusLabel = status => status === 'checked' ? '확인됨' : status === 'issue' ? '주의' : '미확인';
-  return `<div class="card-list">${{items.map(it => `<div class="info-card check-row"><span class="check-dot">${{it.status === 'checked' ? '✓' : it.status === 'issue' ? '!' : '-'}}</span><div><b>${{esc(it.text || it.label || '체크 항목')}}</b><div class="muted">${{esc([...new Set([it.label, statusLabel(it.status), it.importance].filter(Boolean))].join(' · '))}}</div><div class="muted">${{esc(it.constraint || '')}}</div></div></div>`).join('') || '<div class="empty">체크리스트 없음</div>'}}</div>`;
+  return `<div class="card-list">${{items.map(it => {{
+    const meta = [...new Set([it.label, statusLabel(it.status), it.importance].filter(Boolean))].join(' · ');
+    return `<div class="info-card check-row"><span class="check-dot">${{it.status === 'checked' ? '✓' : it.status === 'issue' ? '!' : '-'}}</span><div><b>${{esc(it.text || it.label || '체크 항목')}}</b>${{meta ? `<div class="muted">메타: ${{esc(meta)}}</div>` : ''}}${{it.constraint ? `<div class="muted">제약: ${{esc(it.constraint)}}</div>` : ''}}</div></div>`;
+  }}).join('') || '<div class="empty">체크리스트 없음</div>'}}</div>`;
 }}
 
 function renderSchedule(d) {{
   const items = d.items || [];
-  return `<div class="timeline">${{items.map(it => `<div class="item"><b>${{esc(it.period)}}</b><br>${{esc(it.task)}}<div class="muted">${{esc(it.constraint)}}</div></div>`).join('') || '<div class="empty">일정 없음</div>'}}</div>`;
+  const hasTable = (d.columns || []).length && (d.rows || []).length;
+  const table = hasTable ? renderTable(d) : '';
+  const timeline = items.length ? `<div class="timeline">${{items.map(it => {{
+    const title = it.text || [it.period, it.task].filter(Boolean).join(' · ') || it.label || '일정';
+    const meta = [...new Set([it.label, it.period, it.task, it.status, it.importance].filter(Boolean))].join(' · ');
+    return `<div class="item"><b>${{esc(title)}}</b>${{meta ? `<div class="muted">메타: ${{esc(meta)}}</div>` : ''}}${{it.constraint ? `<div class="muted">제약: ${{esc(it.constraint)}}</div>` : ''}}</div>`;
+  }}).join('')}}</div>` : '';
+  return table || timeline ? `${{table}}${{timeline}}` : '<div class="empty">일정 없음</div>';
 }}
 
 function renderTasks(m) {{
@@ -560,19 +759,339 @@ init();
 </html>
 """
 
+    def _render_learner_html(self, payload: dict[str, Any]) -> str:
+        encoded_payload = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
+        return f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOBSIM 학습자 과제</title>
+<style>
+:root {{
+  --bg:#f6f7f9; --surface:#ffffff; --surface2:#f0f3f6; --line:#dfe4ea;
+  --text:#1b1f24; --muted:#68727f; --soft:#8b96a3;
+  --accent:#2f6f6d; --accent2:#e6f2f1; --accent3:#b9d8d5;
+  --focus:#315eea;
+}}
+*{{box-sizing:border-box}} html{{scroll-behavior:smooth}} body{{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;-webkit-font-smoothing:antialiased}}
+button,textarea{{font:inherit}} button{{cursor:pointer}} button:focus-visible,textarea:focus-visible{{outline:3px solid rgba(49,94,234,.25);outline-offset:2px}}
+.topbar{{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}}
+.topbar-inner{{max-width:1120px;margin:0 auto;padding:15px 22px;display:flex;align-items:center;gap:16px}}
+.brand{{font-weight:700}} .brand span{{color:var(--accent)}} .current-meta{{margin-left:auto;color:var(--muted);font-size:13px}}
+.wrap{{max-width:1120px;margin:0 auto;padding:30px 22px 64px}}
+.intro{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:end;margin-bottom:22px}}
+.eyebrow{{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:8px}} h1{{margin:0;font-size:34px;line-height:1.18;font-weight:720}} .intro p{{margin:8px 0 0;color:var(--muted);max-width:680px}}
+.actions{{display:flex;gap:8px}} .btn{{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 13px;color:var(--text)}} .btn.primary{{background:var(--accent);border-color:var(--accent);color:white}}
+.mission-picker{{margin-bottom:20px}} .picker-title{{font-weight:700;margin-bottom:10px}} .mission-grid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+.mission-option{{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:14px;text-align:left;min-height:112px;display:flex;flex-direction:column;gap:8px;transition:.15s}}
+.mission-option:hover{{border-color:var(--accent3)}} .mission-option.active{{border-color:var(--accent);background:var(--accent2)}} .option-meta{{color:var(--muted);font-size:12px}} .option-title{{font-weight:700;line-height:1.45}}
+.workspace{{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}} .main{{display:grid;gap:14px;min-width:0}} .section,.side{{background:var(--surface);border:1px solid var(--line);border-radius:8px;min-width:0}}
+.section{{padding:24px}} .side{{position:sticky;top:82px;padding:20px;display:grid;gap:18px}} h2{{margin:0 0 12px;font-size:28px;line-height:1.25}} h3{{margin:0 0 14px;font-size:18px}} .scenario{{color:var(--muted);margin:0 0 12px}}
+.chip-row{{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}} .chip{{display:inline-flex;border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:4px 10px;color:var(--muted);font-size:12px}} .chip.accent{{color:var(--accent);background:var(--accent2);border-color:var(--accent3)}}
+.constraints{{display:grid;gap:8px;list-style:none;padding:0;margin:14px 0 0}} .constraints li{{background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--muted)}}
+.material-tabs{{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}} .tab{{border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:7px 11px;color:var(--muted);font-size:13px}} .tab.active{{background:var(--accent);border-color:var(--accent);color:white}}
+.material{{display:none;min-width:0}} .material.active{{display:block}} .mat-head{{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}} .mat-label{{color:var(--accent);font-weight:700;font-size:13px}} .mat-title{{font-weight:720;margin-top:2px}} .mat-desc{{color:var(--muted);font-size:13px;margin-top:5px}} .type-label{{color:var(--muted);font-size:12px;white-space:nowrap}}
+.table-scroll{{overflow-x:auto;border:1px solid var(--line);border-radius:8px;max-width:100%;min-width:0}} table{{width:100%;min-width:640px;border-collapse:collapse;font-size:13px}} th{{background:var(--surface2);text-align:left;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line)}} td{{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}} tr:last-child td{{border-bottom:0}} .num{{text-align:right;color:var(--accent);font-weight:700}}
+.chart{{height:260px;border:1px solid var(--line);border-radius:8px;background:linear-gradient(180deg,#fff,#f8fafb);padding:10px}} .chart svg{{width:100%;height:100%;display:block}}
+.card-list{{display:grid;gap:9px}} .info-card{{border:1px solid var(--line);background:var(--surface2);border-radius:8px;padding:13px}} .info-card b{{display:block;margin-bottom:4px}} .muted{{color:var(--muted)}} .timeline{{display:grid;gap:10px}} .timeline .item{{border-left:3px solid var(--accent);padding:3px 0 8px 12px;color:var(--muted)}} .check-row{{display:flex;gap:9px;align-items:flex-start}} .check-dot{{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--accent2);color:var(--accent);font-size:12px;flex:0 0 auto;margin-top:2px}}
+.task-list{{display:grid;gap:12px}} .task{{border:1px solid var(--line);background:#fbfcfd;border-radius:8px;padding:15px}} .task-label{{color:var(--accent);font-size:13px;font-weight:700;margin-bottom:7px}} .task-instruction{{font-weight:620}} .refs{{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap}} .ref{{border:1px solid var(--line);background:var(--surface);border-radius:999px;color:var(--muted);font-size:12px;padding:3px 8px}}
+textarea{{width:100%;min-height:150px;margin-top:12px;border:1px solid var(--line);background:white;border-radius:8px;padding:12px;resize:vertical;color:var(--text)}} .char{{text-align:right;color:var(--soft);font-size:12px;margin-top:4px}} .side-label{{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:5px}} .timer{{font-size:34px;line-height:1;font-weight:720;color:var(--accent)}} .criteria{{display:grid;gap:8px;margin:0;padding:0;list-style:none}} .criteria li{{padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface2);color:var(--muted)}} .empty{{color:var(--muted);padding:18px}}
+@media (max-width:900px){{.intro,.workspace{{grid-template-columns:minmax(0,1fr)}} .side{{position:static}} .mission-grid{{grid-template-columns:1fr}}}}
+@media (max-width:620px){{.topbar-inner{{align-items:flex-start;flex-direction:column;padding:13px 16px}} .current-meta{{margin-left:0}} .wrap{{padding:22px 14px 48px}} h1{{font-size:29px}} h2{{font-size:24px}} .section{{padding:18px}} .intro{{gap:14px}} .actions{{width:100%}} .btn{{flex:1}} table{{min-width:620px}}}}
+</style>
+</head>
+<body>
+<nav class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">JOB<span>SIM</span> 과제</div>
+    <div class="current-meta" id="currentMeta"></div>
+  </div>
+</nav>
+<main class="wrap">
+  <header class="intro">
+    <div>
+      <div class="eyebrow">학습자 미션</div>
+      <h1>자료를 읽고 과제를 해결해보세요</h1>
+      <p>직무 상황에 맞춰 제공된 자료를 확인하고, 과제별 답변을 작성합니다.</p>
+    </div>
+    <div class="actions">
+      <button class="btn" id="prevBtn">이전 미션</button>
+      <button class="btn primary" id="nextBtn">다음 미션</button>
+    </div>
+  </header>
+  <section class="mission-picker">
+    <div class="picker-title">미션 선택</div>
+    <div class="mission-grid" id="missionGrid"></div>
+  </section>
+  <section class="workspace" id="missionDetail">
+    <div class="main">
+      <article class="section" id="missionHeader"></article>
+      <article class="section">
+        <h3>제공 자료</h3>
+        <div class="material-tabs" id="materialTabs"></div>
+        <div id="materialBody"></div>
+      </article>
+      <article class="section">
+        <h3>수행 과제</h3>
+        <div class="task-list" id="taskList"></div>
+      </article>
+    </div>
+    <aside class="side">
+      <div><div class="side-label">제한 시간</div><div class="timer" id="timerVal">15분</div></div>
+      <div><div class="side-label">제출 형식</div><div id="submissionBox" class="muted"></div></div>
+      <div><div class="side-label">평가 기준</div><ul class="criteria" id="criteriaBox"></ul></div>
+    </aside>
+  </section>
+</main>
+<script id="learnerPayload" type="application/json">{encoded_payload}</script>
+<script>
+const DATA = JSON.parse(document.getElementById('learnerPayload').textContent);
+const MISSIONS = DATA.missions || [];
+let currentIndex = 0;
+let activeMaterial = 0;
+
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[ch]));
+const nl = value => esc(value).replace(/\\n/g, '<br>');
+
+function init() {{
+  renderMissionGrid();
+  if (MISSIONS.length) renderMission(0, false);
+  else renderEmptyState();
+  $('prevBtn').onclick = () => moveMission(-1);
+  $('nextBtn').onclick = () => moveMission(1);
+}}
+
+function renderMissionGrid() {{
+  $('missionGrid').innerHTML = MISSIONS.map((mission, index) => `
+    <button class="mission-option" data-index="${{index}}">
+      <span class="option-meta">${{esc(mission.job_name)}} · ${{esc(mission.difficulty_label)}}</span>
+      <span class="option-title">${{esc(mission.title)}}</span>
+    </button>
+  `).join('');
+  document.querySelectorAll('.mission-option').forEach(button => {{
+    button.addEventListener('click', () => renderMission(Number(button.dataset.index), true));
+  }});
+}}
+
+function moveMission(delta) {{
+  if (!MISSIONS.length) return;
+  const next = (currentIndex + delta + MISSIONS.length) % MISSIONS.length;
+  renderMission(next, true);
+}}
+
+function renderMission(index, shouldScroll) {{
+  const mission = MISSIONS[index];
+  if (!mission) return;
+  currentIndex = index;
+  activeMaterial = 0;
+  document.querySelectorAll('.mission-option').forEach((button, buttonIndex) => {{
+    button.classList.toggle('active', buttonIndex === index);
+  }});
+  $('currentMeta').textContent = `${{mission.job_name || ''}} · ${{mission.difficulty_label || ''}}`;
+  $('timerVal').textContent = `${{mission.time_limit_minutes || 15}}분`;
+  renderHeader(mission);
+  renderMaterials(mission);
+  renderTasks(mission);
+  renderSide(mission);
+  if (shouldScroll && window.matchMedia('(max-width: 760px)').matches) {{
+    $('missionDetail').scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+  }}
+}}
+
+function renderEmptyState() {{
+  $('currentMeta').textContent = '';
+  $('missionGrid').innerHTML = '<div class="empty">선택할 수 있는 미션이 없습니다.</div>';
+  $('missionHeader').innerHTML = '<div class="empty">선택할 수 있는 미션이 없습니다.</div>';
+  $('materialTabs').innerHTML = '';
+  $('materialBody').innerHTML = '';
+  $('taskList').innerHTML = '';
+  $('submissionBox').innerHTML = '';
+  $('criteriaBox').innerHTML = '';
+}}
+
+function renderHeader(mission) {{
+  const scenario = mission.scenario || {{}};
+  const typeChips = [mission.task_type_label, ...(mission.secondary_task_type_labels || [])]
+    .filter(Boolean)
+    .map(label => `<span class="chip">${{esc(label)}}</span>`)
+    .join('');
+  $('missionHeader').innerHTML = `
+    <div class="chip-row">
+      <span class="chip accent">${{esc(mission.job_name)}}</span>
+      <span class="chip accent">${{esc(mission.difficulty_label)}}</span>
+      ${{typeChips}}
+    </div>
+    <h2>${{esc(mission.title)}}</h2>
+    <p class="scenario"><b>${{esc(scenario.role)}}</b><br>${{esc(scenario.context)}}</p>
+    <p class="scenario">${{esc(scenario.goal)}}</p>
+    <ul class="constraints">${{(scenario.constraints || []).map(item => `<li>${{esc(item)}}</li>`).join('')}}</ul>
+  `;
+}}
+
+function renderMaterials(mission) {{
+  const materials = mission.materials || [];
+  $('materialTabs').innerHTML = materials.map((mat, index) => `
+    <button class="tab ${{index === 0 ? 'active' : ''}}" onclick="selectMaterial(${{index}})">
+      ${{esc(mat.label)}} · ${{esc(mat.type_label)}}
+    </button>
+  `).join('');
+  $('materialBody').innerHTML = materials.map((mat, index) => `
+    <div class="material ${{index === 0 ? 'active' : ''}}" id="mat-${{index}}">${{renderMaterial(mat)}}</div>
+  `).join('');
+}}
+
+function selectMaterial(index) {{
+  activeMaterial = index;
+  document.querySelectorAll('.tab').forEach((el, idx) => el.classList.toggle('active', idx === index));
+  document.querySelectorAll('.material').forEach((el, idx) => el.classList.toggle('active', idx === index));
+}}
+
+function renderMaterial(mat) {{
+  return `
+    <div class="mat-head">
+      <div>
+        <div class="mat-label">${{esc(mat.label)}} · ${{esc(mat.type_label)}}</div>
+        <div class="mat-title">${{esc(mat.title)}}</div>
+        <div class="mat-desc">${{esc(mat.description)}}</div>
+      </div>
+    </div>
+    ${{renderMaterialData(mat)}}
+  `;
+}}
+
+function renderMaterialData(mat) {{
+  const data = mat.data || {{}};
+  if (mat.type === 'chart') return renderChart(data);
+  if (mat.type === 'table') return renderTable(data);
+  if (mat.type === 'memo') return renderMemo(data);
+  if (mat.type === 'email') return renderEmail(data);
+  if (mat.type === 'log') return renderLog(data);
+  if (mat.type === 'checklist') return renderChecklist(data);
+  if (mat.type === 'schedule') return renderSchedule(data);
+  return '<div class="empty">표시할 자료가 없습니다.</div>';
+}}
+
+function renderChart(data) {{
+  const values = (data.series || []).flatMap(series => series.values || []);
+  if (!values.length) return '<div class="empty">차트 데이터가 없습니다.</div>';
+  const min = Math.min(...values), max = Math.max(...values), span = Math.max(max - min, 1);
+  const xVals = data.x_axis?.values || [];
+  const colors = ['#2f6f6d', '#315eea'];
+  const series = (data.series || []).map((item, seriesIndex) => {{
+    const points = (item.values || []).map((value, valueIndex) => {{
+      const x = 48 + (valueIndex * (640 / Math.max((item.values || []).length - 1, 1)));
+      const y = 196 - ((value - min) / span) * 150;
+      return `${{x}},${{y}}`;
+    }}).join(' ');
+    return `<polyline points="${{points}}" fill="none" stroke="${{colors[seriesIndex % colors.length]}}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }}).join('');
+  const labels = xVals.map((label, index) => `<text x="${{48 + (index * (640 / Math.max(xVals.length - 1, 1)))}}" y="228" text-anchor="middle" fill="#68727f" font-size="12">${{esc(label)}}</text>`).join('');
+  const legend = (data.series || []).map((item, index) => `<span class="ref" style="border-color:${{colors[index % colors.length]}}">${{esc(item.name)}}</span>`).join('');
+  return `<div class="chart"><svg viewBox="0 0 736 248" role="img" aria-label="차트"><line x1="48" y1="200" x2="688" y2="200" stroke="#dfe4ea"/><line x1="48" y1="36" x2="48" y2="200" stroke="#dfe4ea"/>${{series}}${{labels}}</svg></div><div class="refs">${{legend}}</div>`;
+}}
+
+function renderTable(data) {{
+  const cols = data.columns || [];
+  const rows = data.rows || [];
+  if (!cols.length || !rows.length) return '<div class="empty">표 데이터가 없습니다.</div>';
+  return `<div class="table-scroll"><table><thead><tr>${{cols.map(col => `<th>${{esc(col.label || col.key)}}</th>`).join('')}}</tr></thead><tbody>${{rows.map(row => `<tr>${{cols.map(col => `<td class="${{typeof row[col.key] === 'number' ? 'num' : ''}}">${{esc(row[col.key])}}</td>`).join('')}}</tr>`).join('')}}</tbody></table></div>`;
+}}
+
+function renderMemo(data) {{
+  const items = data.items || [];
+  return `<div class="card-list">${{items.map(item => `<div class="info-card"><b>${{esc(item.label || item.period || '메모')}}</b><div>${{esc(item.text || item.task)}}</div></div>`).join('') || '<div class="empty">메모가 없습니다.</div>'}}</div>`;
+}}
+
+function renderEmail(data) {{
+  const thread = data.thread || [];
+  return `<div class="card-list">${{thread.map(mail => `<div class="info-card"><b>${{esc(mail.subject)}}</b><div class="muted">${{esc(mail.from)}} → ${{esc(mail.to)}}</div><p>${{nl(mail.body)}}</p></div>`).join('') || '<div class="empty">이메일이 없습니다.</div>'}}</div>`;
+}}
+
+function renderLog(data) {{
+  const entries = data.entries || [];
+  return `<div class="timeline">${{entries.map(entry => `<div class="item"><b>${{esc(entry.time)}} · ${{esc(entry.actor)}}</b><br>${{esc(entry.event)}}<div class="muted">${{esc(entry.note)}}</div></div>`).join('') || '<div class="empty">로그가 없습니다.</div>'}}</div>`;
+}}
+
+function renderChecklist(data) {{
+  const items = data.items || [];
+  return `<div class="card-list">${{items.map(item => `<div class="info-card"><b>${{esc(item.text || item.label || '체크 항목')}}</b></div>`).join('') || '<div class="empty">체크리스트가 없습니다.</div>'}}</div>`;
+}}
+
+function renderSchedule(data) {{
+  const items = data.items || [];
+  const hasTable = (data.columns || []).length && (data.rows || []).length;
+  const table = hasTable ? renderTable(data) : '';
+  const timeline = items.length ? `<div class="timeline">${{items.map(item => {{
+    const title = item.text || [item.period, item.task].filter(Boolean).join(' · ') || item.label || '일정';
+    return `<div class="item"><b>${{esc(title)}}</b>${{item.constraint ? `<div class="muted">${{esc(item.constraint)}}</div>` : ''}}</div>`;
+  }}).join('')}}</div>` : '';
+  return table || timeline ? `${{table}}${{timeline}}` : '<div class="empty">일정이 없습니다.</div>';
+}}
+
+function renderTasks(mission) {{
+  $('taskList').innerHTML = (mission.tasks || []).map(task => `
+    <div class="task">
+      <div class="task-label">${{esc(task.label)}}</div>
+      <div class="task-instruction">${{esc(task.instruction)}}</div>
+      <div class="refs">${{(task.material_labels || []).map(label => `<span class="ref">${{esc(label)}}</span>`).join('')}}</div>
+      <textarea class="answer-input" placeholder="답변을 작성하세요."></textarea>
+      <div class="char answer-char">0자</div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.task textarea').forEach(area => {{
+    const counter = area.parentElement.querySelector('.char');
+    area.addEventListener('input', () => {{
+      counter.textContent = `${{area.value.length}}자`;
+    }});
+  }});
+}}
+
+function renderSide(mission) {{
+  const submission = mission.submission_format || {{}};
+  $('submissionBox').innerHTML = `
+    <div>${{esc(submission.type_label)}} · ${{esc(submission.estimated_time_minutes)}}분</div>
+    <div>${{esc(submission.length_hint_label)}}</div>
+    <div class="refs">${{(submission.required_sections || []).map(section => `<span class="ref">${{esc(section)}}</span>`).join('')}}</div>
+  `;
+  $('criteriaBox').innerHTML = (mission.evaluation?.criteria || []).map(item => `<li>${{esc(item)}}</li>`).join('');
+}}
+
+init();
+</script>
+</body>
+</html>
+"""
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Export mission outputs to a single static HTML UI.")
     parser.add_argument("--run-id", default=DEFAULT_RUN_ID)
     parser.add_argument("--pilot-run-dir", default=None)
     parser.add_argument("--ui-output-dir", default=None)
+    parser.add_argument("--view", choices=["review", "learner", "both"], default="review")
     args = parser.parse_args()
-    output_path = MissionUIExporter().export(
-        run_id=args.run_id,
-        pilot_run_dir=args.pilot_run_dir,
-        ui_output_dir=args.ui_output_dir,
-    )
-    print(output_path.as_posix())
+    exporter = MissionUIExporter()
+    output_paths: list[Path] = []
+    if args.view in {"review", "both"}:
+        output_paths.append(
+            exporter.export(
+                run_id=args.run_id,
+                pilot_run_dir=args.pilot_run_dir,
+                ui_output_dir=args.ui_output_dir,
+            )
+        )
+    if args.view in {"learner", "both"}:
+        output_paths.append(
+            exporter.export_learner(
+                run_id=args.run_id,
+                pilot_run_dir=args.pilot_run_dir,
+                ui_output_dir=args.ui_output_dir,
+            )
+        )
+    for output_path in output_paths:
+        print(output_path.as_posix())
 
 
 if __name__ == "__main__":

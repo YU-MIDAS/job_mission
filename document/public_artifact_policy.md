@@ -11,6 +11,7 @@
 | `document/` | 공개용 프로젝트 설명 문서 |
 | `resources/practice_profiles/` | 공개 가능한 구조화 실무 profile |
 | `outputs/ui/v1/runs/**/mission_ui.html` | 검수용 HTML |
+| `outputs/ui/v1/runs/**/mission_learner.html` | 학습자용 HTML |
 | `outputs/profiles/v1/*.json` | 검수 UI 해석에 필요한 기준 profile |
 | `outputs/pilot/v1/runs/{UI와_같은_run_id}/` | 공개 HTML과 매칭되는 원본 산출물 |
 
@@ -43,4 +44,3 @@
 실제 secret이 커밋되었다면 key를 즉시 폐기하고 새 key를 발급해야 합니다. 단순 경로나 내부 메모처럼 낮은 위험의 정보라도 public history에서 제거하고 싶다면 커밋을 amend하거나 history rewrite 후 force push가 필요합니다.
 
 force push 이후에도 이미 clone한 사람이 있다면 그 사람의 로컬 저장소에는 이전 커밋이 남아 있을 수 있습니다. public repo에 올리기 전 선별 기준을 먼저 확인하는 것이 가장 안전합니다.
-

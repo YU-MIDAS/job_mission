@@ -34,6 +34,26 @@ class MissionUIExporterTest(unittest.TestCase):
         payload = json.loads((match.group(1) if match else "").replace("<\\/", "</"))
         return html, payload
 
+    def _export_learner_payload(self, run_id: str, output_name: str) -> tuple[str, dict, Path]:
+        pilot_run_dir = project_path("outputs", "pilot", "v1", "runs", run_id)
+        if not pilot_run_dir.exists():
+            self.skipTest(f"pilot run is not available: {pilot_run_dir}")
+        output_dir = project_path("outputs", "_test_tmp", output_name)
+        output_path = MissionUIExporter().export_learner(
+            run_id=run_id,
+            pilot_run_dir=pilot_run_dir,
+            ui_output_dir=output_dir,
+        )
+        html = output_path.read_text(encoding="utf-8")
+        match = re.search(
+            r'<script id="learnerPayload" type="application/json">(.*?)</script>',
+            html,
+            re.S,
+        )
+        self.assertIsNotNone(match)
+        payload = json.loads((match.group(1) if match else "").replace("<\\/", "</"))
+        return html, payload, output_path
+
     def test_exports_single_html_with_eight_embedded_missions(self) -> None:
         html, payload = self._export_payload(DEFAULT_RUN_ID, "ui_exporter")
 
@@ -56,6 +76,8 @@ class MissionUIExporterTest(unittest.TestCase):
         self.assertNotIn("sessionStorage", html)
         self.assertIn("it.text || it.label || '체크 항목'", html)
         self.assertIn("statusLabel(it.status)", html)
+        self.assertIn("it.text || [it.period, it.task]", html)
+        self.assertIn("const table = hasTable ? renderTable(d) : ''", html)
 
     def test_partial_run_keeps_eight_slots_and_failed_reason(self) -> None:
         html, payload = self._export_payload("pilot_v1_20260524_133436", "ui_exporter_partial")
@@ -107,6 +129,48 @@ class MissionUIExporterTest(unittest.TestCase):
         self.assertEqual(payload["mission_slots"][0]["failure"]["reason_code"], "MISSION_OUTPUT_MISSING")
         self.assertEqual(payload["missions"], [])
         self.assertIn("No saved mission is available for this run.", html)
+
+    def test_exports_learner_html_with_sanitized_payload(self) -> None:
+        html, payload, output_path = self._export_learner_payload(DEFAULT_RUN_ID, "ui_exporter_learner")
+        encoded_payload = json.dumps(payload, ensure_ascii=False)
+
+        self.assertEqual(output_path.name, "mission_learner.html")
+        self.assertEqual(scan_text_for_secrets(html), [])
+        self.assertEqual(payload["schema_version"], "mission_learner_payload.v1")
+        self.assertEqual(len(payload["missions"]), 8)
+        self.assertIn("learnerPayload", html)
+        self.assertIn("answer-input", html)
+        self.assertIn("answer-char", html)
+        self.assertIn("item.text || [item.period, item.task]", html)
+        self.assertIn("const table = hasTable ? renderTable(data) : ''", html)
+        first = payload["missions"][0]
+        self.assertTrue(first["task_type_label"])
+        self.assertNotEqual(first["task_type_label"], "research_and_analysis")
+        self.assertTrue(first["materials"][0]["type_label"])
+        self.assertNotEqual(first["materials"][0]["type_label"], first["materials"][0]["type"])
+        self.assertTrue(first["submission_format"]["type_label"])
+        for forbidden in [
+            "expected_action",
+            "repair",
+            "reliability",
+            "source_ref",
+            "evidence_chain",
+            "mission_id",
+            "API on",
+            "research_and_analysis",
+            "short_text",
+        ]:
+            self.assertNotIn(forbidden, html)
+            self.assertNotIn(forbidden, encoded_payload)
+
+    def test_learner_html_omits_failed_and_missing_slots(self) -> None:
+        html, payload, _ = self._export_learner_payload("pilot_v1_20260524_133436", "ui_exporter_learner_partial")
+
+        self.assertEqual(len(payload["missions"]), 6)
+        self.assertNotIn("OUTPUT_PARSE_FAILED", html)
+        self.assertNotIn("response did not contain output text", html)
+        self.assertNotIn("failed", html)
+        self.assertNotIn("missing", html)
 
 
 if __name__ == "__main__":

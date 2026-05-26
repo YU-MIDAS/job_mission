@@ -90,8 +90,13 @@ class PilotRunnerParallelTest(unittest.TestCase):
 
         self.assertTrue((run_dir / "jobs" / "K000000997" / "normal" / "run_status.json").exists())
         self.assertTrue((run_dir / "jobs" / "K000000997" / "easy" / "run_status.json").exists())
-        self.assertTrue((run_dir / "jobs" / "K000000997" / "normal" / "mission_seed.json").exists())
-        self.assertTrue((run_dir / "jobs" / "K000001080" / "normal" / "mission_seed.json").exists())
+        self.assertTrue((run_dir / "jobs" / "K000000997" / "normal" / "job_practice_sheet_background.json").exists())
+        self.assertTrue((run_dir / "jobs" / "K000001080" / "normal" / "job_practice_sheet_background.json").exists())
+        self.assertTrue((run_dir / "jobs" / "K000000997" / "easy" / "job_practice_sheet_background.json").exists())
+        self.assertTrue((run_dir / "jobs" / "K000000997" / "hard" / "job_practice_sheet_background.json").exists())
+        self.assertTrue((run_dir / "jobs" / "K000001179" / "normal" / "job_practice_sheet_background.json").exists())
+        self.assertFalse((run_dir / "jobs" / "K000000997" / "normal" / "mission_seed.json").exists())
+        self.assertFalse((run_dir / "jobs" / "K000001080" / "normal" / "mission_seed.json").exists())
         self.assertFalse((run_dir / "jobs" / "K000000997" / "easy" / "mission_seed.json").exists())
         self.assertFalse((run_dir / "jobs" / "K000000997" / "hard" / "mission_seed.json").exists())
         self.assertFalse((run_dir / "jobs" / "K000001179" / "normal" / "mission_seed.json").exists())
@@ -128,7 +133,7 @@ class PilotRunnerParallelTest(unittest.TestCase):
         )
         self.assertEqual(failed_status["status"], "runner_failed")
 
-    def test_target_filters_run_practice_profile_normal_missions_only(self) -> None:
+    def test_target_filters_run_default_practice_sheet_background_missions_only(self) -> None:
         output_root = self._output_root()
         summary = PilotRunner(
             force_mock=True,
@@ -149,8 +154,9 @@ class PilotRunnerParallelTest(unittest.TestCase):
 
         for job_cd in ["K000000997", "K000001080"]:
             self.assertTrue((run_dir / "jobs" / job_cd / "normal" / "mission_output.json").exists())
-            self.assertTrue((run_dir / "jobs" / job_cd / "normal" / "job_practice_profile.json").exists())
-            self.assertTrue((run_dir / "jobs" / job_cd / "normal" / "mission_seed.json").exists())
+            self.assertTrue((run_dir / "jobs" / job_cd / "normal" / "job_practice_sheet_background.json").exists())
+            self.assertFalse((run_dir / "jobs" / job_cd / "normal" / "job_practice_profile.json").exists())
+            self.assertFalse((run_dir / "jobs" / job_cd / "normal" / "mission_seed.json").exists())
             self.assertFalse((run_dir / "jobs" / job_cd / "easy").exists())
             self.assertFalse((run_dir / "jobs" / job_cd / "hard").exists())
         self.assertFalse((run_dir / "jobs" / "K000001179").exists())
@@ -197,6 +203,29 @@ class PilotRunnerParallelTest(unittest.TestCase):
         self.assertTrue((job_dir / "job_practice_sheet_background.json").exists())
         self.assertFalse((job_dir / "mission_seed.json").exists())
         self.assertEqual(run_status["artifacts"]["job_practice_sheet_background"], "job_practice_sheet_background.json")
+
+    def test_legacy_mission_seed_mode_can_be_enabled(self) -> None:
+        output_root = self._output_root()
+        summary = PilotRunner(
+            force_mock=True,
+            concurrency=1,
+            output_root=output_root,
+            target_job_codes=["K000001080"],
+            target_difficulty_codes=["normal"],
+            use_practice_sheet_background=False,
+        ).run()
+        run_dir = Path(summary["run_dir"])
+        job_dir = run_dir / "jobs" / "K000001080" / "normal"
+        llm_input = json.loads((job_dir / "llm_input_package.json").read_text(encoding="utf-8"))
+        pilot_config = json.loads((run_dir / "pilot_config.json").read_text(encoding="utf-8"))
+
+        self.assertFalse(pilot_config["use_practice_sheet_background"])
+        self.assertIn("mission_seed", llm_input)
+        self.assertIn("job_practice_profile_excerpt", llm_input)
+        self.assertNotIn("job_practice_sheet_background", llm_input)
+        self.assertTrue((job_dir / "job_practice_profile.json").exists())
+        self.assertTrue((job_dir / "mission_seed.json").exists())
+        self.assertFalse((job_dir / "job_practice_sheet_background.json").exists())
 
     def test_non_pilot_raw_api_job_uses_auto_pilot_config(self) -> None:
         output_root = self._output_root()

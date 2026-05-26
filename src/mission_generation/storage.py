@@ -28,6 +28,7 @@ class StorageAdapter:
             "source_root": pilot_config["source_root"],
             "use_kmeans": False,
             "use_llm_decision_selector": bool(pilot_config.get("use_llm_decision_selector", True)),
+            "use_practice_sheet_background": bool(pilot_config.get("use_practice_sheet_background", True)),
             "pipeline_version": "v1",
             "llm_runtime": runtime_config.as_manifest(),
             "jobs": pilot_config["jobs"],
