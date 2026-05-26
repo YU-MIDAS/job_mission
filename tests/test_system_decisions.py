@@ -166,6 +166,33 @@ class SystemDecisionBuilderTest(unittest.TestCase):
         self.assertIn("do not create a mission.guide field", prompts["user"])
         self.assertIn("do not create a direct quoted request sentence", prompts["user"])
 
+    def test_llm_input_and_prompt_include_practice_sheet_background(self) -> None:
+        decisions = SystemDecisionBuilder().build(self.profile, "normal")
+        constraints = SchemaConstraintsBuilder().build(evidence_names=["evidence_a"])
+        background = {
+            "schema_version": "job_practice_sheet_background.v1",
+            "job_cd": "K000000997",
+            "source_path": "data/additional_search/K000000997.md",
+            "content_markdown": "# 상품기획자 실무 조사\n고객 리뷰와 모객 현황을 확인한다.",
+            "usage": "background_only",
+        }
+        package = LLMInputPackageBuilder().build(
+            self.profile,
+            decisions,
+            constraints,
+            job_practice_sheet_background=background,
+        )
+
+        self.assertEqual(package["job_practice_sheet_background"], background)
+        self.assertNotIn("mission_seed", package)
+
+        prompts = PromptBuilder().draft_prompts(package)
+        self.assertIn("Practice sheet background requirements", prompts["user"])
+        self.assertIn("background context", prompts["user"])
+        self.assertIn("고객 리뷰와 모객 현황", prompts["user"])
+        self.assertNotIn("structured_output_schema", prompts["user"])
+        self.assertNotIn("Use mission_seed as the main design brief", prompts["user"])
+
 
 if __name__ == "__main__":
     unittest.main()

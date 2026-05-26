@@ -268,8 +268,9 @@ LLM 초안 단계의 `mission_draft_attempt_N.json`에는 `evidence_chain_draft`
 | `schema_constraints` | object | LLM 출력 제약 |
 | `job_practice_profile_excerpt` | object | 구조화 실무 profile 일부. 있을 때만 포함 |
 | `mission_seed` | object | normal 난이도 미션 설계 seed. 있을 때만 포함 |
+| `job_practice_sheet_background` | object | 실험 옵션에서 직무조사시트 Markdown을 배경지식으로 넣을 때만 포함 |
 
-`job_profile`은 직업 원천 데이터에서 온 정보이고, `mission_seed`는 실무조사 profile을 바탕으로 미션 상황, 자료, task 방향을 더 구체화하기 위한 보조 설계안입니다.
+`job_profile`은 직업 원천 데이터에서 온 정보이고, `mission_seed`는 실무조사 profile을 바탕으로 미션 상황, 자료, task 방향을 더 구체화하기 위한 보조 설계안입니다. `job_practice_sheet_background`는 `data/additional_search/{job_cd}.md`를 그대로 담는 실험용 배경지식이며, 이 모드에서는 `mission_seed` 대신 사용합니다.
 
 저장된 `llm_input_package.json`은 디버깅과 산출물 추적을 위해 전체 `schema_constraints`를 보존합니다. 다만 실제 draft prompt를 만들 때는 prompt 전용 사본에서 `schema_constraints.structured_output_schema`만 제거합니다. 출력 형식은 prompt 본문이 아니라 OpenAI Responses API의 structured output 설정으로 강제됩니다.
 

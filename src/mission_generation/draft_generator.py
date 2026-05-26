@@ -16,6 +16,7 @@ class LLMInputPackageBuilder:
         schema_constraints: dict[str, Any],
         job_practice_profile_excerpt: dict[str, Any] | None = None,
         mission_seed: dict[str, Any] | None = None,
+        job_practice_sheet_background: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         package = {
             "schema_version": "llm_input_package.v1",
@@ -27,6 +28,8 @@ class LLMInputPackageBuilder:
             package["job_practice_profile_excerpt"] = job_practice_profile_excerpt
         if mission_seed is not None:
             package["mission_seed"] = mission_seed
+        if job_practice_sheet_background is not None:
+            package["job_practice_sheet_background"] = job_practice_sheet_background
         return package
 
 
@@ -104,6 +107,16 @@ class PromptBuilder:
                 "- Evaluation must be based on mission_seed.evaluation_basis and the selected decision situation.\n"
                 "- Do not expose source_refs to the learner-facing mission text.\n"
                 "- If a table uses a priority column, use it only as a comparison clue, not as a final answer or recommendation.\n"
+            )
+        elif llm_input_package.get("job_practice_sheet_background"):
+            practice_requirements = (
+                "\nPractice sheet background requirements:\n"
+                "- Use job_practice_sheet_background only as background context to make the mission more realistic.\n"
+                "- schema_constraints and system_decisions always have higher priority than job_practice_sheet_background.\n"
+                "- Keep the current difficulty policy exactly, including material count and task count.\n"
+                "- Do not expose source ids, source_refs, URLs, Markdown headings, or original research notes in learner-facing mission text.\n"
+                "- Do not turn background context into an external-knowledge question; every task must be answerable from the provided mission materials.\n"
+                "- Do not create or reference mission_seed when job_practice_sheet_background is used without mission_seed.\n"
             )
         prompt_input_package = self._prompt_input_package(llm_input_package)
         system_prompt = (

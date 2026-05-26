@@ -4,6 +4,7 @@ __all__ = [
     "config",
     "profile_loader",
     "practice_profile_loader",
+    "practice_sheet_background_loader",
     "mission_seed_builder",
     "system_decision_builder",
     "schema_constraints_builder",

@@ -14,6 +14,7 @@ from .draft_generator import LLMInputPackageBuilder, MissionDraftGenerator
 from .final_assembler import FinalMissionAssembler
 from .mission_seed_builder import MissionSeedBuilder
 from .practice_profile_loader import PracticeProfileLoader
+from .practice_sheet_background_loader import PracticeSheetBackgroundLoader
 from .profile_loader import JobProfileLoader, ProfileLoadError
 from .repair_manager import RepairManager, RepairPromptBuilder
 from .schema_constraints_builder import SchemaConstraintsBuilder
@@ -34,6 +35,8 @@ class PilotRunner:
         target_job_codes: list[str] | None = None,
         target_difficulty_codes: list[str] | None = None,
         use_llm_decision_selector: bool = True,
+        use_practice_sheet_background: bool = False,
+        practice_sheet_root: str | Path = "data/additional_search",
     ) -> None:
         self.source_root = Path(source_root)
         self.output_root = Path(output_root)
@@ -42,10 +45,12 @@ class PilotRunner:
         self.target_job_codes = list(target_job_codes) if target_job_codes is not None else None
         self.target_difficulty_codes = list(target_difficulty_codes) if target_difficulty_codes is not None else None
         self.use_llm_decision_selector = bool(use_llm_decision_selector)
+        self.use_practice_sheet_background = bool(use_practice_sheet_background)
         self.runtime_config = RuntimeConfig()
         self.profile_loader = JobProfileLoader(source_root=self.source_root, output_root=self.output_root / "profiles" / "v1")
         self.auto_config_generator = AutoPilotConfigGenerator()
         self.practice_profile_loader = PracticeProfileLoader()
+        self.practice_sheet_background_loader = PracticeSheetBackgroundLoader(root=practice_sheet_root)
         self.seed_builder = MissionSeedBuilder()
         self.decision_builder = SystemDecisionBuilder()
         self.selector_input_builder = DecisionSelectorInputBuilder()
@@ -66,6 +71,7 @@ class PilotRunner:
         pilot_config["source_root"] = self.source_root.as_posix()
         pilot_config["concurrency"] = self.concurrency
         pilot_config["use_llm_decision_selector"] = self.use_llm_decision_selector
+        pilot_config["use_practice_sheet_background"] = self.use_practice_sheet_background
         run_dir = self.storage.create_run(self.runtime_config, pilot_config)
         results_by_order: dict[int, dict[str, Any]] = {}
         usage = self._empty_usage()
@@ -261,22 +267,29 @@ class PilotRunner:
             evidence_names = self._evidence_names(profile)
             constraints = self.constraints_builder.build(evidence_names=evidence_names)
             practice_profile = self.practice_profile_loader.load(job_cd)
-            mission_seed = self.seed_builder.build(
-                job_profile=profile,
-                practice_profile=practice_profile,
-                system_decisions=decisions,
-            )
-            practice_excerpt = (
-                self.seed_builder.excerpt(practice_profile, mission_seed)
-                if practice_profile is not None and mission_seed is not None
-                else None
-            )
+            practice_sheet_background = None
+            if self.use_practice_sheet_background:
+                mission_seed = None
+                practice_excerpt = None
+                practice_sheet_background = self.practice_sheet_background_loader.load(job_cd)
+            else:
+                mission_seed = self.seed_builder.build(
+                    job_profile=profile,
+                    practice_profile=practice_profile,
+                    system_decisions=decisions,
+                )
+                practice_excerpt = (
+                    self.seed_builder.excerpt(practice_profile, mission_seed)
+                    if practice_profile is not None and mission_seed is not None
+                    else None
+                )
             llm_input = self.input_builder.build(
                 profile,
                 decisions,
                 constraints,
                 job_practice_profile_excerpt=practice_excerpt,
                 mission_seed=mission_seed,
+                job_practice_sheet_background=practice_sheet_background,
             )
             self.storage.save_job_artifact(job_cd, difficulty_code, "system_decisions.json", decisions)
             self.storage.save_job_artifact(job_cd, difficulty_code, "schema_constraints.json", constraints)
@@ -297,6 +310,9 @@ class PilotRunner:
                         "mission_seed": "mission_seed.json",
                     }
                 )
+            if practice_sheet_background is not None:
+                self.storage.save_job_artifact(job_cd, difficulty_code, "job_practice_sheet_background.json", practice_sheet_background)
+                artifacts["job_practice_sheet_background"] = "job_practice_sheet_background.json"
         except Exception as exc:
             return self._save_failed_status(
                 job_cd=job_cd,
@@ -642,6 +658,8 @@ def main() -> None:
     parser.add_argument("--jobs", type=_parse_codes, default=None, help="Comma-separated job codes to run, e.g. K000000997,K000001080.")
     parser.add_argument("--difficulties", type=_parse_codes, default=None, help="Comma-separated difficulty codes to run, e.g. normal.")
     parser.add_argument("--no-llm-selector", action="store_true", help="Disable the LLM decision selector and use legacy system decision rules.")
+    parser.add_argument("--practice-sheet-background", action="store_true", help="Use data/additional_search/{job_cd}.md as background instead of mission_seed.")
+    parser.add_argument("--practice-sheet-root", default="data/additional_search", help="Directory containing {job_cd}.md practice sheet background files.")
     args = parser.parse_args()
     runner = PilotRunner(
         source_root=args.source_root,
@@ -651,6 +669,8 @@ def main() -> None:
         target_job_codes=args.jobs,
         target_difficulty_codes=args.difficulties,
         use_llm_decision_selector=not args.no_llm_selector,
+        use_practice_sheet_background=args.practice_sheet_background,
+        practice_sheet_root=args.practice_sheet_root,
     )
     try:
         summary = runner.run()

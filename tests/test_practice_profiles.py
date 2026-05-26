@@ -3,14 +3,17 @@ from __future__ import annotations
 import sys
 import unittest
 from pathlib import Path
+from uuid import uuid4
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from mission_generation.config import PILOT_JOB_CONFIGS
 from mission_generation.mission_seed_builder import MissionSeedBuilder
 from mission_generation.practice_profile_loader import PracticeProfileLoader
+from mission_generation.practice_sheet_background_loader import PracticeSheetBackgroundLoader
 from mission_generation.profile_loader import JobProfileLoader
 from mission_generation.system_decision_builder import SystemDecisionBuilder
+from mission_generation.utils import project_path
 
 
 class PracticeProfileIntegrationTest(unittest.TestCase):
@@ -60,6 +63,21 @@ class PracticeProfileIntegrationTest(unittest.TestCase):
     def test_hard_and_missing_practice_profile_do_not_create_seed(self) -> None:
         self.assertIsNone(self._seed("K000001080", "hard"))
         self.assertIsNone(self._seed("K000001179", "normal"))
+
+    def test_practice_sheet_background_loader_reads_markdown_by_job_code(self) -> None:
+        root = project_path("outputs", "_test_tmp", "practice_sheet_loader", uuid4().hex)
+        root.mkdir(parents=True, exist_ok=True)
+        (root / "K000001080.md").write_text("# 데이터분석가\n실무 조사 내용", encoding="utf-8")
+        background = PracticeSheetBackgroundLoader(root=root).load("K000001080")
+
+        self.assertIsNotNone(background)
+        self.assertEqual(background["schema_version"], "job_practice_sheet_background.v1")  # type: ignore[index]
+        self.assertEqual(background["job_cd"], "K000001080")  # type: ignore[index]
+        self.assertTrue(background["source_path"].endswith("K000001080.md"))  # type: ignore[index]
+        self.assertEqual(background["usage"], "background_only")  # type: ignore[index]
+        self.assertIn("데이터분석가", background["content_markdown"])  # type: ignore[index]
+
+        self.assertIsNone(PracticeSheetBackgroundLoader(root=root).load("K999999999"))
 
     def _seed(self, job_cd: str, difficulty: str) -> dict | None:
         profile = self.profile_loader.build(job_cd, save=False)

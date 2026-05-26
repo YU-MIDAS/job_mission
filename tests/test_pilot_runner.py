@@ -166,6 +166,38 @@ class PilotRunnerParallelTest(unittest.TestCase):
         self.assertEqual(len(payload["mission_slots"]), 2)
         self.assertEqual(len(payload["missions"]), 2)
 
+    def test_practice_sheet_background_mode_omits_mission_seed(self) -> None:
+        output_root = self._output_root()
+        practice_sheet_root = output_root / "practice_sheets"
+        practice_sheet_root.mkdir(parents=True, exist_ok=True)
+        (practice_sheet_root / "K000001080.md").write_text("# 데이터분석가\n실무 조사 내용", encoding="utf-8")
+        summary = PilotRunner(
+            force_mock=True,
+            concurrency=1,
+            output_root=output_root,
+            target_job_codes=["K000001080"],
+            target_difficulty_codes=["normal"],
+            use_practice_sheet_background=True,
+            practice_sheet_root=practice_sheet_root,
+        ).run()
+        run_dir = Path(summary["run_dir"])
+        job_dir = run_dir / "jobs" / "K000001080" / "normal"
+        llm_input = json.loads((job_dir / "llm_input_package.json").read_text(encoding="utf-8"))
+        pilot_config = json.loads((run_dir / "pilot_config.json").read_text(encoding="utf-8"))
+        run_status = json.loads((job_dir / "run_status.json").read_text(encoding="utf-8"))
+
+        self.assertEqual(summary["total_targets"], 1)
+        self.assertEqual(summary["saved_count"], 1)
+        self.assertTrue(pilot_config["use_practice_sheet_background"])
+        self.assertIn("job_practice_sheet_background", llm_input)
+        self.assertEqual(llm_input["job_practice_sheet_background"]["job_cd"], "K000001080")
+        self.assertIn("데이터분석가", llm_input["job_practice_sheet_background"]["content_markdown"])
+        self.assertNotIn("mission_seed", llm_input)
+        self.assertNotIn("job_practice_profile_excerpt", llm_input)
+        self.assertTrue((job_dir / "job_practice_sheet_background.json").exists())
+        self.assertFalse((job_dir / "mission_seed.json").exists())
+        self.assertEqual(run_status["artifacts"]["job_practice_sheet_background"], "job_practice_sheet_background.json")
+
     def test_non_pilot_raw_api_job_uses_auto_pilot_config(self) -> None:
         output_root = self._output_root()
         summary = PilotRunner(
