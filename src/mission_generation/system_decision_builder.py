@@ -166,7 +166,7 @@ class SystemDecisionBuilder:
         requested_difficulty: str,
         pilot_job_config: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
-        if requested_difficulty not in {"normal", "hard"}:
+        if requested_difficulty not in {"easy", "normal", "hard"}:
             raise SystemDecisionError(f"invalid difficulty: {requested_difficulty}")
         job_cd = job_profile["job_identity"]["job_cd"]
         config = pilot_job_config if pilot_job_config is not None else PILOT_JOB_CONFIGS.get(job_cd, {})
@@ -221,6 +221,65 @@ class SystemDecisionBuilder:
             },
             "decision_trace": trace,
             "decision_warnings": warnings,
+        }
+
+    def build_from_selector(
+        self,
+        job_profile: dict[str, Any],
+        requested_difficulty: str,
+        selector_result: dict[str, Any],
+    ) -> dict[str, Any]:
+        if requested_difficulty not in {"easy", "normal", "hard"}:
+            raise SystemDecisionError(f"invalid difficulty: {requested_difficulty}")
+        exec_jobs = job_profile["work"]["exec_jobs"]
+        by_id = {item["exec_job_id"]: item for item in exec_jobs}
+        selected_exec_job = dict(by_id[selector_result["selected_exec_job_id"]])
+        selected_exec_job["selection_reason"] = selector_result["selection_reason"]
+        primary_task_type = selector_result["primary_task_type"]
+        mission_design_type = selector_result["mission_design_type"]
+        trace = [
+            {
+                "step": "llm_decision_selector",
+                "method": "llm_structured_output",
+                "selected": selected_exec_job["exec_job_id"],
+                "reason": selector_result["selection_reason"],
+                "matched_evidence": selector_result.get("matched_evidence", []),
+                "confidence": selector_result.get("confidence"),
+                "primary_task_type": primary_task_type,
+                "selected_material_types": selector_result.get("selected_material_types", []),
+                "mission_design_type": mission_design_type,
+            }
+        ]
+        return {
+            "schema_version": "system_decisions.v1",
+            "job_cd": job_profile["job_identity"]["job_cd"],
+            "job_name": job_profile["job_identity"].get("job_smcl_nm", ""),
+            "difficulty": self._difficulty(requested_difficulty),
+            "selected_exec_job": selected_exec_job,
+            "primary_task_type": primary_task_type,
+            "secondary_task_types": self._secondary_task_types(selected_exec_job["text"], primary_task_type),
+            "allowed_material_types": list(selector_result["selected_material_types"]),
+            "mission_design": {
+                "schema_version": "mission_design.v1",
+                "mission_design_type": mission_design_type,
+                "design_intent": MISSION_DESIGN_INTENTS[mission_design_type],
+                "selection_method": "llm_decision_selector",
+                "selection_reason": selector_result["selection_reason"],
+            },
+            "excluded_material_types": sorted(EXCLUDED_MATERIAL_TYPES),
+            "generation_constraints": {
+                "language": "ko",
+                "json_only": True,
+                "no_real_company_names": True,
+                "no_real_person_names": True,
+                "no_external_research": True,
+                "non_expert_friendly": True,
+                "must_use_provided_materials_only": True,
+                "llm_must_not_create_reliability_score": True,
+                "factual_status_required": True,
+            },
+            "decision_trace": trace,
+            "decision_warnings": [],
         }
 
     def _select_exec_job(
@@ -382,11 +441,16 @@ class SystemDecisionBuilder:
         trace: list[dict[str, Any]],
         warnings: list[dict[str, str]],
     ) -> list[str]:
-        max_count = 3 if difficulty == "normal" else 5
+        max_count = {"easy": 1, "normal": 2, "hard": 3}[difficulty]
         configured = list((config.get("materials") or {}).get(difficulty) or [])
         allowed = [item for item in configured if item in MATERIAL_TYPES]
         if not allowed:
-            allowed = ["chart", "table", "memo"] if difficulty == "normal" else ["chart", "table", "memo", "email"]
+            fallback_materials = {
+                "easy": ["memo"],
+                "normal": ["chart", "table"],
+                "hard": ["chart", "table", "memo"],
+            }
+            allowed = fallback_materials[difficulty]
 
         if not configured:
             evidence_text = " ".join(
@@ -481,15 +545,28 @@ class SystemDecisionBuilder:
         return " ".join(parts).lower()
 
     def _difficulty(self, difficulty: str) -> dict[str, Any]:
+        if difficulty == "easy":
+            return {
+                "level": "easy",
+                "label": "쉬움",
+                "estimated_time_minutes": 10,
+                "material_bundle_style": "single_work_material",
+                "material_count_range": [1, 1],
+                "task_count_range": [1, 1],
+                "answer_length_hint": "150~300자",
+                "requires_cross_material_reasoning": False,
+                "requires_tradeoff_judgment": False,
+                "requires_domain_expertise": False,
+            }
         if difficulty == "normal":
             return {
                 "level": "normal",
                 "label": "보통",
                 "estimated_time_minutes": 15,
                 "material_bundle_style": "light_work_material_bundle",
-                "material_count_range": [2, 3],
-                "task_count_range": [2, 3],
-                "answer_length_hint": "400~700자",
+                "material_count_range": [2, 2],
+                "task_count_range": [2, 2],
+                "answer_length_hint": "300~500자",
                 "requires_cross_material_reasoning": True,
                 "requires_tradeoff_judgment": False,
                 "requires_domain_expertise": False,
@@ -499,9 +576,9 @@ class SystemDecisionBuilder:
             "label": "어려움",
             "estimated_time_minutes": 20,
             "material_bundle_style": "work_document_packet",
-            "material_count_range": [3, 4],
-            "task_count_range": [3, 4],
-            "answer_length_hint": "700~1000자",
+            "material_count_range": [3, 3],
+            "task_count_range": [3, 3],
+            "answer_length_hint": "600~900자",
             "requires_cross_material_reasoning": True,
             "requires_tradeoff_judgment": True,
             "requires_domain_expertise": False,

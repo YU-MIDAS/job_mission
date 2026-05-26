@@ -96,7 +96,7 @@ class PromptBuilder:
                 "\nPractice survey requirements:\n"
                 "- Use mission_seed as the main design brief for scenario, materials, tasks, submission format, and evaluation.\n"
                 "- Keep system_decisions and schema_constraints higher priority than mission_seed when they conflict.\n"
-                "- For normal difficulty with mission_seed, create 2-3 learner-visible materials: one primary material and one or two supporting materials.\n"
+                "- For normal difficulty with mission_seed, create exactly 2 learner-visible materials: one primary material and one supporting material.\n"
                 "- Derive those materials from mission_seed.material_blueprints while staying within system_decisions.allowed_material_types.\n"
                 "- If mission_seed.scenario_basis.request_sentence is empty, do not create a direct quoted request sentence.\n"
                 "- Reflect guide_plan through mission.tasks instructions and mission.submission_format.required_sections; do not create a mission.guide field.\n"
@@ -108,9 +108,10 @@ class PromptBuilder:
         prompt_input_package = self._prompt_input_package(llm_input_package)
         system_prompt = (
             "너는 직업 데이터 기반 미션 초안을 작성하는 작성자다. "
+            "미션의 목적은 전문가 평가가 아니라 사전 전문지식 없이 직업의 사고방식을 짧게 체험하게 하는 것이다. "
             "시스템이 지정한 selected_exec_job, task_type, difficulty, allowed_material_types를 변경하지 않는다. "
             "mission_output.v1 형식의 JSON만 출력한다. "
-            "실제 기업명, 실제 브랜드명, 실제 인명, 외부 검색이 필요한 과제는 만들지 않는다. "
+            "실제 기업명, 실제 브랜드명, 실제 인명, 외부 검색이나 전문 자격 지식이 필요한 과제는 만들지 않는다. "
             "reliability는 {\"status\":\"pending_validation\"}만 출력하고 evidence_chain은 만들지 않는다."
         )
         user_prompt = (
@@ -134,19 +135,30 @@ class PromptBuilder:
             "- Reflect system_decisions.mission_design.mission_design_type and design_intent in the scenario, materials, tasks, and evaluation.\n"
             "- Make every material useful for solving at least one task. Avoid decorative or unrelated materials.\n"
             "- Make task instructions clear about what the learner must decide, compare, diagnose, or propose.\n"
-            "- For normal difficulty, focus on one main issue, 2-3 provided materials, and one practical recommendation.\n"
-            "- For hard difficulty, include trade-off judgment, priority comparison, or constraint handling when the available materials support it.\n"
+            "- For easy difficulty, use exactly 1 provided material and exactly 1 task focused on one observation, choice, or suggestion.\n"
+            "- For normal difficulty, use exactly 2 provided materials and exactly 2 tasks focused on one main issue and one practical recommendation.\n"
+            "- For hard difficulty, use exactly 3 provided materials and exactly 3 tasks; include trade-off judgment, priority comparison, or constraint handling when the available materials support it.\n"
+            "- Every task must require only one learner action or deliverable. Do not combine multiple actions such as find + compare + choose + write in one task.\n"
             "- Keep the mission answerable only from the provided materials and mission facts.\n"
             "- Avoid generic textbook wording, vague business jargon, and repeated template-like sentences.\n"
             "- Do not copy mission_design into mission_output.\n\n"
+            "Job-experience style requirements:\n"
+            "- Model the learner-facing tone after docx/직무미션_ref.html: short, direct, and experience-oriented.\n"
+            "- Treat the learner as a beginner, intern, assistant, or new team member trying the job for the first time.\n"
+            "- Prefer simple Korean prompts such as '당신은 ... 인턴입니다', '아래 자료를 보고 ... 해보세요', and '이유를 적어보세요'.\n"
+            "- Use one clear workplace request from a manager, client, customer, or team member instead of a broad report brief.\n"
+            "- Keep the mission solvable without prior professional knowledge; put every needed clue inside the provided materials.\n"
+            "- If the job normally uses specialist terms, explain or embed the needed meaning in the materials and task text.\n"
+            "- Ask the learner to notice, choose, compare, explain, or suggest; avoid expert-only analysis, formulas, legal judgment, investment advice, or domain trivia unless fully explained by the materials.\n"
+            "- Keep learner-facing text concise: one main question, one concrete situation, and the exact number of guided task steps required by difficulty.\n\n"
             "Stability requirements:\n"
             "- Use mission_fact_refs as key names only, such as org_name, domain, period, trend_pattern, main_issue, feedback_themes, and decision_goal.\n"
             "- Do not use mission_facts.period, mission_fact_period, source_ref fields, XML fields, or invented fact labels as mission_fact_refs.\n"
             "- Make evaluation.rubric points sum exactly to 100.\n"
             "- Use exact job_profile evidence item names in evaluation.rubric.linked_evidence; do not use material ids such as mat_001, mat_002, or m1.\n"
-            "- Respect material size limits: chart normal 4-6 x values and hard 6-8 x values; log normal 4-6 entries and hard 6-8 entries; checklist normal 4-5 items and hard 5-7 items.\n"
-            "- Respect material size limits: memo normal 3-4 items and hard 4-6 items; email normal 1 thread item and hard 1-2 thread items; table max normal 5 rows and hard 7 rows.\n"
-            "- Respect material size limits: schedule normal 3-4 items and hard 4-6 items; card normal 2-3 cards and hard 3-4 cards.\n"
+            "- Respect material size limits: chart easy 3-4, normal 4-5, hard 5-6 x values; log easy 3-4, normal 4-5, hard 5-6 entries; checklist easy 3, normal 4, hard 5-6 items.\n"
+            "- Respect material size limits: memo easy 2-3, normal 3-4, hard 4-5 items; email easy/normal 1 thread item and hard 1-2 thread items; table max easy 3 rows, normal 4 rows, hard 5 rows.\n"
+            "- Respect material size limits: schedule easy 2-3, normal 3-4, hard 4-5 items; card easy 2 cards, normal 2-3 cards, hard 3 cards.\n"
             "- Keep chart series count at 1 or 2.\n\n"
             "Every material.evidence_source item must exactly match a job_profile evidence item name.\n"
             "Do not use source_ref file names, XML field names, or invented evidence labels as evidence_source.\n"
@@ -175,7 +187,10 @@ class MockMissionDraftBuilder:
         difficulty = decisions["difficulty"]["level"]
         job_cd = profile["job_identity"]["job_cd"]
         context = self._context(job_cd, profile, seed)
-        material_count = len(seed.get("material_blueprints") or []) if seed else (3 if difficulty == "normal" else 4)
+        material_min, material_max = decisions["difficulty"]["material_count_range"]
+        material_count = material_max
+        if seed and seed.get("material_blueprints"):
+            material_count = min(max(len(seed.get("material_blueprints") or []), material_min), material_max)
         seed_material_types = [
             item.get("learner_visible_material_type")
             for item in (seed.get("material_blueprints") or [])
@@ -284,7 +299,8 @@ class MockMissionDraftBuilder:
         return context
 
     def _mission_facts(self, context: dict[str, str], difficulty: str) -> dict[str, Any]:
-        months = ["1월", "2월", "3월", "4월", "5월", "6월"] if difficulty == "normal" else ["1월", "2월", "3월", "4월", "5월", "6월", "7월"]
+        month_count = {"easy": 3, "normal": 4, "hard": 5}.get(difficulty, 4)
+        months = ["1월", "2월", "3월", "4월", "5월"][:month_count]
         return {
             "org_name": context["org_name"],
             "domain": context["domain"],
@@ -353,6 +369,7 @@ class MockMissionDraftBuilder:
     def _material_data(self, material_type: str, facts: dict[str, Any], difficulty: str) -> dict[str, Any]:
         periods = facts["period"]
         hard = difficulty == "hard"
+        easy = difficulty == "easy"
         if material_type == "chart":
             values = [72, 76, 81, 84, 73, 69, 68][: len(periods)]
             return {
@@ -369,6 +386,8 @@ class MockMissionDraftBuilder:
             ]
             if hard:
                 rows.append({"option": "D안", "strength": "장기 확장 가능", "weakness": "초기 조율 필요", "priority": 4})
+            if easy:
+                rows = rows[:2]
             return {
                 "columns": [
                     {"key": "option", "label": "대안"},
@@ -387,6 +406,8 @@ class MockMissionDraftBuilder:
             ]
             if hard:
                 items.append("일정과 비용 제약 때문에 한 번에 모든 대안을 실행하기 어렵다.")
+            if easy:
+                items = items[:3]
             return {"author": "고객지원 담당자", "items": items}
         if material_type == "email":
             body = "최근 지표와 고객 반응을 함께 보고 다음 회의 전 실행 방향을 정리해주세요. 제공 자료 안에서 근거를 연결하고, 실행 전 확인할 제약도 함께 적어주세요."
@@ -400,6 +421,8 @@ class MockMissionDraftBuilder:
             ]
             if hard:
                 items.append({"period": "5주차", "task": "결과 점검 계획 수립", "constraint": "평가 기준 사전 합의"})
+            if easy:
+                items = items[:3]
             return {"items": items}
         if material_type == "checklist":
             return {
@@ -409,7 +432,7 @@ class MockMissionDraftBuilder:
                     {"label": "실행 일정 안에 검토가 가능한가", "status": "unchecked", "importance": "medium"},
                     {"label": "선택하지 않은 대안의 이유가 설명되는가", "status": "unchecked", "importance": "medium"},
                     {"label": "추가 외부 조사가 없어도 판단 가능한가", "status": "checked", "importance": "high"},
-                ]
+                ][: 3 if easy else 5 if hard else 4]
             }
         if material_type == "log":
             entries = [
@@ -425,13 +448,15 @@ class MockMissionDraftBuilder:
                         {"time": "6주차", "actor": "고객", "event": "만족도 하락 의견", "note": "핵심 이슈 재확인"},
                     ]
                 )
+            if easy:
+                entries = entries[:3]
             return {"entries": entries}
         return {
             "cards": [
                 {"title": "A안", "attributes": {"강점": "안정적", "약점": "차별성 낮음", "적합도": "보통"}},
                 {"title": "B안", "attributes": {"강점": "이슈 직접 대응", "약점": "일정 확인", "적합도": "높음"}},
                 {"title": "C안", "attributes": {"강점": "비용 낮음", "약점": "효과 불명확", "적합도": "낮음"}},
-            ]
+            ][: 2 if easy else 3]
         }
 
     def _tasks(
@@ -442,9 +467,10 @@ class MockMissionDraftBuilder:
         seed: dict[str, Any] | None = None,
     ) -> list[dict[str, Any]]:
         material_ids = [material["material_id"] for material in materials]
+        task_min, task_max = {"easy": (1, 1), "normal": (2, 2), "hard": (3, 3)}.get(difficulty, (2, 2))
         if seed and seed.get("task_plan"):
             tasks = []
-            for index, plan in enumerate(seed["task_plan"][:3], start=1):
+            for index, plan in enumerate(seed["task_plan"][:task_max], start=1):
                 instruction = plan.get("instruction") if isinstance(plan, dict) else str(plan)
                 required = material_ids[:1] if index == 1 else material_ids
                 tasks.append(
@@ -459,13 +485,13 @@ class MockMissionDraftBuilder:
         tasks = [
             {
                 "task_id": "task_001",
-                "instruction": "자료에서 최근 흐름상 가장 큰 문제를 1가지 찾고 근거 자료를 적어라.",
+                "instruction": "자료에서 최근 흐름상 가장 큰 문제를 1가지 적어라.",
                 "required_materials": material_ids[:2],
                 "expected_action": "analyze_issue",
             },
             {
                 "task_id": "task_002",
-                "instruction": "문제 원인을 줄이기 위한 실행 방향 1가지를 선택하고 이유를 설명하라.",
+                "instruction": "문제 원인을 줄이기 위한 실행 방향 1가지를 선택하라.",
                 "required_materials": material_ids,
                 "expected_action": "choose_action",
             },
@@ -476,30 +502,28 @@ class MockMissionDraftBuilder:
                 "expected_action": "identify_risk",
             },
         ]
-        if difficulty == "hard":
-            tasks.append(
-                {
-                    "task_id": "task_004",
-                    "instruction": "선택하지 않은 대안 1가지를 고르고 제외한 이유를 자료 근거와 함께 설명하라.",
-                    "required_materials": material_ids,
-                    "expected_action": "compare_tradeoff",
-                }
-            )
-        return tasks
+        return tasks[:task_max]
 
     def _submission_format(self, difficulty: str) -> dict[str, Any]:
+        if difficulty == "easy":
+            return {
+                "type": "single_response",
+                "estimated_time_minutes": 10,
+                "required_sections": ["발견한 점 1가지", "제안 1가지"],
+                "length_hint": "150~300자",
+            }
         if difficulty == "normal":
             return {
                 "type": "guided_short_report",
                 "estimated_time_minutes": 15,
-                "required_sections": ["핵심 발견 1가지", "근거 자료 2개", "제안 1가지", "주의할 점 1가지"],
-                "length_hint": "400~700자",
+                "required_sections": ["핵심 발견 1가지", "근거 자료 2개", "제안 1가지"],
+                "length_hint": "300~500자",
             }
         return {
             "type": "decision_memo",
             "estimated_time_minutes": 20,
-            "required_sections": ["핵심 문제", "선택한 방향", "선택 근거", "선택하지 않은 대안과 이유", "실행 전 확인할 리스크"],
-            "length_hint": "700~1000자",
+            "required_sections": ["핵심 문제", "선택한 방향", "선택 근거", "실행 전 확인할 리스크"],
+            "length_hint": "600~900자",
         }
 
     def _evaluation(self, profile: dict[str, Any], tasks: list[dict[str, Any]]) -> dict[str, Any]:

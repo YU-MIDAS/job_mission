@@ -9,6 +9,7 @@ from typing import Any
 
 from .auto_pilot_config_generator import AutoPilotConfigGenerator
 from .config import PILOT_JOB_CONFIGS, RuntimeConfig, default_pilot_config
+from .decision_selector import DecisionSelectorInputBuilder, DecisionSelectorValidator, MissionDecisionSelector
 from .draft_generator import LLMInputPackageBuilder, MissionDraftGenerator
 from .final_assembler import FinalMissionAssembler
 from .mission_seed_builder import MissionSeedBuilder
@@ -32,6 +33,7 @@ class PilotRunner:
         concurrency: int = 2,
         target_job_codes: list[str] | None = None,
         target_difficulty_codes: list[str] | None = None,
+        use_llm_decision_selector: bool = True,
     ) -> None:
         self.source_root = Path(source_root)
         self.output_root = Path(output_root)
@@ -39,12 +41,16 @@ class PilotRunner:
         self.concurrency = max(1, int(concurrency))
         self.target_job_codes = list(target_job_codes) if target_job_codes is not None else None
         self.target_difficulty_codes = list(target_difficulty_codes) if target_difficulty_codes is not None else None
+        self.use_llm_decision_selector = bool(use_llm_decision_selector)
         self.runtime_config = RuntimeConfig()
         self.profile_loader = JobProfileLoader(source_root=self.source_root, output_root=self.output_root / "profiles" / "v1")
         self.auto_config_generator = AutoPilotConfigGenerator()
         self.practice_profile_loader = PracticeProfileLoader()
         self.seed_builder = MissionSeedBuilder()
         self.decision_builder = SystemDecisionBuilder()
+        self.selector_input_builder = DecisionSelectorInputBuilder()
+        self.decision_selector = MissionDecisionSelector(force_mock=force_mock)
+        self.selector_validator = DecisionSelectorValidator()
         self.constraints_builder = SchemaConstraintsBuilder()
         self.input_builder = LLMInputPackageBuilder()
         self.draft_generator = MissionDraftGenerator(allow_mock_without_key=True, force_mock=force_mock)
@@ -59,6 +65,7 @@ class PilotRunner:
         pilot_config = self._pilot_config()
         pilot_config["source_root"] = self.source_root.as_posix()
         pilot_config["concurrency"] = self.concurrency
+        pilot_config["use_llm_decision_selector"] = self.use_llm_decision_selector
         run_dir = self.storage.create_run(self.runtime_config, pilot_config)
         results_by_order: dict[int, dict[str, Any]] = {}
         usage = self._empty_usage()
@@ -243,10 +250,13 @@ class PilotRunner:
             artifacts["auto_pilot_config"] = "auto_pilot_config.json"
             manual_config = PILOT_JOB_CONFIGS.get(job_cd)
             decision_config = manual_config if manual_config is not None else auto_pilot_config["config"]
-            decisions = self.decision_builder.build(
-                profile,
-                difficulty_code,
-                decision_config,
+            decisions = self._build_system_decisions(
+                profile=profile,
+                job_cd=job_cd,
+                difficulty_code=difficulty_code,
+                decision_config=decision_config,
+                usage=usage,
+                artifacts=artifacts,
             )
             evidence_names = self._evidence_names(profile)
             constraints = self.constraints_builder.build(evidence_names=evidence_names)
@@ -519,8 +529,51 @@ class PilotRunner:
         result = self._run_one(profile, job, difficulty, usage)
         return {"result": result, "usage": usage}
 
+    def _build_system_decisions(
+        self,
+        *,
+        profile: dict[str, Any],
+        job_cd: str,
+        difficulty_code: str,
+        decision_config: dict[str, Any],
+        usage: dict[str, int],
+        artifacts: dict[str, str],
+    ) -> dict[str, Any]:
+        if not self.use_llm_decision_selector:
+            return self.decision_builder.build(profile, difficulty_code, decision_config)
+
+        selector_input = self.selector_input_builder.build(profile, difficulty_code)
+        self.storage.save_job_artifact(job_cd, difficulty_code, "decision_selector_input.json", selector_input)
+        artifacts["decision_selector_input"] = "decision_selector_input.json"
+
+        selector_run = self.decision_selector.select(selector_input)
+        call_result = selector_run["llm_call_result"]
+        selector_result = selector_run.get("selector_result")
+        self._collect_usage(call_result, usage)
+        if call_result.get("status") == "completed" and call_result.get("provider") != "local":
+            usage["selector_call_count"] += 1
+        self.storage.save_job_artifact(job_cd, difficulty_code, "decision_selector_call_result.json", call_result)
+        self.storage.save_job_artifact(job_cd, difficulty_code, "decision_selector_result.json", selector_result)
+        artifacts.update(
+            {
+                "decision_selector_call_result": "decision_selector_call_result.json",
+                "decision_selector_result": "decision_selector_result.json",
+            }
+        )
+
+        validation = self.selector_validator.validate(selector_input, selector_result, job_profile=profile)
+        self.storage.save_job_artifact(job_cd, difficulty_code, "decision_selector_validation.json", validation)
+        artifacts["decision_selector_validation"] = "decision_selector_validation.json"
+        if validation["status"] == "passed":
+            return self.decision_builder.build_from_selector(profile, difficulty_code, selector_result)
+
+        usage["selector_fallback_count"] += 1
+        return self.decision_builder.build(profile, difficulty_code, decision_config)
+
     def _empty_usage(self) -> dict[str, int]:
         return {
+            "selector_call_count": 0,
+            "selector_fallback_count": 0,
             "draft_call_count": 0,
             "repair_call_count": 0,
             "mock_draft_count": 0,
@@ -575,7 +628,7 @@ class PilotRunner:
             "repair_used_count": sum(1 for item in results if item["repair_count"] > 0),
             "average_reliability_score": round(sum(scores) / len(scores), 2) if scores else None,
             "llm_usage": usage,
-            "openai_api_called": usage["draft_call_count"] + usage["repair_call_count"] > 0,
+            "openai_api_called": usage["selector_call_count"] + usage["draft_call_count"] + usage["repair_call_count"] > 0,
             "results": results,
         }
 
@@ -588,6 +641,7 @@ def main() -> None:
     parser.add_argument("--concurrency", type=int, default=2, help="Number of job/difficulty targets to run in parallel.")
     parser.add_argument("--jobs", type=_parse_codes, default=None, help="Comma-separated job codes to run, e.g. K000000997,K000001080.")
     parser.add_argument("--difficulties", type=_parse_codes, default=None, help="Comma-separated difficulty codes to run, e.g. normal.")
+    parser.add_argument("--no-llm-selector", action="store_true", help="Disable the LLM decision selector and use legacy system decision rules.")
     args = parser.parse_args()
     runner = PilotRunner(
         source_root=args.source_root,
@@ -596,6 +650,7 @@ def main() -> None:
         concurrency=args.concurrency,
         target_job_codes=args.jobs,
         target_difficulty_codes=args.difficulties,
+        use_llm_decision_selector=not args.no_llm_selector,
     )
     try:
         summary = runner.run()

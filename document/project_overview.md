@@ -26,7 +26,7 @@
 | `K000001179` | 투자분석가 |
 | `K000007519` | 보험상품개발자 |
 
-기본 난이도는 `normal`, `hard`입니다. 일부 `normal` 미션은 `resources/practice_profiles/`에 있는 구조화 실무 profile을 참고해 더 현실적인 업무 맥락을 반영합니다.
+기본 난이도는 `easy`, `normal`, `hard`입니다. 쉬움은 1자료/1 task, 보통은 2자료/2 task, 어려움은 3자료/3 task를 사용하며, 모든 task는 하나의 요구 행동만 갖도록 생성·검증합니다. 일부 `normal` 미션은 `resources/practice_profiles/`에 있는 구조화 실무 profile을 참고해 더 현실적인 업무 맥락을 반영합니다.
 
 ## Repository Map
 
@@ -47,7 +47,7 @@
 | 용어 | 의미 |
 |---|---|
 | `job_cd` | KNOW/고용24 직업 코드 |
-| `difficulty` | 미션 난이도. 현재 `normal`, `hard` 사용 |
+| `difficulty` | 미션 난이도. 현재 `easy`, `normal`, `hard` 사용 |
 | `run_id` | 한 번의 생성 실행을 구분하는 ID. 예: `pilot_v1_20260524_224708` |
 | `job_profile` | XML에서 추출한 직업 정보 |
 | `mission_seed` | 실무 profile을 바탕으로 만든 생성 보조자료 |
@@ -59,4 +59,3 @@
 이 저장소는 public GitHub에 올리는 것을 전제로 정리되어 있습니다. 그래서 실행 코드와 공개 가능한 샘플 산출물은 포함하지만, API key, 원천 XML, 내부 개발 기록, 임시 산출물은 포함하지 않습니다.
 
 공개/비공개 기준은 `public_artifact_policy.md`를 참고하세요.
-

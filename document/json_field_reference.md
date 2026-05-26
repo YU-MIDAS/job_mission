@@ -101,12 +101,12 @@ LLM 초안 단계의 `mission_draft_attempt_N.json`에는 `evidence_chain_draft`
 
 | 필드 | 타입 | 설명 |
 |---|---|---|
-| `level` | string | 난이도 코드. 현재 `normal`, `hard` |
+| `level` | string | 난이도 코드. 현재 `easy`, `normal`, `hard` |
 | `label` | string | 화면 표시용 난이도명 |
 | `estimated_time_minutes` | integer | 예상 소요 시간 |
 | `material_bundle_style` | string | 자료 묶음 스타일 |
-| `material_count_range` | array | 권장 자료 개수 범위 |
-| `task_count_range` | array | 권장 문항 개수 범위 |
+| `material_count_range` | array | 자료 개수 범위. 현재 easy `[1,1]`, normal `[2,2]`, hard `[3,3]` |
+| `task_count_range` | array | 문항 개수 범위. 현재 easy `[1,1]`, normal `[2,2]`, hard `[3,3]` |
 | `answer_length_hint` | string | 답안 분량 힌트 |
 | `requires_cross_material_reasoning` | boolean | 여러 자료를 연결해야 하는지 여부 |
 | `requires_tradeoff_judgment` | boolean | 대안 간 trade-off 판단이 필요한지 여부 |

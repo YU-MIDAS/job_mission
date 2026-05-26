@@ -7,6 +7,7 @@ KNOW/고용24 직업 데이터를 기반으로 직무 미션을 생성하고, �
 ```text
 KNOW API raw XML
 -> job_profile
+-> auto_pilot_config / PILOT_JOB_CONFIGS
 -> system_decisions
 -> llm_input_package
 -> OpenAI Responses API
@@ -22,7 +23,8 @@ KNOW API raw XML
 flowchart TD
     A["data/api_raw<br/>KNOW 원천 XML"] --> B["job_profile 생성<br/>outputs/profiles/v1/*.json"]
     P["resources/practice_profiles<br/>실무조사 profile"] --> S["mission_seed 생성<br/>일부 normal 미션에 반영"]
-    B --> C["system_decisions<br/>수행직무, 난이도, 자료 유형 결정"]
+    B --> AC["auto_pilot_config / PILOT_JOB_CONFIGS<br/>직무별 미션 방향 config"]
+    AC --> C["system_decisions<br/>수행직무, 난이도, 자료 유형 결정"]
     C --> D["schema_constraints<br/>구조화 출력 스키마 생성"]
     C --> E["llm_input_package<br/>프롬프트와 입력 패키지 구성"]
     S --> E
@@ -36,7 +38,13 @@ flowchart TD
     I --> K["mission_ui.html<br/>브라우저 검수 화면"]
 ```
 
+`auto_pilot_config`는 `job_profile`을 기반으로 비-pilot 직무의 수행직무, 주 과업 유형, 자료 유형 후보를 자동으로 잡기 위한 중간 config입니다. 기존 pilot 직무는 사람이 지정한 `PILOT_JOB_CONFIGS`가 우선되고, pilot 외 raw_api 직무는 `auto_pilot_config`를 사용해 `system_decisions`를 만듭니다.
+
 최근에는 미션 품질을 높이기 위해 구조화된 실무 profile을 `job_practice_profile`과 `mission_seed`로 변환해 생성 보조자료로 쓰는 흐름을 추가했습니다. 공개용 상세 설명은 `document/mission_generation_flow.md`를 참고합니다.
+
+LLM draft prompt는 저장된 `llm_input_package.json`을 그대로 모두 붙이지 않습니다. prompt 직전에 만든 사본에서 `schema_constraints.structured_output_schema`만 제거하고, 같은 schema는 OpenAI Responses API의 structured output 설정으로 전달합니다. 따라서 저장 산출물과 API 형식 강제는 유지하면서 prompt 입력량만 줄입니다.
+
+`validator`는 LLM이 만든 초안이 시스템 결정과 직무 근거를 지키는지 검증합니다. 특히 `selected_exec_job`, `task_type`, `difficulty`, `allowed_material_types`가 `system_decisions`와 일치하는지 확인하고, `mission.materials[].type`이 허용된 자료 유형 안에 있는지 검사합니다. 또한 각 material의 `evidence_source`가 `job_profile.evidence.*[].name`에 실제로 존재하는지 대조해, LLM이 임의의 근거를 지어내지 않았는지 확인합니다. 이 검증을 통과하면 validator는 material과 raw_api 근거를 연결한 `evidence_chain`을 만들고, 실패하면 repair 요청을 생성해 수정 초안을 다시 검증합니다.
 
 ## Current Status
 
@@ -46,7 +54,7 @@ flowchart TD
 outputs/ui/v1/runs/{run_id}/mission_ui.html
 ```
 
-기본 파일럿 대상 직업은 4개이며, 각 직업에 대해 `normal`, `hard` 난이도를 생성합니다.
+기본 파일럿 대상 직업은 4개이며, 각 직업에 대해 `easy`, `normal`, `hard` 난이도를 생성합니다. 현재 난이도 기준은 쉬움 1자료/1 task, 보통 2자료/2 task, 어려움 3자료/3 task이며, 모든 task는 하나의 요구 행동만 갖도록 생성·검증합니다.
 
 | job_cd | 직업명 |
 |---|---|
@@ -61,6 +69,7 @@ outputs/ui/v1/runs/{run_id}/mission_ui.html
 src/mission_generation/
   config.py                         # 파일럿 직업, 난이도, OpenAI runtime 설정
   profile_loader.py                 # KNOW XML -> job_profile
+  auto_pilot_config_generator.py     # job_profile -> auto_pilot_config
   system_decision_builder.py        # 수행직무, 난이도, 자료 유형 결정
   schema_constraints_builder.py     # LLM structured output schema 생성
   draft_generator.py                # LLM 입력 패키지와 prompt 구성
@@ -213,18 +222,17 @@ $env:OPENAI_API_KEY="본인_API_KEY"
 
 ## Model Cost Option
 
-기본 모델은 `src/mission_generation/config.py`의 `RuntimeConfig`에 설정된 `gpt-5.4-mini`입니다. 가격을 더 낮추는 것이 중요하면, 계정에서 사용 가능한 경우 `gpt-5.4-nano`로 바꿔 실행할 수 있습니다. 다만 이 변경은 아직 실제 실행으로 검증하지 않았기 때문에, 모델 접근 권한이나 API 지원 상태에 따라 동작하지 않을 수 있습니다.
+기본 모델은 `src/mission_generation/config.py`의 `RuntimeConfig`에 설정된 `gpt-5.4-nano`입니다. reasoning 설정은 기존처럼 `medium`을 사용합니다. 품질 비교나 계정 접근 권한 문제로 되돌릴 필요가 있으면 `gpt-5.4-mini`로 바꿔 실행할 수 있습니다.
 
-변경 방법:
+현재 기본값:
 
-1. `src/mission_generation/config.py`를 엽니다.
-2. `RuntimeConfig`의 `model` 값을 수정합니다.
+`src/mission_generation/config.py`의 `RuntimeConfig`에서 아래처럼 설정되어 있습니다.
 
 ```python
 model: str = "gpt-5.4-nano"
 ```
 
-기존 값은 다음과 같습니다.
+비교용으로 되돌릴 때는 같은 위치에서 다음 값으로 바꿉니다.
 
 ```python
 model: str = "gpt-5.4-mini"

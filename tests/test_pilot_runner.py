@@ -14,6 +14,58 @@ from mission_generation.ui_exporter import MissionUIExporter
 from mission_generation.utils import project_path
 
 
+class StaticDecisionSelector:
+    def select(self, selector_input: dict) -> dict:
+        material_min = selector_input["difficulty"]["material_count_range"][0]
+        evidence_name = selector_input["top_evidence"]["abilities"][0]["name"]
+        selector_result = {
+            "selected_exec_job_id": selector_input["exec_jobs"][0]["exec_job_id"],
+            "primary_task_type": "research_and_analysis",
+            "selected_material_types": selector_input["allowed_material_types"][:material_min],
+            "mission_design_type": "general_research_analysis",
+            "matched_evidence": [evidence_name],
+            "selection_reason": "테스트 selector가 첫 번째 수행직무를 선택했다.",
+            "confidence": "high",
+        }
+        return {
+            "schema_version": "decision_selector_run.v1",
+            "llm_call_result": {
+                "schema_version": "llm_call_result.v1",
+                "provider": "test",
+                "status": "completed",
+                "output_json": selector_result,
+                "usage": {"input_tokens": 3, "output_tokens": 2, "reasoning_tokens": 0, "total_tokens": 5},
+                "errors": [],
+            },
+            "selector_result": selector_result,
+        }
+
+
+class InvalidDecisionSelector:
+    def select(self, selector_input: dict) -> dict:
+        selector_result = {
+            "selected_exec_job_id": "missing",
+            "primary_task_type": "missing",
+            "selected_material_types": ["missing"],
+            "mission_design_type": "missing",
+            "matched_evidence": ["missing"],
+            "selection_reason": "invalid",
+            "confidence": "missing",
+        }
+        return {
+            "schema_version": "decision_selector_run.v1",
+            "llm_call_result": {
+                "schema_version": "llm_call_result.v1",
+                "provider": "test",
+                "status": "completed",
+                "output_json": selector_result,
+                "usage": {"input_tokens": 1, "output_tokens": 1, "reasoning_tokens": 0, "total_tokens": 2},
+                "errors": [],
+            },
+            "selector_result": selector_result,
+        }
+
+
 class PilotRunnerParallelTest(unittest.TestCase):
     def _output_root(self) -> Path:
         root = project_path("outputs", "_test_tmp", "pilot_runner")
@@ -27,7 +79,7 @@ class PilotRunnerParallelTest(unittest.TestCase):
         summary = PilotRunner(force_mock=True, concurrency=2, output_root=output_root).run()
         run_dir = Path(summary["run_dir"])
 
-        self.assertEqual(summary["total_targets"], 8)
+        self.assertEqual(summary["total_targets"], 12)
         self.assertEqual(summary["concurrency"], 2)
         self.assertIn("started_at", summary)
         self.assertIn("finished_at", summary)
@@ -37,8 +89,10 @@ class PilotRunnerParallelTest(unittest.TestCase):
         self.assertEqual(summary["post_run_checks"]["secret_findings"], [])
 
         self.assertTrue((run_dir / "jobs" / "K000000997" / "normal" / "run_status.json").exists())
+        self.assertTrue((run_dir / "jobs" / "K000000997" / "easy" / "run_status.json").exists())
         self.assertTrue((run_dir / "jobs" / "K000000997" / "normal" / "mission_seed.json").exists())
         self.assertTrue((run_dir / "jobs" / "K000001080" / "normal" / "mission_seed.json").exists())
+        self.assertFalse((run_dir / "jobs" / "K000000997" / "easy" / "mission_seed.json").exists())
         self.assertFalse((run_dir / "jobs" / "K000000997" / "hard" / "mission_seed.json").exists())
         self.assertFalse((run_dir / "jobs" / "K000001179" / "normal" / "mission_seed.json").exists())
         for relative_path in [
@@ -64,7 +118,7 @@ class PilotRunnerParallelTest(unittest.TestCase):
         run_dir = Path(summary["run_dir"])
         statuses = {item["status"] for item in summary["results"]}
 
-        self.assertEqual(summary["total_targets"], 8)
+        self.assertEqual(summary["total_targets"], 12)
         self.assertIn("runner_failed", statuses)
         self.assertGreaterEqual(summary["saved_count"], 1)
         self.assertEqual(summary["post_run_checks"]["json_parse_failures"], [])
@@ -97,6 +151,7 @@ class PilotRunnerParallelTest(unittest.TestCase):
             self.assertTrue((run_dir / "jobs" / job_cd / "normal" / "mission_output.json").exists())
             self.assertTrue((run_dir / "jobs" / job_cd / "normal" / "job_practice_profile.json").exists())
             self.assertTrue((run_dir / "jobs" / job_cd / "normal" / "mission_seed.json").exists())
+            self.assertFalse((run_dir / "jobs" / job_cd / "easy").exists())
             self.assertFalse((run_dir / "jobs" / job_cd / "hard").exists())
         self.assertFalse((run_dir / "jobs" / "K000001179").exists())
 
@@ -184,6 +239,57 @@ class PilotRunnerParallelTest(unittest.TestCase):
         self.assertEqual(auto_config["config"]["preferred_exec_job_id"], "exec_001")
         self.assertEqual(system_decisions["selected_exec_job"]["exec_job_id"], "exec_004")
 
+    def test_llm_selector_success_takes_precedence_over_manual_config(self) -> None:
+        output_root = self._output_root()
+        runner = PilotRunner(
+            force_mock=True,
+            concurrency=1,
+            output_root=output_root,
+            target_job_codes=["K000000997"],
+            target_difficulty_codes=["normal"],
+        )
+        runner.decision_selector = StaticDecisionSelector()  # type: ignore[assignment]
+
+        summary = runner.run()
+        run_dir = Path(summary["run_dir"])
+        system_decisions = json.loads(
+            (run_dir / "jobs" / "K000000997" / "normal" / "system_decisions.json").read_text(encoding="utf-8")
+        )
+        validation = json.loads(
+            (run_dir / "jobs" / "K000000997" / "normal" / "decision_selector_validation.json").read_text(encoding="utf-8")
+        )
+
+        self.assertEqual(summary["llm_usage"]["selector_call_count"], 1)
+        self.assertEqual(summary["llm_usage"]["selector_fallback_count"], 0)
+        self.assertEqual(validation["status"], "passed")
+        self.assertEqual(system_decisions["selected_exec_job"]["exec_job_id"], "exec_001")
+        self.assertEqual(system_decisions["mission_design"]["selection_method"], "llm_decision_selector")
+
+    def test_llm_selector_validation_failure_falls_back_to_legacy_decisions(self) -> None:
+        output_root = self._output_root()
+        runner = PilotRunner(
+            force_mock=True,
+            concurrency=1,
+            output_root=output_root,
+            target_job_codes=["K000000997"],
+            target_difficulty_codes=["normal"],
+        )
+        runner.decision_selector = InvalidDecisionSelector()  # type: ignore[assignment]
+
+        summary = runner.run()
+        run_dir = Path(summary["run_dir"])
+        system_decisions = json.loads(
+            (run_dir / "jobs" / "K000000997" / "normal" / "system_decisions.json").read_text(encoding="utf-8")
+        )
+        validation = json.loads(
+            (run_dir / "jobs" / "K000000997" / "normal" / "decision_selector_validation.json").read_text(encoding="utf-8")
+        )
+
+        self.assertEqual(summary["llm_usage"]["selector_call_count"], 1)
+        self.assertEqual(summary["llm_usage"]["selector_fallback_count"], 1)
+        self.assertEqual(validation["status"], "failed")
+        self.assertEqual(system_decisions["selected_exec_job"]["exec_job_id"], "exec_004")
+
     def test_target_filters_reject_unknown_codes(self) -> None:
         output_root = self._output_root()
         with self.assertRaisesRegex(ValueError, "Unknown job code"):
@@ -196,7 +302,7 @@ class PilotRunnerParallelTest(unittest.TestCase):
             PilotRunner(
                 force_mock=True,
                 output_root=output_root,
-                target_difficulty_codes=["easy"],
+                target_difficulty_codes=["expert"],
             ).run()
 
 

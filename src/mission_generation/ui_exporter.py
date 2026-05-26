@@ -218,7 +218,7 @@ class MissionUIExporter:
         return f"{job_cd}:{difficulty_code}"
 
     def _difficulty_label(self, difficulty_code: str) -> str:
-        return {"normal": "보통", "hard": "어려움"}.get(difficulty_code, difficulty_code)
+        return {"easy": "쉬움", "normal": "보통", "hard": "어려움"}.get(difficulty_code, difficulty_code)
 
     def _render_html(self, payload: dict[str, Any]) -> str:
         encoded_payload = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
@@ -514,7 +514,8 @@ function renderLog(d) {{
 
 function renderChecklist(d) {{
   const items = d.items || [];
-  return `<div class="card-list">${{items.map(it => `<div class="info-card check-row"><span class="check-dot">${{it.status === 'checked' ? '✓' : it.status === 'issue' ? '!' : '-'}}</span><div><b>${{esc(it.label || it.text)}}</b><div class="muted">${{esc(it.status)}} · ${{esc(it.importance)}}</div></div></div>`).join('') || '<div class="empty">체크리스트 없음</div>'}}</div>`;
+  const statusLabel = status => status === 'checked' ? '확인됨' : status === 'issue' ? '주의' : '미확인';
+  return `<div class="card-list">${{items.map(it => `<div class="info-card check-row"><span class="check-dot">${{it.status === 'checked' ? '✓' : it.status === 'issue' ? '!' : '-'}}</span><div><b>${{esc(it.text || it.label || '체크 항목')}}</b><div class="muted">${{esc([...new Set([it.label, statusLabel(it.status), it.importance].filter(Boolean))].join(' · '))}}</div><div class="muted">${{esc(it.constraint || '')}}</div></div></div>`).join('') || '<div class="empty">체크리스트 없음</div>'}}</div>`;
 }}
 
 function renderSchedule(d) {{

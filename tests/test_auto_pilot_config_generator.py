@@ -46,7 +46,7 @@ class AutoPilotConfigGeneratorTest(unittest.TestCase):
         auto_config = self.generator.build(profile)
         materials = auto_config["config"]["materials"]
 
-        for difficulty in ("normal", "hard"):
+        for difficulty in ("easy", "normal", "hard"):
             for material_type in materials[difficulty]:
                 self.assertIn(material_type, MATERIAL_TYPES)
                 self.assertNotIn(material_type, EXCLUDED_MATERIAL_TYPES)
@@ -64,7 +64,6 @@ class AutoPilotConfigGeneratorTest(unittest.TestCase):
         self.assertEqual(auto_config["config"]["preferred_exec_job_id"], "")
         self.assertTrue(auto_config["confidence"]["review_required"])
         self.assertIn("EXEC_JOBS_MISSING", warning_codes)
-        self.assertIn("MATERIAL_CANDIDATE_BELOW_TARGET", warning_codes)
 
     def test_trimmed_material_candidates_are_trace_not_warning(self) -> None:
         profile = self.loader.build("K000001080", save=False)
@@ -84,6 +83,10 @@ class AutoPilotConfigGeneratorTest(unittest.TestCase):
 
                 self.assertEqual(config["preferred_exec_job_id"], expected["preferred_exec_job_id"])
                 self.assertEqual(config["preferred_primary_task_type"], expected["preferred_primary_task_type"])
+                self.assertGreaterEqual(
+                    len(set(config["materials"]["easy"]) & set(expected["materials"]["easy"])),
+                    1,
+                )
                 self.assertGreaterEqual(
                     len(set(config["materials"]["normal"]) & set(expected["materials"]["normal"])),
                     2,

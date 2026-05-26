@@ -54,6 +54,8 @@ class MissionUIExporterTest(unittest.TestCase):
         self.assertNotIn("answerBox", html)
         self.assertNotIn("localStorage", html)
         self.assertNotIn("sessionStorage", html)
+        self.assertIn("it.text || it.label || '체크 항목'", html)
+        self.assertIn("statusLabel(it.status)", html)
 
     def test_partial_run_keeps_eight_slots_and_failed_reason(self) -> None:
         html, payload = self._export_payload("pilot_v1_20260524_133436", "ui_exporter_partial")

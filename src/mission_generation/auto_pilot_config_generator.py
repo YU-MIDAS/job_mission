@@ -133,6 +133,14 @@ class AutoPilotConfigGenerator:
         selected_exec_job, exec_metrics = self._select_exec_job(job_profile, trace, warnings)
         selected_text = str((selected_exec_job or {}).get("text") or "")
         primary_task_type, task_metrics = self._primary_task_type(job_profile, selected_text, trace, warnings)
+        easy_materials, easy_metrics = self._materials(
+            job_profile,
+            selected_text,
+            primary_task_type,
+            "easy",
+            trace,
+            warnings,
+        )
         normal_materials, normal_metrics = self._materials(
             job_profile,
             selected_text,
@@ -154,6 +162,7 @@ class AutoPilotConfigGenerator:
             "preferred_exec_job_keywords": self._preferred_keywords(job_profile, selected_text),
             "preferred_primary_task_type": primary_task_type,
             "materials": {
+                "easy": easy_materials,
                 "normal": normal_materials,
                 "hard": hard_materials,
             },
@@ -161,7 +170,7 @@ class AutoPilotConfigGenerator:
         confidence = self._confidence(
             exec_metrics=exec_metrics,
             task_metrics=task_metrics,
-            material_metrics=[normal_metrics, hard_metrics],
+            material_metrics=[easy_metrics, normal_metrics, hard_metrics],
             warnings=warnings,
         )
         if confidence["score"] < 0.5 and not any(item["code"] == "AUTO_CONFIG_LOW_CONFIDENCE" for item in warnings):
@@ -315,7 +324,7 @@ class AutoPilotConfigGenerator:
         trace: list[dict[str, Any]],
         warnings: list[dict[str, str]],
     ) -> tuple[list[str], dict[str, Any]]:
-        max_count = 3 if difficulty == "normal" else 5
+        max_count = {"easy": 1, "normal": 2, "hard": 3}.get(difficulty, 2)
         candidates = self._base_materials(selected_text, task_type, difficulty)
         evidence_text = self._high_score_evidence_text(profile)
         evidence_supported = False
@@ -367,22 +376,30 @@ class AutoPilotConfigGenerator:
     def _base_materials(self, selected_text: str, task_type: str, difficulty: str) -> list[str]:
         is_data = "데이터" in selected_text and ("처리" in selected_text or "플랫폼" in selected_text)
         is_market_feedback = any(signal in selected_text for signal in ("판매수준", "소비자", "평가"))
+        if difficulty == "easy":
+            if is_data:
+                return ["table"]
+            if task_type == "planning_and_proposal":
+                return ["table"]
+            if is_market_feedback:
+                return ["memo"]
+            return ["chart"]
         if difficulty == "normal":
             if is_data:
-                return ["chart", "table", "log"]
+                return ["chart", "table"]
             if task_type == "planning_and_proposal":
-                return ["table", "chart", "memo"]
+                return ["table", "chart"]
             if is_market_feedback:
-                return ["chart", "memo", "table"]
-            return ["chart", "table", "memo"]
+                return ["chart", "memo"]
+            return ["chart", "table"]
 
         if is_data:
-            return ["chart", "table", "log", "memo", "checklist"]
+            return ["chart", "table", "log"]
         if task_type == "planning_and_proposal":
-            return ["email", "table", "chart", "checklist"]
+            return ["email", "table", "chart"]
         if is_market_feedback:
-            return ["email", "chart", "table", "schedule"]
-        return ["email", "chart", "table", "memo"]
+            return ["email", "chart", "table"]
+        return ["email", "chart", "table"]
 
     def _confidence(
         self,

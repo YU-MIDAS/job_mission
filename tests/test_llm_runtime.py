@@ -115,6 +115,25 @@ class LLMRuntimeTest(unittest.TestCase):
         self.assertEqual(result["retry_count"], 0)
         self.assertEqual(result["retry_errors"], [])
 
+    def test_responses_request_accepts_custom_schema_name(self) -> None:
+        env_name = "TEST_OPENAI_API_KEY"
+        os.environ[env_name] = "test-key"
+        runtime = CapturingRuntime(RuntimeConfig(api_key_env=env_name))
+        try:
+            runtime.call_structured(
+                call_type="decision_selection",
+                system_prompt="Return JSON.",
+                user_prompt="Return {\"ok\": true}.",
+                json_schema={"type": "object"},
+                temperature=0.8,
+                max_output_tokens=100,
+                schema_name="decision_selector_v1",
+            )
+        finally:
+            os.environ.pop(env_name, None)
+
+        self.assertEqual(runtime.last_body["text"]["format"]["name"], "decision_selector_v1")  # type: ignore[index]
+
     def test_output_parse_failed_is_retryable(self) -> None:
         runtime = OpenAIResponsesRuntime(RuntimeConfig(api_key_env="TEST_OPENAI_API_KEY"))
         self.assertTrue(runtime._should_retry("OUTPUT_PARSE_FAILED", 0))
@@ -235,6 +254,10 @@ class LLMRuntimeTest(unittest.TestCase):
         self.assertIn("mission_fact_refs as key names only", prompts["user"])
         self.assertIn("rubric points sum exactly to 100", prompts["user"])
         self.assertIn("do not use material ids", prompts["user"])
+        self.assertIn("beginner-friendly job-experience", prompts["user"])
+        self.assertIn("professional knowledge requirements", prompts["user"])
+        self.assertIn("easy has 1 material and 1 task", prompts["user"])
+        self.assertIn("Each task must require only one learner action", prompts["user"])
 
     def test_http_error_message_uses_safe_openai_error_body(self) -> None:
         body = b'{"error":{"message":"Bad request detail.","type":"invalid_request_error","param":"text.format"}}'

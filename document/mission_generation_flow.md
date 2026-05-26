@@ -8,7 +8,8 @@
 flowchart TD
     A["data/api_raw<br/>KNOW 원천 XML"] --> B["job_profile 생성<br/>outputs/profiles/v1/*.json"]
     P["resources/practice_profiles<br/>구조화 실무 profile"] --> S["mission_seed 생성<br/>일부 normal 미션에 반영"]
-    B --> C["system_decisions<br/>수행직무, 난이도, 자료 유형 결정"]
+    B --> L["LLM decision selector<br/>system_decisions 후보 선택"]
+    L --> C["system_decisions<br/>수행직무, 난이도, 자료 유형 결정"]
     C --> D["schema_constraints<br/>출력 스키마와 제약 생성"]
     C --> E["llm_input_package<br/>프롬프트와 입력 패키지 구성"]
     S --> E
@@ -26,15 +27,35 @@ flowchart TD
 
 1. `profile_loader.py`가 `data/api_raw/{job_cd}/`의 XML을 읽습니다.
 2. 직업별 `job_profile`을 만들고 `outputs/profiles/v1/{job_cd}.json`에 저장합니다.
-3. `system_decision_builder.py`가 어떤 수행직무를 미션으로 만들지 결정합니다.
-4. 난이도에 맞춰 사용할 자료 유형을 고릅니다. 예: chart, table, memo, email.
-5. `schema_constraints_builder.py`가 LLM이 따라야 할 출력 구조를 만듭니다.
-6. `draft_generator.py`가 LLM 입력 패키지와 prompt를 구성합니다.
-7. `llm_runtime.py`가 OpenAI Responses API를 호출하거나 mock 결과를 만듭니다.
-8. `validator.py`가 생성 결과가 규칙을 만족하는지 검사합니다.
-9. 실패하면 `repair_manager.py`가 수정 요청을 만들고 다시 검증합니다.
-10. 통과하면 `final_assembler.py`가 최종 `mission_output.json`을 만듭니다.
-11. `ui_exporter.py`가 검수용 `mission_ui.html`을 생성합니다.
+3. `decision_selector.py`가 LLM으로 수행직무, task type, material type, mission design 후보를 먼저 고릅니다.
+4. selector 결과가 검증을 통과하면 `system_decision_builder.py`가 기존 `system_decisions.v1` 구조로 변환합니다.
+5. selector를 사용할 수 없거나 검증에 실패하면 기존 `SystemDecisionBuilder` 규칙 기반 흐름으로 fallback합니다.
+6. 난이도에 맞춰 사용할 자료 유형을 고릅니다. 예: chart, table, memo, email.
+7. `schema_constraints_builder.py`가 LLM이 따라야 할 출력 구조를 만듭니다.
+8. `draft_generator.py`가 LLM 입력 패키지와 prompt를 구성합니다.
+9. `llm_runtime.py`가 OpenAI Responses API를 호출하거나 mock 결과를 만듭니다.
+10. `validator.py`가 생성 결과가 규칙을 만족하는지 검사합니다.
+11. 실패하면 `repair_manager.py`가 수정 요청을 만들고 다시 검증합니다.
+12. 통과하면 `final_assembler.py`가 최종 `mission_output.json`을 만듭니다.
+13. `ui_exporter.py`가 검수용 `mission_ui.html`을 생성합니다.
+
+## Decision Selector
+
+기본 실행에서는 `job_profile`을 바탕으로 LLM decision selector가 `system_decisions` 후보를 먼저 선택합니다. selector는 최종 미션을 작성하지 않고, 다음 값만 고릅니다.
+
+```text
+selected_exec_job_id
+primary_task_type
+selected_material_types
+mission_design_type
+matched_evidence
+selection_reason
+confidence
+```
+
+코드는 selector 결과가 실제 `exec_jobs`, 허용된 type 목록, 실제 evidence 이름을 사용했는지 검증합니다. 검증을 통과한 경우에만 기존 `system_decisions.v1` 구조로 변환합니다.
+
+API key가 없거나 mock 실행이거나 selector 결과 검증에 실패하면 기존 규칙 기반 `SystemDecisionBuilder` 흐름으로 돌아갑니다. 따라서 `mission_output.v1` 구조와 validator 기준은 유지됩니다.
 
 ## Prompt and Structured Output
 

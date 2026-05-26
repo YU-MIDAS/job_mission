@@ -7,6 +7,7 @@ __all__ = [
     "mission_seed_builder",
     "system_decision_builder",
     "schema_constraints_builder",
+    "decision_selector",
     "llm_runtime",
     "draft_generator",
     "repair_manager",

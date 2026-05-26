@@ -60,6 +60,19 @@ class MissionValidatorTest(unittest.TestCase):
         codes = {item["code"] for item in result["errors"]}
         self.assertIn("EXCLUDED_MATERIAL_USED", codes)
 
+    def test_task_with_multiple_actions_requires_repair(self) -> None:
+        draft = copy.deepcopy(self.draft)
+        draft["mission"]["tasks"][0]["instruction"] = "자료를 확인하세요. 그리고 개선안을 제안하세요."
+        result = MissionValidator().validate(
+            job_profile=self.profile,
+            system_decisions=self.decisions,
+            mission_output_draft=draft,
+            attempt=0,
+        )
+
+        self.assertEqual(result["status"], "repair_required")
+        self.assertIn("TASK_MULTIPLE_ACTIONS", {item["code"] for item in result["errors"]})
+
 
 if __name__ == "__main__":
     unittest.main()

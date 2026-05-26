@@ -16,6 +16,7 @@ PILOT_JOBS: list[dict[str, str]] = [
 ]
 
 DIFFICULTIES: list[dict[str, str]] = [
+    {"code": "easy", "label": "쉬움"},
     {"code": "normal", "label": "보통"},
     {"code": "hard", "label": "어려움"},
 ]
@@ -26,8 +27,9 @@ PILOT_JOB_CONFIGS: dict[str, dict[str, Any]] = {
         "preferred_exec_job_keywords": ["판매수준", "소비자", "평가", "정보", "수집", "분석"],
         "preferred_primary_task_type": "research_and_analysis",
         "materials": {
-            "normal": ["chart", "memo", "table"],
-            "hard": ["email", "chart", "table", "schedule"],
+            "easy": ["memo"],
+            "normal": ["chart", "memo"],
+            "hard": ["email", "chart", "table"],
         },
     },
     "K000001080": {
@@ -35,8 +37,9 @@ PILOT_JOB_CONFIGS: dict[str, dict[str, Any]] = {
         "preferred_exec_job_keywords": ["데이터", "처리", "분석", "플랫폼"],
         "preferred_primary_task_type": "research_and_analysis",
         "materials": {
-            "normal": ["chart", "table", "log"],
-            "hard": ["chart", "table", "log", "memo", "checklist"],
+            "easy": ["table"],
+            "normal": ["chart", "table"],
+            "hard": ["chart", "table", "log"],
         },
     },
     "K000001179": {
@@ -44,8 +47,9 @@ PILOT_JOB_CONFIGS: dict[str, dict[str, Any]] = {
         "preferred_exec_job_keywords": ["경제상황", "산업", "기업", "정보", "수집", "분석"],
         "preferred_primary_task_type": "research_and_analysis",
         "materials": {
-            "normal": ["chart", "table", "memo"],
-            "hard": ["email", "chart", "table", "memo"],
+            "easy": ["chart"],
+            "normal": ["chart", "table"],
+            "hard": ["email", "chart", "table"],
         },
     },
     "K000007519": {
@@ -53,8 +57,9 @@ PILOT_JOB_CONFIGS: dict[str, dict[str, Any]] = {
         "preferred_exec_job_keywords": ["분석결과", "사회환경", "경제사정", "보험상품", "개발"],
         "preferred_primary_task_type": "planning_and_proposal",
         "materials": {
-            "normal": ["table", "chart", "memo"],
-            "hard": ["email", "table", "chart", "checklist"],
+            "easy": ["table"],
+            "normal": ["table", "chart"],
+            "hard": ["email", "table", "chart"],
         },
     },
 }
@@ -77,7 +82,7 @@ EXCLUDED_MATERIAL_TYPES = {"image", "screenshot"}
 class RuntimeConfig:
     provider: str = "openai"
     api: str = "responses"
-    model: str = "gpt-5.4-mini"
+    model: str = "gpt-5.4-nano"
     reasoning_effort: str = "medium"
     draft_temperature: float = 0.8
     repair_temperature: float = 0.4
@@ -152,6 +157,7 @@ def default_pilot_config() -> dict[str, Any]:
         "schema_version": "pilot_generation_config.v1",
         "source_root": SOURCE_ROOT,
         "use_kmeans": False,
+        "use_llm_decision_selector": True,
         "jobs": PILOT_JOBS,
         "difficulties": DIFFICULTIES,
         "max_repair_attempts": 1,

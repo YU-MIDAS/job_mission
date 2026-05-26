@@ -152,7 +152,7 @@ class SchemaConstraintsBuilder:
     def _difficulty_schema(self) -> dict[str, Any]:
         return self._object(
             {
-                "level": {"enum": ["normal", "hard"]},
+                "level": {"enum": ["easy", "normal", "hard"]},
                 "label": {"type": "string"},
                 "estimated_time_minutes": {"type": "integer"},
                 "material_bundle_style": {"type": "string"},

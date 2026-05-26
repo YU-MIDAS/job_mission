@@ -42,6 +42,8 @@ class RepairPromptBuilder:
                 "evaluation.rubric.linked_evidence must use job profile evidence names, not material ids.",
                 "Respect validator material size limits for chart, log, checklist, memo, email, table, schedule, and card materials.",
                 "Chart series count must be 1 or 2.",
+                "Keep learner-facing text beginner-friendly and job-experience oriented; do not add professional knowledge requirements.",
+                "Each task must require only one learner action or deliverable.",
                 "JSON만 출력한다.",
                 "target_exec_job, task_type, secondary_task_types, difficulty는 변경하지 않는다.",
                 "allowed_material_types 밖의 material을 추가하지 않는다.",
@@ -123,6 +125,9 @@ class RepairManager:
             "- Use exact job_profile evidence item names in evaluation.rubric.linked_evidence; do not use material ids such as mat_001, mat_002, or m1.\n"
             "- Respect material size limits for chart, log, checklist, memo, email, table, schedule, and card materials.\n"
             "- Keep chart series count at 1 or 2.\n"
+            "- Preserve beginner-friendly job-experience wording; do not add external research or professional knowledge requirements.\n"
+            "- Preserve the exact difficulty counts: easy has 1 material and 1 task, normal has 2 materials and 2 tasks, hard has 3 materials and 3 tasks.\n"
+            "- Each task must require only one learner action or deliverable.\n"
             f"{json.dumps(repair_request, ensure_ascii=False)}"
         )
         return {"system": system, "user": user}

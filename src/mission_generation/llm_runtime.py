@@ -47,6 +47,7 @@ class OpenAIResponsesRuntime:
         json_schema: dict[str, Any],
         temperature: float,
         max_output_tokens: int,
+        schema_name: str = "mission_output_v1_draft",
     ) -> dict[str, Any]:
         if not self.api_key_available():
             return self._missing_key_result(call_type, temperature)
@@ -64,7 +65,7 @@ class OpenAIResponsesRuntime:
             "text": {
                 "format": {
                     "type": "json_schema",
-                    "name": "mission_output_v1_draft",
+                    "name": schema_name,
                     "strict": True,
                     "schema": json_schema,
                 }
