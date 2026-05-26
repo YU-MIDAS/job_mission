@@ -54,7 +54,7 @@ LLM draft prompt는 저장된 `llm_input_package.json`을 그대로 모두 붙�
 outputs/ui/v1/runs/{run_id}/mission_ui.html
 ```
 
-기본 파일럿 대상 직업은 4개이며, 각 직업에 대해 `easy`, `normal`, `hard` 난이도를 생성합니다. 현재 난이도 기준은 쉬움 1자료/1 task, 보통 2자료/2 task, 어려움 3자료/3 task이며, 모든 task는 하나의 요구 행동만 갖도록 생성·검증합니다.
+기본 파일럿 대상 직업은 4개이며, 각 직업에 대해 `easy`, `normal`, `hard` 난이도를 생성합니다. 현재 난이도 기준은 쉬움 1자료/1 task, 보통 2자료/2 task, 어려움 3자료/2 task이며, 모든 task는 하나의 서술형 답변 행동만 갖도록 생성·검증합니다.
 
 | job_cd | 직업명 |
 |---|---|

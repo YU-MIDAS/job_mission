@@ -43,6 +43,9 @@ class RepairPromptBuilder:
                 "Respect validator material size limits for chart, log, checklist, memo, email, table, schedule, and card materials.",
                 "Chart series count must be 1 or 2.",
                 "Keep learner-facing text beginner-friendly and job-experience oriented; do not add professional knowledge requirements.",
+                "Make the mission easier than a real workplace task.",
+                "Prefer everyday workplace words over specialist terms.",
+                "Avoid legal, financial, technical, policy, compliance, or expert judgment unless the material explains it in beginner terms.",
                 "Each task must require only one learner action or deliverable.",
                 "JSON만 출력한다.",
                 "target_exec_job, task_type, secondary_task_types, difficulty는 변경하지 않는다.",
@@ -126,8 +129,15 @@ class RepairManager:
             "- Respect material size limits for chart, log, checklist, memo, email, table, schedule, and card materials.\n"
             "- Keep chart series count at 1 or 2.\n"
             "- Preserve beginner-friendly job-experience wording; do not add external research or professional knowledge requirements.\n"
-            "- Preserve the exact difficulty counts: easy has 1 material and 1 task, normal has 2 materials and 2 tasks, hard has 3 materials and 3 tasks.\n"
+            "- Make the mission easier than a real workplace task.\n"
+            "- Prefer everyday workplace words over specialist terms.\n"
+            "- Avoid legal, financial, technical, policy, compliance, or expert judgment unless the material explains it in beginner terms.\n"
+            "- Preserve the exact difficulty counts: easy has 1 material and 1 task, normal has 2 materials and 2 tasks, hard has 3 materials and 2 tasks.\n"
+            "- Easy answers should be 1-2 short sentences and should identify one obvious issue, choose one option, or explain one visible pattern.\n"
+            "- Normal tasks should ask for only one simple comparison or one simple recommendation; each answer should be 2-3 short sentences.\n"
+            "- Hard means more materials, not expert-level reasoning; ask for one decision and one caution, each answer 3-5 short sentences, with all clues visible in the materials.\n"
             "- Each task must require only one learner action or deliverable.\n"
+            "- Each task must ask for a short descriptive written response, not a code-only, letter-only, number-only, or single-word answer.\n"
             f"{json.dumps(repair_request, ensure_ascii=False)}"
         )
         return {"system": system, "user": user}

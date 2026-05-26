@@ -256,8 +256,13 @@ class LLMRuntimeTest(unittest.TestCase):
         self.assertIn("do not use material ids", prompts["user"])
         self.assertIn("beginner-friendly job-experience", prompts["user"])
         self.assertIn("professional knowledge requirements", prompts["user"])
+        self.assertIn("Make the mission easier than a real workplace task", prompts["user"])
+        self.assertIn("Prefer everyday workplace words over specialist terms", prompts["user"])
         self.assertIn("easy has 1 material and 1 task", prompts["user"])
+        self.assertIn("hard has 3 materials and 2 tasks", prompts["user"])
+        self.assertIn("Hard means more materials, not expert-level reasoning", prompts["user"])
         self.assertIn("Each task must require only one learner action", prompts["user"])
+        self.assertIn("short descriptive written response", prompts["user"])
 
     def test_http_error_message_uses_safe_openai_error_body(self) -> None:
         body = b'{"error":{"message":"Bad request detail.","type":"invalid_request_error","param":"text.format"}}'

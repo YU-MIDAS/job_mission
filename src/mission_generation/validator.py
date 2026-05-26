@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import json
+import re
 from typing import Any
 
 from .config import EXCLUDED_MATERIAL_TYPES, MATERIAL_TYPES
@@ -27,6 +28,7 @@ AREA_BY_CODE = {
     "TASK_COUNT_OUT_OF_RANGE": "materials",
     "MATERIAL_COUNT_OUT_OF_RANGE": "materials",
     "TASK_MULTIPLE_ACTIONS": "tasks",
+    "TASK_NON_DESCRIPTIVE_ANSWER": "tasks",
     "EVIDENCE_SOURCE_NOT_FOUND": "evidence",
     "EXTERNAL_KNOWLEDGE_REQUIRED": "tasks",
     "RUBRIC_POINTS_NOT_100": "evaluation",
@@ -279,7 +281,7 @@ class MissionValidator:
             return
         if material_type == "chart":
             self._validate_chart(data, path, errors)
-            self._check_size(len((data.get("x_axis") or {}).get("values") or []), *self._size_bounds(difficulty, (3, 4), (4, 5), (5, 6)), f"{path}.data.x_axis.values", errors, warnings)
+            self._check_size(len((data.get("x_axis") or {}).get("values") or []), *self._size_bounds(difficulty, (3, 4), (4, 5), (4, 5)), f"{path}.data.x_axis.values", errors, warnings)
         elif material_type == "table":
             rows = data.get("rows")
             columns = data.get("columns")
@@ -292,12 +294,12 @@ class MissionValidator:
                         self._add(errors, "MATERIAL_SCHEMA_INVALID", "fail", f"{path}.data.rows", "row keys must match columns.", "Align row keys with columns.")
                     if any(not isinstance(value, (str, int, float)) for value in row.values()):
                         self._add(errors, "MATERIAL_SCHEMA_INVALID", "fail", f"{path}.data.rows", "table cells must be string or number.", "Use string or number cells.")
-            self._check_size(len(rows or []), 1, {"easy": 3, "normal": 4, "hard": 5}.get(difficulty, 4), f"{path}.data.rows", errors, warnings)
+            self._check_size(len(rows or []), 1, {"easy": 3, "normal": 4, "hard": 4}.get(difficulty, 4), f"{path}.data.rows", errors, warnings)
         elif material_type == "memo":
             items = data.get("items")
             if not isinstance(items, list) or not items:
                 self._add(errors, "MATERIAL_SCHEMA_INVALID", "fail", f"{path}.data.items", "memo items are required.", "Add items.")
-            self._check_size(len(items or []), *self._size_bounds(difficulty, (2, 3), (3, 4), (4, 5)), f"{path}.data.items", errors, warnings)
+            self._check_size(len(items or []), *self._size_bounds(difficulty, (1, 2), (2, 3), (2, 3)), f"{path}.data.items", errors, warnings)
         elif material_type == "email":
             thread = data.get("thread")
             if not isinstance(thread, list) or not thread:
@@ -306,12 +308,12 @@ class MissionValidator:
                 for item in thread:
                     if not all(item.get(field) for field in ("from", "to", "subject", "body")):
                         self._add(errors, "MATERIAL_SCHEMA_INVALID", "fail", f"{path}.data.thread", "email requires from/to/subject/body.", "Add email fields.")
-            self._check_size(len(thread or []), 1, 2 if difficulty == "hard" else 1, f"{path}.data.thread", errors, warnings)
+            self._check_size(len(thread or []), 1, 1, f"{path}.data.thread", errors, warnings)
         elif material_type == "schedule":
             items = data.get("items")
             if not isinstance(items, list) or not items or any(not item.get("period") or not item.get("task") for item in items):
                 self._add(errors, "MATERIAL_SCHEMA_INVALID", "fail", f"{path}.data.items", "schedule items require period and task.", "Add period and task.")
-            self._check_size(len(items or []), *self._size_bounds(difficulty, (2, 3), (3, 4), (4, 5)), f"{path}.data.items", errors, warnings)
+            self._check_size(len(items or []), *self._size_bounds(difficulty, (1, 2), (2, 3), (2, 3)), f"{path}.data.items", errors, warnings)
         elif material_type == "checklist":
             items = data.get("items")
             allowed_status = {"checked", "unchecked", "issue"}
@@ -321,12 +323,12 @@ class MissionValidator:
                 for item in items:
                     if item.get("status") not in allowed_status:
                         self._add(errors, "MATERIAL_SCHEMA_INVALID", "fail", f"{path}.data.items.status", "invalid checklist status.", "Use checked, unchecked, or issue.")
-            self._check_size(len(items or []), *self._size_bounds(difficulty, (3, 3), (4, 4), (5, 6)), f"{path}.data.items", errors, warnings)
+            self._check_size(len(items or []), *self._size_bounds(difficulty, (2, 2), (3, 3), (3, 3)), f"{path}.data.items", errors, warnings)
         elif material_type == "log":
             entries = data.get("entries")
             if not isinstance(entries, list) or not entries or any(not item.get("time") or not item.get("event") for item in entries):
                 self._add(errors, "MATERIAL_SCHEMA_INVALID", "fail", f"{path}.data.entries", "log entries require time and event.", "Add time and event.")
-            self._check_size(len(entries or []), *self._size_bounds(difficulty, (3, 4), (4, 5), (5, 6)), f"{path}.data.entries", errors, warnings)
+            self._check_size(len(entries or []), *self._size_bounds(difficulty, (2, 3), (3, 4), (3, 4)), f"{path}.data.entries", errors, warnings)
         elif material_type == "card":
             cards = data.get("cards")
             if not isinstance(cards, list) or not cards:
@@ -335,7 +337,7 @@ class MissionValidator:
                 key_sets = [set((card.get("attributes") or {}).keys()) for card in cards]
                 if any(not key_set for key_set in key_sets) or len({tuple(sorted(key_set)) for key_set in key_sets}) > 1:
                     self._add(errors, "MATERIAL_SCHEMA_INVALID", "fail", f"{path}.data.cards", "card attribute keys must be consistent.", "Use consistent attributes.")
-            self._check_size(len(cards or []), *self._size_bounds(difficulty, (2, 2), (2, 3), (3, 3)), f"{path}.data.cards", errors, warnings)
+            self._check_size(len(cards or []), *self._size_bounds(difficulty, (2, 2), (2, 3), (2, 3)), f"{path}.data.cards", errors, warnings)
 
     def _validate_chart(self, data: dict[str, Any], path: str, errors: list[dict[str, Any]]) -> None:
         chart_type = data.get("chart_type")
@@ -402,6 +404,15 @@ class MissionValidator:
                     f"{path}.instruction",
                     "task combines multiple learner actions.",
                     "Keep one learner action or deliverable per task.",
+                )
+            if self._task_discourages_descriptive_answer(instruction):
+                self._add(
+                    errors,
+                    "TASK_NON_DESCRIPTIVE_ANSWER",
+                    "fail",
+                    f"{path}.instruction",
+                    "task asks for a code-only or non-descriptive answer.",
+                    "Ask for one short descriptive written response.",
                 )
         submission = mission.get("submission_format") or {}
         if not isinstance(submission, dict) or not submission.get("required_sections") or not submission.get("length_hint"):
@@ -587,8 +598,17 @@ class MissionValidator:
         explicit_markers = ("①", "②", "③", "(1)", "(2)", "(3)", "첫째", "둘째", "셋째", "이어서", "마지막")
         if any(marker in instruction for marker in explicit_markers):
             return True
+        action_text = re.sub(r"답(?:변|안)?(?:에는|은|의)?[^.。\n]*(?:작성|적어)[주세하십니다요]+[.]?", "", instruction)
+        action_text = re.sub(r"(?:답변 형식|제출 형식|형식)\s*[:：][^.。\n]+", "", action_text)
         action_endings = ("하세요", "해보세요", "적어주세요", "정리하세요", "제안하세요", "선택하세요", "고르세요")
-        return sum(instruction.count(ending) for ending in action_endings) > 1
+        return sum(action_text.count(ending) for ending in action_endings) > 1
+
+    def _task_discourages_descriptive_answer(self, instruction: str) -> bool:
+        short_answer_markers = ("A/B/C", "A 또는 B", "옵션:", "선택지", "번호", "이름만")
+        restrictive_phrases = ("로만 작성하세요", "로만 적어주세요", "만 작성하세요", "만 적어주세요")
+        return any(marker in instruction for marker in short_answer_markers) and any(
+            phrase in instruction for phrase in restrictive_phrases
+        )
 
     def _evidence_name_map(self, profile: dict[str, Any]) -> dict[str, dict[str, Any]]:
         return {

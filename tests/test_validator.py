@@ -73,6 +73,68 @@ class MissionValidatorTest(unittest.TestCase):
         self.assertEqual(result["status"], "repair_required")
         self.assertIn("TASK_MULTIPLE_ACTIONS", {item["code"] for item in result["errors"]})
 
+    def test_answer_format_guidance_is_not_counted_as_second_action(self) -> None:
+        instruction = "옵션 A/B/C 중 1개만 고르세요. 답은 \"옵션: A\"로만 작성하세요."
+        self.assertFalse(MissionValidator()._task_has_multiple_actions(instruction))
+
+    def test_code_only_answer_task_requires_repair(self) -> None:
+        draft = copy.deepcopy(self.draft)
+        draft["mission"]["tasks"][0]["instruction"] = "옵션 A/B/C 중 1개만 고르세요. 답은 \"옵션: A\"로만 작성하세요."
+        result = MissionValidator().validate(
+            job_profile=self.profile,
+            system_decisions=self.decisions,
+            mission_output_draft=draft,
+            attempt=0,
+        )
+
+        self.assertEqual(result["status"], "repair_required")
+        self.assertIn("TASK_NON_DESCRIPTIVE_ANSWER", {item["code"] for item in result["errors"]})
+
+    def test_reduced_material_item_bounds_are_enforced(self) -> None:
+        validator = MissionValidator()
+        max_counts = {
+            "memo": {"easy": 2, "normal": 3, "hard": 3},
+            "schedule": {"easy": 2, "normal": 3, "hard": 3},
+            "checklist": {"easy": 2, "normal": 3, "hard": 3},
+            "log": {"easy": 3, "normal": 4, "hard": 4},
+        }
+
+        for material_type, difficulty_counts in max_counts.items():
+            for difficulty, max_count in difficulty_counts.items():
+                with self.subTest(material_type=material_type, difficulty=difficulty):
+                    errors: list[dict] = []
+                    warnings: list[dict] = []
+                    validator._validate_material_data(
+                        {"type": material_type, "data": self._material_data(material_type, max_count)},
+                        "mission.materials[0]",
+                        difficulty,
+                        errors,
+                        warnings,
+                    )
+                    self.assertEqual(errors, [])
+
+                    errors = []
+                    warnings = []
+                    validator._validate_material_data(
+                        {"type": material_type, "data": self._material_data(material_type, max_count + 1)},
+                        "mission.materials[0]",
+                        difficulty,
+                        errors,
+                        warnings,
+                    )
+                    self.assertIn("MATERIAL_SIZE_TOO_LARGE", {item["code"] for item in errors})
+
+    def _material_data(self, material_type: str, count: int) -> dict:
+        if material_type == "memo":
+            return {"items": [f"memo {index}" for index in range(count)]}
+        if material_type == "schedule":
+            return {"items": [{"period": f"{index}w", "task": f"task {index}"} for index in range(count)]}
+        if material_type == "checklist":
+            return {"items": [{"label": f"item {index}", "status": "unchecked"} for index in range(count)]}
+        if material_type == "log":
+            return {"entries": [{"time": f"{index}:00", "event": f"event {index}"} for index in range(count)]}
+        raise AssertionError(f"Unsupported material type: {material_type}")
+
 
 if __name__ == "__main__":
     unittest.main()

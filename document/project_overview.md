@@ -26,7 +26,7 @@
 | `K000001179` | 투자분석가 |
 | `K000007519` | 보험상품개발자 |
 
-기본 난이도는 `easy`, `normal`, `hard`입니다. 쉬움은 1자료/1 task, 보통은 2자료/2 task, 어려움은 3자료/3 task를 사용하며, 모든 task는 하나의 요구 행동만 갖도록 생성·검증합니다. 일부 `normal` 미션은 `resources/practice_profiles/`에 있는 구조화 실무 profile을 참고해 더 현실적인 업무 맥락을 반영합니다.
+기본 난이도는 `easy`, `normal`, `hard`입니다. 쉬움은 1자료/1 task, 보통은 2자료/2 task, 어려움은 3자료/2 task를 사용하며, 모든 task는 하나의 서술형 답변 행동만 갖도록 생성·검증합니다. 일부 `normal` 미션은 `resources/practice_profiles/`에 있는 구조화 실무 profile을 참고해 더 현실적인 업무 맥락을 반영합니다.
 
 ## Repository Map
 

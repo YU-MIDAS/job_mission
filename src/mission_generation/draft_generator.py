@@ -134,11 +134,17 @@ class PromptBuilder:
             "- Make the scenario concrete and workplace-like, but use only synthetic organizations, products, customers, and data.\n"
             "- Reflect system_decisions.mission_design.mission_design_type and design_intent in the scenario, materials, tasks, and evaluation.\n"
             "- Make every material useful for solving at least one task. Avoid decorative or unrelated materials.\n"
-            "- Make task instructions clear about what the learner must decide, compare, diagnose, or propose.\n"
-            "- For easy difficulty, use exactly 1 provided material and exactly 1 task focused on one observation, choice, or suggestion.\n"
-            "- For normal difficulty, use exactly 2 provided materials and exactly 2 tasks focused on one main issue and one practical recommendation.\n"
-            "- For hard difficulty, use exactly 3 provided materials and exactly 3 tasks; include trade-off judgment, priority comparison, or constraint handling when the available materials support it.\n"
+            "- Make task instructions clear about what the learner must notice, choose, compare, explain, or suggest.\n"
+            "- Make the mission easier than a real workplace task.\n"
+            "- The learner should only need to notice, choose, compare, or explain a simple thing from the provided materials.\n"
+            "- Avoid legal, financial, technical, policy, compliance, or expert judgment unless the material explains it in beginner terms.\n"
+            "- Prefer everyday workplace words over specialist terms.\n"
+            "- For easy difficulty, use exactly 1 material and exactly 1 task. The answer should be 1-2 short sentences. Ask the learner to identify one obvious issue, choose one option, or explain one visible pattern. Do not ask for root-cause analysis, risk assessment, prioritization, or trade-off judgment.\n"
+            "- For normal difficulty, use exactly 2 materials and exactly 2 tasks. Each task should ask for only one simple comparison or one simple recommendation. Each answer should be 2-3 short sentences. Do not ask for full diagnosis.\n"
+            "- For hard difficulty, use exactly 3 materials and exactly 2 tasks. Hard means more materials, not expert-level reasoning. Ask for one decision and one caution. Each answer should be 3-5 short sentences. All clues must be visible in the materials.\n"
             "- Every task must require only one learner action or deliverable. Do not combine multiple actions such as find + compare + choose + write in one task.\n"
+            "- Make every task answerable as a short descriptive written response, not as a code-only, letter-only, number-only, or single-word answer.\n"
+            "- If a learner must choose an option, the single deliverable should be one sentence or short paragraph that includes the choice and reason.\n"
             "- Keep the mission answerable only from the provided materials and mission facts.\n"
             "- Avoid generic textbook wording, vague business jargon, and repeated template-like sentences.\n"
             "- Do not copy mission_design into mission_output.\n\n"
@@ -149,6 +155,7 @@ class PromptBuilder:
             "- Use one clear workplace request from a manager, client, customer, or team member instead of a broad report brief.\n"
             "- Keep the mission solvable without prior professional knowledge; put every needed clue inside the provided materials.\n"
             "- If the job normally uses specialist terms, explain or embed the needed meaning in the materials and task text.\n"
+            "- If learner-facing text uses a specialist or potentially confusing term, add a short '용어 설명:' note at the end of the mission text in plain Korean.\n"
             "- Ask the learner to notice, choose, compare, explain, or suggest; avoid expert-only analysis, formulas, legal judgment, investment advice, or domain trivia unless fully explained by the materials.\n"
             "- Keep learner-facing text concise: one main question, one concrete situation, and the exact number of guided task steps required by difficulty.\n\n"
             "Stability requirements:\n"
@@ -156,9 +163,9 @@ class PromptBuilder:
             "- Do not use mission_facts.period, mission_fact_period, source_ref fields, XML fields, or invented fact labels as mission_fact_refs.\n"
             "- Make evaluation.rubric points sum exactly to 100.\n"
             "- Use exact job_profile evidence item names in evaluation.rubric.linked_evidence; do not use material ids such as mat_001, mat_002, or m1.\n"
-            "- Respect material size limits: chart easy 3-4, normal 4-5, hard 5-6 x values; log easy 3-4, normal 4-5, hard 5-6 entries; checklist easy 3, normal 4, hard 5-6 items.\n"
-            "- Respect material size limits: memo easy 2-3, normal 3-4, hard 4-5 items; email easy/normal 1 thread item and hard 1-2 thread items; table max easy 3 rows, normal 4 rows, hard 5 rows.\n"
-            "- Respect material size limits: schedule easy 2-3, normal 3-4, hard 4-5 items; card easy 2 cards, normal 2-3 cards, hard 3 cards.\n"
+            "- Respect material size limits: chart easy 3-4, normal 4-5, hard 4-5 x values; log easy 2-3, normal 3-4, hard 3-4 entries; checklist easy 2, normal 3, hard 3 items.\n"
+            "- Respect material size limits: memo easy 1-2, normal 2-3, hard 2-3 items; email easy/normal/hard 1 thread item; table max easy 3 rows, normal 4 rows, hard 4 rows.\n"
+            "- Respect material size limits: schedule easy 1-2, normal 2-3, hard 2-3 items; card easy 2 cards, normal 2-3 cards, hard 2-3 cards.\n"
             "- Keep chart series count at 1 or 2.\n\n"
             "Every material.evidence_source item must exactly match a job_profile evidence item name.\n"
             "Do not use source_ref file names, XML field names, or invented evidence labels as evidence_source.\n"
@@ -407,6 +414,8 @@ class MockMissionDraftBuilder:
             if hard:
                 items.append("일정과 비용 제약 때문에 한 번에 모든 대안을 실행하기 어렵다.")
             if easy:
+                items = items[:2]
+            else:
                 items = items[:3]
             return {"author": "고객지원 담당자", "items": items}
         if material_type == "email":
@@ -422,6 +431,8 @@ class MockMissionDraftBuilder:
             if hard:
                 items.append({"period": "5주차", "task": "결과 점검 계획 수립", "constraint": "평가 기준 사전 합의"})
             if easy:
+                items = items[:2]
+            else:
                 items = items[:3]
             return {"items": items}
         if material_type == "checklist":
@@ -432,7 +443,7 @@ class MockMissionDraftBuilder:
                     {"label": "실행 일정 안에 검토가 가능한가", "status": "unchecked", "importance": "medium"},
                     {"label": "선택하지 않은 대안의 이유가 설명되는가", "status": "unchecked", "importance": "medium"},
                     {"label": "추가 외부 조사가 없어도 판단 가능한가", "status": "checked", "importance": "high"},
-                ][: 3 if easy else 5 if hard else 4]
+                ][: 2 if easy else 3]
             }
         if material_type == "log":
             entries = [
@@ -450,6 +461,8 @@ class MockMissionDraftBuilder:
                 )
             if easy:
                 entries = entries[:3]
+            else:
+                entries = entries[:4]
             return {"entries": entries}
         return {
             "cards": [
@@ -467,7 +480,7 @@ class MockMissionDraftBuilder:
         seed: dict[str, Any] | None = None,
     ) -> list[dict[str, Any]]:
         material_ids = [material["material_id"] for material in materials]
-        task_min, task_max = {"easy": (1, 1), "normal": (2, 2), "hard": (3, 3)}.get(difficulty, (2, 2))
+        task_min, task_max = {"easy": (1, 1), "normal": (2, 2), "hard": (2, 2)}.get(difficulty, (2, 2))
         if seed and seed.get("task_plan"):
             tasks = []
             for index, plan in enumerate(seed["task_plan"][:task_max], start=1):
@@ -485,19 +498,19 @@ class MockMissionDraftBuilder:
         tasks = [
             {
                 "task_id": "task_001",
-                "instruction": "자료에서 최근 흐름상 가장 큰 문제를 1가지 적어라.",
+                "instruction": "자료에서 최근 흐름상 가장 큰 문제 1가지와 그 근거를 2~3문장으로 작성하세요.",
                 "required_materials": material_ids[:2],
                 "expected_action": "analyze_issue",
             },
             {
                 "task_id": "task_002",
-                "instruction": "문제 원인을 줄이기 위한 실행 방향 1가지를 선택하라.",
+                "instruction": "문제 원인을 줄이기 위한 실행 방향 1가지를 선택하고, 선택 이유를 2~3문장으로 작성하세요.",
                 "required_materials": material_ids,
                 "expected_action": "choose_action",
             },
             {
                 "task_id": "task_003",
-                "instruction": "선택한 방향을 실행하기 전에 확인해야 할 주의점 1가지를 제시하라.",
+                "instruction": "선택한 방향을 실행하기 전에 확인해야 할 주의점 1가지를 2~3문장으로 작성하세요.",
                 "required_materials": material_ids[-2:] if len(material_ids) >= 2 else material_ids,
                 "expected_action": "identify_risk",
             },
@@ -510,20 +523,20 @@ class MockMissionDraftBuilder:
                 "type": "single_response",
                 "estimated_time_minutes": 10,
                 "required_sections": ["발견한 점 1가지", "제안 1가지"],
-                "length_hint": "150~300자",
+                "length_hint": "1-2 short sentences",
             }
         if difficulty == "normal":
             return {
                 "type": "guided_short_report",
                 "estimated_time_minutes": 15,
                 "required_sections": ["핵심 발견 1가지", "근거 자료 2개", "제안 1가지"],
-                "length_hint": "300~500자",
+                "length_hint": "2-3 short sentences per task",
             }
         return {
             "type": "decision_memo",
             "estimated_time_minutes": 20,
-            "required_sections": ["핵심 문제", "선택한 방향", "선택 근거", "실행 전 확인할 리스크"],
-            "length_hint": "600~900자",
+            "required_sections": ["문제와 근거", "선택한 방향과 이유"],
+            "length_hint": "3-5 short sentences per task",
         }
 
     def _evaluation(self, profile: dict[str, Any], tasks: list[dict[str, Any]]) -> dict[str, Any]:
