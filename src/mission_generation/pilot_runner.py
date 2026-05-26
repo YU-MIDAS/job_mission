@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import argparse
 import time
+import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
+from .auto_pilot_config_generator import AutoPilotConfigGenerator
 from .config import PILOT_JOB_CONFIGS, RuntimeConfig, default_pilot_config
 from .draft_generator import LLMInputPackageBuilder, MissionDraftGenerator
 from .final_assembler import FinalMissionAssembler
@@ -16,7 +18,7 @@ from .repair_manager import RepairManager, RepairPromptBuilder
 from .schema_constraints_builder import SchemaConstraintsBuilder
 from .storage import StorageAdapter
 from .system_decision_builder import SystemDecisionBuilder
-from .utils import iso_now
+from .utils import iso_now, normalize_text
 from .validator import MissionValidator
 
 
@@ -39,6 +41,7 @@ class PilotRunner:
         self.target_difficulty_codes = list(target_difficulty_codes) if target_difficulty_codes is not None else None
         self.runtime_config = RuntimeConfig()
         self.profile_loader = JobProfileLoader(source_root=self.source_root, output_root=self.output_root / "profiles" / "v1")
+        self.auto_config_generator = AutoPilotConfigGenerator()
         self.practice_profile_loader = PracticeProfileLoader()
         self.seed_builder = MissionSeedBuilder()
         self.decision_builder = SystemDecisionBuilder()
@@ -164,15 +167,27 @@ class PilotRunner:
         if self.target_job_codes is not None:
             requested = self._dedupe_codes(self.target_job_codes, "target_job_codes")
             known = {item["job_cd"]: item for item in pilot_config["jobs"]}
-            unknown = [code for code in requested if code not in known]
+            jobs: list[dict[str, str]] = []
+            unknown: list[str] = []
+            for code in requested:
+                if code in known:
+                    jobs.append(dict(known[code]))
+                    continue
+                raw_api_job = self._job_from_raw_api(code)
+                if raw_api_job is None:
+                    unknown.append(code)
+                else:
+                    jobs.append(raw_api_job)
             if unknown:
                 raise ValueError(
                     "Unknown job code(s): "
                     + ", ".join(unknown)
                     + ". Available job codes: "
                     + ", ".join(known)
+                    + " or any job code under "
+                    + self.source_root.as_posix()
                 )
-            pilot_config["jobs"] = [dict(known[code]) for code in requested]
+            pilot_config["jobs"] = jobs
 
         if self.target_difficulty_codes is not None:
             requested = self._dedupe_codes(self.target_difficulty_codes, "target_difficulty_codes")
@@ -195,6 +210,19 @@ class PilotRunner:
             raise ValueError(f"{label} must include at least one code.")
         return list(dict.fromkeys(codes))
 
+    def _job_from_raw_api(self, job_cd: str) -> dict[str, str] | None:
+        job_dir = self.source_root / job_cd
+        if not job_dir.is_dir():
+            return None
+        job_name = job_cd
+        path = job_dir / "dtlGb_2.xml"
+        if path.exists():
+            try:
+                job_name = normalize_text(ET.parse(path).getroot().findtext("jobSmclNm")) or job_cd
+            except ET.ParseError:
+                job_name = job_cd
+        return {"job_cd": job_cd, "job_name": job_name}
+
     def _run_one(
         self,
         profile: dict[str, Any],
@@ -208,10 +236,17 @@ class PilotRunner:
         repair_count = 0
 
         try:
+            generated_from = (self.output_root / "profiles" / "v1" / f"{job_cd}.json").as_posix()
+            auto_pilot_config = self.auto_config_generator.build(profile, generated_from=generated_from)
+            self.storage.save_canonical_auto_pilot_config(auto_pilot_config)
+            self.storage.save_job_artifact(job_cd, difficulty_code, "auto_pilot_config.json", auto_pilot_config)
+            artifacts["auto_pilot_config"] = "auto_pilot_config.json"
+            manual_config = PILOT_JOB_CONFIGS.get(job_cd)
+            decision_config = manual_config if manual_config is not None else auto_pilot_config["config"]
             decisions = self.decision_builder.build(
                 profile,
                 difficulty_code,
-                PILOT_JOB_CONFIGS.get(job_cd, {}),
+                decision_config,
             )
             evidence_names = self._evidence_names(profile)
             constraints = self.constraints_builder.build(evidence_names=evidence_names)

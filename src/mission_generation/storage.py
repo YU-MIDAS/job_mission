@@ -45,6 +45,12 @@ class StorageAdapter:
         write_json_atomic(path, profile)
         return path
 
+    def save_canonical_auto_pilot_config(self, auto_pilot_config: dict[str, Any]) -> Path:
+        job_cd = auto_pilot_config["job_cd"]
+        path = self.output_root / "auto_pilot_configs" / "v1" / f"{job_cd}.json"
+        write_json_atomic(path, auto_pilot_config)
+        return path
+
     def save_profile_snapshot(self, profile: dict[str, Any]) -> Path:
         self._require_run()
         job_cd = profile["job_identity"]["job_cd"]
