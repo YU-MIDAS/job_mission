@@ -10,6 +10,7 @@ from mission_generation.draft_generator import LLMInputPackageBuilder, PromptBui
 from mission_generation.mission_seed_builder import MissionSeedBuilder
 from mission_generation.practice_profile_loader import PracticeProfileLoader
 from mission_generation.profile_loader import JobProfileLoader
+from mission_generation.schema_constraints_builder import SchemaConstraintsBuilder
 from mission_generation.system_decision_builder import MISSION_DESIGN_TYPES, SystemDecisionBuilder
 
 
@@ -78,6 +79,22 @@ class SystemDecisionBuilderTest(unittest.TestCase):
         self.assertIn("rubric points sum exactly to 100", prompts["user"])
         self.assertIn("do not use material ids", prompts["user"])
         self.assertIn("Keep chart series count at 1 or 2", prompts["user"])
+
+    def test_prompt_excludes_structured_output_schema_but_keeps_constraints(self) -> None:
+        decisions = SystemDecisionBuilder().build(self.profile, "normal")
+        constraints = SchemaConstraintsBuilder().build(evidence_names=["evidence_a"])
+        package = LLMInputPackageBuilder().build(self.profile, decisions, constraints)
+
+        prompts = PromptBuilder().draft_prompts(package)
+
+        self.assertIn("structured_output_schema", package["schema_constraints"])
+        self.assertNotIn("structured_output_schema", prompts["user"])
+        self.assertIn("API structured output", prompts["user"])
+        self.assertIn("schema_constraints", prompts["user"])
+        self.assertIn("material_rules", prompts["user"])
+        self.assertIn("allowed_evidence_names", prompts["user"])
+        self.assertIn("evidence_a", prompts["user"])
+        self.assertIn("mission_design", prompts["user"])
 
     def test_llm_input_and_prompt_include_practice_seed_when_available(self) -> None:
         decisions = SystemDecisionBuilder().build(self.profile, "normal")

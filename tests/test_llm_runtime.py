@@ -47,6 +47,37 @@ class SequenceRuntime(OpenAIResponsesRuntime):
         return self.responses.pop(0)
 
 
+class RecordingDraftRuntime:
+    def __init__(self) -> None:
+        self.config = RuntimeConfig()
+        self.json_schema: dict[str, Any] | None = None
+        self.user_prompt: str | None = None
+
+    def api_key_available(self) -> bool:
+        return True
+
+    def call_structured(
+        self,
+        *,
+        call_type: str,
+        system_prompt: str,
+        user_prompt: str,
+        json_schema: dict[str, Any],
+        temperature: float,
+        max_output_tokens: int,
+    ) -> dict[str, Any]:
+        self.json_schema = json_schema
+        self.user_prompt = user_prompt
+        return {
+            "schema_version": "llm_call_result.v1",
+            "provider": "test",
+            "status": "completed",
+            "output_json": {"ok": True},
+            "usage": {"input_tokens": 1, "output_tokens": 1, "reasoning_tokens": 0, "total_tokens": 2},
+            "errors": [],
+        }
+
+
 def success_response(output_text: str = "{\"ok\": true}") -> dict[str, Any]:
     return {
         "status": "completed",
@@ -174,6 +205,27 @@ class LLMRuntimeTest(unittest.TestCase):
         self.assertEqual(repair_call["attempt_count"], 1)
         self.assertEqual(repair_call["retry_count"], 0)
         self.assertEqual(repair_call["retry_errors"], [])
+
+    def test_draft_generator_keeps_api_schema_outside_prompt(self) -> None:
+        schema = {"type": "object", "properties": {"ok": {"type": "boolean"}}}
+        package = {
+            "schema_version": "llm_input_package.v1",
+            "job_profile": {},
+            "system_decisions": {},
+            "schema_constraints": {
+                "schema_version": "schema_constraints.v1",
+                "material_rules": {"allowed_evidence_names": ["evidence_a"]},
+                "structured_output_schema": schema,
+            },
+        }
+        runtime = RecordingDraftRuntime()
+
+        result = MissionDraftGenerator(runtime=runtime, allow_mock_without_key=False).generate(package)  # type: ignore[arg-type]
+
+        self.assertEqual(runtime.json_schema, schema)
+        self.assertNotIn("structured_output_schema", runtime.user_prompt or "")
+        self.assertIn("material_rules", runtime.user_prompt or "")
+        self.assertEqual(result["mission_draft"], {"ok": True})
 
     def test_repair_prompt_includes_json_completeness_instruction(self) -> None:
         prompts = RepairManager(force_mock=True)._repair_prompts({"mission_output_draft": {}})

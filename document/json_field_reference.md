@@ -254,7 +254,7 @@ LLM 초안 단계의 `mission_draft_attempt_N.json`에는 `evidence_chain_draft`
 | `material_rules` | object | 허용 자료 유형, evidence, synthetic material 규칙 |
 | `mission_fact_rules` | object | `mission_facts` 참조 규칙 |
 | `repair_policy` | object | repair 가능 횟수와 repair 범위 |
-| `structured_output_schema` | object | OpenAI Responses API에 전달되는 strict JSON schema |
+| `structured_output_schema` | object | OpenAI Responses API에 전달되는 strict JSON schema. 저장 산출물에는 남지만 draft prompt 본문에서는 제외됨 |
 
 ## `llm_input_package.json`
 
@@ -270,6 +270,8 @@ LLM 초안 단계의 `mission_draft_attempt_N.json`에는 `evidence_chain_draft`
 | `mission_seed` | object | normal 난이도 미션 설계 seed. 있을 때만 포함 |
 
 `job_profile`은 직업 원천 데이터에서 온 정보이고, `mission_seed`는 실무조사 profile을 바탕으로 미션 상황, 자료, task 방향을 더 구체화하기 위한 보조 설계안입니다.
+
+저장된 `llm_input_package.json`은 디버깅과 산출물 추적을 위해 전체 `schema_constraints`를 보존합니다. 다만 실제 draft prompt를 만들 때는 prompt 전용 사본에서 `schema_constraints.structured_output_schema`만 제거합니다. 출력 형식은 prompt 본문이 아니라 OpenAI Responses API의 structured output 설정으로 강제됩니다.
 
 ## Attempt Files
 

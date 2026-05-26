@@ -36,6 +36,14 @@ flowchart TD
 10. 통과하면 `final_assembler.py`가 최종 `mission_output.json`을 만듭니다.
 11. `ui_exporter.py`가 검수용 `mission_ui.html`을 생성합니다.
 
+## Prompt and Structured Output
+
+`schema_constraints.json`과 저장된 `llm_input_package.json`에는 `schema_constraints.structured_output_schema`가 그대로 남습니다. 이 값은 디버깅, 산출물 추적, OpenAI Responses API의 structured output 설정에 필요합니다.
+
+실제 LLM draft prompt를 만들 때는 `llm_input_package`의 prompt 전용 사본을 사용합니다. 이 사본에서는 `schema_constraints.structured_output_schema`만 제거하고, `job_profile`, `system_decisions`, `mission_seed`, `schema_constraints`의 다른 규칙 필드는 유지합니다.
+
+출력 JSON 구조는 prompt 본문이 아니라 OpenAI Responses API의 structured output 설정으로 강제됩니다. 이 방식은 저장 산출물과 형식 검증을 유지하면서 prompt 입력량을 줄이기 위한 것입니다.
+
 ## Practice Profile Integration
 
 `resources/practice_profiles/v1/`에는 공개 가능한 구조화 실무 profile이 있습니다. 이 profile은 직무 맥락을 더 현실적으로 만들기 위해 일부 `normal` 미션에 반영됩니다.
@@ -66,4 +74,3 @@ python -m mission_generation.pilot_runner --mock --jobs K000000997 --difficultie
 ```
 
 mock 실행은 실제 품질 평가보다는 폴더 생성, 저장 구조, UI export 흐름 확인에 적합합니다.
-

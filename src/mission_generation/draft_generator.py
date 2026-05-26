@@ -105,6 +105,7 @@ class PromptBuilder:
                 "- Do not expose source_refs to the learner-facing mission text.\n"
                 "- If a table uses a priority column, use it only as a comparison clue, not as a final answer or recommendation.\n"
             )
+        prompt_input_package = self._prompt_input_package(llm_input_package)
         system_prompt = (
             "너는 직업 데이터 기반 미션 초안을 작성하는 작성자다. "
             "시스템이 지정한 selected_exec_job, task_type, difficulty, allowed_material_types를 변경하지 않는다. "
@@ -150,10 +151,20 @@ class PromptBuilder:
             "Every material.evidence_source item must exactly match a job_profile evidence item name.\n"
             "Do not use source_ref file names, XML field names, or invented evidence labels as evidence_source.\n"
             "For table materials, data.columns keys must be option, strength, weakness, priority and rows must use the same keys.\n\n"
+            "The detailed JSON shape is enforced by the API structured output configuration; "
+            "use the package rules for mission intent and constraints.\n\n"
             f"{practice_requirements}\n"
-            f"llm_input_package:\n{json.dumps(llm_input_package, ensure_ascii=False)}"
+            f"llm_input_package:\n{json.dumps(prompt_input_package, ensure_ascii=False)}"
         )
         return {"system": system_prompt, "user": user_prompt}
+
+    @staticmethod
+    def _prompt_input_package(llm_input_package: dict[str, Any]) -> dict[str, Any]:
+        prompt_input_package = copy.deepcopy(llm_input_package)
+        schema_constraints = prompt_input_package.get("schema_constraints")
+        if isinstance(schema_constraints, dict):
+            schema_constraints.pop("structured_output_schema", None)
+        return prompt_input_package
 
 
 class MockMissionDraftBuilder:
