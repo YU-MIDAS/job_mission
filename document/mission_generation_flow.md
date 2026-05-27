@@ -1,47 +1,54 @@
 # Mission Generation Flow
 
-이 문서는 미션이 어떤 과정을 거쳐 생성되는지 설명합니다. 처음 보는 사람은 “원천 XML이 어떻게 최종 `mission_output.json`과 `mission_ui.html`이 되는가”를 이해하는 데 집중하면 됩니다.
+이 문서는 미션이 어떤 과정을 거쳐 `mission_output.json`, `mission_ui.html`, `mission_learner.html`로 저장되는지 설명합니다.
 
 ## High-Level Flow
 
+아래 다이어그램은 현재 우리가 기본으로 사용할 생성 경로만 단순화해 표시합니다.
+
 ```mermaid
 flowchart TD
-    A["data/api_raw<br/>KNOW 원천 XML"] --> B["job_profile 생성<br/>outputs/profiles/v1/*.json"]
-    P["resources/practice_profiles<br/>구조화 실무 profile"] --> S["mission_seed 생성<br/>일부 normal 미션에 반영"]
-    B --> L["LLM decision selector<br/>system_decisions 후보 선택"]
-    L --> C["system_decisions<br/>수행직무, 난이도, 자료 유형 결정"]
-    C --> D["schema_constraints<br/>출력 스키마와 제약 생성"]
-    C --> E["llm_input_package<br/>프롬프트와 입력 패키지 구성"]
-    S --> E
-    D --> F["OpenAI Responses API<br/>또는 mock 생성"]
-    E --> F
-    F --> G["mission_draft<br/>초안 저장"]
-    G --> H["validator<br/>규칙 검증"]
-    H -->|통과| I["mission_output.json<br/>최종 미션 저장"]
-    H -->|실패| J["repair 요청<br/>수정 초안 재검증"]
-    J --> H
-    I --> K["mission_ui.html<br/>브라우저 검수 화면"]
+    A["data/api_raw/{job_cd}<br/>KNOW 원천 XML"] --> B["JobProfileLoader<br/>job_profile 생성"]
+    B --> D["MissionDecisionSelector<br/>LLM으로 미션 틀 선택"]
+    D --> E["SystemDecisionBuilder<br/>system_decisions 생성"]
+    F["PracticeSheetBackgroundLoader<br/>data/additional_search/{job_cd}.md"] --> G["job_practice_sheet_background"]
+    E --> H["SchemaConstraintsBuilder<br/>strict JSON schema"]
+    B --> I["LLMInputPackageBuilder"]
+    E --> I
+    H --> I
+    G --> I
+    I --> J["MissionDraftGenerator<br/>OpenAI Responses API 또는 mock"]
+    J --> K["mission_draft_attempt_0.json"]
+    K --> L["MissionValidator"]
+    L -->|pass| M["FinalMissionAssembler<br/>mission_output.json"]
+    M --> Q["MissionUIExporter<br/>mission_ui.html"]
+    L -. "repair_required" .-> N["RepairPromptBuilder<br/>validator 실패 이유 포함"]
+    N -.-> O["RepairManager<br/>수정 초안 생성"]
+    O -.-> P["mission_draft_attempt_1.json"]
+    P -.-> L
+    M -. "--view learner/both" .-> R["MissionUIExporter.export_learner<br/>mission_learner.html"]
 ```
 
 ## Step-by-Step
 
-1. `profile_loader.py`가 `data/api_raw/{job_cd}/`의 XML을 읽습니다.
-2. 직업별 `job_profile`을 만들고 `outputs/profiles/v1/{job_cd}.json`에 저장합니다.
-3. `decision_selector.py`가 LLM으로 수행직무, task type, material type, mission design 후보를 먼저 고릅니다.
-4. selector 결과가 검증을 통과하면 `system_decision_builder.py`가 기존 `system_decisions.v1` 구조로 변환합니다.
-5. selector를 사용할 수 없거나 검증에 실패하면 기존 `SystemDecisionBuilder` 규칙 기반 흐름으로 fallback합니다.
-6. 난이도에 맞춰 사용할 자료 유형을 고릅니다. 예: chart, table, memo, email.
-7. `schema_constraints_builder.py`가 LLM이 따라야 할 출력 구조를 만듭니다.
-8. `draft_generator.py`가 LLM 입력 패키지와 prompt를 구성합니다.
-9. `llm_runtime.py`가 OpenAI Responses API를 호출하거나 mock 결과를 만듭니다.
-10. `validator.py`가 생성 결과가 규칙을 만족하는지 검사합니다.
-11. 실패하면 `repair_manager.py`가 수정 요청을 만들고 다시 검증합니다.
-12. 통과하면 `final_assembler.py`가 최종 `mission_output.json`을 만듭니다.
-13. `ui_exporter.py`가 검수용 `mission_ui.html`을 생성합니다.
+1. `profile_loader.py`가 `data/api_raw/{job_cd}/`의 XML을 읽어 `job_profile`을 만듭니다.
+2. `storage.py`가 기준 profile을 `outputs/profiles/v1/{job_cd}.json`과 run 내부 `profiles/{job_cd}.json`에 저장합니다.
+3. 기본값에서는 `decision_selector.py`의 `MissionDecisionSelector`가 LLM을 호출해 수행직무, 주 task 유형, 자료 유형, 미션 설계 유형을 먼저 고릅니다.
+4. selector 결과가 검증을 통과하면 `system_decision_builder.py`가 이를 `system_decisions.v1`로 변환합니다.
+5. selector가 꺼져 있으면 legacy `SystemDecisionBuilder` 규칙을 사용합니다. selector가 실제 응답을 반환했지만 검증에 실패하면 fallback하지 않고 `decision_failed`로 종료합니다.
+6. `schema_constraints_builder.py`가 LLM structured output에 사용할 strict JSON schema를 만듭니다.
+7. 기본값에서는 `practice_sheet_background_loader.py`가 `data/additional_search/{job_cd}.md`를 읽어 `job_practice_sheet_background`로 넣습니다.
+8. `LLMInputPackageBuilder`가 `job_profile`, `system_decisions`, `schema_constraints`, `job_practice_sheet_background`를 묶어 `llm_input_package.json`을 만듭니다.
+9. `draft_generator.py`가 prompt를 만들고 OpenAI Responses API 또는 mock으로 `mission_draft_attempt_0.json`을 생성합니다.
+10. `validator.py`가 초안의 구조, system_decisions 일치 여부, material/task 참조, evidence, glossary, rubric 등을 검사합니다.
+11. 통과하면 `final_assembler.py`가 `mission_id`, validator의 `evidence_chain`, `reliability`를 붙여 `mission_output.json`을 저장합니다.
+12. 실패했지만 repair 가능하면 `repair_manager.py`가 validator의 실패 이유를 포함한 `repair_request_attempt_1.json`으로 다시 LLM을 호출합니다.
+13. repair 초안도 다시 validator를 통과해야 최종 저장됩니다.
+14. `ui_exporter.py`가 `mission_output.json`들을 모아 검토자용 `mission_ui.html` 또는 학습자용 `mission_learner.html`을 생성합니다.
 
 ## Decision Selector
 
-기본 실행에서는 `job_profile`을 바탕으로 LLM decision selector가 `system_decisions` 후보를 먼저 선택합니다. selector는 최종 미션을 작성하지 않고, 다음 값만 고릅니다.
+`MissionDecisionSelector`는 최종 미션 본문을 쓰는 단계가 아닙니다. 미션을 만들기 전에 다음 후보만 고르는 전처리 LLM 호출입니다.
 
 ```text
 selected_exec_job_id
@@ -53,45 +60,74 @@ selection_reason
 confidence
 ```
 
-코드는 selector 결과가 실제 `exec_jobs`, 허용된 type 목록, 실제 evidence 이름을 사용했는지 검증합니다. 검증을 통과한 경우에만 기존 `system_decisions.v1` 구조로 변환합니다.
+selector 결과는 `DecisionSelectorValidator`가 실제 `exec_jobs`, 허용 task/material type, 실제 evidence name에 맞는지 검사합니다. 실제 selector 응답이 이 검증에 실패하면 해당 target은 `decision_failed`로 종료하며 기존 규칙이나 `auto_pilot_config`로 fallback하지 않습니다.
 
-API key가 없거나 mock 실행이거나 selector 결과 검증에 실패하면 기존 규칙 기반 `SystemDecisionBuilder` 흐름으로 돌아갑니다. 따라서 `mission_output.v1` 구조와 validator 기준은 유지됩니다.
+단, `--mock` 모드나 API key 없음처럼 selector 호출 자체가 local skipped 상태가 된 개발 상황에서는 테스트 실행을 위해 legacy `SystemDecisionBuilder` 규칙을 사용합니다.
+
+관련 산출물:
+
+```text
+decision_selector_input.json
+decision_selector_call_result.json
+decision_selector_result.json
+decision_selector_validation.json
+```
+
+## Practice Sheet Background Mode
+
+현재 기본 생성 경로는 `mission_seed`가 아니라 직무조사시트 Markdown 배경지식입니다.
+
+```text
+data/additional_search/{job_cd}.md
+-> PracticeSheetBackgroundLoader
+-> job_practice_sheet_background
+-> llm_input_package
+```
+
+이 모드에서는 다음이 성립합니다.
+
+- `mission_seed.json`을 만들지 않습니다.
+- `job_practice_profile_excerpt`를 넣지 않습니다.
+- `llm_input_package.json`에는 `job_practice_sheet_background`가 들어갑니다.
+- 직무조사시트는 현실감 보강용 배경지식이며, 학습자용 미션은 제공 자료만으로 풀 수 있어야 합니다.
+
+legacy `mission_seed` 경로를 쓰려면 CLI에 `--mission-seed`를 줍니다.
+
+```powershell
+python -m mission_generation.pilot_runner --mission-seed --jobs K000001080 --difficulties normal
+```
 
 ## Prompt and Structured Output
 
-`schema_constraints.json`과 저장된 `llm_input_package.json`에는 `schema_constraints.structured_output_schema`가 그대로 남습니다. 이 값은 디버깅, 산출물 추적, OpenAI Responses API의 structured output 설정에 필요합니다.
+저장된 `llm_input_package.json`에는 `schema_constraints.structured_output_schema`가 포함됩니다. 그러나 실제 draft prompt를 만들 때는 prompt 입력량을 줄이기 위해 이 큰 schema 필드만 제거한 사본을 사용합니다.
 
-실제 LLM draft prompt를 만들 때는 `llm_input_package`의 prompt 전용 사본을 사용합니다. 이 사본에서는 `schema_constraints.structured_output_schema`만 제거하고, `job_profile`, `system_decisions`, `mission_seed`, `schema_constraints`의 다른 규칙 필드는 유지합니다.
+출력 형식 자체는 prompt 본문이 아니라 OpenAI Responses API의 structured output 설정으로 강제합니다. 그래서 저장 산출물의 추적 가능성과 API 형식 강제를 유지하면서 prompt 입력량을 줄입니다.
 
-출력 JSON 구조는 prompt 본문이 아니라 OpenAI Responses API의 structured output 설정으로 강제됩니다. 이 방식은 저장 산출물과 형식 검증을 유지하면서 prompt 입력량을 줄이기 위한 것입니다.
+## Glossary Handling
 
-## Practice Profile Integration
+`mission.scenario.glossary`는 필수 필드입니다. 용어 설명이 필요 없으면 빈 배열 `[]`을 사용합니다.
 
-`resources/practice_profiles/v1/`에는 공개 가능한 구조화 실무 profile이 있습니다. 이 profile은 직무 맥락을 더 현실적으로 만들기 위해 일부 `normal` 미션에 반영됩니다.
+LLM에는 용어 설명을 본문 끝에 `용어 설명:`처럼 붙이지 말고, 아래 구조로 분리하라고 지시합니다.
 
-```text
-resources/practice_profiles/v1/{job_cd}.json
--> job_practice_profile
--> mission_seed
--> llm_input_package 확장
--> normal 미션 생성
+```json
+[
+  {"term": "데이터 자원", "definition": "분석에 쓰려고 모아 둔 데이터의 위치와 형태입니다."}
+]
 ```
 
-현재 공개 profile 대상은 데이터분석가와 상품기획자입니다.
+UI exporter는 과거 산출물 호환을 위해 본문 끝의 `용어 설명:` 패턴도 가능한 범위에서 glossary 카드로 분리합니다.
 
-## API Runtime
+## Validation and Repair
 
-현재 코드는 외부 OpenAI SDK를 사용하지 않고 Python 표준 라이브러리 `urllib`로 Responses API를 직접 호출합니다.
+validator는 단순 키워드 차단기가 아닙니다. 현재는 `인터넷`, `검색`, `외부 자료` 같은 단어가 있다는 이유만으로 실패 처리하지 않습니다.
 
-기본 모델은 `src/mission_generation/config.py`의 `RuntimeConfig.model`에 설정되어 있습니다. 비용을 낮추기 위해 더 작은 모델로 바꿀 수 있지만, 모델 접근 권한과 API 지원 여부는 계정 상태에 따라 달라질 수 있습니다.
+주요 검증은 다음입니다.
 
-## Mock Runtime
+- `mission.task_type`, `mission.difficulty`, `target_exec_job`이 `system_decisions`와 일치하는지
+- `materials[].type`이 허용된 자료 유형인지
+- `tasks[].required_materials`가 실제 material id를 참조하는지
+- `materials[].evidence_source`가 실제 `job_profile.evidence` 이름인지
+- `mission.scenario.glossary`가 배열이고, 각 항목에 `term`과 `definition`이 있는지
+- rubric 점수와 linked evidence 구조가 유효한지
 
-API key 없이도 흐름을 빠르게 확인할 수 있도록 mock 모드가 있습니다.
-
-```powershell
-$env:PYTHONPATH="src"
-python -m mission_generation.pilot_runner --mock --jobs K000000997 --difficulties normal --concurrency 1
-```
-
-mock 실행은 실제 품질 평가보다는 폴더 생성, 저장 구조, UI export 흐름 확인에 적합합니다.
+repair가 발생하면 LLM은 막힌 이유를 모르는 상태로 다시 생성하는 것이 아니라, `repair_request_attempt_1.json`에 담긴 validator errors/warnings와 수정 지침을 보고 재생성합니다.

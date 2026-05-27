@@ -18,6 +18,14 @@ service-account*.json
 # Large local source datasets
 data/
 
+# Keep curated practice sheet markdown, but never raw survey/source files.
+!data/
+data/*
+!data/additional_search/
+data/additional_search/*
+!data/additional_search/*.md
+data/additional_search/raw/
+
 # Internal working documents
 docx/
 
@@ -34,6 +42,7 @@ outputs/ui/v1/*
 outputs/ui/v1/runs/*
 !outputs/ui/v1/runs/**/
 !outputs/ui/v1/runs/**/mission_ui.html
+!outputs/ui/v1/runs/**/mission_learner.html
 
 !outputs/profiles/
 outputs/profiles/*
@@ -55,6 +64,8 @@ outputs/pilot/v1/runs/*
 !outputs/pilot/v1/runs/pilot_v1_20260524_144211/**
 !outputs/pilot/v1/runs/pilot_v1_20260524_224708/
 !outputs/pilot/v1/runs/pilot_v1_20260524_224708/**
+!outputs/pilot/v1/runs/pilot_v1_20260527_032732_complete/
+!outputs/pilot/v1/runs/pilot_v1_20260527_032732_complete/**
 
 # Always exclude local/debug/test output, even under output folders.
 outputs/_test_tmp/

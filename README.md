@@ -1,106 +1,179 @@
 # Job Mission Prototype 3
 
-KNOW/고용24 직업 데이터를 기반으로 직무 미션을 생성하고, 생성된 미션을 검증한 뒤 HTML 검수 화면으로 내보내는 프로토타입 프로젝트입니다.
+KNOW/고용24 직업 데이터를 바탕으로 직무형 학습 미션을 생성하고, 생성 결과를 검증한 뒤 검토자용/학습자용 HTML로 내보내는 Python 프로토타입입니다.
 
-현재 기본 파이프라인은 다음 흐름으로 동작합니다.
+현재 파이프라인의 기본 방향은 다음과 같습니다.
 
-```text
-KNOW API raw XML
--> job_profile
--> auto_pilot_config / PILOT_JOB_CONFIGS
--> system_decisions
--> llm_input_package
--> OpenAI Responses API
--> mission_draft
--> validator / repair
--> mission_output.json
--> mission_ui.html
-```
+- 직무 원천 XML에서 `job_profile`을 만든다.
+- LLM 기반 `MissionDecisionSelector`로 수행직무, task 유형, 자료 유형의 틀을 먼저 고른다.
+- `data/additional_search/{job_cd}.md` 직무조사시트를 배경지식으로 넣어 미션을 생성한다.
+- validator가 구조, 자료 참조, evidence 연결, rubric, glossary 등을 검사한다.
+- 통과한 결과만 `mission_output.json`으로 저장하고 HTML로 내보낸다.
 
-아래 흐름도는 입력 데이터가 미션 JSON과 검수용 HTML로 저장되는 과정을 요약합니다.
+## Current Pipeline
+
+아래 다이어그램은 현재 우리가 기본으로 사용할 생성 경로만 단순화해 표시합니다.
 
 ```mermaid
 flowchart TD
-    A["data/api_raw<br/>KNOW 원천 XML"] --> B["job_profile 생성<br/>outputs/profiles/v1/*.json"]
-    P["resources/practice_profiles<br/>실무조사 profile"] --> S["mission_seed 생성<br/>일부 normal 미션에 반영"]
-    B --> AC["auto_pilot_config / PILOT_JOB_CONFIGS<br/>직무별 미션 방향 config"]
-    AC --> C["system_decisions<br/>수행직무, 난이도, 자료 유형 결정"]
-    C --> D["schema_constraints<br/>구조화 출력 스키마 생성"]
-    C --> E["llm_input_package<br/>프롬프트와 입력 패키지 구성"]
-    S --> E
-    D --> F["OpenAI Responses API<br/>또는 mock 생성"]
-    E --> F
-    F --> G["mission_draft<br/>초안 저장"]
-    G --> H["validator<br/>규칙 검증"]
-    H -->|통과| I["mission_output.json<br/>최종 미션 저장"]
-    H -->|실패| J["repair 요청<br/>수정 초안 재검증"]
-    J --> H
-    I --> K["mission_ui.html<br/>브라우저 검수 화면"]
+    A["data/api_raw/{job_cd}<br/>KNOW 원천 XML"] --> B["job_profile<br/>outputs/profiles/v1/{job_cd}.json"]
+    B --> D["MissionDecisionSelector<br/>LLM으로 미션 틀 선택"]
+    D --> E["system_decisions<br/>수행직무, task, 자료 유형 확정"]
+    F["data/additional_search/{job_cd}.md<br/>직무조사시트 Markdown"] --> G["job_practice_sheet_background<br/>배경지식 입력"]
+    E --> H["schema_constraints<br/>구조화 출력 스키마"]
+    B --> I["llm_input_package"]
+    E --> I
+    H --> I
+    G --> I
+    I --> J["OpenAI Responses API<br/>또는 mock"]
+    J --> K["mission_draft_attempt_N.json"]
+    K --> L["validator"]
+    L -->|통과| N["mission_output.json"]
+    N --> O["mission_ui.html<br/>검토자용 QA 뷰"]
+    L -. "repair 필요 시" .-> M["repair_request_attempt_1.json<br/>실패 이유 포함"]
+    M -.-> J
+    N -. "--view learner/both" .-> P["mission_learner.html<br/>학습자용 화면"]
 ```
 
-`auto_pilot_config`는 `job_profile`을 기반으로 비-pilot 직무의 수행직무, 주 과업 유형, 자료 유형 후보를 자동으로 잡기 위한 중간 config입니다. 기존 pilot 직무는 사람이 지정한 `PILOT_JOB_CONFIGS`가 우선되고, pilot 외 raw_api 직무는 `auto_pilot_config`를 사용해 `system_decisions`를 만듭니다.
+## How To Read The Pipeline
 
-최근에는 미션 품질을 높이기 위해 구조화된 실무 profile을 `job_practice_profile`과 `mission_seed`로 변환해 생성 보조자료로 쓰는 흐름을 추가했습니다. 공개용 상세 설명은 `document/mission_generation_flow.md`를 참고합니다.
+위 다이어그램은 “미션 하나가 만들어지는 길”을 압축해서 보여줍니다.
 
-LLM draft prompt는 저장된 `llm_input_package.json`을 그대로 모두 붙이지 않습니다. prompt 직전에 만든 사본에서 `schema_constraints.structured_output_schema`만 제거하고, 같은 schema는 OpenAI Responses API의 structured output 설정으로 전달합니다. 따라서 저장 산출물과 API 형식 강제는 유지하면서 prompt 입력량만 줄입니다.
+1. `job_profile`은 KNOW 원천 XML을 코드가 읽어서 만든 직무 요약 JSON입니다. 수행직무, 필요 지식/능력/활동 evidence, 원천 XML 위치가 정리됩니다.
+2. `MissionDecisionSelector`는 최종 미션을 쓰는 LLM이 아닙니다. 미션 생성 전에 “어떤 수행직무를 대상으로 할지”, “어떤 task 유형과 자료 유형을 쓸지”를 먼저 고르는 전처리 LLM 호출입니다.
+3. `system_decisions`는 selector 결과를 검증한 뒤 확정한 미션 설계 방향입니다. 이후 미션 생성 LLM은 이 결정을 따라야 합니다.
+4. `job_practice_sheet_background`는 사람이 작성한 `data/additional_search/{job_cd}.md` 직무조사시트 원문을 JSON 필드로 감싼 배경지식입니다.
+5. `llm_input_package`는 최종 미션 생성 LLM에 전달할 입력 묶음입니다. 현재 기본 경로에서는 `job_profile`, `system_decisions`, `schema_constraints`, `job_practice_sheet_background`가 들어갑니다.
+6. `validator`는 LLM 초안이 규칙을 지켰는지 검사합니다. 통과하면 `mission_output.json`이 되고, 고칠 수 있는 문제면 repair 요청을 한 번 더 보냅니다.
 
-`validator`는 LLM이 만든 초안이 시스템 결정과 직무 근거를 지키는지 검증합니다. 특히 `selected_exec_job`, `task_type`, `difficulty`, `allowed_material_types`가 `system_decisions`와 일치하는지 확인하고, `mission.materials[].type`이 허용된 자료 유형 안에 있는지 검사합니다. 또한 각 material의 `evidence_source`가 `job_profile.evidence.*[].name`에 실제로 존재하는지 대조해, LLM이 임의의 근거를 지어내지 않았는지 확인합니다. 이 검증을 통과하면 validator는 material과 raw_api 근거를 연결한 `evidence_chain`을 만들고, 실패하면 repair 요청을 생성해 수정 초안을 다시 검증합니다.
+즉, `MissionDecisionSelector`는 “미션의 틀”을 고르고, `MissionDraftGenerator`는 그 틀과 배경지식을 바탕으로 “실제 미션 내용”을 씁니다.
 
-## Current Status
+## Current Defaults
 
-현재 GitHub에는 검수용 HTML UI와, 해당 UI와 매칭되는 원본 실행 산출물을 함께 올립니다. `outputs/ui/v1/runs/{run_id}/mission_ui.html`이 올라간 run은 같은 run id의 `outputs/pilot/v1/runs/{run_id}/`도 함께 커밋 대상입니다. `outputs/profiles/v1/*.json`도 검수 UI 해석에 필요한 기준 profile로 함께 관리합니다.
+현재 코드 기준 기본값은 다음과 같습니다.
+
+| 항목 | 기본 동작 |
+|---|---|
+| 미션 틀 선택 | `MissionDecisionSelector` 사용 |
+| 실무 배경 입력 | `data/additional_search/{job_cd}.md`를 `job_practice_sheet_background`로 사용 |
+| legacy seed | 기본 미사용. `--mission-seed` 옵션을 줄 때만 `mission_seed` 경로 사용 |
+| HTML export | 기본은 `mission_ui.html`만 생성. `--view learner` 또는 `--view both`로 학습자용 생성 |
+| glossary | `mission.scenario.glossary` 필수, 빈 배열 허용 |
+| validator | 구조/참조/evidence/rubric/glossary를 검증. 단순 외부지식 키워드 차단은 제거됨 |
+
+`MissionDecisionSelector`가 실제 LLM 응답을 받았지만 `DecisionSelectorValidator` 검증에 실패하면 해당 target은 `decision_failed`로 종료됩니다. 이때 `auto_pilot_config`나 legacy rule로 자동 fallback하지 않습니다. 단, `--mock` 또는 API key 없음처럼 selector 호출 자체가 로컬에서 skipped 된 개발 상황에서는 테스트 실행을 위해 legacy `SystemDecisionBuilder`를 사용합니다.
+
+## What Goes Into The Mission LLM
+
+미션 본문을 생성하는 LLM에는 저장된 `llm_input_package.json`을 바탕으로 만든 prompt가 들어갑니다. 이전 complete run 기준으로 21개 미션 모두 다음 네 가지가 들어갔습니다.
+
+| 입력 | 의미 |
+|---|---|
+| `job_profile` | KNOW XML에서 만든 직무 구조화 정보 |
+| `system_decisions` | selector가 고르고 validator가 통과시킨 수행직무/task/material 방향 |
+| `schema_constraints` | 미션 JSON이 지켜야 하는 구조와 규칙 |
+| `job_practice_sheet_background` | 직무조사시트 Markdown 원문을 배경지식으로 넣은 JSON |
+
+`schema_constraints` 안의 `structured_output_schema`는 저장 파일에는 남아 있지만, prompt 본문에서는 제거됩니다. 대신 OpenAI Responses API의 structured output schema 설정으로 별도 전달됩니다. 이렇게 해서 prompt 길이는 줄이고, JSON 구조 강제는 유지합니다.
+
+`mission_seed`는 현재 기본 경로에서는 들어가지 않습니다. 필요할 때만 `--mission-seed` 옵션으로 legacy 흐름을 사용합니다.
+
+## Practice Sheet Background
+
+`job_practice_sheet_background`는 사람이 따로 새 JSON을 작성하는 파일이 아닙니다. 원본은 직무별 Markdown 조사시트입니다.
 
 ```text
-outputs/ui/v1/runs/{run_id}/mission_ui.html
+data/additional_search/{job_cd}.md
 ```
 
-기본 파일럿 대상 직업은 4개이며, 각 직업에 대해 `easy`, `normal`, `hard` 난이도를 생성합니다. 현재 난이도 기준은 쉬움 1자료/1 task, 보통 2자료/2 task, 어려움 3자료/2 task이며, 모든 task는 하나의 서술형 답변 행동만 갖도록 생성·검증합니다.
+예를 들어 `K000001080` 직무라면 원본은 다음 파일입니다.
+
+```text
+data/additional_search/K000001080.md
+```
+
+실행 중 `PracticeSheetBackgroundLoader`가 이 Markdown 파일을 읽고, 아래처럼 JSON 형태로 감싸서 저장합니다.
+
+```json
+{
+  "schema_version": "job_practice_sheet_background.v1",
+  "job_cd": "K000001080",
+  "source_path": "data/additional_search/K000001080.md",
+  "content_markdown": "...Markdown 원문 전체...",
+  "usage": "background_only"
+}
+```
+
+핵심은 `content_markdown`입니다. Markdown 본문이 그대로 이 필드에 들어갑니다. `usage: background_only`는 이 내용을 정답 근거로 노출하라는 뜻이 아니라, 미션을 더 현실감 있게 만들기 위한 배경지식으로만 쓰라는 뜻입니다.
+
+## Reference Run
+
+최신으로 커밋해 둔 기준 산출물은 다음 run입니다.
+
+```text
+pilot_v1_20260527_032732_complete
+```
+
+이 run은 7개 직무 x 3개 난이도 = 21개 미션을 포함합니다.
 
 | job_cd | 직업명 |
 |---|---|
+| `K000000872` | 광고·홍보·마케팅전문가 |
 | `K000000997` | 상품기획자 |
 | `K000001080` | 데이터분석가(빅데이터분석가) |
 | `K000001179` | 투자분석가 |
+| `K000001196` | 인사·교육·훈련사무원 |
+| `K000001222` | 방송기자 |
 | `K000007519` | 보험상품개발자 |
+
+주요 위치:
+
+```text
+outputs/pilot/v1/runs/pilot_v1_20260527_032732_complete/
+outputs/ui/v1/runs/pilot_v1_20260527_032732_complete/mission_ui.html
+outputs/ui/v1/runs/pilot_v1_20260527_032732_complete/mission_learner.html
+```
+
+참고로 코드의 `default_pilot_config()`에 들어 있는 기본 pilot job은 4개입니다. 위 complete run은 CLI에서 7개 job code를 직접 지정해 생성한 기준 산출물입니다.
 
 ## Repository Structure
 
 ```text
 src/mission_generation/
-  config.py                         # 파일럿 직업, 난이도, OpenAI runtime 설정
-  profile_loader.py                 # KNOW XML -> job_profile
-  auto_pilot_config_generator.py     # job_profile -> auto_pilot_config
-  system_decision_builder.py        # 수행직무, 난이도, 자료 유형 결정
-  schema_constraints_builder.py     # LLM structured output schema 생성
-  draft_generator.py                # LLM 입력 패키지와 prompt 구성
-  llm_runtime.py                    # OpenAI Responses API 호출
-  validator.py                      # 생성 미션 검증
-  repair_manager.py                 # validator 실패 시 repair 요청
-  final_assembler.py                # 최종 mission_output 조립
-  storage.py                        # run 산출물 저장
-  ui_exporter.py                    # 검수용 HTML export
+  config.py                            # 기본 job, 난이도, runtime 설정
+  profile_loader.py                    # KNOW XML -> job_profile
+  auto_pilot_config_generator.py        # legacy standalone utility; default pipeline does not use auto_pilot_config
+  decision_selector.py                 # LLM으로 system_decisions 후보 선택
+  system_decision_builder.py           # selector/규칙 기반 system_decisions 생성
+  schema_constraints_builder.py        # strict structured output schema 생성
+  practice_sheet_background_loader.py  # data/additional_search/{job_cd}.md 로드
+  mission_seed_builder.py              # legacy mission_seed 생성
+  draft_generator.py                   # llm_input_package와 draft prompt 구성
+  llm_runtime.py                       # OpenAI Responses API 직접 호출
+  validator.py                         # 생성 미션 검증
+  repair_manager.py                    # validator 실패 이유 기반 repair 요청
+  final_assembler.py                   # 최종 mission_output 조립
+  storage.py                           # run 산출물 저장
+  ui_exporter.py                       # review/learner HTML export
 
-tests/                              # unittest 기반 테스트
-document/                           # 공개용 프로젝트 설명 문서
-resources/practice_profiles/        # 실무조사시트 기반 구조화 profile
-outputs/ui/v1/runs/                 # GitHub에 올리는 검수용 HTML UI
-outputs/pilot/                      # UI와 매칭되는 run만 GitHub 업로드
-outputs/profiles/                   # 기준 job_profile JSON만 GitHub 업로드
-data/api_raw/                       # KNOW 원천 XML, gitignore 대상
+tests/                                 # unittest 기반 테스트
+document/                              # 공개용 프로젝트 설명 문서
+data/additional_search/                # 커밋 가능한 직무별 Markdown 조사시트
+data/additional_search/raw/            # 원천 조사 파일, 커밋 제외
+outputs/pilot/v1/runs/                 # 공개 기준 run 산출물
+outputs/ui/v1/runs/                    # 공개 기준 HTML 산출물
 ```
 
 ## Requirements
 
 - Python 3.10 이상 권장
 - OpenAI API key
-- `data/api_raw/{job_cd}/` 아래 KNOW 상세 XML 파일
-- 현재 코드는 외부 OpenAI SDK를 사용하지 않고 Python 표준 라이브러리 `urllib`로 Responses API를 직접 호출합니다.
+- `data/api_raw/{job_cd}/` 아래 KNOW 상세 XML
+- `data/additional_search/{job_cd}.md` 직무조사시트 Markdown
 
-`pyproject.toml`이나 `requirements.txt`는 아직 없습니다. 따라서 실행 시 `src`를 `PYTHONPATH`에 추가해야 합니다.
+현재 코드는 외부 OpenAI SDK를 쓰지 않고, Python 표준 라이브러리 `urllib`로 Responses API를 직접 호출합니다. `pyproject.toml`이나 `requirements.txt`는 아직 없으므로 실행 전에 `src`를 `PYTHONPATH`에 추가해야 합니다.
 
 ## Quick Start
-
-GitHub에서 클론한 뒤에는 원천 데이터와 API key를 로컬에 준비한 다음 실행합니다. `outputs/` 폴더는 없어도 됩니다. 실행 중 필요한 하위 폴더는 코드가 자동으로 생성합니다.
 
 1. 프로젝트 루트로 이동합니다.
 
@@ -108,7 +181,25 @@ GitHub에서 클론한 뒤에는 원천 데이터와 API key를 로컬에 준비
 cd job_mission_proto_github
 ```
 
-2. KNOW 원천 XML을 `data/api_raw/{job_cd}/` 아래에 둡니다.
+2. Python import 경로를 설정합니다.
+
+```powershell
+$env:PYTHONPATH="src"
+```
+
+3. OpenAI API key를 설정합니다.
+
+```powershell
+$env:OPENAI_API_KEY="본인_API_KEY"
+```
+
+또는 프로젝트 루트에 `.env.local`을 둘 수 있습니다.
+
+```text
+OPENAI_API_KEY=본인_API_KEY
+```
+
+4. KNOW 원천 XML을 준비합니다.
 
 ```text
 data/api_raw/
@@ -119,25 +210,7 @@ data/api_raw/
     dtlGb_3.xml
 ```
 
-필수 파일은 `dtlGb_2.xml`, `dtlGb_5.xml`, `dtlGb_7.xml`입니다. `dtlGb_3.xml`은 선택 파일입니다. 현재 실행 경로에서는 `data/k-means`, `data/raw`, 대용량 CSV 파일이 없어도 됩니다.
-
-3. OpenAI API key를 설정합니다.
-
-```powershell
-$env:OPENAI_API_KEY="본인_API_KEY"
-```
-
-또는 프로젝트 루트에 `.env.local`을 만들 수 있습니다.
-
-```text
-OPENAI_API_KEY=본인_API_KEY
-```
-
-4. `src`를 Python import 경로에 추가합니다.
-
-```powershell
-$env:PYTHONPATH="src"
-```
+필수 파일은 `dtlGb_2.xml`, `dtlGb_5.xml`, `dtlGb_7.xml`입니다. `dtlGb_3.xml`은 선택 파일입니다.
 
 5. 테스트를 실행합니다.
 
@@ -145,183 +218,41 @@ $env:PYTHONPATH="src"
 python -B -m unittest discover -s tests
 ```
 
-6. 먼저 mock 모드로 한 직무만 빠르게 확인합니다.
+6. mock 모드로 빠르게 구조를 확인합니다.
 
 ```powershell
 python -m mission_generation.pilot_runner --mock --jobs K000000997 --difficulties normal --concurrency 1
 ```
 
-7. 실제 API로 실행합니다.
+7. 실제 API로 일부 직무를 실행합니다.
 
 ```powershell
 python -m mission_generation.pilot_runner --jobs K000000997,K000001080 --difficulties normal --concurrency 1
 ```
 
-전체 파일럿을 실행하려면 `--jobs`, `--difficulties` 옵션을 생략합니다.
+8. 최신 complete run과 같은 7개 직무 x 3개 난이도 구성을 다시 실행하려면 다음처럼 지정합니다.
 
 ```powershell
-python -m mission_generation.pilot_runner --concurrency 1
+python -m mission_generation.pilot_runner --jobs K000000872,K000000997,K000001080,K000001179,K000001196,K000001222,K000007519 --difficulties easy,normal,hard --concurrency 2
 ```
 
-8. 실행이 끝나면 콘솔에 출력된 run directory에서 run id를 확인합니다.
-
-```text
-outputs/pilot/v1/runs/pilot_v1_YYYYMMDD_HHMMSS
-```
-
-9. 생성된 run을 검수용 HTML로 내보냅니다.
+9. HTML을 생성합니다.
 
 ```powershell
-python -m mission_generation.ui_exporter --run-id pilot_v1_YYYYMMDD_HHMMSS
+python -m mission_generation.ui_exporter --run-id pilot_v1_YYYYMMDD_HHMMSS --view both
 ```
 
-10. 생성된 HTML을 브라우저에서 열어 검수합니다.
+`--view` 옵션:
 
-```text
-outputs/ui/v1/runs/pilot_v1_YYYYMMDD_HHMMSS/mission_ui.html
-```
-
-## GitHub Upload Policy
-
-GitHub에는 코드, 테스트, 공개용 문서, 실무 profile, 검수용 HTML UI, 그리고 해당 UI와 매칭되는 원본 산출물을 올리는 것을 기준으로 합니다.
-
-커밋 대상:
-
-- `src/`
-- `tests/`
-- `document/`
-- `resources/practice_profiles/`
-- `outputs/ui/v1/runs/**/mission_ui.html`
-- `outputs/profiles/v1/*.json`
-- `outputs/pilot/v1/runs/{UI와_같은_run_id}/`
-
-로컬 전용이며 커밋하지 않는 대상:
-
-- `.env.local`, `.env`, `.env.*`
-- `data/`
-- `docx/`
-- `outputs/profiles/**/*.tmp`
-- `outputs/pilot/v1/runs/{UI와_매칭되지_않는_run_id}/`
-- `outputs/_test_tmp/`
-
-## API Key Setup
-
-각 사용자는 본인의 OpenAI API key를 `OPENAI_API_KEY` 이름으로 설정하면 됩니다.
-
-방법 1: 프로젝트 루트에 `.env.local` 생성
-
-```text
-OPENAI_API_KEY=본인_API_KEY
-```
-
-방법 2: PowerShell 환경변수로 설정
-
-```powershell
-$env:OPENAI_API_KEY="본인_API_KEY"
-```
-
-## Model Cost Option
-
-기본 모델은 `src/mission_generation/config.py`의 `RuntimeConfig`에 설정된 `gpt-5.4-nano`입니다. reasoning 설정은 기존처럼 `medium`을 사용합니다. 품질 비교나 계정 접근 권한 문제로 되돌릴 필요가 있으면 `gpt-5.4-mini`로 바꿔 실행할 수 있습니다.
-
-현재 기본값:
-
-`src/mission_generation/config.py`의 `RuntimeConfig`에서 아래처럼 설정되어 있습니다.
-
-```python
-model: str = "gpt-5.4-nano"
-```
-
-비교용으로 되돌릴 때는 같은 위치에서 다음 값으로 바꿉니다.
-
-```python
-model: str = "gpt-5.4-mini"
-```
-
-현재 코드는 모델명을 환경변수로 덮어쓰지 않으므로, 모델을 바꾸려면 위 설정 파일을 수정해야 합니다. 변경 후에는 테스트를 한 번 실행한 뒤 실제 생성을 돌리는 것을 권장합니다.
-
-```powershell
-python -B -m unittest discover -s tests
-```
-
-실행 결과에서 적용 모델을 확인하려면 생성된 run 폴더의 `pilot_config.json` 또는 각 미션 폴더의 `llm_call_result_attempt_0.json` 안의 `model` 값을 확인합니다.
-
-주의사항:
-
-- `.env.local`은 프로젝트 루트에서만 자동으로 읽습니다.
-- `.env.local`은 `.gitignore` 대상이므로 커밋하지 않습니다.
-- 사용 중인 OpenAI 계정에 현재 설정된 모델 접근 권한과 사용 한도/크레딧이 있어야 합니다.
-- API key가 없으면 실제 OpenAI 호출 대신 mock 생성으로 빠질 수 있습니다. 실행 후 `openai_api_called=true`인지 확인하세요.
-
-## Run Tests
-
-```powershell
-python -B -m unittest discover -s tests
-```
-
-## Run Mission Generation
-
-실제 OpenAI API를 사용해 기본 파일럿을 실행합니다.
-
-```powershell
-$env:PYTHONPATH="src"
-python -m mission_generation.pilot_runner
-```
-
-병렬 수를 줄여 안정적으로 실행하려면:
-
-```powershell
-$env:PYTHONPATH="src"
-python -m mission_generation.pilot_runner --concurrency 1
-```
-
-API 호출 없이 mock으로 실행하려면:
-
-```powershell
-$env:PYTHONPATH="src"
-python -m mission_generation.pilot_runner --mock
-```
-
-실무조사시트가 반영된 2개 직무의 `normal` 미션만 실제 API로 생성하려면:
-
-```powershell
-$env:PYTHONPATH="src"
-python -m mission_generation.pilot_runner --jobs K000000997,K000001080 --difficulties normal --concurrency 1
-```
-
-실행이 끝나면 콘솔에 run directory와 저장/실패 개수가 출력됩니다. 자세한 결과는 생성된 run 폴더의 `pilot_summary.json`을 확인합니다.
-
-## Export Review UI
-
-GitHub에 올라온 검수용 HTML은 브라우저에서 바로 열어 확인할 수 있습니다.
-
-```text
-outputs/ui/v1/runs/{run_id}/mission_ui.html
-```
-
-로컬에서 새로 생성한 run을 HTML 검수 UI로 내보내려면 콘솔에 출력된 run id를 사용합니다.
-
-```powershell
-$env:PYTHONPATH="src"
-python -m mission_generation.ui_exporter --run-id 생성된_run_id
-```
-
-특정 위치의 pilot run을 직접 지정할 수도 있습니다.
-
-```powershell
-$env:PYTHONPATH="src"
-python -m mission_generation.ui_exporter --pilot-run-dir outputs/pilot/v1/runs/생성된_run_id --ui-output-dir outputs/ui/v1/runs/생성된_run_id
-```
-
-생성 결과는 기본적으로 다음 위치에 저장됩니다.
-
-```text
-outputs/ui/v1/runs/{run_id}/mission_ui.html
-```
+| 옵션 | 생성 파일 |
+|---|---|
+| `review` | `mission_ui.html` |
+| `learner` | `mission_learner.html` |
+| `both` | 두 HTML 모두 |
 
 ## Important Outputs
 
-파일럿 실행 시 run 폴더 안에 주요 산출물이 저장됩니다.
+파일럿 실행 결과는 run 폴더에 저장됩니다.
 
 ```text
 outputs/pilot/v1/runs/{run_id}/
@@ -331,68 +262,115 @@ outputs/pilot/v1/runs/{run_id}/
   _failed/failure_index.json
   profiles/{job_cd}.json
   jobs/{job_cd}/{difficulty}/
+    decision_selector_input.json
+    decision_selector_call_result.json
+    decision_selector_result.json
+    decision_selector_validation.json
     system_decisions.json
     schema_constraints.json
+    job_practice_sheet_background.json
     llm_input_package.json
     llm_call_result_attempt_0.json
     mission_draft_attempt_0.json
     validator_result_attempt_0.json
+    repair_request_attempt_1.json
+    llm_call_result_attempt_1.json
+    mission_draft_attempt_1.json
+    validator_result_attempt_1.json
     mission_output.json
     run_status.json
   human_review/pilot_review.md
+  human_review/pilot_review.json
 ```
 
-검수 시 우선 확인할 파일은 다음입니다.
+항상 모든 attempt/repair 파일이 생기는 것은 아닙니다. repair가 발생하지 않으면 `attempt_1` 관련 파일은 없습니다.
+
+이전 기준 산출물인 `pilot_v1_20260527_032732_complete`에는 old 코드에서 만든 `auto_pilot_config.json`도 각 미션 폴더에 들어 있습니다. 현재 코드의 기본 생성 경로에서는 `auto_pilot_config.json`을 만들거나 사용하지 않습니다.
+
+우선 확인할 파일:
 
 | 파일 | 용도 |
 |---|---|
-| `pilot_summary.json` | 전체 성공/실패, API 호출 여부, 토큰 사용량 |
-| `artifact_index.json` | 각 미션 산출물 경로 |
-| `_failed/failure_index.json` | 실패한 target과 실패 코드 |
-| `mission_output.json` | 최종 생성 미션 |
-| `mission_ui.html` | 사람이 보는 검수 화면 |
+| `pilot_summary.json` | 전체 성공/실패, API 호출 여부, token 사용량 |
+| `mission_output.json` | 최종 생성 미션 원본 |
+| `validator_result_attempt_N.json` | validator 검사 결과 |
+| `repair_request_attempt_1.json` | repair가 발생했을 때 LLM에 전달된 실패 이유 |
+| `mission_ui.html` | 내부 검토자용 QA 뷰 |
+| `mission_learner.html` | 학습자용 정제 화면 |
+
+## Per-Mission JSON Guide
+
+개별 미션 폴더 하나를 열면, 생성 과정의 단계별 흔적이 JSON 파일로 남습니다. 예시는 다음 위치입니다.
+
+```text
+outputs/pilot/v1/runs/{run_id}/jobs/{job_cd}/{difficulty}/
+```
+
+예:
+
+```text
+outputs/pilot/v1/runs/pilot_v1_20260527_032732_complete/jobs/K000001080/normal/
+```
+
+각 파일의 의미는 다음과 같습니다.
+
+| 단계 | 파일 | 의미 |
+|---|---|---|
+| selector 입력 | `decision_selector_input.json` | 미션 틀을 고르는 LLM에게 보낸 입력입니다. 수행직무 후보, evidence 후보, 허용 task/material 유형이 들어갑니다. |
+| selector 호출 | `decision_selector_call_result.json` | selector LLM 호출 상태, 토큰 사용량, 에러 여부를 기록합니다. |
+| selector 결과 | `decision_selector_result.json` | selector가 고른 수행직무, task 유형, 자료 유형, 미션 설계 유형입니다. |
+| selector 검증 | `decision_selector_validation.json` | selector 결과가 실제 `job_profile` 안의 값인지 검사한 결과입니다. |
+| 최종 설계 방향 | `system_decisions.json` | 미션 생성 LLM이 따라야 할 확정 지시입니다. 수행직무, 난이도, task/material 유형이 들어갑니다. |
+| 출력 규칙 | `schema_constraints.json` | LLM이 만들어야 하는 JSON 구조와 validator 규칙입니다. |
+| 배경지식 | `job_practice_sheet_background.json` | 직무조사시트 Markdown을 읽어서 `content_markdown` 필드에 넣은 배경지식 JSON입니다. |
+| LLM 입력 묶음 | `llm_input_package.json` | `job_profile`, `system_decisions`, `schema_constraints`, `job_practice_sheet_background`를 하나로 묶은 생성 입력입니다. |
+| 초안 호출 | `llm_call_result_attempt_0.json` | 첫 번째 미션 생성 LLM 호출 결과입니다. |
+| 초안 | `mission_draft_attempt_0.json` | LLM이 처음 만든 미션 초안입니다. 아직 최종본이 아닙니다. |
+| 초안 검증 | `validator_result_attempt_0.json` | 첫 초안에 대한 validator 검사 결과입니다. |
+| repair 요청 | `repair_request_attempt_1.json` | validator가 발견한 문제와 LLM에게 다시 고치라고 보낸 지시입니다. repair가 있을 때만 생깁니다. |
+| repair 호출 | `llm_call_result_attempt_1.json` | repair LLM 호출 결과입니다. repair가 있을 때만 생깁니다. |
+| repair 초안 | `mission_draft_attempt_1.json` | 수정된 미션 초안입니다. repair가 있을 때만 생깁니다. |
+| repair 검증 | `validator_result_attempt_1.json` | 수정 초안에 대한 validator 재검사 결과입니다. repair가 있을 때만 생깁니다. |
+| 최종 미션 | `mission_output.json` | 실제 저장된 최종 미션입니다. 화면과 공유 대상의 기준 파일입니다. |
+| 실행 상태 | `run_status.json` | 해당 직무/난이도 target의 최종 상태입니다. saved/failed, repair 횟수, 산출물 목록이 들어갑니다. |
+
+가장 먼저 볼 파일은 보통 `mission_output.json`입니다. 생성 과정이 왜 그렇게 되었는지 추적하려면 `system_decisions.json`, `llm_input_package.json`, `validator_result_attempt_N.json` 순서로 보면 됩니다.
+
+## Public Artifact Policy
+
+공개 저장소에는 코드, 테스트, 설명 문서, 커밋 가능한 직무조사시트, 그리고 기준 run 산출물을 올립니다.
+
+커밋 대상:
+
+- `src/`
+- `tests/`
+- `document/`
+- `data/additional_search/*.md`
+- `outputs/pilot/v1/runs/{공개할_run_id}/`
+- `outputs/ui/v1/runs/{공개할_run_id}/mission_ui.html`
+- `outputs/ui/v1/runs/{공개할_run_id}/mission_learner.html`
+
+커밋하지 않는 대상:
+
+- `.env.local`, `.env`, `.env.*`
+- `data/api_raw/`
+- `data/additional_search/raw/`
+- `docx/`
+- 공개 기준이 아닌 임시 `outputs/` run
+- `share/` 같은 로컬 전달용 폴더
 
 ## Key Documents
 
-프로젝트를 이해할 때 추천하는 읽기 순서입니다.
-
 | 문서 | 용도 |
 |---|---|
-| `document/project_overview.md` | 프로젝트 목적과 공개 범위 |
+| `document/project_overview.md` | 프로젝트 목적과 현재 기준 산출물 |
 | `document/mission_generation_flow.md` | 미션 생성 파이프라인 |
 | `document/data_requirements.md` | 로컬 데이터와 API key 준비 |
 | `document/output_structure.md` | 생성 산출물 구조 |
 | `document/json_field_reference.md` | 주요 JSON 파일과 필드 설명 |
-| `document/review_ui_guide.md` | HTML 검수 UI 사용법 |
-| `document/public_artifact_policy.md` | GitHub 공개/제외 기준 |
-
-## Practice Survey Integration Plan
-
-구조화 실무 profile 기반 개선은 다음 방향으로 진행합니다.
-
-현재 기준 파일은 다음입니다.
-
-| 파일 | 역할 |
-|---|---|
-| `resources/practice_profiles/v1/K000001080.json` | 데이터분석가 구조화 실무 profile |
-| `resources/practice_profiles/v1/K000000997.json` | 상품기획자 구조화 실무 profile |
-
-```text
-구조화 실무 profile
--> job_practice_profile.v1
--> mission_seed.normal.v1
--> llm_input_package 확장
--> normal 미션 생성
-```
-
-우선 구현 대상은 다음으로 제한합니다.
-
-| 항목 | 범위 |
-|---|---|
-| 대상 직업 | 데이터분석가, 상품기획자 |
-| 난이도 | `normal`만 |
-| 요청문 | 직접 인용 근거가 없으면 빈 값 유지 |
-| 자료 | 조사시트는 자료 종류와 맥락만 제공, 실제 샘플 자료는 미션 생성 단계에서 생성 |
+| `document/review_ui_guide.md` | 검토자용/학습자용 HTML 사용법 |
+| `document/public_artifact_policy.md` | 공개/제외 기준 |
+| `document/final_demo_job_clusters.md` | 최종 시연 직무 목록 |
 
 ## Troubleshooting
 
@@ -405,33 +383,26 @@ $env:PYTHONPATH="src"
 `openai_api_called=false`
 
 ```text
-OPENAI_API_KEY가 없거나 mock 실행일 가능성이 큽니다.
-프로젝트 루트의 .env.local 또는 PowerShell 환경변수를 확인하세요.
-```
-
-`OPENAI_AUTH_FAILED`
-
-```text
-API key가 잘못되었거나, 계정/프로젝트 권한 문제가 있을 수 있습니다.
-OpenAI Platform에서 key, project, billing, model access를 확인하세요.
-```
-
-`OPENAI_RATE_LIMITED`
-
-```text
-요청 한도나 토큰 한도에 걸린 상태입니다.
-concurrency를 1로 낮춰 실행하거나 잠시 후 다시 실행하세요.
+OPENAI_API_KEY가 없거나 --mock 실행일 가능성이 큽니다.
+.env.local 또는 PowerShell 환경변수를 확인하세요.
 ```
 
 `PROFILE_FAILED`
 
 ```text
-data/api_raw/{job_cd}/ 아래 필요한 XML 파일이 있는지 확인하세요.
-현재 data/ 폴더는 gitignore 대상이므로 별도로 준비해야 합니다.
+data/api_raw/{job_cd}/ 아래 필수 XML 파일이 있는지 확인하세요.
+```
+
+`decision_selector_result.json`이 비어 있음
+
+```text
+API key가 없거나 --mock 모드이면 selector는 local skipped 상태가 되고,
+기존 SystemDecisionBuilder 규칙으로 fallback합니다.
+실제 selector 응답이 검증에 실패하면 fallback하지 않고 decision_failed로 종료합니다.
 ```
 
 ## Security Notes
 
-- API key를 채팅, 문서, 코드, 커밋에 남기지 않습니다.
-- `.env.local`, `.env`, `.env.*`는 커밋하지 않습니다.
-- raw OpenAI request/response는 기본 저장하지 않는 정책입니다.
+- API key를 코드, 문서, 산출물, 커밋에 남기지 않습니다.
+- raw OpenAI request/response, Authorization header, prompt dump는 저장하지 않는 정책입니다.
+- `data/additional_search/raw/`에는 조사 원천 파일이 들어갈 수 있으므로 커밋하지 않습니다.

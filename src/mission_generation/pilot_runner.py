@@ -7,7 +7,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
-from .auto_pilot_config_generator import AutoPilotConfigGenerator
 from .config import PILOT_JOB_CONFIGS, RuntimeConfig, default_pilot_config
 from .decision_selector import DecisionSelectorInputBuilder, DecisionSelectorValidator, MissionDecisionSelector
 from .draft_generator import LLMInputPackageBuilder, MissionDraftGenerator
@@ -22,6 +21,19 @@ from .storage import StorageAdapter
 from .system_decision_builder import SystemDecisionBuilder
 from .utils import iso_now, normalize_text
 from .validator import MissionValidator
+
+
+class DecisionSelectionError(RuntimeError):
+    def __init__(
+        self,
+        message: str,
+        *,
+        code: str = "DECISION_SELECTOR_FAILED",
+        errors: list[dict[str, Any]] | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.code = code
+        self.errors = errors or []
 
 
 class PilotRunner:
@@ -48,7 +60,6 @@ class PilotRunner:
         self.use_practice_sheet_background = bool(use_practice_sheet_background)
         self.runtime_config = RuntimeConfig()
         self.profile_loader = JobProfileLoader(source_root=self.source_root, output_root=self.output_root / "profiles" / "v1")
-        self.auto_config_generator = AutoPilotConfigGenerator()
         self.practice_profile_loader = PracticeProfileLoader()
         self.practice_sheet_background_loader = PracticeSheetBackgroundLoader(root=practice_sheet_root)
         self.seed_builder = MissionSeedBuilder()
@@ -249,13 +260,7 @@ class PilotRunner:
         repair_count = 0
 
         try:
-            generated_from = (self.output_root / "profiles" / "v1" / f"{job_cd}.json").as_posix()
-            auto_pilot_config = self.auto_config_generator.build(profile, generated_from=generated_from)
-            self.storage.save_canonical_auto_pilot_config(auto_pilot_config)
-            self.storage.save_job_artifact(job_cd, difficulty_code, "auto_pilot_config.json", auto_pilot_config)
-            artifacts["auto_pilot_config"] = "auto_pilot_config.json"
-            manual_config = PILOT_JOB_CONFIGS.get(job_cd)
-            decision_config = manual_config if manual_config is not None else auto_pilot_config["config"]
+            decision_config = PILOT_JOB_CONFIGS.get(job_cd, {})
             decisions = self._build_system_decisions(
                 profile=profile,
                 job_cd=job_cd,
@@ -313,6 +318,17 @@ class PilotRunner:
             if practice_sheet_background is not None:
                 self.storage.save_job_artifact(job_cd, difficulty_code, "job_practice_sheet_background.json", practice_sheet_background)
                 artifacts["job_practice_sheet_background"] = "job_practice_sheet_background.json"
+        except DecisionSelectionError as exc:
+            return self._save_failed_status(
+                job_cd=job_cd,
+                job_name=job["job_name"],
+                difficulty=difficulty,
+                status="decision_failed",
+                reason_code=exc.code,
+                error={"message": str(exc), "errors": exc.errors},
+                results=None,
+                artifacts=artifacts,
+            )
         except Exception as exc:
             return self._save_failed_status(
                 job_cd=job_cd,
@@ -322,6 +338,7 @@ class PilotRunner:
                 reason_code="DECISION_FAILED",
                 error={"message": str(exc)},
                 results=None,
+                artifacts=artifacts,
             )
 
         generated = self.draft_generator.generate(llm_input)
@@ -490,6 +507,7 @@ class PilotRunner:
         reason_code: str,
         error: dict[str, Any],
         results: list[dict[str, Any]] | None,
+        artifacts: dict[str, str] | None = None,
     ) -> dict[str, Any]:
         status_path = self.storage.save_run_status(
             job_cd=job_cd,
@@ -500,7 +518,7 @@ class PilotRunner:
             reliability_score=None,
             warning_count=0,
             fail_count=1,
-            artifacts={},
+            artifacts=artifacts or {},
             error=error,
         )
         self.storage.record_artifact_item(
@@ -583,13 +601,33 @@ class PilotRunner:
         if validation["status"] == "passed":
             return self.decision_builder.build_from_selector(profile, difficulty_code, selector_result)
 
-        usage["selector_fallback_count"] += 1
-        return self.decision_builder.build(profile, difficulty_code, decision_config)
+        if self._selector_was_locally_skipped(call_result):
+            usage["selector_fallback_count"] += 1
+            return self.decision_builder.build(profile, difficulty_code, decision_config)
+
+        usage["selector_failed_count"] += 1
+        errors = validation.get("errors", [])
+        codes = ", ".join(error.get("code", "UNKNOWN") for error in errors) or "UNKNOWN"
+        raise DecisionSelectionError(
+            f"Decision selector validation failed: {codes}",
+            errors=errors,
+        )
+
+    def _selector_was_locally_skipped(self, call_result: dict[str, Any]) -> bool:
+        if call_result.get("provider") != "local" or call_result.get("status") != "skipped":
+            return False
+        codes = {
+            error.get("code")
+            for error in call_result.get("errors", [])
+            if isinstance(error, dict)
+        }
+        return bool(codes & {"DECISION_SELECTOR_MOCK_MODE", "OPENAI_API_KEY_MISSING"})
 
     def _empty_usage(self) -> dict[str, int]:
         return {
             "selector_call_count": 0,
             "selector_fallback_count": 0,
+            "selector_failed_count": 0,
             "draft_call_count": 0,
             "repair_call_count": 0,
             "mock_draft_count": 0,

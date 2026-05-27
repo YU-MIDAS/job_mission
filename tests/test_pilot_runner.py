@@ -227,7 +227,7 @@ class PilotRunnerParallelTest(unittest.TestCase):
         self.assertTrue((job_dir / "mission_seed.json").exists())
         self.assertFalse((job_dir / "job_practice_sheet_background.json").exists())
 
-    def test_non_pilot_raw_api_job_uses_auto_pilot_config(self) -> None:
+    def test_non_pilot_raw_api_job_uses_rule_fallback_without_auto_pilot_config(self) -> None:
         output_root = self._output_root()
         summary = PilotRunner(
             force_mock=True,
@@ -240,20 +240,15 @@ class PilotRunnerParallelTest(unittest.TestCase):
 
         self.assertEqual(summary["total_targets"], 1)
         self.assertEqual(summary["saved_count"], 1)
-        self.assertTrue((output_root / "auto_pilot_configs" / "v1" / "K000000821.json").exists())
-        self.assertTrue((run_dir / "jobs" / "K000000821" / "normal" / "auto_pilot_config.json").exists())
+        self.assertEqual(summary["llm_usage"]["selector_fallback_count"], 1)
+        self.assertFalse((output_root / "auto_pilot_configs" / "v1" / "K000000821.json").exists())
+        self.assertFalse((run_dir / "jobs" / "K000000821" / "normal" / "auto_pilot_config.json").exists())
         system_decisions = json.loads(
             (run_dir / "jobs" / "K000000821" / "normal" / "system_decisions.json").read_text(encoding="utf-8")
         )
-        auto_config = json.loads(
-            (run_dir / "jobs" / "K000000821" / "normal" / "auto_pilot_config.json").read_text(encoding="utf-8")
-        )
-        self.assertEqual(
-            system_decisions["selected_exec_job"]["exec_job_id"],
-            auto_config["config"]["preferred_exec_job_id"],
-        )
+        self.assertEqual(system_decisions["decision_warnings"][0]["code"], "PILOT_CONFIG_MISSING")
 
-    def test_manual_pilot_config_takes_precedence_over_auto_config(self) -> None:
+    def test_no_llm_selector_uses_legacy_manual_config_without_auto_pilot_config(self) -> None:
         output_root = self._output_root()
         runner = PilotRunner(
             force_mock=True,
@@ -261,43 +256,18 @@ class PilotRunnerParallelTest(unittest.TestCase):
             output_root=output_root,
             target_job_codes=["K000000997"],
             target_difficulty_codes=["normal"],
+            use_llm_decision_selector=False,
         )
 
-        def wrong_auto_config(profile: dict, generated_from: str | None = None) -> dict:
-            return {
-                "schema_version": "auto_pilot_config.v1",
-                "job_cd": profile["job_identity"]["job_cd"],
-                "job_name": profile["job_identity"]["job_smcl_nm"],
-                "source": {
-                    "profile_schema_version": profile["schema_version"],
-                    "generated_from": generated_from,
-                    "generator_version": "test",
-                },
-                "config": {
-                    "preferred_exec_job_id": "exec_001",
-                    "preferred_exec_job_keywords": ["구매", "패턴"],
-                    "preferred_primary_task_type": "decision_making",
-                    "materials": {
-                        "normal": ["card"],
-                        "hard": ["card"],
-                    },
-                },
-                "confidence": {"score": 1.0, "level": "high", "review_required": False, "reasons": []},
-                "decision_trace": [],
-                "decision_warnings": [],
-            }
-
-        runner.auto_config_generator.build = wrong_auto_config  # type: ignore[method-assign]
         summary = runner.run()
         run_dir = Path(summary["run_dir"])
         system_decisions = json.loads(
             (run_dir / "jobs" / "K000000997" / "normal" / "system_decisions.json").read_text(encoding="utf-8")
         )
-        auto_config = json.loads(
-            (run_dir / "jobs" / "K000000997" / "normal" / "auto_pilot_config.json").read_text(encoding="utf-8")
-        )
 
-        self.assertEqual(auto_config["config"]["preferred_exec_job_id"], "exec_001")
+        self.assertEqual(summary["llm_usage"]["selector_call_count"], 0)
+        self.assertEqual(summary["llm_usage"]["selector_fallback_count"], 0)
+        self.assertFalse((run_dir / "jobs" / "K000000997" / "normal" / "auto_pilot_config.json").exists())
         self.assertEqual(system_decisions["selected_exec_job"]["exec_job_id"], "exec_004")
 
     def test_llm_selector_success_takes_precedence_over_manual_config(self) -> None:
@@ -322,11 +292,12 @@ class PilotRunnerParallelTest(unittest.TestCase):
 
         self.assertEqual(summary["llm_usage"]["selector_call_count"], 1)
         self.assertEqual(summary["llm_usage"]["selector_fallback_count"], 0)
+        self.assertEqual(summary["llm_usage"]["selector_failed_count"], 0)
         self.assertEqual(validation["status"], "passed")
         self.assertEqual(system_decisions["selected_exec_job"]["exec_job_id"], "exec_001")
         self.assertEqual(system_decisions["mission_design"]["selection_method"], "llm_decision_selector")
 
-    def test_llm_selector_validation_failure_falls_back_to_legacy_decisions(self) -> None:
+    def test_llm_selector_validation_failure_fails_target_without_legacy_fallback(self) -> None:
         output_root = self._output_root()
         runner = PilotRunner(
             force_mock=True,
@@ -339,17 +310,26 @@ class PilotRunnerParallelTest(unittest.TestCase):
 
         summary = runner.run()
         run_dir = Path(summary["run_dir"])
-        system_decisions = json.loads(
-            (run_dir / "jobs" / "K000000997" / "normal" / "system_decisions.json").read_text(encoding="utf-8")
-        )
+        job_dir = run_dir / "jobs" / "K000000997" / "normal"
         validation = json.loads(
-            (run_dir / "jobs" / "K000000997" / "normal" / "decision_selector_validation.json").read_text(encoding="utf-8")
+            (job_dir / "decision_selector_validation.json").read_text(encoding="utf-8")
+        )
+        run_status = json.loads(
+            (job_dir / "run_status.json").read_text(encoding="utf-8")
         )
 
+        self.assertEqual(summary["total_targets"], 1)
+        self.assertEqual(summary["saved_count"], 0)
+        self.assertEqual(summary["failed_count"], 1)
         self.assertEqual(summary["llm_usage"]["selector_call_count"], 1)
-        self.assertEqual(summary["llm_usage"]["selector_fallback_count"], 1)
+        self.assertEqual(summary["llm_usage"]["selector_fallback_count"], 0)
+        self.assertEqual(summary["llm_usage"]["selector_failed_count"], 1)
         self.assertEqual(validation["status"], "failed")
-        self.assertEqual(system_decisions["selected_exec_job"]["exec_job_id"], "exec_004")
+        self.assertEqual(run_status["status"], "decision_failed")
+        self.assertEqual(run_status["error"]["errors"][0]["code"], "INVALID_EXEC_JOB_ID")
+        self.assertFalse((job_dir / "system_decisions.json").exists())
+        self.assertFalse((job_dir / "mission_output.json").exists())
+        self.assertFalse((job_dir / "auto_pilot_config.json").exists())
 
     def test_target_filters_reject_unknown_codes(self) -> None:
         output_root = self._output_root()
