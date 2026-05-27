@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import io
 import json
 import re
 import sys
 import unittest
+from contextlib import redirect_stdout
 from uuid import uuid4
 from pathlib import Path
 
@@ -171,6 +173,27 @@ class PilotRunnerParallelTest(unittest.TestCase):
         payload = json.loads((match.group(1) if match else "").replace("<\\/", "</"))
         self.assertEqual(len(payload["mission_slots"]), 2)
         self.assertEqual(len(payload["missions"]), 2)
+
+    def test_console_progress_messages_show_target_stages(self) -> None:
+        output_root = self._output_root()
+        buffer = io.StringIO()
+        with redirect_stdout(buffer):
+            summary = PilotRunner(
+                force_mock=True,
+                concurrency=1,
+                output_root=output_root,
+                target_job_codes=["K000001080"],
+                target_difficulty_codes=["normal"],
+                progress_enabled=True,
+            ).run()
+        progress_output = buffer.getvalue()
+
+        self.assertEqual(summary["total_targets"], 1)
+        self.assertIn("run started", progress_output)
+        self.assertIn("[1/1] K000001080 normal - target started", progress_output)
+        self.assertIn("[1/1] K000001080 normal - draft LLM started", progress_output)
+        self.assertIn("[1/1] K000001080 normal - saved", progress_output)
+        self.assertIn("run finished", progress_output)
 
     def test_practice_sheet_background_mode_omits_mission_seed(self) -> None:
         output_root = self._output_root()

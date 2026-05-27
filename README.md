@@ -230,6 +230,21 @@ python -m mission_generation.pilot_runner --mock --jobs K000000997 --difficultie
 python -m mission_generation.pilot_runner --jobs K000000997,K000001080 --difficulties normal --concurrency 1
 ```
 
+CLI 실행 중에는 현재 진행 단계가 콘솔에 표시됩니다.
+
+```text
+[14:23:01] run started - run_id=pilot_v1_YYYYMMDD_HHMMSS targets=2 concurrency=1
+[14:23:04] [1/2] K000000997 normal - selector started
+[14:23:11] [1/2] K000000997 normal - draft LLM started
+[14:23:36] [1/2] K000000997 normal - saved (reliability=1.0 repair=0)
+```
+
+진행 메시지를 숨기려면 `--quiet`을 붙입니다.
+
+```powershell
+python -m mission_generation.pilot_runner --jobs K000000997 --difficulties normal --quiet
+```
+
 8. 최신 complete run과 같은 7개 직무 x 3개 난이도 구성을 다시 실행하려면 다음처럼 지정합니다.
 
 ```powershell

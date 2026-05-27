@@ -14,6 +14,7 @@ from .final_assembler import FinalMissionAssembler
 from .mission_seed_builder import MissionSeedBuilder
 from .practice_profile_loader import PracticeProfileLoader
 from .practice_sheet_background_loader import PracticeSheetBackgroundLoader
+from .progress_reporter import ConsoleProgressReporter
 from .profile_loader import JobProfileLoader, ProfileLoadError
 from .repair_manager import RepairManager, RepairPromptBuilder
 from .schema_constraints_builder import SchemaConstraintsBuilder
@@ -49,6 +50,7 @@ class PilotRunner:
         use_llm_decision_selector: bool = True,
         use_practice_sheet_background: bool = True,
         practice_sheet_root: str | Path = "data/additional_search",
+        progress_enabled: bool = False,
     ) -> None:
         self.source_root = Path(source_root)
         self.output_root = Path(output_root)
@@ -58,6 +60,9 @@ class PilotRunner:
         self.target_difficulty_codes = list(target_difficulty_codes) if target_difficulty_codes is not None else None
         self.use_llm_decision_selector = bool(use_llm_decision_selector)
         self.use_practice_sheet_background = bool(use_practice_sheet_background)
+        self.progress = ConsoleProgressReporter(enabled=progress_enabled)
+        self._progress_total_targets = 0
+        self._progress_positions: dict[tuple[str, str], int] = {}
         self.runtime_config = RuntimeConfig()
         self.profile_loader = JobProfileLoader(source_root=self.source_root, output_root=self.output_root / "profiles" / "v1")
         self.practice_profile_loader = PracticeProfileLoader()
@@ -84,6 +89,12 @@ class PilotRunner:
         pilot_config["use_llm_decision_selector"] = self.use_llm_decision_selector
         pilot_config["use_practice_sheet_background"] = self.use_practice_sheet_background
         run_dir = self.storage.create_run(self.runtime_config, pilot_config)
+        self._prepare_progress(pilot_config)
+        self.progress.run_started(
+            run_id=self.storage.run_id,
+            total_targets=self._progress_total_targets,
+            concurrency=self.concurrency,
+        )
         results_by_order: dict[int, dict[str, Any]] = {}
         usage = self._empty_usage()
         targets: list[tuple[int, dict[str, Any], dict[str, str], dict[str, str]]] = []
@@ -92,10 +103,13 @@ class PilotRunner:
         for job in pilot_config["jobs"]:
             job_cd = job["job_cd"]
             try:
+                self.progress.emit(f"{job_cd} - profile loading")
                 profile = self.profile_loader.build(job_cd, save=False)
                 self.storage.save_canonical_profile(profile)
                 self.storage.save_profile_snapshot(profile)
+                self.progress.emit(f"{job_cd} - profile loaded")
             except ProfileLoadError as exc:
+                self.progress.emit(f"{job_cd} - profile failed ({exc.errors[0]['code'] if exc.errors else 'PROFILE_FAILED'})")
                 for difficulty in pilot_config["difficulties"]:
                     results_by_order[target_order] = self._save_failed_status(
                         job_cd=job_cd,
@@ -179,7 +193,21 @@ class PilotRunner:
         }
         self.storage.save_pilot_summary(summary)
         summary["run_dir"] = run_dir.as_posix()
+        self.progress.run_finished(
+            saved_count=summary["saved_count"],
+            failed_count=summary["failed_count"],
+            repair_used_count=summary["repair_used_count"],
+        )
         return summary
+
+    def _prepare_progress(self, pilot_config: dict[str, Any]) -> None:
+        self._progress_positions = {}
+        order = 1
+        for job in pilot_config["jobs"]:
+            for difficulty in pilot_config["difficulties"]:
+                self._progress_positions[(job["job_cd"], difficulty["code"])] = order
+                order += 1
+        self._progress_total_targets = max(0, order - 1)
 
     def _pilot_config(self) -> dict[str, Any]:
         base = default_pilot_config()
@@ -258,9 +286,11 @@ class PilotRunner:
         difficulty_code = difficulty["code"]
         artifacts: dict[str, str] = {}
         repair_count = 0
+        self._progress_target(job_cd, difficulty_code, "target started")
 
         try:
             decision_config = PILOT_JOB_CONFIGS.get(job_cd, {})
+            self._progress_target(job_cd, difficulty_code, "decisions started")
             decisions = self._build_system_decisions(
                 profile=profile,
                 job_cd=job_cd,
@@ -268,6 +298,12 @@ class PilotRunner:
                 decision_config=decision_config,
                 usage=usage,
                 artifacts=artifacts,
+            )
+            self._progress_target(
+                job_cd,
+                difficulty_code,
+                "decisions ready",
+                f"exec={decisions['selected_exec_job']['exec_job_id']} task={decisions['primary_task_type']}",
             )
             evidence_names = self._evidence_names(profile)
             constraints = self.constraints_builder.build(evidence_names=evidence_names)
@@ -277,6 +313,8 @@ class PilotRunner:
                 mission_seed = None
                 practice_excerpt = None
                 practice_sheet_background = self.practice_sheet_background_loader.load(job_cd)
+                detail = "loaded" if practice_sheet_background is not None else "missing"
+                self._progress_target(job_cd, difficulty_code, "practice sheet background", detail)
             else:
                 mission_seed = self.seed_builder.build(
                     job_profile=profile,
@@ -288,6 +326,7 @@ class PilotRunner:
                     if practice_profile is not None and mission_seed is not None
                     else None
                 )
+                self._progress_target(job_cd, difficulty_code, "mission seed ready")
             llm_input = self.input_builder.build(
                 profile,
                 decisions,
@@ -319,6 +358,7 @@ class PilotRunner:
                 self.storage.save_job_artifact(job_cd, difficulty_code, "job_practice_sheet_background.json", practice_sheet_background)
                 artifacts["job_practice_sheet_background"] = "job_practice_sheet_background.json"
         except DecisionSelectionError as exc:
+            self._progress_target(job_cd, difficulty_code, "decision failed", exc.code)
             return self._save_failed_status(
                 job_cd=job_cd,
                 job_name=job["job_name"],
@@ -330,6 +370,7 @@ class PilotRunner:
                 artifacts=artifacts,
             )
         except Exception as exc:
+            self._progress_target(job_cd, difficulty_code, "decision failed", "DECISION_FAILED")
             return self._save_failed_status(
                 job_cd=job_cd,
                 job_name=job["job_name"],
@@ -341,9 +382,11 @@ class PilotRunner:
                 artifacts=artifacts,
             )
 
+        self._progress_target(job_cd, difficulty_code, "draft LLM started")
         generated = self.draft_generator.generate(llm_input)
         call_result = generated["llm_call_result"]
         draft = generated["mission_draft"]
+        self._progress_target(job_cd, difficulty_code, "draft LLM finished", str(call_result.get("status") or "unknown"))
         self._collect_usage(call_result, usage)
         if call_result["provider"] == "mock":
             usage["mock_draft_count"] += 1
@@ -352,6 +395,7 @@ class PilotRunner:
         self.storage.save_job_artifact(job_cd, difficulty_code, "llm_call_result_attempt_0.json", call_result)
         artifacts["llm_call_result_attempt_0"] = "llm_call_result_attempt_0.json"
         if draft is None:
+            self._progress_target(job_cd, difficulty_code, "llm failed")
             return self._save_failed_status(
                 job_cd=job_cd,
                 job_name=job["job_name"],
@@ -369,6 +413,7 @@ class PilotRunner:
             mission_output_draft=draft,
             attempt=0,
         )
+        self._progress_target(job_cd, difficulty_code, "validator attempt 0", validation["status"])
         validator_path = self.storage.save_job_artifact(job_cd, difficulty_code, "validator_result_attempt_0.json", validation)
         artifacts.update(
             {
@@ -378,6 +423,7 @@ class PilotRunner:
         )
 
         if validation["status"] == "repair_required":
+            self._progress_target(job_cd, difficulty_code, "repair LLM started")
             repair_request = RepairPromptBuilder().build(decisions, draft, validation, self._evidence_names(profile))
             self.storage.save_job_artifact(job_cd, difficulty_code, "repair_request_attempt_1.json", repair_request)
             repaired = self.repair_manager.repair(
@@ -387,6 +433,7 @@ class PilotRunner:
             repair_call = repaired["llm_call_result"]
             draft = repaired["mission_draft"]
             repair_count = 1
+            self._progress_target(job_cd, difficulty_code, "repair LLM finished", str(repair_call.get("status") or "unknown"))
             self._collect_usage(repair_call, usage)
             if repair_call["provider"] == "mock":
                 usage["mock_repair_count"] += 1
@@ -400,6 +447,7 @@ class PilotRunner:
                 mission_output_draft=draft,
                 attempt=1,
             )
+            self._progress_target(job_cd, difficulty_code, "validator attempt 1", validation["status"])
             validator_path = self.storage.save_job_artifact(job_cd, difficulty_code, "validator_result_attempt_1.json", validation)
             artifacts.update(
                 {
@@ -452,9 +500,16 @@ class PilotRunner:
                 run_status_path=self.storage.relative_to_run(status_path) or "",
                 flush=False,
             )
+            self._progress_target(
+                job_cd,
+                difficulty_code,
+                "saved",
+                f"reliability={final_output['reliability']['score']} repair={repair_count}",
+            )
             return result
 
         status = "discarded" if validation["status"] == "discard" else "repair_failed"
+        self._progress_target(job_cd, difficulty_code, status, (validation["errors"] or [{"code": "VALIDATOR_FAILED"}])[0]["code"])
         status_path = self.storage.save_run_status(
             job_cd=job_cd,
             job_name=profile["job_identity"].get("job_smcl_nm") or job["job_name"],
@@ -574,12 +629,14 @@ class PilotRunner:
         artifacts: dict[str, str],
     ) -> dict[str, Any]:
         if not self.use_llm_decision_selector:
+            self._progress_target(job_cd, difficulty_code, "selector disabled", "legacy rules")
             return self.decision_builder.build(profile, difficulty_code, decision_config)
 
         selector_input = self.selector_input_builder.build(profile, difficulty_code)
         self.storage.save_job_artifact(job_cd, difficulty_code, "decision_selector_input.json", selector_input)
         artifacts["decision_selector_input"] = "decision_selector_input.json"
 
+        self._progress_target(job_cd, difficulty_code, "selector started")
         selector_run = self.decision_selector.select(selector_input)
         call_result = selector_run["llm_call_result"]
         selector_result = selector_run.get("selector_result")
@@ -599,18 +656,39 @@ class PilotRunner:
         self.storage.save_job_artifact(job_cd, difficulty_code, "decision_selector_validation.json", validation)
         artifacts["decision_selector_validation"] = "decision_selector_validation.json"
         if validation["status"] == "passed":
+            self._progress_target(job_cd, difficulty_code, "selector passed")
             return self.decision_builder.build_from_selector(profile, difficulty_code, selector_result)
 
         if self._selector_was_locally_skipped(call_result):
             usage["selector_fallback_count"] += 1
+            self._progress_target(job_cd, difficulty_code, "selector skipped", "legacy rules")
             return self.decision_builder.build(profile, difficulty_code, decision_config)
 
         usage["selector_failed_count"] += 1
         errors = validation.get("errors", [])
         codes = ", ".join(error.get("code", "UNKNOWN") for error in errors) or "UNKNOWN"
+        self._progress_target(job_cd, difficulty_code, "selector failed", codes)
         raise DecisionSelectionError(
             f"Decision selector validation failed: {codes}",
             errors=errors,
+        )
+
+    def _progress_target(
+        self,
+        job_cd: str,
+        difficulty_code: str,
+        stage: str,
+        detail: str | None = None,
+    ) -> None:
+        current = self._progress_positions.get((job_cd, difficulty_code))
+        total = self._progress_total_targets or None
+        self.progress.target(
+            current=current,
+            total=total,
+            job_cd=job_cd,
+            difficulty_code=difficulty_code,
+            stage=stage,
+            detail=detail,
         )
 
     def _selector_was_locally_skipped(self, call_result: dict[str, Any]) -> bool:
@@ -696,6 +774,7 @@ def main() -> None:
     parser.add_argument("--jobs", type=_parse_codes, default=None, help="Comma-separated job codes to run, e.g. K000000997,K000001080.")
     parser.add_argument("--difficulties", type=_parse_codes, default=None, help="Comma-separated difficulty codes to run, e.g. normal.")
     parser.add_argument("--no-llm-selector", action="store_true", help="Disable the LLM decision selector and use legacy system decision rules.")
+    parser.add_argument("--quiet", action="store_true", help="Suppress console progress messages.")
     parser.add_argument(
         "--practice-sheet-background",
         dest="use_practice_sheet_background",
@@ -721,6 +800,7 @@ def main() -> None:
         use_llm_decision_selector=not args.no_llm_selector,
         use_practice_sheet_background=args.use_practice_sheet_background,
         practice_sheet_root=args.practice_sheet_root,
+        progress_enabled=not args.quiet,
     )
     try:
         summary = runner.run()
