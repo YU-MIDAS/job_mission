@@ -121,13 +121,21 @@ UI exporter는 과거 산출물 호환을 위해 본문 끝의 `용어 설명:` 
 
 validator는 단순 키워드 차단기가 아닙니다. 현재는 `인터넷`, `검색`, `외부 자료` 같은 단어가 있다는 이유만으로 실패 처리하지 않습니다.
 
-주요 검증은 다음입니다.
+쉽게 말하면 validator는 LLM이 만든 `mission_draft_attempt_N.json`을 보고 "이 초안을 최종 `mission_output.json`으로 저장해도 되는가?"를 판단하는 자동 검수자입니다. 주요 점검 항목은 다음과 같습니다.
 
-- `mission.task_type`, `mission.difficulty`, `target_exec_job`이 `system_decisions`와 일치하는지
-- `materials[].type`이 허용된 자료 유형인지
-- `tasks[].required_materials`가 실제 material id를 참조하는지
-- `materials[].evidence_source`가 실제 `job_profile.evidence` 이름인지
-- `mission.scenario.glossary`가 배열이고, 각 항목에 `term`과 `definition`이 있는지
-- rubric 점수와 linked evidence 구조가 유효한지
+| 점검 영역 | 쉽게 말하면 | 걸리는 예시 |
+|---|---|---|
+| JSON 형식 | 결과 파일이 JSON으로 제대로 읽히는지 확인합니다. | JSON이 중간에 끊겼거나 빈 값입니다. |
+| 필수 구조 | 미션에 꼭 필요한 큰 항목이 있는지 봅니다. | `mission`, `materials`, `tasks`, `evaluation`, `reliability`가 없습니다. |
+| LLM 권한 제한 | LLM이 직접 만들면 안 되는 최종값을 만들었는지 봅니다. | LLM이 `reliability.score`, `reliability.passed`, 최종 `evidence_chain`을 넣었습니다. |
+| 시스템 결정 일치 | 앞단에서 정한 직무, 난이도, task 유형을 LLM이 그대로 따랐는지 확인합니다. | `system_decisions`는 easy인데 draft는 hard 난이도 구조를 씁니다. |
+| 미션 사실 참조 | 자료가 `mission_facts`에 실제로 있는 key를 참조하는지 봅니다. | material이 존재하지 않는 `mission_fact_refs` 값을 씁니다. |
+| 자료 유형 | 허용된 material type만 사용했는지 확인합니다. | `chart`, `table`, `memo` 대신 v1에서 제외된 `image`, `screenshot`을 씁니다. |
+| 자료 내부 구조 | 자료 type별 `data` 모양이 맞는지 봅니다. | chart의 x축 개수와 series 값 개수가 다르거나, table row key가 columns와 다릅니다. |
+| 자료 크기 | 난이도에 맞게 자료 수와 항목 수가 너무 많거나 적지 않은지 봅니다. | easy 미션에 자료가 너무 많거나, hard 미션 자료 항목이 너무 적습니다. |
+| task와 자료 연결 | 과제가 실제 material id를 사용하고, 만든 material이 task에서 쓰이는지 확인합니다. | `tasks[].required_materials`가 없는 material id를 가리킵니다. |
+| glossary | 용어 설명이 배열이고 각 항목에 `term`, `definition`이 있는지 봅니다. | glossary가 문자열이거나 definition이 빠져 있습니다. |
+| 평가 기준 | rubric이라는 채점표가 있고, 점수와 근거 연결이 있는지 확인합니다. | rubric이 없거나, `points` 합계가 100이 아니거나, `linked_evidence`가 비어 있습니다. |
+| 직무 근거 | material의 `evidence_source`가 실제 `job_profile.evidence` 이름인지 확인합니다. | LLM이 그럴듯하지만 실제 profile에 없는 evidence 이름을 지어냅니다. |
 
 repair가 발생하면 LLM은 막힌 이유를 모르는 상태로 다시 생성하는 것이 아니라, `repair_request_attempt_1.json`에 담긴 validator errors/warnings와 수정 지침을 보고 재생성합니다.

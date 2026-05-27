@@ -44,7 +44,7 @@ flowchart TD
 3. `system_decisions`는 selector 결과를 검증한 뒤 확정한 미션 설계 방향입니다. 이후 미션 생성 LLM은 이 결정을 따라야 합니다.
 4. `job_practice_sheet_background`는 사람이 작성한 `data/additional_search/{job_cd}.md` 직무조사시트 원문을 JSON 필드로 감싼 배경지식입니다.
 5. `llm_input_package`는 최종 미션 생성 LLM에 전달할 입력 묶음입니다. 현재 기본 경로에서는 `job_profile`, `system_decisions`, `schema_constraints`, `job_practice_sheet_background`가 들어갑니다.
-6. `validator`는 LLM 초안이 규칙을 지켰는지 검사합니다. 통과하면 `mission_output.json`이 되고, 고칠 수 있는 문제면 repair 요청을 한 번 더 보냅니다.
+6. `validator`는 LLM 초안이 규칙을 지켰는지 검사합니다. 통과하면 `mission_output.json`이 되고, 고칠 수 있는 문제면 repair 요청을 한 번 더 보냅니다. validator가 어떤 부분을 점검하는지에 대한 대략적인 정리는 `document/mission_generation_flow.md`의 `Validation and Repair` 섹션에 있습니다.
 
 즉, `MissionDecisionSelector`는 “미션의 틀”을 고르고, `MissionDraftGenerator`는 그 틀과 배경지식을 바탕으로 “실제 미션 내용”을 씁니다.
 
@@ -364,7 +364,7 @@ outputs/pilot/v1/runs/pilot_v1_20260527_032732_complete/jobs/K000001080/normal/
 | 문서 | 용도 |
 |---|---|
 | `document/project_overview.md` | 프로젝트 목적과 현재 기준 산출물 |
-| `document/mission_generation_flow.md` | 미션 생성 파이프라인 |
+| `document/mission_generation_flow.md` | 미션 생성 파이프라인. validator 점검 항목 요약은 `Validation and Repair` 섹션 참고 |
 | `document/data_requirements.md` | 로컬 데이터와 API key 준비 |
 | `document/output_structure.md` | 생성 산출물 구조 |
 | `document/json_field_reference.md` | 주요 JSON 파일과 필드 설명 |
