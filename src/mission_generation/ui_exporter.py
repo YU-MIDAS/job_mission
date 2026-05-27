@@ -844,8 +844,9 @@ button,textarea{{font:inherit}} button{{cursor:pointer}} button:focus-visible,te
 .intro{{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:end;margin-bottom:22px}}
 .eyebrow{{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:8px}} h1{{margin:0;font-size:34px;line-height:1.18;font-weight:720}} .intro p{{margin:8px 0 0;color:var(--muted);max-width:680px}}
 .actions{{display:flex;gap:8px}} .btn{{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 13px;color:var(--text)}} .btn.primary{{background:var(--accent);border-color:var(--accent);color:white}}
-.mission-picker{{margin-bottom:20px}} .picker-title{{font-weight:700;margin-bottom:10px}} .mission-grid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
-.mission-option{{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:14px;text-align:left;min-height:112px;display:flex;flex-direction:column;gap:8px;transition:.15s}}
+.mission-picker{{margin-bottom:20px}} .picker-title{{font-weight:700;margin-bottom:10px}} .mission-grid{{display:grid;gap:18px}}
+.mission-job-group{{border-top:1px solid var(--line);padding-top:15px}} .mission-job-group:first-child{{border-top:0;padding-top:0}} .mission-job-head{{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:9px}} .mission-job-name{{font-weight:720}} .mission-job-count{{color:var(--muted);font-size:12px;white-space:nowrap}} .mission-job-grid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
+.mission-option{{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:14px;text-align:left;min-height:104px;display:flex;flex-direction:column;gap:8px;transition:.15s}}
 .mission-option:hover{{border-color:var(--accent3)}} .mission-option.active{{border-color:var(--accent);background:var(--accent2)}} .option-meta{{color:var(--muted);font-size:12px}} .option-title{{font-weight:700;line-height:1.45}}
 .workspace{{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}} .main{{display:grid;gap:14px;min-width:0}} .section,.side{{background:var(--surface);border:1px solid var(--line);border-radius:8px;min-width:0}}
 .section{{padding:24px}} .side{{position:sticky;top:82px;padding:20px;display:grid;gap:18px}} h2{{margin:0 0 12px;font-size:28px;line-height:1.25}} h3{{margin:0 0 14px;font-size:18px}} .scenario{{color:var(--muted);margin:0 0 12px}}
@@ -858,7 +859,8 @@ button,textarea{{font:inherit}} button{{cursor:pointer}} button:focus-visible,te
 .card-list{{display:grid;gap:9px}} .info-card{{border:1px solid var(--line);background:var(--surface2);border-radius:8px;padding:13px}} .info-card b{{display:block;margin-bottom:4px}} .muted{{color:var(--muted)}} .timeline{{display:grid;gap:10px}} .timeline .item{{border-left:3px solid var(--accent);padding:3px 0 8px 12px;color:var(--muted)}} .check-row{{display:flex;gap:9px;align-items:flex-start}} .check-dot{{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--accent2);color:var(--accent);font-size:12px;flex:0 0 auto;margin-top:2px}}
 .task-list{{display:grid;gap:12px}} .task{{border:1px solid var(--line);background:#fbfcfd;border-radius:8px;padding:15px}} .task-label{{color:var(--accent);font-size:13px;font-weight:700;margin-bottom:7px}} .task-instruction{{font-weight:620}} .refs{{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap}} .ref{{border:1px solid var(--line);background:var(--surface);border-radius:999px;color:var(--muted);font-size:12px;padding:3px 8px}}
 textarea{{width:100%;min-height:150px;margin-top:12px;border:1px solid var(--line);background:white;border-radius:8px;padding:12px;resize:vertical;color:var(--text)}} .char{{text-align:right;color:var(--soft);font-size:12px;margin-top:4px}} .side-label{{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:5px}} .timer{{font-size:34px;line-height:1;font-weight:720;color:var(--accent)}} .criteria{{display:grid;gap:8px;margin:0;padding:0;list-style:none}} .criteria li{{padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface2);color:var(--muted)}} .empty{{color:var(--muted);padding:18px}}
-@media (max-width:900px){{.intro,.workspace{{grid-template-columns:minmax(0,1fr)}} .side{{position:static}} .mission-grid{{grid-template-columns:1fr}}}}
+@media (max-width:900px){{.intro,.workspace{{grid-template-columns:minmax(0,1fr)}} .side{{position:static}} .mission-job-grid{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
+@media (max-width:760px){{.mission-job-grid{{grid-template-columns:1fr}} .mission-job-head{{align-items:flex-start;flex-direction:column;gap:2px}}}}
 @media (max-width:620px){{.topbar-inner{{align-items:flex-start;flex-direction:column;padding:13px 16px}} .current-meta{{margin-left:0}} .wrap{{padding:22px 14px 48px}} h1{{font-size:29px}} h2{{font-size:24px}} .section{{padding:18px}} .intro{{gap:14px}} .actions{{width:100%}} .btn{{flex:1}} table{{min-width:620px}}}}
 </style>
 </head>
@@ -917,23 +919,11 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({{'&':'&amp;
 const nl = value => esc(value).replace(/\\n/g, '<br>');
 
 function init() {{
-  renderMissionGrid();
+  renderMissionGroups();
   if (MISSIONS.length) renderMission(0, false);
   else renderEmptyState();
   $('prevBtn').onclick = () => moveMission(-1);
   $('nextBtn').onclick = () => moveMission(1);
-}}
-
-function renderMissionGrid() {{
-  $('missionGrid').innerHTML = MISSIONS.map((mission, index) => `
-    <button class="mission-option" data-index="${{index}}">
-      <span class="option-meta">${{esc(mission.job_name)}} · ${{esc(mission.difficulty_label)}}</span>
-      <span class="option-title">${{esc(mission.title)}}</span>
-    </button>
-  `).join('');
-  document.querySelectorAll('.mission-option').forEach(button => {{
-    button.addEventListener('click', () => renderMission(Number(button.dataset.index), true));
-  }});
 }}
 
 function moveMission(delta) {{
@@ -942,13 +932,51 @@ function moveMission(delta) {{
   renderMission(next, true);
 }}
 
+function renderMissionGroups() {{
+  const groups = missionGroups();
+  $('missionGrid').innerHTML = groups.map(group => `
+    <section class="mission-job-group">
+      <div class="mission-job-head">
+        <div class="mission-job-name">${{esc(group.jobName)}}</div>
+        <div class="mission-job-count">${{group.items.length}}개 미션</div>
+      </div>
+      <div class="mission-job-grid">
+        ${{group.items.map(item => `
+          <button class="mission-option" data-index="${{item.index}}">
+            <span class="option-meta">${{esc(item.mission.difficulty_label)}}${{item.mission.task_type_label ? ` · ${{esc(item.mission.task_type_label)}}` : ''}}</span>
+            <span class="option-title">${{esc(item.mission.title)}}</span>
+          </button>
+        `).join('')}}
+      </div>
+    </section>
+  `).join('');
+  document.querySelectorAll('.mission-option').forEach(button => {{
+    button.addEventListener('click', () => renderMission(Number(button.dataset.index), true));
+  }});
+}}
+
+function missionGroups() {{
+  const groups = [];
+  const byJob = new Map();
+  MISSIONS.forEach((mission, index) => {{
+    const jobName = mission.job_name || '직무 미지정';
+    if (!byJob.has(jobName)) {{
+      const group = {{ jobName, items: [] }};
+      byJob.set(jobName, group);
+      groups.push(group);
+    }}
+    byJob.get(jobName).items.push({{ mission, index }});
+  }});
+  return groups;
+}}
+
 function renderMission(index, shouldScroll) {{
   const mission = MISSIONS[index];
   if (!mission) return;
   currentIndex = index;
   activeMaterial = 0;
-  document.querySelectorAll('.mission-option').forEach((button, buttonIndex) => {{
-    button.classList.toggle('active', buttonIndex === index);
+  document.querySelectorAll('.mission-option').forEach(button => {{
+    button.classList.toggle('active', Number(button.dataset.index) === index);
   }});
   $('currentMeta').textContent = `${{mission.job_name || ''}} · ${{mission.difficulty_label || ''}}`;
   $('timerVal').textContent = `${{mission.time_limit_minutes || 15}}분`;

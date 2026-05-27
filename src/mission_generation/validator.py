@@ -27,7 +27,6 @@ AREA_BY_CODE = {
     "TASK_COUNT_OUT_OF_RANGE": "materials",
     "MATERIAL_COUNT_OUT_OF_RANGE": "materials",
     "EVIDENCE_SOURCE_NOT_FOUND": "evidence",
-    "EXTERNAL_KNOWLEDGE_REQUIRED": "tasks",
     "RUBRIC_POINTS_NOT_100": "evaluation",
     "RUBRIC_LINK_WEAK": "evaluation",
     "SUBMISSION_FORMAT_TOO_OPEN": "evaluation",
@@ -393,7 +392,6 @@ class MissionValidator:
         min_count, max_count = decisions["difficulty"]["task_count_range"]
         if len(tasks) < min_count or len(tasks) > max_count:
             self._add(errors, "TASK_COUNT_OUT_OF_RANGE", "fail", "mission.tasks", "task count is outside difficulty range.", f"Use {min_count}-{max_count} tasks.")
-        blocked = ("인터넷", "검색", "외부 자료", "전문가에게 문의", "실제 법령", "실제 투자")
         for index, task in enumerate(tasks):
             path = f"mission.tasks[{index}]"
             if not isinstance(task, dict):
@@ -409,9 +407,6 @@ class MissionValidator:
                 missing = [material_id for material_id in required_materials if material_id not in material_ids]
                 if missing:
                     self._add(errors, "UNKNOWN_MATERIAL_REFERENCE", "fail", f"{path}.required_materials", f"Unknown material ids: {missing}", "Use existing material ids.")
-            instruction = str(task.get("instruction", ""))
-            if any(word in instruction for word in blocked):
-                self._add(errors, "EXTERNAL_KNOWLEDGE_REQUIRED", "fail", f"{path}.instruction", "task appears to require external knowledge.", "Use provided materials only.")
         submission = mission.get("submission_format") or {}
         if not isinstance(submission, dict) or not submission.get("required_sections") or not submission.get("length_hint"):
             self._add(warnings, "SUBMISSION_FORMAT_TOO_OPEN", "warning", "mission.submission_format", "submission format is broad.", "Add sections and length_hint.")

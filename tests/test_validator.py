@@ -86,6 +86,23 @@ class MissionValidatorTest(unittest.TestCase):
         self.assertEqual(result["status"], "pass")
         self.assertEqual(result["errors"], [])
 
+    def test_external_knowledge_keywords_are_not_blocked_by_validator(self) -> None:
+        draft = copy.deepcopy(self.draft)
+        draft["mission"]["tasks"][0]["instruction"] = (
+            "자료에 있는 검색 광고 옵션을 고르세요. "
+            "인터넷, 외부 자료, 전문가에게 문의, 실제 법령, 실제 투자라는 표현이 있어도 "
+            "validator는 키워드만으로 task를 차단하지 않습니다."
+        )
+        result = MissionValidator().validate(
+            job_profile=self.profile,
+            system_decisions=self.decisions,
+            mission_output_draft=draft,
+            attempt=0,
+        )
+
+        self.assertEqual(result["status"], "pass")
+        self.assertNotIn("EXTERNAL_KNOWLEDGE_REQUIRED", {item["code"] for item in result["errors"]})
+
     def test_scenario_glossary_is_required_but_empty_array_is_valid(self) -> None:
         draft = copy.deepcopy(self.draft)
         self.assertEqual(draft["mission"]["scenario"]["glossary"], [])
