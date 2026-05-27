@@ -1,0 +1,53 @@
+{
+  "schema_version": "pilot_generation_config.v1",
+  "source_root": "data/api_raw",
+  "use_kmeans": false,
+  "use_llm_decision_selector": true,
+  "use_practice_sheet_background": true,
+  "jobs": [
+    {
+      "job_cd": "K000000872",
+      "job_name": "광고·홍보·마케팅전문가"
+    },
+    {
+      "job_cd": "K000000997",
+      "job_name": "상품기획자"
+    },
+    {
+      "job_cd": "K000001080",
+      "job_name": "데이터분석가(빅데이터분석가)"
+    },
+    {
+      "job_cd": "K000001179",
+      "job_name": "투자분석가"
+    },
+    {
+      "job_cd": "K000001196",
+      "job_name": "인사·교육·훈련사무원"
+    },
+    {
+      "job_cd": "K000001222",
+      "job_name": "방송기자"
+    },
+    {
+      "job_cd": "K000007519",
+      "job_name": "보험상품개발자"
+    }
+  ],
+  "difficulties": [
+    {
+      "code": "easy",
+      "label": "쉬움"
+    },
+    {
+      "code": "normal",
+      "label": "보통"
+    },
+    {
+      "code": "hard",
+      "label": "어려움"
+    }
+  ],
+  "max_repair_attempts": 1,
+  "concurrency": 2
+}

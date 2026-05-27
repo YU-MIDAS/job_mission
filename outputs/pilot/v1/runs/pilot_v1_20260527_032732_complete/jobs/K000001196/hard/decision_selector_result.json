@@ -1,0 +1,17 @@
+{
+  "selected_exec_job_id": "exec_006",
+  "primary_task_type": "diagnosis_and_improvement",
+  "selected_material_types": [
+    "table",
+    "checklist",
+    "memo"
+  ],
+  "mission_design_type": "general_research_analysis",
+  "matched_evidence": [
+    "인적자원 관리",
+    "인사",
+    "법"
+  ],
+  "selection_reason": "타사·관계문헌 조사·비교·분석을 통해 인사제도 및 복리후생/안전보건 개선안을 기획·품의하므로 진단 및 개선 중심 과업에 적합하며, 인사 지식과 법·규정 고려 근거를 활용할 수 있다.",
+  "confidence": "high"
+}

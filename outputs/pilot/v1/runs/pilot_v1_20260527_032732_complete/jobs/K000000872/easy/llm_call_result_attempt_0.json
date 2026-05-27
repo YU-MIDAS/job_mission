@@ -1,0 +1,279 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "draft_generation",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000000872",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "광고·조사·상품기획·행사기획 전문가",
+      "job_smcl_nm": "광고·홍보·마케팅전문가",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_001",
+      "text": "사업체의 마케팅, 광고, 홍보 전략에 대해 자문한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 1
+      },
+      "selection_reason": "사업체의 마케팅·광고·홍보 전략을 자문하는 역할이므로 간단한 조사 분석 결과를 바탕으로 제안 메모를 작성하는 형태가 적합함"
+    },
+    "mission_facts": {
+      "org_name": "루나로스터(가상) 정기구독 서비스",
+      "domain": "정기구독 커피(신규 가입 전환 개선)",
+      "period": [
+        "2026년 5월 1~2주차"
+      ],
+      "trend_pattern": "쿠폰 자체보다 ‘자동 적용’처럼 사용 방법이 쉬운 혜택을 선호하는 흐름",
+      "main_issue": "광고 클릭은 나오지만, 첫 결제 화면에서 신규 가입이 잘 완료되지 않음",
+      "feedback_themes": [
+        "혜택이 어떤 건지 한눈에 안 보인다",
+        "할인 쿠폰을 받는 방법을 찾기 어렵다"
+      ],
+      "decision_goal": "첫 화면과 광고 문구에서 ‘첫 결제 금액 혜택’이 무엇인지, 적용 방식이 간단하다는 점을 더 분명하게 보여주기"
+    },
+    "mission": {
+      "title": "신규 가입 전환을 위한 광고 문구 선택",
+      "task_type": "planning_and_proposal",
+      "secondary_task_types": [],
+      "difficulty": {
+        "level": "easy",
+        "label": "쉬움",
+        "estimated_time_minutes": 10,
+        "material_bundle_style": "single_work_material",
+        "material_count_range": [
+          1,
+          1
+        ],
+        "task_count_range": [
+          1,
+          1
+        ],
+        "answer_length_hint": "1-2 short sentences",
+        "requires_cross_material_reasoning": false,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "당신은 루나로스터 정기구독 서비스의 마케팅 인턴입니다. 이번 주에 상사에게 전달할 짧은 자문 메모를 돕는 역할이에요.",
+        "context": "상사가 최근 광고 클릭 후 가입 완료가 낮다는 피드백을 보고, 광고 문구 2가지를 놓고 더 ‘명확한 혜택 안내’ 쪽을 고르려 합니다.",
+        "goal": "아래 메모를 보고, 피드백을 반영하지 못하는 광고 문구 1가지를 찾아 한 줄 이유를 적어주세요.",
+        "constraints": [
+          "정답은 자료 안에만 있습니다.",
+          "한 번에 문구 1개만 골라서, 이유는 피드백(혜택이 안 보임/적용 방법을 찾기 어려움)과 연결해 한 줄로 쓰세요."
+        ],
+        "glossary": []
+      },
+      "materials": [
+        {
+          "material_id": "memo_001",
+          "type": "memo",
+          "subtype": "광고 문구 초안 검토 메모",
+          "title": "신규 가입 전환 개선을 위한 광고 문구 검토",
+          "description": "최근 피드백과 목표에 맞춰 광고 문구 후보 2가지를 비교한 메모입니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "피드백과 목표에 비춰, 더 명확히 안내하지 못하는 광고 문구를 고르기 위한 판단 근거를 제공합니다.",
+          "evidence_source": [
+            "읽고 이해하기",
+            "정보 수집",
+            "글쓰기"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "feedback_themes",
+            "decision_goal",
+            "trend_pattern"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "미사용(메모 자료)",
+              "values": []
+            },
+            "y_axis": {
+              "label": "미사용(메모 자료)",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "광고 문구"
+              },
+              {
+                "key": "priority",
+                "label": "메모 내 판단"
+              },
+              {
+                "key": "strength",
+                "label": "강점 메모"
+              },
+              {
+                "key": "weakness",
+                "label": "아쉬운 점 메모"
+              }
+            ],
+            "rows": [
+              {
+                "option": "A안: “첫 달 30% 할인, 결제하면 자동 적용”",
+                "strength": "혜택이 ‘첫 달 30%’로 구체적이고, ‘자동 적용’이라 찾을 방법이 적다는 점이 강조됨",
+                "weakness": "없음(메모 기준으로는 안내가 충분함)",
+                "priority": 1
+              },
+              {
+                "option": "B안: “여러 혜택이 준비돼 있어요. 지금 확인해 보세요”",
+                "strength": "관심을 유도하려는 톤은 있음",
+                "weakness": "혜택이 무엇인지(할인 폭/첫 결제)와 적용 방법이 흐릿해서, ‘혜택을 찾기 어렵다’ 피드백과 충돌함",
+                "priority": 2
+              }
+            ],
+            "author": "루나로스터 마케팅팀(가상)",
+            "items": [
+              {
+                "text": "최근 이탈 고객 피드백: ‘혜택이 어떤 건지 한눈에 안 보인다’, ‘쿠폰 받는 방법을 찾기 어렵다’.",
+                "period": "2026년 5월 1~2주차",
+                "task": "문구 후보를 피드백에 맞춰 정리",
+                "constraint": "한 줄 수준으로 ‘혜택의 구체성’과 ‘찾을 필요가 적음(자동 적용)’을 보여주기",
+                "label": "피드백 요약",
+                "status": "checked",
+                "importance": "높음"
+              },
+              {
+                "text": "목표: 첫 결제 단계에서 신규 가입 완료율을 올리기 위해, 광고 문구에서 첫 결제 혜택을 명확히 안내하기.",
+                "period": "2026년 5월 1~2주차",
+                "task": "문구 선택 기준 제시",
+                "constraint": "자료에 있는 내용만으로 판단",
+                "label": "목표 요약",
+                "status": "checked",
+                "importance": "높음"
+              }
+            ],
+            "thread": [
+              {
+                "from": "상사",
+                "to": "인턴",
+                "subject": "문구 2개 중 하나만 골라줘",
+                "body": "피드백을 더 잘 반영하는 쪽이 뭐야? 한 줄로만 이유까지 적어줘."
+              }
+            ],
+            "entries": [
+              {
+                "time": "2026-05-06 10:00",
+                "actor": "인턴(가상)",
+                "event": "문구 후보 비교",
+                "note": "피드백에 근거해 혜택의 ‘구체성/적용 방식의 단순함’이 드러나는 문구를 확인"
+              }
+            ],
+            "cards": [
+              {
+                "title": "선택 기준",
+                "attributes": {
+                  "strength": "혜택이 구체적이고(할인 폭/첫 결제), 적용 방식이 간단하면 좋다",
+                  "weakness": "혜택이 흐리면(무엇인지/어떻게 적용되는지) 피드백과 충돌한다",
+                  "fit": "A안이 선택 기준에 더 부합"
+                }
+              }
+            ]
+          },
+          "confidence": {
+            "score": 0.92,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_001",
+          "instruction": "위 메모의 A안과 B안 중, ‘혜택을 찾기 어렵다/혜택이 안 보인다’ 피드백을 반영하지 못하는 광고 문구가 무엇인지 고르고, 이유를 한 줄로 적어주세요. (정답은 자료 안에 있습니다)",
+          "required_materials": [
+            "memo_001"
+          ],
+          "expected_action": "광고 문구 1개 선택 + 피드백과 연결된 이유 1줄 작성"
+        }
+      ],
+      "submission_format": {
+        "type": "text",
+        "estimated_time_minutes": 10,
+        "required_sections": [
+          "선택한 문구(한 가지) + 이유(1줄)"
+        ],
+        "length_hint": "1-2 short sentences"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "피드백(혜택이 안 보임/적용 방법을 찾기 어려움)에 비춰, 혜택이 구체적으로 드러나지 않는 문구를 고를 수 있다"
+      ],
+      "rubric": [
+        {
+          "criterion": "문구 선택의 정확성",
+          "description": "자료에 근거해 피드백을 반영하지 못하는 문구 1가지를 올바르게 고른다.",
+          "points": 50,
+          "linked_evidence": [
+            "읽고 이해하기"
+          ]
+        },
+        {
+          "criterion": "이유를 피드백과 연결",
+          "description": "이유가 ‘혜택이 무엇인지/적용 방식이 명확한지’ 같은 메모의 기준과 연결되어 설명된다.",
+          "points": 30,
+          "linked_evidence": [
+            "정보 수집",
+            "영업과 마케팅"
+          ]
+        },
+        {
+          "criterion": "간결한 문장",
+          "description": "1-2문장 내에 선택과 이유가 분명히 들어간다.",
+          "points": 20,
+          "linked_evidence": [
+            "글쓰기"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_001",
+        "text": "사업체의 마케팅, 광고, 홍보 전략에 대해 자문한다."
+      },
+      "linked_evidence": {
+        "activities": [],
+        "knowledge": [],
+        "abilities": []
+      },
+      "material_evidence_map": []
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "usage": {
+    "input_tokens": 12641,
+    "output_tokens": 4733,
+    "reasoning_tokens": 2145,
+    "total_tokens": 17374
+  },
+  "errors": []
+}

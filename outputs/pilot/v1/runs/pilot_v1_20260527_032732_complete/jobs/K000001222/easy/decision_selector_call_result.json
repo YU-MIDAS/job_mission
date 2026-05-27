@@ -1,0 +1,38 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_003",
+    "primary_task_type": "operation_and_scheduling",
+    "selected_material_types": [
+      "schedule"
+    ],
+    "mission_design_type": "general_research_analysis",
+    "matched_evidence": [
+      "시간 관리",
+      "정보 작성, 기록",
+      "정보 수집",
+      "절차, 자료, 주변환경 관찰"
+    ],
+    "selection_reason": "취재 계획서를 제출하고 승인 후 촬영/팀 일정까지 잡아 현장 취재로 연결하는 업무가 핵심이라, 운영·일정 수립 중심의 쉬운 미션 설계에 적합함. 난이도(자료 1개) 조건에 맞춰 일정(schedule) 자료만 사용.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 1737,
+    "output_tokens": 404,
+    "reasoning_tokens": 255,
+    "total_tokens": 2141
+  },
+  "errors": []
+}

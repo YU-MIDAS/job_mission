@@ -1,0 +1,540 @@
+{
+  "schema_version": "repair_request.v1",
+  "attempt": 1,
+  "locked_fields": [
+    "job_identity",
+    "target_exec_job",
+    "mission.difficulty",
+    "mission.task_type",
+    "mission.secondary_task_types",
+    "mission.allowed_material_types"
+  ],
+  "system_decisions": {
+    "schema_version": "system_decisions.v1",
+    "job_cd": "K000000872",
+    "job_name": "광고·홍보·마케팅전문가",
+    "difficulty": {
+      "level": "normal",
+      "label": "보통",
+      "estimated_time_minutes": 15,
+      "material_bundle_style": "light_work_material_bundle",
+      "material_count_range": [
+        2,
+        2
+      ],
+      "task_count_range": [
+        2,
+        2
+      ],
+      "answer_length_hint": "2-3 short sentences per task",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "selected_exec_job": {
+      "exec_job_id": "exec_004",
+      "text": "광고주에게 대행사를 효과적으로 알려 광고대행계약을 하고, 광고할 상품이나 용역에 관한 자료를 조사하여 분석하고, 광고주와 협의하여 광고기획서를 작성한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 4
+      },
+      "selection_reason": "광고대행 계약을 위한 자료 조사·분석과 광고기획서 작성이 핵심이어서 ‘계획 수립 및 제안’에 가장 직접적으로 대응하며, 마케팅 지식과 정보 수집, 기획서 글쓰기 능력이 필요함."
+    },
+    "primary_task_type": "planning_and_proposal",
+    "secondary_task_types": [
+      "research_and_analysis",
+      "communication_and_reporting"
+    ],
+    "allowed_material_types": [
+      "table",
+      "memo"
+    ],
+    "mission_design": {
+      "schema_version": "mission_design.v1",
+      "mission_design_type": "general_research_analysis",
+      "design_intent": "제공 자료를 조사, 비교, 분석해 근거 기반 결론을 도출하는 일반 분석 미션",
+      "selection_method": "llm_decision_selector",
+      "selection_reason": "광고대행 계약을 위한 자료 조사·분석과 광고기획서 작성이 핵심이어서 ‘계획 수립 및 제안’에 가장 직접적으로 대응하며, 마케팅 지식과 정보 수집, 기획서 글쓰기 능력이 필요함."
+    },
+    "excluded_material_types": [
+      "image",
+      "screenshot"
+    ],
+    "generation_constraints": {
+      "language": "ko",
+      "json_only": true,
+      "no_real_company_names": true,
+      "no_real_person_names": true,
+      "no_external_research": true,
+      "non_expert_friendly": true,
+      "must_use_provided_materials_only": true,
+      "llm_must_not_create_reliability_score": true,
+      "factual_status_required": true
+    },
+    "decision_trace": [
+      {
+        "step": "llm_decision_selector",
+        "method": "llm_structured_output",
+        "selected": "exec_004",
+        "reason": "광고대행 계약을 위한 자료 조사·분석과 광고기획서 작성이 핵심이어서 ‘계획 수립 및 제안’에 가장 직접적으로 대응하며, 마케팅 지식과 정보 수집, 기획서 글쓰기 능력이 필요함.",
+        "matched_evidence": [
+          "영업과 마케팅",
+          "정보 수집",
+          "글쓰기"
+        ],
+        "confidence": "high",
+        "primary_task_type": "planning_and_proposal",
+        "selected_material_types": [
+          "table",
+          "memo"
+        ],
+        "mission_design_type": "general_research_analysis"
+      }
+    ],
+    "decision_warnings": []
+  },
+  "allowed_evidence_names": [
+    "창의력",
+    "글쓰기",
+    "협상",
+    "설득",
+    "읽고 이해하기",
+    "영업과 마케팅",
+    "의사소통과 미디어",
+    "사무",
+    "국어",
+    "경영 및 행정",
+    "재택근무",
+    "다른 사람과의 상호작용",
+    "다른 사람들을 조율하거나 이끌기",
+    "이메일 이용하기",
+    "앉아서 근무",
+    "창조적 생각",
+    "정보 수집",
+    "사람들에게 영향력 행사",
+    "조직 외부인과 소통",
+    "사물, 행동, 사건 파악",
+    "목표, 전략 수립",
+    "업무, 활동에 대한 일정관리",
+    "대인관계 유지",
+    "사람들의 업무와 활동을 조직, 편성",
+    "업무상 사람들을 직접 응대"
+  ],
+  "mission_output_draft": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000000872",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "광고·조사·상품기획·행사기획 전문가",
+      "job_smcl_nm": "광고·홍보·마케팅전문가",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.jobIdentity",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_004",
+      "text": "광고주에게 대행사를 효과적으로 알려 광고대행계약을 하고, 광고할 상품이나 용역에 관한 자료를 조사하여 분석하고, 광고주와 협의하여 광고기획서를 작성한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 4
+      },
+      "selection_reason": "광고대행 계약을 위한 자료 조사·분석과 광고기획서 작성이 핵심이어서 ‘계획 수립 및 제안’에 가장 직접적으로 대응하며, 마케팅 지식과 정보 수집, 기획서 글쓰기 능력이 필요함."
+    },
+    "mission_facts": {
+      "org_name": "라임마켓(가정용 생활소품 온라인몰)",
+      "domain": "신제품 런칭 광고대행 계약 준비(조사·분석 기반 광고기획서 초안)",
+      "period": [
+        "2026년 5월(신제품 런칭 전 2주)"
+      ],
+      "trend_pattern": "최근 6주간 ‘구매 후기’에서 ‘사용 편리성’과 ‘배송 도착 속도’ 언급이 늘었고, 경쟁 제품은 ‘후기 인용’ 중심으로 광고 문구를 바꾸는 흐름이 보임",
+      "main_issue": "신제품이 아직 대중에게 덜 알려져 있고, 내부 기획서 근거가 부족하다는 피드백이 반복됨",
+      "feedback_themes": [
+        "기획서에 ‘조사 결과’가 구체적으로 안 보인다",
+        "조사 방법/자료가 무엇인지 애매하다",
+        "그래서 결론(광고 메시지 방향)이 설득되지 않는다"
+      ],
+      "decision_goal": "후보 대행사 중 ‘조사·분석 결과를 바로 기획서에 옮기기 쉬운 방식’을 가장 잘 제시한 곳을 고르고, 그에 맞는 광고기획서 문단을 선택한다."
+    },
+    "mission": {
+      "title": "신제품 런칭, 조사 결과가 바로 보이는 광고기획서 선택",
+      "task_type": "planning_and_proposal",
+      "secondary_task_types": [
+        "research_and_analysis",
+        "communication_and_reporting"
+      ],
+      "difficulty": {
+        "level": "normal",
+        "label": "보통",
+        "estimated_time_minutes": 15,
+        "material_bundle_style": "light_work_material_bundle",
+        "material_count_range": [
+          2,
+          2
+        ],
+        "task_count_range": [
+          2,
+          2
+        ],
+        "answer_length_hint": "2-3 short sentences per task",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "당신은 라임마켓 마케팅팀의 신규 인턴입니다.",
+        "context": "팀장님이 신제품(‘루나스틱 스마트 주방소품’) 런칭 광고대행 계약을 준비하고 있어요. 이번엔 내부에서 “기획서가 말은 많은데, 조사 결과가 한눈에 안 보여서 설득이 약하다”는 피드백이 나왔습니다.\n\n팀장님이 바로 내일 회의에 쓸 수 있도록, 후보 대행사 제안 3개 중에서 ‘조사·분석 결과가 구체적으로 보이는 곳’을 먼저 골라달라고 했고, 그 대행사가 제시한 조사 형태에 맞춰 광고기획서에 넣을 문단(A/B)도 함께 선택해 달라고 합니다.",
+        "goal": "후보 대행사 3개 중 1곳을 고르고, 선택한 대행사의 방식에 맞는 광고기획서 문단(A/B)을 1개로 결정하세요.",
+        "constraints": [
+          "아래 자료(표 1개 + 메모 1개)에서만 근거를 찾으세요.",
+          "한 번에 한 가지 결정(대행사 1곳, 문단 1개)만 하도록 답을 짧게 작성하세요.",
+          "정답을 ‘맞히기’보다, 표에서 보이는 강점/약점과 문단 설명을 연결해 이유를 1~2개만 적어주세요."
+        ],
+        "glossary": [
+          {
+            "term": "타깃",
+            "definition": "광고를 보여주려고 정한 관심 고객 집단입니다(예: 1인가구, 자취생 등)."
+          },
+          {
+            "term": "광고기획서",
+            "definition": "광고를 어떤 목표로, 누구에게, 어떤 메시지로 만들지 설명한 문서(초안)입니다."
+          }
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "mat_agency_table",
+          "type": "table",
+          "subtype": "후보 광고대행사 제안 요약",
+          "title": "후보 광고대행사 제안 3개(조사·분석 방식 중심)",
+          "description": "아래 표는 내일 회의용으로 정리한 후보 3곳의 제안 요약입니다. ‘조사 결과가 기획서에 옮겨질 때 얼마나 구체적으로 정리되는지’가 핵심 포인트예요.\n\n- 에이전시 A: 강점(조사)으로 ‘자사 후기 + 경쟁사 광고’를 모아서 핵심을 숫자 3개로 요약한다고 명시되어 있음 / 약점으로 ‘배송 데이터(도착 속도)’는 범위에 없다고 적혀 있음\n- 에이전시 B: 강점(조사)으로 인터뷰/후기 인용을 중심으로 정성 요약한다고 적혀 있음 / 약점으로 ‘수치 요약(대표 숫자)’이 약함\n- 에이전시 C: 강점(조사)으로 방향 제안은 있으나 조사 방법/자료가 짧게만 적혀 있음 / 약점으로 ‘조사 설계’가 미기재에 가까움",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "후보 대행사 중 ‘조사·분석 결과가 구체적으로 정리되는 곳’을 고르는 근거 제공",
+          "evidence_source": [
+            "정보 수집",
+            "읽고 이해하기"
+          ],
+          "mission_fact_refs": [
+            "org_name",
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "후보 대행사",
+              "values": [
+                "에이전시 A",
+                "에이전시 B",
+                "에이전시 C"
+              ]
+            },
+            "y_axis": {
+              "label": "우선도(낮을수록 상위)",
+              "unit": "순위"
+            },
+            "series": [
+              {
+                "name": "우선도",
+                "values": [
+                  1,
+                  2,
+                  3
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "후보"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "회의 우선도"
+              }
+            ],
+            "rows": [
+              {
+                "option": "에이전시 A",
+                "strength": "자사 후기(30개) + 경쟁사 광고(12개)를 모아 ‘핵심 3가지’를 숫자(퍼센트/빈도)로 요약한다고 명시",
+                "weakness": "배송 도착 속도 관련 데이터 범위는 제외라고 적혀 있음",
+                "priority": 1
+              },
+              {
+                "option": "에이전시 B",
+                "strength": "타깃 인터뷰/후기 인용을 많이 모아 메시지 문장 후보를 뽑는다고 적음",
+                "weakness": "조사 결과를 대표 숫자로 요약하는 방식이 약함",
+                "priority": 2
+              },
+              {
+                "option": "에이전시 C",
+                "strength": "광고 방향(슬로건/콘셉트) 제안은 있으나 조사 방법과 자료가 짧게만 적혀 있음",
+                "weakness": "어떤 자료를 어떻게 모을지(조사 설계)가 불명확",
+                "priority": 3
+              }
+            ],
+            "author": "라임마켓 내부 검토용",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.82,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_pitch_memo",
+          "type": "memo",
+          "subtype": "광고기획서 문단 예시(A/B)",
+          "title": "광고기획서에 넣을 ‘조사 결과 문단’ 예시 2가지",
+          "description": "팀장님이 보여준 문단 예시입니다. 선택 기준은 “조사 결과가 바로 읽히는지(숫자/핵심 요약이 있는지)”예요.\n\n문단 A(목적형)\n- “이번 조사는 타깃 이해를 돕기 위한 과정입니다. 조사 후 메시지 방향을 정하겠습니다.”\n- 조사 결과(무엇이 나왔는지)와 요약 형태가 거의 없음.\n\n문단 B(결과형)\n- “이번 조사에서 확인한 핵심은 ①(키워드) ②(빈도/비율) ③(반응 패턴)입니다. 이 결과를 바탕으로 광고 문구/소재에 반영하겠습니다.”\n- 숫자나 핵심 요약이 들어가서, 이후 메시지 결정으로 자연스럽게 이어짐.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "선택한 대행사 제안의 ‘조사 결과 정리 방식’에 맞는 광고기획서 문단(A/B)을 고르는 근거 제공",
+          "evidence_source": [
+            "글쓰기",
+            "국어",
+            "읽고 이해하기"
+          ],
+          "mission_fact_refs": [
+            "decision_goal",
+            "feedback_themes"
+          ],
+          "data": {
+            "chart_type": "pie",
+            "x_axis": {
+              "label": "(참고) 문단",
+              "values": [
+                "A",
+                "B"
+              ]
+            },
+            "y_axis": {
+              "label": "적합도 힌트",
+              "unit": "비율"
+            },
+            "series": [
+              {
+                "name": "적합도(힌트)",
+                "values": [
+                  0.35,
+                  0.65
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "문단"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "주의점"
+              }
+            ],
+            "rows": [
+              {
+                "option": "문단 A",
+                "strength": "조사 목적을 설명함",
+                "weakness": "조사 결과(나온 내용)가 거의 없음",
+                "priority": 2
+              },
+              {
+                "option": "문단 B",
+                "strength": "조사 핵심을 숫자/패턴 형태로 요약해 메시지 결정에 연결됨",
+                "weakness": "조사에서 ‘나온 값’을 채워 넣어야 함(초안이라 빈칸 가정)",
+                "priority": 1
+              }
+            ],
+            "author": "라임마켓 내부 검토용",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.78,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_001",
+          "instruction": "표의 후보 3개 중에서, ‘조사·분석 결과가 바로 기획서에 옮겨지기 쉽게’ 가장 구체적으로 적힌 에이전시를 1곳 고르세요. 선택한 이유를 표의 강점/약점 근거로 1~2가지 적어보세요.",
+          "required_materials": [
+            "mat_agency_table"
+          ],
+          "expected_action": "대행사 1곳을 선택하고 이유를 짧게 서술하기"
+        },
+        {
+          "task_id": "task_002",
+          "instruction": "당신이 1번에서 고른 에이전시의 방식에 맞게, 광고기획서에 넣을 ‘조사 결과 문단’을 문단 A/B 중 1개로 고르세요. 선택한 이유를 표의 조사 결과 정리 방식과 연결해서 2~3문장으로 적어보세요.",
+          "required_materials": [
+            "mat_agency_table",
+            "mat_pitch_memo"
+          ],
+          "expected_action": "문단 A/B를 1개 선택하고 이유를 연결해 서술하기"
+        }
+      ],
+      "submission_format": {
+        "type": "short_text",
+        "estimated_time_minutes": 15,
+        "required_sections": [
+          "과제 1 답변(대행사 1곳 선택+이유)",
+          "과제 2 답변(문단 A/B 선택+이유)"
+        ],
+        "length_hint": "각 답변은 2~3문장 내로 작성하세요."
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "표에서 ‘조사 결과가 숫자/핵심 요약 형태로 정리되는지’를 확인해 대행사를 고르는 태도를 보인다.",
+        "선택한 대행사의 조사 방식에 맞춰, 광고기획서 문단도 ‘결과형’으로 고르는 연결을 한다."
+      ],
+      "rubric": [
+        {
+          "criterion": "자료 기반 선택의 근거가 표에 직접 연결됨",
+          "description": "과제 1에서 선택한 대행사가 표의 강점/약점 중 무엇 때문인지 1~2가지로 짚는다.",
+          "points": 30,
+          "linked_evidence": [
+            "읽고 이해하기",
+            "정보 수집"
+          ]
+        },
+        {
+          "criterion": "선택 기준(구체성/바로 옮겨짐)이 이해됨",
+          "description": "표의 ‘조사 결과 정리 방식(숫자/핵심 요약 vs 목적 중심)’이 답에서 드러난다.",
+          "points": 25,
+          "linked_evidence": [
+            "사물, 행동, 사건 파악",
+            "정보 수집"
+          ]
+        },
+        {
+          "criterion": "두 번째 결정이 ‘대행사 방식→문단 형태’로 연결됨",
+          "description": "과제 2에서 문단 A/B를 고를 때, 표의 대행사 조사 결과 형태와 연결해 이유를 적는다.",
+          "points": 25,
+          "linked_evidence": [
+            "글쓰기",
+            "읽고 이해하기"
+          ]
+        },
+        {
+          "criterion": "문단 선택 이유가 간단하고 명확하게 표현됨",
+          "description": "답변이 짧고(2~3문장) 문장 구조가 자연스럽고, 선택 이유가 한눈에 들어온다.",
+          "points": 20,
+          "linked_evidence": [
+            "국어",
+            "글쓰기"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_004",
+        "text": "광고주에게 대행사를 효과적으로 알려 광고대행계약을 하고, 광고할 상품이나 용역에 관한 자료를 조사하여 분석하고, 광고주와 협의하여 광고기획서를 작성한다."
+      },
+      "linked_evidence": {
+        "activities": [
+          "정보 수집",
+          "사물, 행동, 사건 파악"
+        ],
+        "knowledge": [
+          "영업과 마케팅",
+          "정보 수집",
+          "국어",
+          "의사소통과 미디어"
+        ],
+        "abilities": [
+          "읽고 이해하기",
+          "글쓰기"
+        ]
+      },
+      "material_evidence_map": [
+        {
+          "material_id": "mat_agency_table",
+          "supported_by": [
+            "자료의 조사·분석 결과 정리(숫자/핵심 요약) 근거 확인"
+          ]
+        },
+        {
+          "material_id": "mat_pitch_memo",
+          "supported_by": [
+            "광고기획서 문단 A/B의 목적형 vs 결과형 차이를 선택에 반영"
+          ]
+        }
+      ]
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "validator_errors": [
+    {
+      "path": "mission.materials[1].data.items",
+      "severity": "fail",
+      "code": "MATERIAL_SCHEMA_INVALID",
+      "message": "memo items are required.",
+      "required_fix": "Add items.",
+      "repairable": true
+    },
+    {
+      "path": "mission.materials[1].data.items",
+      "severity": "fail",
+      "code": "MATERIAL_SIZE_TOO_SMALL",
+      "message": "count 0 is below minimum 2.",
+      "required_fix": "Add items.",
+      "repairable": true
+    }
+  ],
+  "validator_warnings": [],
+  "repair_rules": [
+    "material.evidence_source must use only exact strings from allowed_evidence_names.",
+    "Do not use source_ref file names, XML field names, or invented evidence labels.",
+    "For table materials, data.columns keys must be option, strength, weakness, priority and rows must use the same keys.",
+    "mission_fact_refs must use only real mission_facts keys such as org_name, domain, period, trend_pattern, main_issue, feedback_themes, and decision_goal.",
+    "evaluation.rubric points must sum exactly to 100.",
+    "evaluation.rubric.linked_evidence must use job profile evidence names, not material ids.",
+    "Respect validator material size limits for chart, log, checklist, memo, email, table, schedule, and card materials.",
+    "Chart series count must be 1 or 2.",
+    "Keep learner-facing text beginner-friendly and job-experience oriented; do not add professional knowledge requirements.",
+    "Make the mission easier than a real workplace task.",
+    "Prefer everyday workplace words over specialist terms.",
+    "Avoid legal, financial, technical, policy, compliance, or expert judgment unless the material explains it in beginner terms.",
+    "Each task must require only one learner action or deliverable.",
+    "JSON만 출력한다.",
+    "target_exec_job, task_type, secondary_task_types, difficulty는 변경하지 않는다.",
+    "allowed_material_types 밖의 material을 추가하지 않는다.",
+    "reliability는 {\"status\":\"pending_validation\"}로 둔다.",
+    "validator_errors와 validator_warnings에 해당하는 부분만 수정한다."
+  ]
+}

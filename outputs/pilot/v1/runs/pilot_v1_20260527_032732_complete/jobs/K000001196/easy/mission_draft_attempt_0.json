@@ -1,0 +1,221 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "draft",
+  "job_identity": {
+    "job_cd": "K000001196",
+    "job_lrcl_nm": "경영·사무·금융·보험직",
+    "job_mdcl_nm": "경영지원 사무원",
+    "job_smcl_nm": "인사·교육·훈련사무원",
+    "source_ref": {
+      "file": "K000001196/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": null
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_002",
+    "text": "광고나 사내공고, 학교추천의뢰 등을 통하여 원서를 접수하고 서류심사 및 소정의 전형을 진행·주관한다.",
+    "source_ref": {
+      "file": "K000001196/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 2
+    },
+    "selection_reason": "원서 접수부터 서류심사·전형 진행/주관까지 단순 절차 수행이 중심이라 난이도 easy에 적합하며, 인사 지식과 ‘인사 업무’ 역량이 직접적으로 관련된다. 체크리스트로 단계별 점검 항목을 진단·정리하기 용이하다."
+  },
+  "mission_facts": {
+    "org_name": "서로봄물류(가상)",
+    "domain": "인사 채용(서류심사 단계)",
+    "period": [
+      "2026년 5월 1주차"
+    ],
+    "trend_pattern": "지원자가 몰리는 시기에 서류심사 누락이 가끔 발생해 다음 단계 일정 입력이 지연됨",
+    "main_issue": "서류심사 체크리스트에 ‘필수 자격요건 확인’ 항목이 비정상(문제 표시) 상태로 남아 있음",
+    "feedback_themes": [
+      "다음 단계로 넘기기 전에 체크리스트의 문제 표시 항목을 먼저 정리해야 함",
+      "항목 누락이 생기면 면접 대상자 명단이 흔들릴 수 있음"
+    ],
+    "decision_goal": "체크리스트에서 가장 먼저 바로잡아야 할 문제 항목을 찾아, 전형 진행에서 왜 중요한지 한 문장으로 설명하기"
+  },
+  "mission": {
+    "title": "채용 서류심사 체크리스트에서 ‘문제 항목’ 찾기",
+    "task_type": "operation_and_scheduling",
+    "secondary_task_types": [],
+    "difficulty": {
+      "level": "easy",
+      "label": "쉬움",
+      "estimated_time_minutes": 10,
+      "material_bundle_style": "single_work_material",
+      "material_count_range": [
+        1,
+        1
+      ],
+      "task_count_range": [
+        1,
+        1
+      ],
+      "answer_length_hint": "1-2 short sentences",
+      "requires_cross_material_reasoning": false,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "당신은 HR 인턴입니다.",
+      "context": "서로봄물류에서는 오늘 오후에 ‘배송운영팀 사원’ 채용 서류심사를 끝내고, 면접 대상자 명단을 다음 단계 일정 시트에 올리려고 합니다. 담당자님이 당신에게 “아래 체크리스트만 보고, 지금 가장 먼저 손봐야 할 문제 항목이 뭐야?”라고 짧게 요청했습니다.",
+      "goal": "체크리스트에서 문제 표시된 항목을 골라, 왜 그 항목을 먼저 바로잡아야 하는지 1-2문장으로 적어주세요.",
+      "constraints": [
+        "답변은 1-2문장으로 짧게 작성하세요.",
+        "체크리스트에 표시된 ‘문제(issue)’ 항목만 근거로 삼아 설명하세요.",
+        "원인 분석(왜 그런지 찾아서 해결책을 길게 제시)까지는 하지 않아도 됩니다."
+      ],
+      "glossary": []
+    },
+    "materials": [
+      {
+        "material_id": "mat_checklist_001",
+        "type": "checklist",
+        "subtype": "채용_서류심사_체크리스트",
+        "title": "배송운영팀 사원 채용 서류심사 체크리스트(현재 상태)",
+        "description": "서류심사 전형에서 다음 단계로 넘기기 전 점검해야 할 항목과 현재 표시 상태입니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "체크리스트의 ‘문제(issue)’ 표시 항목을 찾아, 전형 진행에서 먼저 바로잡아야 할 일을 설명하기",
+        "evidence_source": [
+          "인사 업무"
+        ],
+        "mission_fact_refs": [
+          "org_name",
+          "domain",
+          "main_issue",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "line",
+          "x_axis": {
+            "label": "",
+            "values": []
+          },
+          "y_axis": {
+            "label": "",
+            "unit": ""
+          },
+          "series": [],
+          "columns": [
+            {
+              "key": "option",
+              "label": ""
+            },
+            {
+              "key": "strength",
+              "label": ""
+            },
+            {
+              "key": "weakness",
+              "label": ""
+            },
+            {
+              "key": "priority",
+              "label": ""
+            }
+          ],
+          "rows": [],
+          "author": "",
+          "items": [
+            {
+              "text": "접수된 서류(이력서/자기소개서)가 ATS에 정상 저장됨",
+              "period": "",
+              "task": "",
+              "constraint": "",
+              "label": "체크1",
+              "status": "checked",
+              "importance": "높음"
+            },
+            {
+              "text": "필수 자격요건(공고의 학력/경력 조건)이 충족되는지 지원자별로 표시됨",
+              "period": "",
+              "task": "",
+              "constraint": "",
+              "label": "체크2",
+              "status": "issue",
+              "importance": "매우 높음"
+            },
+            {
+              "text": "면접 대상자 명단을 다음 단계 일정 시트에 입력",
+              "period": "",
+              "task": "",
+              "constraint": "",
+              "label": "체크3",
+              "status": "unchecked",
+              "importance": "높음"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.78,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "task_001",
+        "instruction": "아래 체크리스트를 보고, 지금 ‘문제(issue)’로 표시된 항목이 무엇인지 한 문장으로 적어보세요. 그리고 그 항목을 먼저 바로잡아야 하는 이유를 이어서 한 문장으로 짧게 덧붙이세요.",
+        "required_materials": [
+          "mat_checklist_001"
+        ],
+        "expected_action": "문제 표시된 체크 항목을 지목하고(선택), 그 이유를 전형 진행 관점에서 1-2문장으로 설명한다."
+      }
+    ],
+    "submission_format": {
+      "type": "text",
+      "estimated_time_minutes": 5,
+      "required_sections": [
+        "답변"
+      ],
+      "length_hint": "1-2 short sentences"
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "문제 표시(issue)된 항목을 먼저 찾아내기",
+      "‘필수 자격요건 확인’처럼 다음 단계로 넘기기 전에 필요한 점검 이유를 간단히 설명하기"
+    ],
+    "rubric": [
+      {
+        "criterion": "문제 항목을 정확히 지목함",
+        "description": "체크리스트에서 status가 issue로 표시된 항목을 올바르게 골라 답에 포함했다.",
+        "points": 70,
+        "linked_evidence": [
+          "인사 업무"
+        ]
+      },
+      {
+        "criterion": "이유 설명이 체크리스트 내용과 연결됨",
+        "description": "해당 항목을 먼저 바로잡아야 하는 이유를 전형 진행 흐름(다음 단계로 넘기기 전 점검 필요) 관점에서 짧고 구체적으로 적었다.",
+        "points": 30,
+        "linked_evidence": [
+          "인사 업무"
+        ]
+      }
+    ]
+  },
+  "evidence_chain_draft": {
+    "source_exec_job": {
+      "id": "",
+      "text": ""
+    },
+    "linked_evidence": {
+      "activities": [],
+      "knowledge": [],
+      "abilities": []
+    },
+    "material_evidence_map": []
+  },
+  "reliability": {
+    "status": "pending_validation"
+  }
+}

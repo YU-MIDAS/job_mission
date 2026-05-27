@@ -1,0 +1,106 @@
+{
+  "schema_version": "auto_pilot_config.v1",
+  "job_cd": "K000001196",
+  "job_name": "인사·교육·훈련사무원",
+  "source": {
+    "profile_schema_version": "job_mission_profile.v1",
+    "generated_from": "outputs/profiles/v1/K000001196.json",
+    "generator_version": "auto_pilot_config_generator.v1"
+  },
+  "config": {
+    "preferred_exec_job_id": "exec_007",
+    "preferred_exec_job_keywords": [
+      "직원",
+      "채용",
+      "전보",
+      "휴직",
+      "복직",
+      "면직"
+    ],
+    "preferred_primary_task_type": "operation_and_scheduling",
+    "materials": {
+      "easy": [
+        "chart"
+      ],
+      "normal": [
+        "chart",
+        "table"
+      ],
+      "hard": [
+        "email",
+        "chart",
+        "table"
+      ]
+    }
+  },
+  "confidence": {
+    "score": 0.9,
+    "level": "high",
+    "review_required": false,
+    "reasons": [
+      "exec_job score contribution=0.4",
+      "task_type score contribution=0.15",
+      "material score contribution=0.25"
+    ]
+  },
+  "decision_trace": [
+    {
+      "step": "select_preferred_exec_job",
+      "method": "auto_exec_job_score",
+      "selected": "exec_007",
+      "reason": "total=37, action=2, evidence=33, combo=0."
+    },
+    {
+      "step": "classify_primary_task_type",
+      "method": "exec_job_verb_rule",
+      "selected": "operation_and_scheduling",
+      "reason": "Keyword score 1."
+    },
+    {
+      "step": "select_materials_easy",
+      "method": "auto_material_rule",
+      "selected": [
+        "chart"
+      ],
+      "reason": "easy material candidates selected within max 1.",
+      "trimmed_candidates": [
+        "email",
+        "checklist",
+        "card",
+        "table",
+        "schedule"
+      ]
+    },
+    {
+      "step": "select_materials_normal",
+      "method": "auto_material_rule",
+      "selected": [
+        "chart",
+        "table"
+      ],
+      "reason": "normal material candidates selected within max 2.",
+      "trimmed_candidates": [
+        "email",
+        "checklist",
+        "card",
+        "schedule"
+      ]
+    },
+    {
+      "step": "select_materials_hard",
+      "method": "auto_material_rule",
+      "selected": [
+        "email",
+        "chart",
+        "table"
+      ],
+      "reason": "hard material candidates selected within max 3.",
+      "trimmed_candidates": [
+        "checklist",
+        "card",
+        "schedule"
+      ]
+    }
+  ],
+  "decision_warnings": []
+}

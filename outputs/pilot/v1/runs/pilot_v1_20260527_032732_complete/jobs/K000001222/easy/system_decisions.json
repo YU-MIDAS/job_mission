@@ -1,0 +1,83 @@
+{
+  "schema_version": "system_decisions.v1",
+  "job_cd": "K000001222",
+  "job_name": "방송기자",
+  "difficulty": {
+    "level": "easy",
+    "label": "쉬움",
+    "estimated_time_minutes": 10,
+    "material_bundle_style": "single_work_material",
+    "material_count_range": [
+      1,
+      1
+    ],
+    "task_count_range": [
+      1,
+      1
+    ],
+    "answer_length_hint": "1-2 short sentences",
+    "requires_cross_material_reasoning": false,
+    "requires_tradeoff_judgment": false,
+    "requires_domain_expertise": false
+  },
+  "selected_exec_job": {
+    "exec_job_id": "exec_003",
+    "text": "취재 계획서를 회사에 제출하여 평가받고, 취재 승인을 받으면 일정을 잡아 촬영기자, 뉴스 오디오맨과 한 팀이 되어 사건·사고 현장으로 취재를 간다.",
+    "source_ref": {
+      "file": "K000001222/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 3
+    },
+    "selection_reason": "취재 계획서를 제출하고 승인 후 촬영/팀 일정까지 잡아 현장 취재로 연결하는 업무가 핵심이라, 운영·일정 수립 중심의 쉬운 미션 설계에 적합함. 난이도(자료 1개) 조건에 맞춰 일정(schedule) 자료만 사용."
+  },
+  "primary_task_type": "operation_and_scheduling",
+  "secondary_task_types": [
+    "decision_making"
+  ],
+  "allowed_material_types": [
+    "schedule"
+  ],
+  "mission_design": {
+    "schema_version": "mission_design.v1",
+    "mission_design_type": "general_research_analysis",
+    "design_intent": "제공 자료를 조사, 비교, 분석해 근거 기반 결론을 도출하는 일반 분석 미션",
+    "selection_method": "llm_decision_selector",
+    "selection_reason": "취재 계획서를 제출하고 승인 후 촬영/팀 일정까지 잡아 현장 취재로 연결하는 업무가 핵심이라, 운영·일정 수립 중심의 쉬운 미션 설계에 적합함. 난이도(자료 1개) 조건에 맞춰 일정(schedule) 자료만 사용."
+  },
+  "excluded_material_types": [
+    "image",
+    "screenshot"
+  ],
+  "generation_constraints": {
+    "language": "ko",
+    "json_only": true,
+    "no_real_company_names": true,
+    "no_real_person_names": true,
+    "no_external_research": true,
+    "non_expert_friendly": true,
+    "must_use_provided_materials_only": true,
+    "llm_must_not_create_reliability_score": true,
+    "factual_status_required": true
+  },
+  "decision_trace": [
+    {
+      "step": "llm_decision_selector",
+      "method": "llm_structured_output",
+      "selected": "exec_003",
+      "reason": "취재 계획서를 제출하고 승인 후 촬영/팀 일정까지 잡아 현장 취재로 연결하는 업무가 핵심이라, 운영·일정 수립 중심의 쉬운 미션 설계에 적합함. 난이도(자료 1개) 조건에 맞춰 일정(schedule) 자료만 사용.",
+      "matched_evidence": [
+        "시간 관리",
+        "정보 작성, 기록",
+        "정보 수집",
+        "절차, 자료, 주변환경 관찰"
+      ],
+      "confidence": "high",
+      "primary_task_type": "operation_and_scheduling",
+      "selected_material_types": [
+        "schedule"
+      ],
+      "mission_design_type": "general_research_analysis"
+    }
+  ],
+  "decision_warnings": []
+}

@@ -1,0 +1,456 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "draft_generation",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000000872",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "광고·조사·상품기획·행사기획 전문가",
+      "job_smcl_nm": "광고·홍보·마케팅전문가",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_004",
+      "text": "광고주에게 대행사를 효과적으로 알려 광고대행계약을 하고, 광고할 상품이나 용역에 관한 자료를 조사하여 분석하고, 광고주와 협의하여 광고기획서를 작성한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": null
+      },
+      "selection_reason": "광고주와 협의해 자료 조사·분석 후 광고기획서를 작성하는 업무로, 기획(제안) 중심 과제에 적합하며 시장/상품 자료 분석을 요구하므로 일반 연구·분석 설계가 맞음. 문서형 산출물(메모·표·체크리스트)로 난이도 hard(3개 자료) 조건을 충족."
+    },
+    "mission_facts": {
+      "org_name": "브릿지에어 광고대행(가상)",
+      "domain": "뷰티 D2C(직접구매) 광고 기획",
+      "period": [
+        "2026년 5월 2주 운영(실행 예정)"
+      ],
+      "trend_pattern": "최근 2주 동안 ‘민감피부 진정’과 ‘산뜻한 사용감’ 관련 문의가 함께 늘었음",
+      "main_issue": "신제품 ‘루나글로우 보습크림’의 신규 구매 목표가 계획 대비 부족함",
+      "feedback_themes": [
+        "향이 강하면 불호라는 반응이 섞여 있음",
+        "끈적임이 적고 산뜻하다는 표현이 구매로 이어질 가능성이 있음",
+        "‘민감피부 진정’ 문구에는 관심은 높지만, 사용감이 받쳐줘야 한다는 흐름이 보임"
+      ],
+      "decision_goal": "다음 2주 제안서에 넣을 캠페인 옵션 1개를 고르고, 숫자 해석에서 가장 먼저 조심할 점 1가지를 적기"
+    },
+    "mission": {
+      "title": "루나글로우 보습크림: 캠페인 옵션 1개 제안하기(근거 기반)",
+      "task_type": "planning_and_proposal",
+      "secondary_task_types": [
+        "research_and_analysis",
+        "communication_and_reporting"
+      ],
+      "difficulty": {
+        "level": "hard",
+        "label": "어려움",
+        "estimated_time_minutes": 20,
+        "material_bundle_style": "work_document_packet",
+        "material_count_range": [
+          3,
+          3
+        ],
+        "task_count_range": [
+          2,
+          2
+        ],
+        "answer_length_hint": "3-5 short sentences per task",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "당신은 신입 마케팅 인턴으로, 가상 대행사 ‘브릿지에어’에서 광고기획서를 돕는 역할을 맡았어요.",
+        "context": "고객사 ‘루나케어(가상)’에서 새로 만든 광고기획서를 이번 주 안에 마무리해야 합니다. 당신은 제공된 자료(고객 반응 메모, 캠페인 옵션 비교표, 성과 숫자 체크리스트)를 보고, 관리자에게 전달할 문장 2개(선택 1개 + 주의 1개)를 써야 합니다.",
+        "goal": "(1) 제안서에 넣을 캠페인 옵션 1개를 결정하고, (2) 광고 성과 숫자를 볼 때 가장 먼저 조심할 점을 한 가지로 정리하세요.",
+        "constraints": [
+          "아래 자료에 나온 선택지(A/B)와 문구/숫자만 사용하세요.",
+          "답은 각 과제당 3-5문장으로, ‘선택/주의 + 이유’가 드러나야 합니다.",
+          "추측으로 빈칸을 채우지 말고, 자료에 적힌 표현을 근거로 쓰세요."
+        ],
+        "glossary": [
+          {
+            "term": "중복집계",
+            "definition": "같은 사람이 여러 광고를 보거나 클릭해서, 두 캠페인에서 성과가 서로 섞여 보이는 현상이에요."
+          },
+          {
+            "term": "전환(구매 전환)",
+            "definition": "광고를 보고 실제로 ‘구매’까지 이어진 비율(또는 건수)로, 자료에서는 ‘예상 구매 전환’처럼 표현돼요."
+          }
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "mat_001",
+          "type": "memo",
+          "subtype": "client_brief",
+          "title": "고객 반응 메모: 루나글로우 보습크림(요약)",
+          "description": "루나케어 고객들이 제품/광고 문구를 반응한 내용과, 다음 캠페인에서 신경 써야 할 포인트를 정리했습니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "캠페인 옵션(A/B) 중 어떤 메시지가 더 맞는지 고르기 위한 근거",
+          "evidence_source": [
+            "읽고 이해하기",
+            "영업과 마케팅"
+          ],
+          "mission_fact_refs": [
+            "org_name",
+            "domain",
+            "period",
+            "main_issue",
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "-",
+              "values": []
+            },
+            "y_axis": {
+              "label": "-",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "옵션"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점"
+              },
+              {
+                "key": "priority",
+                "label": "우선"
+              }
+            ],
+            "rows": [],
+            "author": "브릿지에어 기획팀(가상)",
+            "items": [
+              {
+                "text": "댓글/후기에서 ‘향이 강하면 불호’라는 표현이 일부 섞여 있어, 향 관련 불안이 구매를 막는 신호일 수 있음.",
+                "period": "최근 2주",
+                "task": "메시지/소재 방향 파악",
+                "constraint": "자료 밖의 원인 추정 금지",
+                "label": "향 불안",
+                "status": "issue",
+                "importance": "high"
+              },
+              {
+                "text": "‘끈적임이 적고 산뜻하다’는 표현이 구매 의사와 연결되는 분위기가 있었음.",
+                "period": "최근 2주",
+                "task": "사용감(텍스처) 소구 포인트",
+                "constraint": "자료에 근거한 표현만 사용",
+                "label": "산뜻 사용감",
+                "status": "unchecked",
+                "importance": "high"
+              },
+              {
+                "text": "‘민감피부 진정’ 문구에 관심은 있었지만, ‘사용감이 편해야 끝까지 쓸 것 같다’는 흐름이 함께 보임.",
+                "period": "최근 2주",
+                "task": "관심 키워드 + 사용감의 조합 확인",
+                "constraint": "키워드만 강조하는 접근은 부족할 수 있음",
+                "label": "진정+사용감 조합",
+                "status": "unchecked",
+                "importance": "medium"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.86,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_002",
+          "type": "table",
+          "subtype": "campaign_options_comparison",
+          "title": "캠페인 옵션 A/B 비교표(다음 2주 예상)",
+          "description": "두 캠페인 옵션의 메시지 방향과 예상되는 반응 포인트를 정리했습니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "옵션 A/B 중 제안서에 넣을 1개를 선택하는 근거 확보",
+          "evidence_source": [
+            "정보 수집",
+            "읽고 이해하기"
+          ],
+          "mission_fact_refs": [
+            "domain",
+            "period",
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "pie",
+            "x_axis": {
+              "label": "-",
+              "values": []
+            },
+            "y_axis": {
+              "label": "-",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "캠페인 옵션"
+              },
+              {
+                "key": "strength",
+                "label": "강점(자료 근거)"
+              },
+              {
+                "key": "weakness",
+                "label": "약점(자료 근거)"
+              },
+              {
+                "key": "priority",
+                "label": "제안 우선"
+              }
+            ],
+            "rows": [
+              {
+                "option": "A: ‘민감피부 진정 24시간’ 중심",
+                "strength": "진정 관련 검색/문의 흐름과 맞아 관심을 먼저 끌 가능성이 큼. 예상 구매 전환(2주): 320건.",
+                "weakness": "‘향이 강하면 불호’ 반응과 충돌할 여지가 있어, 클릭 후 이탈 가능성 언급됨. 또한 옵션 B와 타깃이 일부 겹쳐(같은 관심군), 성과 숫자가 섞여 보일 수 있음.",
+                "priority": 2
+              },
+              {
+                "option": "B: ‘산뜻한 사용감 + 약하게 부담’ 중심",
+                "strength": "‘끈적임 적고 산뜻’ 반응과 잘 맞는 편. 예상 구매 전환(2주): 380건으로 A보다 높게 예측됨.",
+                "weakness": "진정 키워드 자체의 관심은 A보다 낮게 보임. 다만 메모의 ‘진정+사용감 조합’ 흐름을 메시지에 같이 넣으면 완화 가능하다고 적혀 있음.",
+                "priority": 1
+              }
+            ],
+            "author": "루나케어-브릿지에어 실무 협의(가상)",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.84,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_003",
+          "type": "checklist",
+          "subtype": "measurement_caution_checklist",
+          "title": "성과 숫자 볼 때 초보자 체크리스트(제안서용)",
+          "description": "대시보드 숫자를 보고 결론을 낼 때, 숫자가 ‘좋아 보이는데 실제로는 오해’가 생길 수 있는 지점을 간단히 모았습니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "숫자 해석 시 가장 먼저 조심할 점(주의 1개) 고르기",
+          "evidence_source": [
+            "사무",
+            "읽고 이해하기"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "decision_goal",
+            "domain"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "-",
+              "values": []
+            },
+            "y_axis": {
+              "label": "-",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "-"
+              },
+              {
+                "key": "strength",
+                "label": "-"
+              },
+              {
+                "key": "weakness",
+                "label": "-"
+              },
+              {
+                "key": "priority",
+                "label": "-"
+              }
+            ],
+            "rows": [],
+            "author": "브릿지에어 성과분석팀(가상)",
+            "items": [
+              {
+                "text": "중복집계 확인: 두 옵션이 같은 관심군을 공유하면, 대시보드에서 ‘A가 올린 것처럼’ 보일 수 있어요. 그래서 옵션 간 숫자 비교만으로 단정하지 말고, 자료의 타깃 겹침 문구를 같이 확인하세요.",
+                "period": "성과 리뷰 시(매주)",
+                "task": "숫자 오해 방지",
+                "constraint": "체크 후에만 해석 문장 작성",
+                "label": "중복집계",
+                "status": "issue",
+                "importance": "high"
+              },
+              {
+                "text": "기간 확인: 클릭은 했는데 구매가 뒤로 밀리면, 이번 주 숫자만 보면 성과가 낮게(또는 높게) 보일 수 있어요. 보고 기간 기준을 먼저 맞춰두세요.",
+                "period": "성과 리뷰 시(매주)",
+                "task": "보고 기준 정렬",
+                "constraint": "자료의 ‘2주 예상’ 표현과 맞춰 적기",
+                "label": "기간 지연",
+                "status": "unchecked",
+                "importance": "medium"
+              },
+              {
+                "text": "추적(태그) 누락 확인: 광고 클릭/전환 추적이 빠지면 대시보드가 실제보다 작게 나올 수 있어요. 새 소재를 넣을 때는 누락 여부를 확인하세요.",
+                "period": "신소재 업로드 전/후",
+                "task": "측정 누락 방지",
+                "constraint": "‘0에 가까움’ 같은 이상 징후가 보이면 우선 확인",
+                "label": "추적 누락",
+                "status": "unchecked",
+                "importance": "medium"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.9,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_001",
+          "instruction": "아래 ‘캠페인 옵션 A/B 비교표’와 ‘고객 반응 메모’를 보고, 제안서에 넣을 캠페인 옵션을 A 또는 B 중 1개로 선택하고 2~3가지 근거(메모 + 표에서 보이는 내용)를 묶어서 적어보세요.",
+          "required_materials": [
+            "mat_001",
+            "mat_002"
+          ],
+          "expected_action": "캠페인 옵션 선택 및 이유 3-5문장 작성"
+        },
+        {
+          "task_id": "task_002",
+          "instruction": "‘성과 숫자 볼 때 초보자 체크리스트’에서, 성과 숫자를 보고 오해가 생길 수 있는 주의사항 1개를 골라주세요. 무엇을 조심해야 하는지와 왜 조심해야 하는지(체크리스트의 문장 근거)를 함께 적어보세요.",
+          "required_materials": [
+            "mat_002",
+            "mat_003"
+          ],
+          "expected_action": "주의사항 1개 선택 후 조심 이유 3-5문장 작성"
+        }
+      ],
+      "submission_format": {
+        "type": "서술형 텍스트(과제 답안)",
+        "estimated_time_minutes": 20,
+        "required_sections": [
+          "과제 1: 옵션(A/B) 선택 + 근거",
+          "과제 2: 주의사항 1개 선택 + 이유"
+        ],
+        "length_hint": "과제 1, 2 각각 3-5문장"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "고객 반응 메모의 ‘향/사용감’ 흐름을 캠페인 옵션의 강점과 연결해 적절한 선택을 하는지",
+        "제안서 문장에 근거(표의 예상 구매 전환/장단점, 메모의 고객 표현)가 드러나는지",
+        "숫자 오해를 막기 위해 체크리스트의 ‘중복집계’ 같은 항목을 먼저 짚는지",
+        "문장이 짧고 읽기 쉽게 구성되는지"
+      ],
+      "rubric": [
+        {
+          "criterion": "옵션 선택의 타당성(메모+표의 근거를 2~3개 사용)",
+          "description": "A/B 중 1개를 고르고, 고객 반응 메모의 표현과 비교표의 강점/약점을 연결해 이유가 보이는가.",
+          "points": 40,
+          "linked_evidence": [
+            "영업과 마케팅",
+            "읽고 이해하기"
+          ]
+        },
+        {
+          "criterion": "선택 이유의 문장 구성 명확성",
+          "description": "선택(무엇을 고르는지)과 근거(왜 그런지)가 같은 답안 안에서 자연스럽게 정리되어 읽히는가.",
+          "points": 20,
+          "linked_evidence": [
+            "글쓰기",
+            "국어"
+          ]
+        },
+        {
+          "criterion": "주의사항 정확성(체크리스트에서 항목을 골라 이유를 설명)",
+          "description": "체크리스트의 문장(예: 중복집계 같은 항목)을 정확히 사용해, 숫자 해석에서 왜 조심해야 하는지 설명했는가.",
+          "points": 30,
+          "linked_evidence": [
+            "사무",
+            "읽고 이해하기"
+          ]
+        },
+        {
+          "criterion": "가독성 및 초보자 톤(짧고 직접적인 문장)",
+          "description": "불필요한 전문용어 없이, 3-5문장 분량을 지키며 전달력이 좋은가.",
+          "points": 10,
+          "linked_evidence": [
+            "글쓰기",
+            "국어"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_004",
+        "text": "광고주에게 대행사를 효과적으로 알려 광고대행계약을 하고, 광고할 상품이나 용역에 관한 자료를 조사하여 분석하고, 광고주와 협의하여 광고기획서를 작성한다."
+      },
+      "linked_evidence": {
+        "activities": [],
+        "knowledge": [],
+        "abilities": []
+      },
+      "material_evidence_map": []
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "usage": {
+    "input_tokens": 12833,
+    "output_tokens": 9178,
+    "reasoning_tokens": 5737,
+    "total_tokens": 22011
+  },
+  "errors": []
+}

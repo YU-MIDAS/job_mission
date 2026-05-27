@@ -1,0 +1,15 @@
+{
+  "selected_exec_job_id": "exec_002",
+  "primary_task_type": "planning_and_proposal",
+  "selected_material_types": [
+    "table"
+  ],
+  "mission_design_type": "product_design_with_constraints",
+  "matched_evidence": [
+    "정보, 자료 분석",
+    "경제와 회계",
+    "목표, 전략 수립"
+  ],
+  "selection_reason": "조사·분석 결과를 바탕으로 국내 사회·경제 여건에 맞는 보험상품을 개발하므로 기획/제안 중심 과업에 적합하고, 제약을 반영한 상품 설계형 미션이 맞음",
+  "confidence": "medium"
+}

@@ -1,0 +1,14 @@
+{
+  "selected_exec_job_id": "exec_002",
+  "primary_task_type": "operation_and_scheduling",
+  "selected_material_types": [
+    "checklist"
+  ],
+  "mission_design_type": "data_diagnosis",
+  "matched_evidence": [
+    "인사",
+    "인사 업무"
+  ],
+  "selection_reason": "원서 접수부터 서류심사·전형 진행/주관까지 단순 절차 수행이 중심이라 난이도 easy에 적합하며, 인사 지식과 ‘인사 업무’ 역량이 직접적으로 관련된다. 체크리스트로 단계별 점검 항목을 진단·정리하기 용이하다.",
+  "confidence": "high"
+}

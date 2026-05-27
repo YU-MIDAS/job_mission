@@ -1,0 +1,366 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "draft",
+  "job_identity": {
+    "job_cd": "K000001080",
+    "job_lrcl_nm": "연구직 및 공학 기술직",
+    "job_mdcl_nm": "데이터·네트워크 및 시스템 운영 전문가",
+    "job_smcl_nm": "데이터분석가(빅데이터분석가)",
+    "source_ref": {
+      "file": "K000001080/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": null
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_001",
+    "text": "분석 목표에 따라 데이터의 분석 방법을 기획한다.",
+    "source_ref": {
+      "file": "K000001080/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 1
+    },
+    "selection_reason": "분석 목표에 맞는 분석 방법을 기획하는 작업이 핵심이며, 논리적 분석과 문제해결(의사결정)에 기반해 수집·처리 관점이 포함되기 때문"
+  },
+  "mission_facts": {
+    "org_name": "가상 회사 ‘누리마켓’",
+    "domain": "구독형 이커머스 서비스에서의 회원 전환 퍼널 점검",
+    "period": [
+      "2026년 4월 1주차",
+      "2026년 4월 2주차",
+      "2026년 4월 3주차"
+    ],
+    "trend_pattern": "이번 주에 ‘결제 완료’ 단계 전환율이 크게 떨어졌고, 그 전 단계(방문/시작)는 상대적으로 큰 변화가 없다.",
+    "main_issue": "결제 완료율 하락 원인이 ‘데이터 수집 문제’인지 ‘실제 고객 행동 변화’인지 구분이 필요하다.",
+    "feedback_themes": [
+      "지표가 어디 단계에서 꺾이는지 먼저 눈에 보이게 정리하기",
+      "이상 징후가 특정 이벤트(결제 완료)에서만 보이면 수집/정합성부터 간단히 점검하기"
+    ],
+    "decision_goal": "퍼널에서 가장 먼저 이상이 보이는 단계 1개를 짚고, 다음으로 확인할 점검 항목 1가지를 추천해 팀에 공유한다."
+  },
+  "mission": {
+    "title": "누리마켓 전환 퍼널 이상 징후 빠른 진단",
+    "task_type": "planning_and_proposal",
+    "secondary_task_types": [
+      "research_and_analysis"
+    ],
+    "difficulty": {
+      "level": "normal",
+      "label": "보통",
+      "estimated_time_minutes": 15,
+      "material_bundle_style": "light_work_material_bundle",
+      "material_count_range": [
+        2,
+        2
+      ],
+      "task_count_range": [
+        2,
+        2
+      ],
+      "answer_length_hint": "2-3 short sentences per task",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "당신은 누리마켓 데이터팀 인턴입니다.",
+      "context": "팀 리더가 오늘 아침 슬랙으로 “결제 완료율이 갑자기 떨어진 것 같아. 대시보드에서 어디가 꺾였는지랑, 다음에 뭘 먼저 확인하면 좋을지 2가지만 간단히 정리해줘.”라고 보냈습니다. 당신은 제공된 퍼널 요약 표와 점검 체크리스트를 보고, 단계별 변화가 어디에 집중되는지와 ‘먼저 볼 것’을 골라 리더에게 공유하려고 합니다.",
+      "goal": "아래 자료를 보고 1) 이상이 가장 먼저 보이는 퍼널 단계 1개와 2) 다음으로 확인할 점검 항목 1개를 정리해 주세요.",
+      "constraints": [
+        "답은 제공된 표/체크리스트에서 확인되는 내용만 근거로 작성하세요.",
+        "외부 지식이나 추측(원인이 확정되었다는 표현)은 피하고, ‘자료에서 보이는 변화/단서’ 중심으로 적어주세요.",
+        "각 태스크당 2~3문장으로 간단히 작성하세요."
+      ],
+      "glossary": []
+    },
+    "materials": [
+      {
+        "material_id": "mat_funnel_001",
+        "type": "table",
+        "subtype": "funnel_weekly_summary",
+        "title": "주간 전환 퍼널 요약(방문→시작→가입→결제)",
+        "description": "이번 주와 전 주의 퍼널 단계별 건수와 전환율 변화를 요약한 표입니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "전환율이 가장 크게 꺾이는 단계를 찾아 태스크 1 답을 작성합니다.",
+        "evidence_source": [
+          "정보, 자료 분석",
+          "정보 처리"
+        ],
+        "mission_fact_refs": [
+          "domain",
+          "period",
+          "trend_pattern",
+          "main_issue",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "퍼널 단계",
+            "values": [
+              "방문(시작)",
+              "시작(클릭)",
+              "가입완료",
+              "결제완료"
+            ]
+          },
+          "y_axis": {
+            "label": "변화 정도(우선순위)",
+            "unit": "순위"
+          },
+          "series": [
+            {
+              "name": "변화 크기 순위",
+              "values": [
+                3,
+                2,
+                4,
+                1
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "퍼널 단계"
+            },
+            {
+              "key": "strength",
+              "label": "건수(이번 주/전 주)"
+            },
+            {
+              "key": "weakness",
+              "label": "전환율 변화(눈에 띄는 값)"
+            },
+            {
+              "key": "priority",
+              "label": "변화 큼(1=가장 큼)"
+            }
+          ],
+          "rows": [
+            {
+              "option": "방문(시작)",
+              "strength": "120,340 → 118,900 (비슷)",
+              "weakness": "단계 시작 전환율: 100% 기준(비교의 기준 단계)",
+              "priority": 3
+            },
+            {
+              "option": "시작(클릭)",
+              "strength": "62,010 → 60,900",
+              "weakness": "방문→시작 전환율: 51.5% → 51.2%",
+              "priority": 2
+            },
+            {
+              "option": "가입완료",
+              "strength": "9,860 → 9,540",
+              "weakness": "시작→가입 전환율: 15.9% → 15.7% (큰 변화 아님)",
+              "priority": 4
+            },
+            {
+              "option": "결제완료",
+              "strength": "1,180 → 740",
+              "weakness": "가입→결제 전환율: 11.97% → 7.76% (약 -35%)",
+              "priority": 1
+            }
+          ],
+          "author": "누리마켓 데이터팀(가상)",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.74,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "mat_check_001",
+        "type": "checklist",
+        "subtype": "data_quality_quick_checks",
+        "title": "이상 징후(전환율 하락)일 때 빠른 점검 체크리스트",
+        "description": "특정 단계 이벤트에서만 급격한 변화가 보일 때, 초보자가 ‘먼저 확인할 것’을 고를 수 있게 정리한 점검 목록입니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "태스크 2에서 ‘다음으로 먼저 볼 점검 항목 1개’를 선택하고 이유를 짭니다.",
+        "evidence_source": [
+          "정보 수집",
+          "의사 결정, 문제점 해결"
+        ],
+        "mission_fact_refs": [
+          "main_issue",
+          "trend_pattern",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "pie",
+          "x_axis": {
+            "label": "체크 항목",
+            "values": [
+              "결제완료 이벤트 누락 여부",
+              "이벤트 중복/재전송 여부",
+              "시간대/필터 조건으로 인한 누락 여부"
+            ]
+          },
+          "y_axis": {
+            "label": "우선순위",
+            "unit": "레벨"
+          },
+          "series": [
+            {
+              "name": "우선순위",
+              "values": [
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "점검 항목"
+            },
+            {
+              "key": "strength",
+              "label": "무엇을 확인하나(간단 설명)"
+            },
+            {
+              "key": "weakness",
+              "label": "어떤 단서면 우선순위가 높나(예시)"
+            },
+            {
+              "key": "priority",
+              "label": "추천 순서(1=먼저)"
+            }
+          ],
+          "rows": [
+            {
+              "option": "결제완료 이벤트 누락 여부",
+              "strength": "‘결제완료’ 이벤트가 이번 주에 실제로 수집이 끊기거나 일부만 들어왔는지 확인",
+              "weakness": "퍼널 표에서 ‘결제완료’에서만 전환율이 크게 떨어지고, 바로 직전 단계(예: 가입완료)는 크게 안 변할 때",
+              "priority": 1
+            },
+            {
+              "option": "이벤트 중복/재전송 여부",
+              "strength": "결제완료 이벤트가 중복으로 들어오거나(또는 반대로 일부 누락) 처리 파이프라인에서 재전송이 있었는지 확인",
+              "weakness": "이번 주에 결제완료 건수가 ‘이상하게 크거나/롤링으로 들쭉날쭉’하고 중간 단계도 함께 흔들릴 때",
+              "priority": 2
+            },
+            {
+              "option": "시간대/필터 조건으로 인한 누락 여부",
+              "strength": "지표 계산에 쓰는 날짜 기준(시간대)이나 필터 조건이 바뀌어 특정 구간이 빠졌는지 확인",
+              "weakness": "전환율 하락이 특정 요일/시간대에만 몰리거나, 여러 단계에서 동시 불균형이 나타날 때",
+              "priority": 3
+            }
+          ],
+          "author": "누리마켓 데이터팀(가상)",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.71,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "task_01",
+        "instruction": "아래 퍼널 표에서 전환이 가장 크게 꺾인 단계가 무엇인지 1개를 골라서 한 문장으로 적어주세요. “어느 단계의 전환율이 얼마나 변했는지”처럼 표의 눈에 보이는 변화로만 설명해 주세요.",
+        "required_materials": [
+          "mat_funnel_001"
+        ],
+        "expected_action": "표에서 전환율 하락이 가장 큰 퍼널 단계를 정확히 짚고, 변화 수치(전환율)까지 2~3문장으로 서술합니다."
+      },
+      {
+        "task_id": "task_02",
+        "instruction": "체크리스트에서 방금 표의 이상 징후에 가장 먼저 맞는 점검 항목 1개를 고르고, 왜 그 항목을 먼저 봐야 하는지 1~2문장으로 이유를 적어주세요.",
+        "required_materials": [
+          "mat_funnel_001",
+          "mat_check_001"
+        ],
+        "expected_action": "체크 항목 중 ‘결제완료 이벤트 누락 여부’(우선순위 1)를 선택하고, 표에서 결제완료에서만 급격히 떨어졌다는 단서를 이유로 제시합니다."
+      }
+    ],
+    "submission_format": {
+      "type": "text",
+      "estimated_time_minutes": 15,
+      "required_sections": [
+        "태스크 1 답(전환이 가장 크게 꺾인 단계)",
+        "태스크 2 답(다음 점검 항목 1개와 이유)"
+      ],
+      "length_hint": "각 태스크당 2~3문장"
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "전환율이 가장 크게 떨어진 퍼널 단계(‘결제완료’)를 표 근거로 식별한다.",
+      "결제 완료 단계의 급격한 변화에 맞춰, 먼저 확인할 점검 항목(‘결제완료 이벤트 누락 여부’)을 고르고 이유를 단서와 연결해 설명한다."
+    ],
+    "rubric": [
+      {
+        "criterion": "퍼널 표에서 전환율 하락이 가장 큰 단계 1개를 정확히 식별함",
+        "description": "표의 ‘전환율 변화’ 정보를 사용해 가장 큰 하락이 보이는 단계를 맞게 짚는다.",
+        "points": 50,
+        "linked_evidence": [
+          "정보, 자료 분석"
+        ]
+      },
+      {
+        "criterion": "체크리스트에서 먼저 확인할 항목 1개를 올바르게 선택하고, 표의 단서와 연결해 이유를 든다",
+        "description": "‘결제완료’에서만 급격히 떨어졌다는 관찰을 근거로 우선 점검 항목을 고른다.",
+        "points": 50,
+        "linked_evidence": [
+          "의사 결정, 문제점 해결",
+          "정보 수집"
+        ]
+      }
+    ]
+  },
+  "evidence_chain_draft": {
+    "source_exec_job": {
+      "id": "exec_001",
+      "text": "분석 목표에 따라 데이터의 분석 방법을 기획한다."
+    },
+    "linked_evidence": {
+      "activities": [
+        "정보, 자료 분석",
+        "의사 결정, 문제점 해결"
+      ],
+      "knowledge": [
+        "산수와 수학"
+      ],
+      "abilities": [
+        "논리적 분석",
+        "추리력"
+      ]
+    },
+    "material_evidence_map": [
+      {
+        "material_id": "mat_funnel_001",
+        "supported_by": [
+          "정보, 자료 분석",
+          "정보 처리"
+        ]
+      },
+      {
+        "material_id": "mat_check_001",
+        "supported_by": [
+          "정보 수집",
+          "의사 결정, 문제점 해결"
+        ]
+      }
+    ]
+  },
+  "reliability": {
+    "status": "pending_validation"
+  }
+}

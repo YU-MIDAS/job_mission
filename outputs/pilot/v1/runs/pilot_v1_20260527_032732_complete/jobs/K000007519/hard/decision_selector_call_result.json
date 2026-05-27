@@ -1,0 +1,39 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_003",
+    "primary_task_type": "decision_making",
+    "selected_material_types": [
+      "chart",
+      "table",
+      "checklist"
+    ],
+    "mission_design_type": "product_design_with_constraints",
+    "matched_evidence": [
+      "수리력",
+      "경제와 회계",
+      "의사 결정, 문제점 해결"
+    ],
+    "selection_reason": "보험료와 책임준비금을 산출해 적절한 상품안을 확정하는 의사결정이 핵심이므로 보험수리 계산 역량과 경제·회계 관점, 문제 해결/선택 근거를 요구하는 exec_003이 적합하다.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 1999,
+    "output_tokens": 1239,
+    "reasoning_tokens": 1100,
+    "total_tokens": 3238
+  },
+  "errors": []
+}

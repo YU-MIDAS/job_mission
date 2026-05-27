@@ -1,0 +1,35 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_001",
+    "primary_task_type": "research_and_analysis",
+    "selected_material_types": [
+      "table"
+    ],
+    "mission_design_type": "general_research_analysis",
+    "matched_evidence": [
+      "정보 수집"
+    ],
+    "selection_reason": "난이도 easy에서 핵심인 국내외 경제·산업·기업 정보를 ‘수집’하고 간단히 분석하는 작업에 exec_001이 가장 직접적으로 부합한다.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 2079,
+    "output_tokens": 676,
+    "reasoning_tokens": 574,
+    "total_tokens": 2755
+  },
+  "errors": []
+}

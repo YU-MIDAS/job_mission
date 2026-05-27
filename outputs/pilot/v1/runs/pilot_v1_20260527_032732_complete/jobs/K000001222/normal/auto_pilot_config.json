@@ -1,0 +1,106 @@
+{
+  "schema_version": "auto_pilot_config.v1",
+  "job_cd": "K000001222",
+  "job_name": "방송기자",
+  "source": {
+    "profile_schema_version": "job_mission_profile.v1",
+    "generated_from": "outputs/profiles/v1/K000001222.json",
+    "generator_version": "auto_pilot_config_generator.v1"
+  },
+  "config": {
+    "preferred_exec_job_id": "exec_003",
+    "preferred_exec_job_keywords": [
+      "취재",
+      "계획서",
+      "회사",
+      "제출",
+      "평가받고",
+      "승인"
+    ],
+    "preferred_primary_task_type": "planning_and_proposal",
+    "materials": {
+      "easy": [
+        "table"
+      ],
+      "normal": [
+        "table",
+        "chart"
+      ],
+      "hard": [
+        "email",
+        "table",
+        "chart"
+      ]
+    }
+  },
+  "confidence": {
+    "score": 0.78,
+    "level": "medium",
+    "review_required": false,
+    "reasons": [
+      "exec_job score contribution=0.28",
+      "task_type score contribution=0.15",
+      "material score contribution=0.25"
+    ]
+  },
+  "decision_trace": [
+    {
+      "step": "select_preferred_exec_job",
+      "method": "auto_exec_job_score",
+      "selected": "exec_003",
+      "reason": "total=13, action=7, evidence=6, combo=0."
+    },
+    {
+      "step": "classify_primary_task_type",
+      "method": "exec_job_verb_rule",
+      "selected": "planning_and_proposal",
+      "reason": "Keyword score 1."
+    },
+    {
+      "step": "select_materials_easy",
+      "method": "auto_material_rule",
+      "selected": [
+        "table"
+      ],
+      "reason": "easy material candidates selected within max 1.",
+      "trimmed_candidates": [
+        "email",
+        "schedule",
+        "checklist",
+        "card",
+        "chart"
+      ]
+    },
+    {
+      "step": "select_materials_normal",
+      "method": "auto_material_rule",
+      "selected": [
+        "table",
+        "chart"
+      ],
+      "reason": "normal material candidates selected within max 2.",
+      "trimmed_candidates": [
+        "email",
+        "schedule",
+        "checklist",
+        "card"
+      ]
+    },
+    {
+      "step": "select_materials_hard",
+      "method": "auto_material_rule",
+      "selected": [
+        "email",
+        "table",
+        "chart"
+      ],
+      "reason": "hard material candidates selected within max 3.",
+      "trimmed_candidates": [
+        "schedule",
+        "checklist",
+        "card"
+      ]
+    }
+  ],
+  "decision_warnings": []
+}

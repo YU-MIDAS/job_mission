@@ -1,0 +1,80 @@
+{
+  "schema_version": "system_decisions.v1",
+  "job_cd": "K000000872",
+  "job_name": "광고·홍보·마케팅전문가",
+  "difficulty": {
+    "level": "easy",
+    "label": "쉬움",
+    "estimated_time_minutes": 10,
+    "material_bundle_style": "single_work_material",
+    "material_count_range": [
+      1,
+      1
+    ],
+    "task_count_range": [
+      1,
+      1
+    ],
+    "answer_length_hint": "1-2 short sentences",
+    "requires_cross_material_reasoning": false,
+    "requires_tradeoff_judgment": false,
+    "requires_domain_expertise": false
+  },
+  "selected_exec_job": {
+    "exec_job_id": "exec_001",
+    "text": "사업체의 마케팅, 광고, 홍보 전략에 대해 자문한다.",
+    "source_ref": {
+      "file": "K000000872/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 1
+    },
+    "selection_reason": "사업체의 마케팅·광고·홍보 전략을 자문하는 역할이므로 간단한 조사 분석 결과를 바탕으로 제안 메모를 작성하는 형태가 적합함"
+  },
+  "primary_task_type": "planning_and_proposal",
+  "secondary_task_types": [],
+  "allowed_material_types": [
+    "memo"
+  ],
+  "mission_design": {
+    "schema_version": "mission_design.v1",
+    "mission_design_type": "general_research_analysis",
+    "design_intent": "제공 자료를 조사, 비교, 분석해 근거 기반 결론을 도출하는 일반 분석 미션",
+    "selection_method": "llm_decision_selector",
+    "selection_reason": "사업체의 마케팅·광고·홍보 전략을 자문하는 역할이므로 간단한 조사 분석 결과를 바탕으로 제안 메모를 작성하는 형태가 적합함"
+  },
+  "excluded_material_types": [
+    "image",
+    "screenshot"
+  ],
+  "generation_constraints": {
+    "language": "ko",
+    "json_only": true,
+    "no_real_company_names": true,
+    "no_real_person_names": true,
+    "no_external_research": true,
+    "non_expert_friendly": true,
+    "must_use_provided_materials_only": true,
+    "llm_must_not_create_reliability_score": true,
+    "factual_status_required": true
+  },
+  "decision_trace": [
+    {
+      "step": "llm_decision_selector",
+      "method": "llm_structured_output",
+      "selected": "exec_001",
+      "reason": "사업체의 마케팅·광고·홍보 전략을 자문하는 역할이므로 간단한 조사 분석 결과를 바탕으로 제안 메모를 작성하는 형태가 적합함",
+      "matched_evidence": [
+        "영업과 마케팅",
+        "정보 수집",
+        "글쓰기"
+      ],
+      "confidence": "high",
+      "primary_task_type": "planning_and_proposal",
+      "selected_material_types": [
+        "memo"
+      ],
+      "mission_design_type": "general_research_analysis"
+    }
+  ],
+  "decision_warnings": []
+}

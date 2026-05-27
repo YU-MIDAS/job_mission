@@ -1,0 +1,1449 @@
+{
+  "schema_version": "llm_input_package.v1",
+  "job_profile": {
+    "schema_version": "job_mission_profile.v1",
+    "source_root": "data/api_raw",
+    "job_identity": {
+      "job_cd": "K000000997",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "광고·조사·상품기획·행사기획 전문가",
+      "job_smcl_nm": "상품기획자",
+      "source_ref": {
+        "file": "K000000997/dtlGb_2.xml",
+        "field": "jobsDo"
+      }
+    },
+    "work": {
+      "job_summary": {
+        "text": "시장동향을 파악하여 상품을 기획한다.",
+        "source_ref": {
+          "file": "K000000997/dtlGb_2.xml",
+          "field": "jobsDo.jobSum"
+        }
+      },
+      "exec_jobs": [
+        {
+          "exec_job_id": "exec_001",
+          "text": "소비자의 구매 패턴과 소비 유형을 파악한다.",
+          "source_ref": {
+            "file": "K000000997/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 1
+          }
+        },
+        {
+          "exec_job_id": "exec_002",
+          "text": "소비자의 현재 또는 장래 취향을 조사·분석하여 판매 가능한 상품을 기획·개발한다.",
+          "source_ref": {
+            "file": "K000000997/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 2
+          }
+        },
+        {
+          "exec_job_id": "exec_003",
+          "text": "시장성 있는 상품을 개발하고, 개발한 상품을 생산하는 제조업체와 매매 조건, 수수료 등을 협의하고 계약을 체결한다.",
+          "source_ref": {
+            "file": "K000000997/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 3
+          }
+        },
+        {
+          "exec_job_id": "exec_004",
+          "text": "특정상품 및 서비스에 관한 현재의 판매수준, 소비자의 평가 등에 관한 정보를 체계적으로 수집·분석한다.",
+          "source_ref": {
+            "file": "K000000997/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 4
+          }
+        }
+      ]
+    },
+    "technical_context": {
+      "techn_know": {
+        "text": "상품기획전문가가 되기 위해 특별히 정해진 교육이나 훈련과정은 없다. 하지만 대학교에서 경영, 경제, 무역, 유통을 전공하거나 의상, 섬유, 식품 등 특정한 분야에 대한 전문지식을 갖추고 있는 것이 유리하다. 그리고 채용 시 아르바이트나 인턴, 창업 등 해당 분야에서 활동한 경력을 높이 사는 업체도 많으므로 유통 분야의 경험을 쌓는 것도 좋다.\n이외에도 사설학원에 개설된 MD 전문교육과정을 이수하여 관련 지식을 습득할 수 있으며, 관련 자격증 및 외국어 능력을 향상시키는 것이 취업에 유리할 수 있다. 상품기획을 위해서는 소비자의 심리를 분석할 수 있어야 하고, 시장의 흐름을 파악하는 능력과 유행을 이끌 수 있는 능력 등이 요구된다.",
+        "source_ref": {
+          "file": "K000000997/dtlGb_3.xml",
+          "field": "way.technKnow"
+        }
+      }
+    },
+    "evidence": {
+      "abilities": [
+        {
+          "name": "창의력",
+          "score": 91,
+          "description": "주어진 주제나 상황에 대하여 독특하고 기발한 아이디어를 산출한다",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 1
+          }
+        },
+        {
+          "name": "협상",
+          "score": 75,
+          "description": "사람들과의 의견차이를 좁혀 합의점을 찾는다",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2
+          }
+        },
+        {
+          "name": "말하기",
+          "score": 73,
+          "description": "자기가 알고 있는 것을 다른 사람에게 조리있게 말한다",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 3
+          }
+        },
+        {
+          "name": "기억력",
+          "score": 72,
+          "description": "단어, 수, 그림 그리고 철자와 같은 정보를 기억한다",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 4
+          }
+        },
+        {
+          "name": "설득",
+          "score": 71,
+          "description": "다른 사람들의 마음이나 행동을 변화시키기 위해 설득한다",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 5
+          }
+        }
+      ],
+      "knowledge": [
+        {
+          "name": "영업과 마케팅",
+          "score": 91,
+          "description": "상품이나 서비스를 판매하거나 촉진을 하는 것에 관한 지식(마케팅 전략, 상품의 전시와 판매기법, 영업관리 등)",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 1
+          }
+        },
+        {
+          "name": "상품 제조 및 공정",
+          "score": 86,
+          "description": "상품의 제조 및 유통을 효율적으로 하기 위해 필요한 원자재, 제조공정, 품질관리, 비용에 관한 지식",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 2
+          }
+        },
+        {
+          "name": "디자인",
+          "score": 84,
+          "description": "밑그림, 제도와 같이 디자인에 필요한 기법 및 도구에 관한 지식",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 3
+          }
+        },
+        {
+          "name": "경제와 회계",
+          "score": 83,
+          "description": "돈의 흐름, 은행업무, 그리고 재무자료의 보고와 분석과 같은 경제 및 회계원리에 관한 지식",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 4
+          }
+        },
+        {
+          "name": "경영 및 행정",
+          "score": 83,
+          "description": "사업운영, 기획, 자원배분, 인적자원관리, 리더십, 생산기법에 대한 원리 등 경영 및 관리에 관한 지식",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 5
+          }
+        }
+      ],
+      "work_environment": [
+        {
+          "name": "재택근무",
+          "score": 92,
+          "description": "재택근무 가능성",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 1
+          }
+        },
+        {
+          "name": "다른 사람들을 조율하거나 이끌기",
+          "score": 91,
+          "description": "업무 특성상 다른 사람들을 조율하거나 이끄는 것의 중요성",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 2
+          }
+        },
+        {
+          "name": "이메일 이용하기",
+          "score": 90,
+          "description": "업무 수행하면서 이메일 사용하는 정도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 3
+          }
+        },
+        {
+          "name": "다른 사람과의 접촉",
+          "score": 90,
+          "description": "업무 수행하면서 사람들과 접촉(전화, 대면, 메신저 등) 정도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 4
+          }
+        },
+        {
+          "name": "갈등 상황",
+          "score": 89,
+          "description": "업무 수행 시 갈등 상황 노출 정도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000000997/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 5
+          }
+        }
+      ],
+      "work_activities": [
+        {
+          "name": "업무, 활동에 대한 일정관리",
+          "score": 98,
+          "description": "이벤트, 프로그램, 활동에 대한 일정을 관리하기 활동 중요도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000000997/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1
+          }
+        },
+        {
+          "name": "사물, 행동, 사건 파악",
+          "score": 97,
+          "description": "차이점과 유사점을 분류하고 어떤 상황에서 변화를 알아차림으로써 정보를 파악하기 활동 중요도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000000997/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2
+          }
+        },
+        {
+          "name": "목표, 전략 수립",
+          "score": 95,
+          "description": "장기 목표를 세우고 그 목표를 달성하기 위한 전략과 실행할 목록을 명시하기 활동 중요도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000000997/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 3
+          }
+        },
+        {
+          "name": "의사 결정, 문제점 해결",
+          "score": 95,
+          "description": "가장 좋은 해결책을 선택하기 위해 정보를 분석하고 문제점을 해결하기 위해 결과를 평가하기 활동 중요도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000000997/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4
+          }
+        },
+        {
+          "name": "창조적 생각",
+          "score": 95,
+          "description": "새로운 소프트웨어, 생각, 시스템, 제품 등을 설계하고 개발하기 활동 중요도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000000997/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5
+          }
+        },
+        {
+          "name": "정보 수집",
+          "score": 94,
+          "description": "모든 관련 자료에서 정보를 수집, 관찰하기 중요도",
+          "rank": 6,
+          "source_ref": {
+            "file": "K000000997/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 6
+          }
+        },
+        {
+          "name": "사람들에게 영향력 행사",
+          "score": 94,
+          "description": "사람들에게 물건을 팔거나 그들의 생각과 행동을 바꾸도록 설득하기 활동 중요도",
+          "rank": 7,
+          "source_ref": {
+            "file": "K000000997/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 7
+          }
+        },
+        {
+          "name": "사람들의 업무와 활동을 조직, 편성",
+          "score": 93,
+          "description": "그룹 내 구성원들이 업무 완수를 위해 함께 일하도록 조율하기 활동 중요도",
+          "rank": 8,
+          "source_ref": {
+            "file": "K000000997/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 8
+          }
+        },
+        {
+          "name": "사물, 서비스, 사람의 질 판단",
+          "score": 92,
+          "description": "사물, 사람의 가치, 중요성, 질을 평가하기 활동 중요도",
+          "rank": 9,
+          "source_ref": {
+            "file": "K000000997/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 9
+          }
+        },
+        {
+          "name": "업무 계획, 우선순위 결정",
+          "score": 90,
+          "description": "업무의 우선순위를 결정, 배치하고 완수하기 위해 구체적인 목표와 계획 세우기 활동 중요도",
+          "rank": 10,
+          "source_ref": {
+            "file": "K000000997/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 10
+          }
+        }
+      ]
+    },
+    "source_files": [
+      {
+        "file": "K000000997/dtlGb_2.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000000997/dtlGb_5.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000000997/dtlGb_7.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000000997/dtlGb_3.xml",
+        "required": false,
+        "loaded": true
+      }
+    ],
+    "loader_warnings": [],
+    "loader_errors": []
+  },
+  "system_decisions": {
+    "schema_version": "system_decisions.v1",
+    "job_cd": "K000000997",
+    "job_name": "상품기획자",
+    "difficulty": {
+      "level": "hard",
+      "label": "어려움",
+      "estimated_time_minutes": 20,
+      "material_bundle_style": "work_document_packet",
+      "material_count_range": [
+        3,
+        3
+      ],
+      "task_count_range": [
+        2,
+        2
+      ],
+      "answer_length_hint": "3-5 short sentences per task",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "selected_exec_job": {
+      "exec_job_id": "exec_002",
+      "text": "소비자의 현재 또는 장래 취향을 조사·분석하여 판매 가능한 상품을 기획·개발한다.",
+      "source_ref": {
+        "file": "K000000997/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 2
+      },
+      "selection_reason": "소비자 취향을 조사·분석해 판매 가능한 상품을 기획·개발하는 내용이 상품기획자 직무의 핵심이며, 상품 제약을 반영한 기획안을 제안하기에 적합하다. 또한 아이디어 도출(창의력)과 마케팅 관점(영업과 마케팅), 제조·공정 고려(상품 제조 및 공정) 증거가 직접적으로 연결된다."
+    },
+    "primary_task_type": "planning_and_proposal",
+    "secondary_task_types": [
+      "research_and_analysis"
+    ],
+    "allowed_material_types": [
+      "table",
+      "checklist",
+      "memo"
+    ],
+    "mission_design": {
+      "schema_version": "mission_design.v1",
+      "mission_design_type": "product_design_with_constraints",
+      "design_intent": "수요, 비용, 제약조건을 고려해 상품 또는 서비스 설계안을 제안하는 미션",
+      "selection_method": "llm_decision_selector",
+      "selection_reason": "소비자 취향을 조사·분석해 판매 가능한 상품을 기획·개발하는 내용이 상품기획자 직무의 핵심이며, 상품 제약을 반영한 기획안을 제안하기에 적합하다. 또한 아이디어 도출(창의력)과 마케팅 관점(영업과 마케팅), 제조·공정 고려(상품 제조 및 공정) 증거가 직접적으로 연결된다."
+    },
+    "excluded_material_types": [
+      "image",
+      "screenshot"
+    ],
+    "generation_constraints": {
+      "language": "ko",
+      "json_only": true,
+      "no_real_company_names": true,
+      "no_real_person_names": true,
+      "no_external_research": true,
+      "non_expert_friendly": true,
+      "must_use_provided_materials_only": true,
+      "llm_must_not_create_reliability_score": true,
+      "factual_status_required": true
+    },
+    "decision_trace": [
+      {
+        "step": "llm_decision_selector",
+        "method": "llm_structured_output",
+        "selected": "exec_002",
+        "reason": "소비자 취향을 조사·분석해 판매 가능한 상품을 기획·개발하는 내용이 상품기획자 직무의 핵심이며, 상품 제약을 반영한 기획안을 제안하기에 적합하다. 또한 아이디어 도출(창의력)과 마케팅 관점(영업과 마케팅), 제조·공정 고려(상품 제조 및 공정) 증거가 직접적으로 연결된다.",
+        "matched_evidence": [
+          "창의력",
+          "영업과 마케팅",
+          "상품 제조 및 공정"
+        ],
+        "confidence": "high",
+        "primary_task_type": "planning_and_proposal",
+        "selected_material_types": [
+          "table",
+          "checklist",
+          "memo"
+        ],
+        "mission_design_type": "product_design_with_constraints"
+      }
+    ],
+    "decision_warnings": []
+  },
+  "schema_constraints": {
+    "schema_version": "schema_constraints.v1",
+    "output_schema": "mission_output.v1",
+    "material_detail_schema": "material_detail_schema.v1",
+    "task_material_taxonomy": "task_and_material_taxonomy.v1",
+    "difficulty_policy": "mission_difficulty_policy.v1",
+    "json_only": true,
+    "required_top_level_fields": [
+      "schema_version",
+      "mission_id",
+      "job_identity",
+      "target_exec_job",
+      "mission_facts",
+      "mission",
+      "evaluation",
+      "evidence_chain_draft",
+      "reliability"
+    ],
+    "forbidden_fields": [
+      "reliability.score",
+      "reliability.passed",
+      "evidence_chain"
+    ],
+    "must_copy_from_system_decisions": [
+      "target_exec_job",
+      "mission.task_type",
+      "mission.secondary_task_types",
+      "mission.difficulty"
+    ],
+    "material_rules": {
+      "allowed_material_types": [
+        "card",
+        "chart",
+        "checklist",
+        "email",
+        "log",
+        "memo",
+        "schedule",
+        "table"
+      ],
+      "allowed_evidence_names": [
+        "창의력",
+        "협상",
+        "말하기",
+        "기억력",
+        "설득",
+        "영업과 마케팅",
+        "상품 제조 및 공정",
+        "디자인",
+        "경제와 회계",
+        "경영 및 행정",
+        "재택근무",
+        "다른 사람들을 조율하거나 이끌기",
+        "이메일 이용하기",
+        "다른 사람과의 접촉",
+        "갈등 상황",
+        "업무, 활동에 대한 일정관리",
+        "사물, 행동, 사건 파악",
+        "목표, 전략 수립",
+        "의사 결정, 문제점 해결",
+        "창조적 생각",
+        "정보 수집",
+        "사람들에게 영향력 행사",
+        "사람들의 업무와 활동을 조직, 편성",
+        "사물, 서비스, 사람의 질 판단",
+        "업무 계획, 우선순위 결정"
+      ],
+      "use_only_allowed_material_types": true,
+      "excluded_material_types": [
+        "image",
+        "screenshot"
+      ],
+      "factual_status_required": true,
+      "mission_fact_refs_required": true,
+      "evidence_source_required": true,
+      "factual_status_value": "synthetic_mission_material"
+    },
+    "mission_fact_rules": {
+      "must_create_before_materials": true,
+      "all_material_refs_must_exist": true,
+      "no_cross_material_conflict": true
+    },
+    "repair_policy": {
+      "max_repair_attempts": 1,
+      "repair_only_validator_errors": true,
+      "do_not_change_system_decisions": true
+    },
+    "structured_output_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "mission_id",
+        "job_identity",
+        "target_exec_job",
+        "mission_facts",
+        "mission",
+        "evaluation",
+        "evidence_chain_draft",
+        "reliability"
+      ],
+      "properties": {
+        "schema_version": {
+          "enum": [
+            "mission_output.v1"
+          ]
+        },
+        "mission_id": {
+          "enum": [
+            "draft"
+          ]
+        },
+        "job_identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "job_cd",
+            "job_lrcl_nm",
+            "job_mdcl_nm",
+            "job_smcl_nm",
+            "source_ref"
+          ],
+          "properties": {
+            "job_cd": {
+              "type": "string"
+            },
+            "job_lrcl_nm": {
+              "type": "string"
+            },
+            "job_mdcl_nm": {
+              "type": "string"
+            },
+            "job_smcl_nm": {
+              "type": "string"
+            },
+            "source_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "field",
+                "index"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string"
+                },
+                "index": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "target_exec_job": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "exec_job_id",
+            "text",
+            "source_ref",
+            "selection_reason"
+          ],
+          "properties": {
+            "exec_job_id": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "source_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "field",
+                "index"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string"
+                },
+                "index": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "selection_reason": {
+              "type": "string"
+            }
+          }
+        },
+        "mission_facts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "org_name",
+            "domain",
+            "period",
+            "trend_pattern",
+            "main_issue",
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "properties": {
+            "org_name": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "period": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "trend_pattern": {
+              "type": "string"
+            },
+            "main_issue": {
+              "type": "string"
+            },
+            "feedback_themes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "decision_goal": {
+              "type": "string"
+            }
+          }
+        },
+        "mission": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "task_type",
+            "secondary_task_types",
+            "difficulty",
+            "scenario",
+            "materials",
+            "tasks",
+            "submission_format"
+          ],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "task_type": {
+              "type": "string"
+            },
+            "secondary_task_types": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "difficulty": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "level",
+                "label",
+                "estimated_time_minutes",
+                "material_bundle_style",
+                "material_count_range",
+                "task_count_range",
+                "answer_length_hint",
+                "requires_cross_material_reasoning",
+                "requires_tradeoff_judgment",
+                "requires_domain_expertise"
+              ],
+              "properties": {
+                "level": {
+                  "enum": [
+                    "easy",
+                    "normal",
+                    "hard"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "estimated_time_minutes": {
+                  "type": "integer"
+                },
+                "material_bundle_style": {
+                  "type": "string"
+                },
+                "material_count_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "task_count_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "answer_length_hint": {
+                  "type": "string"
+                },
+                "requires_cross_material_reasoning": {
+                  "type": "boolean"
+                },
+                "requires_tradeoff_judgment": {
+                  "type": "boolean"
+                },
+                "requires_domain_expertise": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "scenario": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "role",
+                "context",
+                "goal",
+                "constraints",
+                "glossary"
+              ],
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "context": {
+                  "type": "string"
+                },
+                "goal": {
+                  "type": "string"
+                },
+                "constraints": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "glossary": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "term",
+                      "definition"
+                    ],
+                    "properties": {
+                      "term": {
+                        "type": "string"
+                      },
+                      "definition": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "materials": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "material_id",
+                  "type",
+                  "subtype",
+                  "title",
+                  "description",
+                  "factual_status",
+                  "used_for",
+                  "evidence_source",
+                  "mission_fact_refs",
+                  "data",
+                  "confidence"
+                ],
+                "properties": {
+                  "material_id": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "card",
+                      "chart",
+                      "checklist",
+                      "email",
+                      "log",
+                      "memo",
+                      "schedule",
+                      "table"
+                    ]
+                  },
+                  "subtype": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "factual_status": {
+                    "enum": [
+                      "synthetic_mission_material"
+                    ]
+                  },
+                  "used_for": {
+                    "type": "string"
+                  },
+                  "evidence_source": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "창의력",
+                        "협상",
+                        "말하기",
+                        "기억력",
+                        "설득",
+                        "영업과 마케팅",
+                        "상품 제조 및 공정",
+                        "디자인",
+                        "경제와 회계",
+                        "경영 및 행정",
+                        "재택근무",
+                        "다른 사람들을 조율하거나 이끌기",
+                        "이메일 이용하기",
+                        "다른 사람과의 접촉",
+                        "갈등 상황",
+                        "업무, 활동에 대한 일정관리",
+                        "사물, 행동, 사건 파악",
+                        "목표, 전략 수립",
+                        "의사 결정, 문제점 해결",
+                        "창조적 생각",
+                        "정보 수집",
+                        "사람들에게 영향력 행사",
+                        "사람들의 업무와 활동을 조직, 편성",
+                        "사물, 서비스, 사람의 질 판단",
+                        "업무 계획, 우선순위 결정"
+                      ]
+                    }
+                  },
+                  "mission_fact_refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "chart_type",
+                      "x_axis",
+                      "y_axis",
+                      "series",
+                      "columns",
+                      "rows",
+                      "author",
+                      "items",
+                      "thread",
+                      "entries",
+                      "cards"
+                    ],
+                    "properties": {
+                      "chart_type": {
+                        "enum": [
+                          "line",
+                          "bar",
+                          "pie"
+                        ]
+                      },
+                      "x_axis": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "label",
+                          "values"
+                        ],
+                        "properties": {
+                          "label": {
+                            "type": "string"
+                          },
+                          "values": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "y_axis": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "label",
+                          "unit"
+                        ],
+                        "properties": {
+                          "label": {
+                            "type": "string"
+                          },
+                          "unit": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "series": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "name",
+                            "values"
+                          ],
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "values": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "columns": {
+                        "type": "array",
+                        "minItems": 4,
+                        "maxItems": 4,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "key",
+                            "label"
+                          ],
+                          "properties": {
+                            "key": {
+                              "enum": [
+                                "option",
+                                "strength",
+                                "weakness",
+                                "priority"
+                              ]
+                            },
+                            "label": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "rows": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "option",
+                            "strength",
+                            "weakness",
+                            "priority"
+                          ],
+                          "properties": {
+                            "option": {
+                              "type": "string"
+                            },
+                            "strength": {
+                              "type": "string"
+                            },
+                            "weakness": {
+                              "type": "string"
+                            },
+                            "priority": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      },
+                      "author": {
+                        "type": "string"
+                      },
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "text",
+                            "period",
+                            "task",
+                            "constraint",
+                            "label",
+                            "status",
+                            "importance"
+                          ],
+                          "properties": {
+                            "text": {
+                              "type": "string"
+                            },
+                            "period": {
+                              "type": "string"
+                            },
+                            "task": {
+                              "type": "string"
+                            },
+                            "constraint": {
+                              "type": "string"
+                            },
+                            "label": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "enum": [
+                                "checked",
+                                "unchecked",
+                                "issue"
+                              ]
+                            },
+                            "importance": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "thread": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "from",
+                            "to",
+                            "subject",
+                            "body"
+                          ],
+                          "properties": {
+                            "from": {
+                              "type": "string"
+                            },
+                            "to": {
+                              "type": "string"
+                            },
+                            "subject": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "entries": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "time",
+                            "actor",
+                            "event",
+                            "note"
+                          ],
+                          "properties": {
+                            "time": {
+                              "type": "string"
+                            },
+                            "actor": {
+                              "type": "string"
+                            },
+                            "event": {
+                              "type": "string"
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "cards": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "title",
+                            "attributes"
+                          ],
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "attributes": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "required": [
+                                "strength",
+                                "weakness",
+                                "fit"
+                              ],
+                              "properties": {
+                                "strength": {
+                                  "type": "string"
+                                },
+                                "weakness": {
+                                  "type": "string"
+                                },
+                                "fit": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "confidence": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "score",
+                      "checks",
+                      "warnings"
+                    ],
+                    "properties": {
+                      "score": {
+                        "type": "number"
+                      },
+                      "checks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "synthetic_material"
+                        ],
+                        "properties": {
+                          "synthetic_material": {
+                            "type": "boolean"
+                          }
+                        }
+                      },
+                      "warnings": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "task_id",
+                  "instruction",
+                  "required_materials",
+                  "expected_action"
+                ],
+                "properties": {
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "instruction": {
+                    "type": "string"
+                  },
+                  "required_materials": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "expected_action": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "submission_format": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "estimated_time_minutes",
+                "required_sections",
+                "length_hint"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "estimated_time_minutes": {
+                  "type": "integer"
+                },
+                "required_sections": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "length_hint": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "evaluation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "expected_insights",
+            "rubric"
+          ],
+          "properties": {
+            "expected_insights": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "rubric": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "criterion",
+                  "description",
+                  "points",
+                  "linked_evidence"
+                ],
+                "properties": {
+                  "criterion": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "points": {
+                    "type": "integer"
+                  },
+                  "linked_evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "evidence_chain_draft": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_exec_job",
+            "linked_evidence",
+            "material_evidence_map"
+          ],
+          "properties": {
+            "source_exec_job": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "text"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              }
+            },
+            "linked_evidence": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "activities",
+                "knowledge",
+                "abilities"
+              ],
+              "properties": {
+                "activities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "knowledge": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "abilities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "material_evidence_map": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "material_id",
+                  "supported_by"
+                ],
+                "properties": {
+                  "material_id": {
+                    "type": "string"
+                  },
+                  "supported_by": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "reliability": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "pending_validation"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "job_practice_sheet_background": {
+    "schema_version": "job_practice_sheet_background.v1",
+    "job_cd": "K000000997",
+    "source_path": "data/additional_search/K000000997.md",
+    "content_markdown": "# K000000997 추가 조사 자료\n\n<!-- 이 파일은 data/additional_search의 묶음 파일에서 직무코드 K000000997 섹션을 분리해 생성했습니다. -->\n\n---\n\n## 원본 파일: 실무조사시트_데이터분석가_상품기획자.md\n\n# 2. 상품기획자\n\n---\n\n## [기본 정보]\n\n---\n\n**직업명:** 상품기획자 [P1][P2][P3][P4][P5]\n\n**KNOW 코드 / 분류:**  \n- KNOW 직업분류 코드: `K000000997` [P-코드]\n- 분류: `024 광고·조사·상품기획·행사기획 전문가` [P-코드]\n- 연계 조사 코드: `24301 상품 기획자` [P-코드]\n\n**대표 직급/연차:**  \n- 인턴~주니어/대리 초입 기준으로 조사함. 콘텐츠 상품 기획자 인턴 공고와 실무 과제형 자료는 시장조사, 기획서, 상품 구성, 출시 전후 운영을 다루며, 직무 인터뷰는 상품기획운영팀 실무를 다룸 [P1][P2][P5]\n\n**출처 리스트:**\n\n- 채용공고: 2건\n  - [P1] 데이원컴퍼니/패스트캠퍼스 콘텐츠 상품 기획자 인턴, 링커리어, 접수기간 2023.07.28~2023.08.20, URL: https://linkareer.com/activity/144660\n  - [P4] 시노텍코리아 상품기획·MD, KITA 채용박람회, 공고기간 2025.10.16~2025.11.16, URL: https://jobfair.kita.net/2025/sub/sub08_view.do?rcno=78\n- 직무 인터뷰: 2건\n  - [P2] 모두투어 상품기획운영팀 직무인터뷰, 잡코리아, 게시일 2023.10.27, URL: https://www.jobkorea.co.kr/starter/interview/View/22462\n  - [P3] APR 상품기획자 인터뷰, APR Blog, 게시일 2024.10.31, URL: https://apr-blog.com/interview1\n- 회고록: 0건\n- 영상: 0건\n- 기타: 1건\n  - [P5] 코멘토 실무 과제 콘텐츠, 대기업 뷰티 BM과 함께 하는 실제 뷰티 브랜드·히트제품 런칭 프로세스, 2026년 과정/마감일 확인, URL: https://comento.kr/edu/learn/MD%EC%83%81%ED%92%88%EA%B8%B0%ED%9A%8D/BM-G384\n\n**한 줄 정의:**  \n시장과 고객 니즈를 상품으로 구체화하는 사람 [P1][P2][P3][P5]\n\n**형식:**  \n“[시장·고객 데이터를] [기획안과 협업으로 상품화해] [매출과 고객 경험에 기여]하는 사람” [P1][P2][P3][P5]\n\n---\n\n## [Part 1. 일상 업무] ← 채용공고 + 영상 기반\n\n---\n\n**주요 업무 3~5개:**\n\n1. 시장·고객 조사와 니즈 정의 [P1][P3][P5]\n2. 신상품·브랜드·콘텐츠·상품 라인업 기획 [P1][P3][P5]\n3. 상품 구성·가격·수익 관리 판단 [P2]\n4. 개발·출시·운영 전 과정 조율 [P1][P2][P3][P4][P5]\n5. 출시 후 모객·프로모션·고객 반응 점검 [P2][P3][P5]\n\n**각 업무를 한 줄로 풀어쓰기:**  \n※ “무엇을, 어떤 도구로, 어떤 목적으로” 형식\n\n1. 시장규모, 타깃, 트렌드, 고객 리뷰·데이터를 조사해 기획 배경과 고객 니즈를 정의한다 [P3][P5]\n2. 기획서, 브랜드 컨셉안, 제품 라인업, 교육상품 구성으로 아이디어를 상품 형태로 구체화한다 [P1][P5]\n3. 상품별 모객 현황, 가격, 수익 관리 요소를 보고 상품 운영 방향과 가격 관련 판단을 한다 [P2]\n4. 마케터, 디자이너, PD, CX, 영업, 마케팅, 현지 파트너와 협업해 상품을 출시·운영한다 [P1][P2][P3][P4]\n5. 출시 후 고객 반응, 리뷰, 프로모션 성과를 확인해 실행 계획과 리뉴얼 포인트를 조정한다 [P2][P3][P5]\n\n**업무의 입력/출력 구조:**  \n※ 각 업무가 무엇을 받아서 무엇을 만들어내는지  \n※ 미션에서 “제시 자료 / 요구 결과물” 설계할 때 사용\n\n업무 1: 시장·타깃·트렌드 조사 자료 → 시장 분석 자료와 타깃/코어 타깃 정의 [P5]  \n업무 2: 고객 리뷰·고객 데이터 → 고객 니즈 정의와 상품 아이디어 [P3]  \n업무 3: 기술·스킬·노하우 주제 → 교육 상품 기획서, 커리큘럼, 랜딩페이지 연출 방향 [P1]  \n업무 4: 상품별 모객 현황·프로모션 현황 → 상품 수정안, 액션 플랜, 마케팅 프로모션 계획 [P2]  \n업무 5: 기존 브랜드 히스토리·클레임·제품 라인 → 리뉴얼 컨셉, 제품 라인업, 메인 상품 콘셉트 보드 [P5]  \n업무 6: 유아·교육·IT 융합 상품 아이디어 → 기획·개발·판매·마케팅·글로벌 협업 대상 상품 [P4]\n\n---\n\n## [Part 2. 의사결정 / 판단 순간] ★ 미션의 핵심 원료\n\n---\n\n※ 직무 인터뷰/회고록에서 “고민했던 일”, “어려운 결정”, “판단이 필요했던 순간” 언급 추출  \n※ 정답이 없는 상태에서 판단을 내려야 하는 반복적 상황만 포함  \n※ 3~5개 작성\n\n### [의사결정 1]\n\n- 결정해야 할 것: 어떤 시장과 타깃 고객을 우선 공략할 것인가 [P3][P5]\n- 자주 발생하는 맥락: 새로운 시장을 분석하거나 신상품·브랜드·교육상품을 기획할 때 [P1][P3][P5]\n- 고려해야 할 요소 3~5개:\n  - 시장 규모와 성장 가능성 [P5]\n  - 타깃·코어 타깃의 특성 [P5]\n  - 고객 리뷰와 데이터에서 확인되는 니즈 [P3]\n  - 트렌드와 경쟁 상황 [P5]\n  - 상품으로 구현 가능한 범위 [P1][P3]\n- 정답이 없는 이유: 같은 시장 자료라도 어떤 타깃을 핵심 고객으로 보느냐에 따라 상품 컨셉과 라인업이 달라진다 [P3][P5]\n- 좋은 결정 vs 나쁜 결정의 갈림길: 좋은 결정은 고객 데이터와 시장조사로 니즈를 정의하고, 나쁜 결정은 개인 취향이나 막연한 유행만으로 타깃을 정한다 [P3][P5]\n\n### [의사결정 2]\n\n- 결정해야 할 것: 어떤 상품·브랜드 컨셉이 차별화되는가 [P1][P3][P5]\n- 자주 발생하는 맥락: 상품 기획서, 브랜드 컨셉안, 제품 라인업, 교육 상품을 설계할 때 [P1][P5]\n- 고려해야 할 요소 3~5개:\n  - 시장에서 이미 존재하는 경쟁 상품 [P5]\n  - 고객이 실제로 원하거나 좋아하는 요소 [P3]\n  - 상품이 전달해야 할 핵심 메시지 [P5]\n  - 패키지·랜딩페이지·커리큘럼 등 표현 방식 [P1][P5]\n  - 협업 부서가 구현 가능한 수준 [P1][P3]\n- 정답이 없는 이유: 좋은 컨셉은 데이터와 고객 니즈에 근거해야 하지만, 표현 방식과 차별화 방향은 여러 선택지가 가능하다 [P1][P3][P5]\n- 좋은 결정 vs 나쁜 결정의 갈림길: 좋은 결정은 차별화 포인트가 명확하고 고객 니즈와 연결되며, 나쁜 결정은 기획자 취향 중심으로 컨셉이 흐려진다 [P3][P5]\n\n### [의사결정 3]\n\n- 결정해야 할 것: 상품 구성, 가격, 운영 방향을 어떻게 정할 것인가 [P2]\n- 자주 발생하는 맥락: 여행상품처럼 상품별 모객 현황, 프로모션, 가격 결정, 수익 관리를 함께 봐야 할 때 [P2]\n- 고려해야 할 요소 3~5개:\n  - 상품별 예약·모객 현황 [P2]\n  - 현재 진행 중인 프로모션 [P2]\n  - 가격 결정과 수익 관리 [P2]\n  - 외부 요인: 환율, 자연재해, 분쟁, 감염병 등 [P2]\n  - 고객 관점과 객관성 [P2]\n- 정답이 없는 이유: 가격과 구성은 매출, 수익성, 고객 반응, 외부 상황이 동시에 영향을 주므로 한 가지 공식으로 정하기 어렵다 [P2]\n- 좋은 결정 vs 나쁜 결정의 갈림길: 좋은 결정은 모객·가격·수익·외부 상황을 함께 보고, 나쁜 결정은 판매자 관점만으로 가격이나 구성을 정한다 [P2]\n\n### [의사결정 4]\n\n- 결정해야 할 것: 어떤 협업자와 언제 조율해야 하는가 [P1][P2][P3][P4]\n- 자주 발생하는 맥락: 상품을 기획서에서 실제 출시·판매·운영 단계로 넘길 때 [P1][P2][P3]\n- 고려해야 할 요소 3~5개:\n  - 마케터, 디자이너, PD, CX가 필요한 시점 [P1]\n  - 영업·마케팅·현지 파트너와의 운영 협의 [P2]\n  - 초기 기획 단계에서 상품 디자인·서비스 부서가 참여해야 하는 시점 [P3]\n  - 글로벌 파트너와의 협업 필요성 [P4]\n  - 상품 개선을 위한 테스트와 회의 [P3]\n- 정답이 없는 이유: 상품 유형과 조직 구조에 따라 누가 먼저 들어와야 하는지, 어떤 정보를 공유해야 하는지가 달라진다 [P1][P2][P3]\n- 좋은 결정 vs 나쁜 결정의 갈림길: 좋은 결정은 필요한 부서를 적시에 참여시켜 출시 리스크를 줄이고, 나쁜 결정은 기획서만 앞서가 실제 구현·판매 단계에서 문제가 생긴다 [P1][P3]\n\n### [의사결정 5]\n\n- 결정해야 할 것: 출시 후 무엇을 리뉴얼하거나 프로모션으로 밀 것인가 [P2][P5]\n- 자주 발생하는 맥락: 소비자 반응이 예상과 다르거나, 기존 상품을 개선·리뉴얼해야 할 때 [P2][P5]\n- 고려해야 할 요소 3~5개:\n  - 상품별 모객 현황과 판매 반응 [P2]\n  - 고객 클레임과 리뷰 [P5]\n  - 현재 프로모션 효과 [P2]\n  - 메인 상품으로 내세울 제품과 컨셉 [P5]\n  - 리뉴얼 포인트와 커뮤니케이션 키워드 [P5]\n- 정답이 없는 이유: 고객 반응은 기획자의 예상과 다를 수 있고, 어떤 부분을 바꾸는지가 브랜드·상품 성과에 다르게 작용한다 [P2][P5]\n- 좋은 결정 vs 나쁜 결정의 갈림길: 좋은 결정은 반응 데이터와 클레임을 바탕으로 리뉴얼 포인트를 잡고, 나쁜 결정은 반응 부진의 원인을 확인하지 않은 채 컨셉만 바꾼다 [P2][P5]\n\n---\n\n## [Part 3. 실무의 재료] ← 미션의 사실성 확보\n\n---\n\n**자주 다루는 자료의 유형:**  \n※ 영상 화면 + 직무 인터뷰의 자료 언급에서 추출  \n※ 자료 종류 + 자료가 어떤 형태로 오는지(엑셀? PDF? 대시보드?)\n\n- 시장조사 자료: 시장 규모, 타깃, 트렌드, 경쟁 상황을 정리한 자료 / 기획자가 직접 조사·정리 [P5]\n- 고객 리뷰·고객 데이터: 고객이 원하는 것과 좋아하는 것을 확인하는 자료 / 리뷰·데이터 분석 기반 [P3]\n- 상품 기획서: 상품 아이디어, 구성, 방향을 정리한 문서 / 상품기획자가 작성 [P1]\n- 전문가 미팅·인터뷰 기록: 교육상품 기획에서 강사·전문가와 논의한 내용 / 전문가 미팅 및 인터뷰 [P1]\n- 커리큘럼·실습자료·랜딩페이지 방향: 교육상품을 실제 판매 가능한 형태로 만드는 자료 / 콘텐츠 상품 기획 산출물 [P1]\n- 상품별 모객 현황·프로모션 현황: 여행상품 운영 중 확인하는 예약·판매 자료 / 상품기획운영팀 업무 자료 [P2]\n- 브랜드 컨셉안·제품 라인업·포트폴리오: 뷰티 상품 기획과 리뉴얼 산출물 / BM·상품기획 실무 과제 [P5]\n- 클레임·기존 브랜드 히스토리: 리뉴얼 포인트를 잡기 위해 검토하는 자료 / 기존 상품 개선 자료 [P5]\n\n**핵심 도구 Top 5:**  \n※ 이번 조사는 직업별 출처 7개 이하 제한 때문에 “채용공고 7건 이상 언급” 기준을 그대로 적용하지 않고, 조사 출처 내 실제 언급 기준으로 정리함\n\n1. 기획서 / PPT - 상품·브랜드·제품 라인업·시장조사 결과를 문서화하는 데 사용 [P1][P5]\n2. 시장조사 데이터 - 시장 규모, 타깃, 트렌드, 경쟁 상황을 판단하는 데 사용 [P3][P5]\n3. 고객 리뷰·고객 데이터 분석 - 고객 니즈와 개선 포인트를 찾는 데 사용 [P3][P5]\n4. 커리큘럼·실습자료·랜딩페이지 방향 문서 - 교육상품을 구성하고 판매 화면을 설계하는 데 사용 [P1]\n5. 모객·프로모션 현황 자료 - 상품 운영과 수정안, 마케팅 프로모션 계획을 세우는 데 사용 [P2]\n\n**핵심 용어 Top 10:**  \n※ 채용공고/직무 인터뷰에서 반복 등장하는 전문 용어  \n※ 미션 텍스트에 자연스럽게 배치되어 사실성 확보\n\n- 시장조사: 시장 규모, 경쟁 상황, 트렌드, 고객군을 확인하는 조사 활동 [P3][P5]\n- 타깃 / 코어 타깃: 상품을 가장 먼저 설득해야 할 고객 집단 [P5]\n- 고객 니즈: 고객이 원하거나 좋아하는 요구와 기대 [P3]\n- 고객 리뷰: 고객 반응과 개선점을 확인하는 자료 [P3][P5]\n- 상품 기획서: 상품 아이디어, 구성, 목표, 실행 방향을 정리한 문서 [P1]\n- 브랜드 컨셉안: 브랜드가 어떤 방향과 메시지로 고객에게 보일지 정리한 기획안 [P5]\n- 제품 라인업 / 포트폴리오: 출시하거나 운영할 제품군의 구성 [P5]\n- 모객: 상품에 고객 예약·구매·참여를 모으는 활동 또는 그 현황 [P2]\n- 프로모션: 상품 판매를 높이기 위해 진행하는 마케팅·판매 활동 [P2]\n- 리뉴얼 포인트: 기존 상품이나 브랜드를 개선할 때 바꿔야 할 핵심 지점 [P5]\n\n---\n\n## [Part 4. 협업과 커뮤니케이션] ← 시나리오의 사회적 맥락\n\n---\n\n**자주 함께 일하는 직군:**  \n※ 채용공고 협업 부서 + 인터뷰의 협업 언급  \n※ 직군별로 “어떤 관계인가, 무엇을 주고받는가”\n\n- 마케터: 상품 출시와 판매를 위한 메시지, 프로모션, 마케팅 실행을 함께 조율함 [P1][P2]\n- 디자이너: 상품·브랜드·랜딩페이지·패키지 표현 방향을 함께 구체화함 [P1][P3]\n- PD: 교육 콘텐츠나 상품 구현 과정에서 제작 방향을 함께 조율함 [P1]\n- CX: 고객 문의·반응과 연결되는 운영 요소를 공유받고 상품 개선에 반영함 [P1]\n- 영업/채널 세일즈: 상품 판매 채널과 운영 계획을 협의함 [P2]\n- 현지 파트너/랜드사: 여행상품 운영과 현지 상황을 조율함 [P2]\n- 글로벌 협업 파트너: 유아·교육·IT 융합 상품의 기획·개발·판매·마케팅을 함께 진행함 [P4]\n- 상품 디자인·서비스 부서: 기획 초기부터 상품 개발·개선 방향을 함께 논의함 [P3]\n\n**자주 받는 요청의 형태 3~5개:**  \n※ 직무 인터뷰/회고록에서 “이런 요청을 받는다” 언급 추출  \n※ 따옴표 포함 직접 인용 형태  \n※ 누가 보내는지도 명시\n\n1. (보내는 사람: 실무 리더) “새로운 시장을 분석해보고...” [P5]\n2. (보내는 사람: 실무 리더) “시장조사 데이터를 만들어...” [P5]\n3. (보내는 사람: 실무 리더) “새로운 브랜드와 제품을 기획해 보세요.” [P5]\n4. (보내는 사람: 실무 리더) “차별화 포인트가 정확하게 있는 브랜드 기획안...” [P5]\n5. (보내는 사람: 실무 리더) “리뉴얼 포인트를 잡아 주세요.” [P5]\n\n**요청을 받았을 때의 전형적 응답 흐름:**  \n※ 인터뷰에서 “이런 요청 받으면 어떻게 처리하는지” 언급 추출  \n※ 미션의 “관찰→가설→제안” 구조와 매칭됨\n\n단계 1: 요청이 신상품, 리뉴얼, 프로모션, 시장조사 중 무엇인지 확인한다 [P2][P5]  \n단계 2: 시장 규모, 타깃, 트렌드, 고객 리뷰·데이터, 경쟁 상품을 조사한다 [P3][P5]  \n단계 3: 고객 니즈와 차별화 포인트를 정의한다 [P3][P5]  \n단계 4: 상품 기획서, 브랜드 컨셉안, 제품 라인업, 커리큘럼, 랜딩페이지 방향 등으로 구체화한다 [P1][P5]  \n단계 5: 마케터, 디자이너, PD, CX, 영업, 현지 파트너와 실현 가능성과 운영 방안을 조율한다 [P1][P2][P3]  \n단계 6: 출시 후 모객 현황, 프로모션, 고객 반응, 클레임을 보고 수정·리뉴얼 포인트를 정한다 [P2][P5]\n\n**결과물의 전달 형태:**  \n※ 보고서? 슬랙 메시지? 대시보드? 구두 보고?  \n※ 미션의 “입력 형식” 설계에 사용\n\n- 상품 기획서: 상품 아이디어, 구성, 목표, 랜딩페이지 방향을 정리할 때 사용 [P1]\n- 시장조사 자료 / PPT: 시장 규모, 타깃, 트렌드, 경쟁 상황, 고객 니즈를 제시할 때 사용 [P5]\n- 브랜드 컨셉안: 신규 브랜드나 제품 기획 방향을 설명할 때 사용 [P5]\n- 제품 라인업 / 포트폴리오: 출시 제품군과 구성 전략을 제시할 때 사용 [P5]\n- 메인 상품 콘셉트 보드: 핵심 제품의 콘셉트, 패키지 문구, 커뮤니케이션 키워드를 설명할 때 사용 [P5]\n- 액션 플랜 / 프로모션 계획: 상품별 모객 현황과 판매 상황을 보고 운영 계획을 수정할 때 사용 [P2]\n- 커리큘럼·실습자료·랜딩페이지 연출 방향: 교육상품을 실제 판매 가능한 콘텐츠로 구성할 때 사용 [P1]\n\n---\n\n---\n\n## 원본 파일: 직업정보정리_2.md\n\n# 실무 조사 시트 - 상품기획자 MD\n\n---\n\n## [기본 정보]\n\n**직업명:** 상품기획자 MD\n\n**KNOW 코드 / 분류:** K000000997/광고·조사·상품기획·행사기획 전문가\n\n**대표 직급/연차:**  \n- AMD/1~2년차\n- 사원~대리/2~5년차\n- 과장~차장/5~10년차\n- 부장,디렉터,팀장/10년차 이상\n\n**출처 리스트:**\n\n- 채용공고:5건([진도]상품기획MD모집/[사람인](https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53656068&location=ts&searchword=%EC%83%81%ED%92%88%EA%B8%B0%ED%9A%8D%EC%9E%90&searchType=search&paid_fl=n&search_uuid=71cd98d8-8dc4-4d2e-9fc7-f5418c6c0482&t_ref=search&t_ref_content=generic#seq=0))\n  - ([세명엠디]마케팅 담당자 모집/[사람인](https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53909764&location=ts&searchword=%EC%83%81%ED%92%88%EA%B8%B0%ED%9A%8D%EC%9E%90&searchType=search&paid_fl=n&search_uuid=71cd98d8-8dc4-4d2e-9fc7-f5418c6c0482&t_ref=search&t_ref_content=generic#seq=0))\n  - ([엠엠엠디]도로시와 마케터 채용/[사람인](https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53791893&location=ts&searchword=%EC%83%81%ED%92%88%EA%B8%B0%ED%9A%8D%EC%9E%90&searchType=search&paid_fl=n&search_uuid=71cd98d8-8dc4-4d2e-9fc7-f5418c6c0482&t_ref=search&t_ref_content=generic#seq=0))\n  - ([한샘]상품기획 및 개발(MD) 채용/[catch](https://www.catch.co.kr/NCS/RecruitInfoDetails/552804))\n  - ([에프앤에프]영업MD채용/[catch](https://www.catch.co.kr/NCS/RecruitInfoDetails/551561))\n- 직무인터뷰:3건 ([브랜디]MD 직무인터뷰/[사람인](https://m.saramin.co.kr/career-information/job-interview-view?doc_idx=21246&page=1&keyword=%EC%83%81%ED%92%88%EA%B8%B0%ED%9A%8D%C2%B7MD))\n  - ([한샘]MD 직무인터뷰/[사람인](https://m.saramin.co.kr/career-information/job-interview-view?doc_idx=21114&page=1&keyword=%EC%83%81%ED%92%88%EA%B8%B0%ED%9A%8D%C2%B7MD))\n  - (인터파그, 상품의 씨앗부터 열매까지 책임진다./[JOBKOREA](https://www.jobkorea.co.kr/starter/interview/View/11151))\n- 영상: 2건 (한섬MD가 전달하는 MD직무와 취업이야기/[인디스워크](https://www.youtube.com/watch?v=XUJBcRLW4Nk))\n  - ([올리브영 MD·글로벌MD 직무의 모든 것]/[CJ Careers](https://www.youtube.com/watch?v=W8e7_2yW6Oc))\n\n**한 줄 정의:**  시장 데이터와 트렌드 분석을 바탕으로 최적의 상품을 기획 및 운영하여 소비자에게 가치있는 구매 경험을 제공하고 기업에는 매출과 손익 극대화로 기여하는 사람\n\n---\n\n## [Part 1. 일상 업무] ← 채용공고 + 영상 기반\n\n**주요 업무 3~5개:**\n\n1. 트렌드 분석\n2. 카테고리 전략 수립\n3. 상품&브랜드 소싱\n\n**각 업무를 한 줄로 풀어쓰기:**  \n※ \"무엇을, 어떤 도구로, 어떤 목적으로\" 형식\n\n1. **트렌드 분석**: 소비자의 실시간 관심사와 시장 변화 데이터를 네이버 데이터랩 및 구글 트렌드 분석 툴을 활용하여 선제적으로 파악함으로써, 실패 없는 마케팅 캠페인 컨셉과 상품 아이디어를 도출하기 위함.\n2. **카테고리 전략 수립**: 담당 상품군의 과거 매출, 마진율, 재고 데이터를 ERP 시스템 및 엑셀 데이터 분석 도구로 입체적으로 분석함으로써, 브랜드의 수익 구조를 개선하고 카테고리별 중장기 성장 로드맵을 구축함.\n3. **상품&브랜드 소싱**: 국내외 유망 브랜드 및 제조 파트너사를 온·오프라인 박람회와 시장 조사를 통해 발굴하고 협상함으로써, 시장 경쟁력 있는 단독 상품을 확보하고 기업의 목표 마진율을 달성하기 위함.\n\n**업무의 입력/출력 구조:**  \n※ 각 업무가 무엇을 받아서 무엇을 만들어내는지  \n※ 미션에서 \"제시 자료 / 요구 결과물\" 설계할 때 사용\n\n업무 1:소비자 키워드 검색량 및 sns 실시간 버즈량 데이터 → 마케팅 핵심 컨셉 소스 및 캠페인 기획 방향성 리포트  \n업무 2:카테고리별 매출 및 매입 원가,재고 회전율 지표 → 카테고리 포트폴리오 최적화 안 및 분기별 매출/손익 목표 수립 계획서  \n업무 3:타깃 브랜드 제안서 및 제조사별 원가/생산 정보 → 최종 상품 입점/매입 확정 보고서 및 물량 발주서  \n\n---\n\n## [Part 2. 의사결정 / 판단 순간] ★ 미션의 핵심 원료\n\n※ 정답이 없는 상태에서 판단을 내려야 하는 반복적 상황 중심으로 정리\n\n### [의사결정 1]\n\n- **결정해야 할 것:** 트렌드 분석을 통한 캠페인 컨셉이나 아이디어 도출\n- **자주 발생하는 맥락:** 시즌별 신상품 기획 단계 및 메인 캠페인 라인업 확정 시기나 경쟁사에서 트렌디한 신생 브랜드를 독점 소싱하여 시장 점유율을 위협할 때\n- **고려해야 할 요소 3~5개:**\n  - 자사 브랜드의 핵심 아이덴티티와 기존 베스트셀러 상품과의 연계성\n  - 타깃 고객의 현재 관심 키워드 및 소셜 미디어(SNS) 반응 데이터\n  - 유행 아이템의 예상 수명 주기(단기 유행 vs 장기 트렌드)\n  - 협력 제조사의 생산 가능 일정 및 최소 주문 수량(MOQ)\n- **정답이 없는 이유:** 트렌드의 변화 속도가 매우 빠르고, 대중의 심리는 정형화되어 있지 않아 예측한 컨셉이 출시 시점의 유행과 어긋날 리스크가 항상 존재하기 때문.\n- **좋은 결정 vs 나쁜 결정의 갈림길:** 정량적 검색 데이터와 타깃의 미충족 수요를 결합하여 브랜드 정체성에 맞는 독창적인 상품 컨셉을 도출한 결정⟷ 자사 브랜드 색깔을 고려하지 않고 단순히 시장에서 유행하는 카피캣(Copycat) 수준의 아이디어를 좇아 비용만 낭비하는 결정\n\n### [의사결정 2]\n\n- **결정해야 할 것:** 사업계획에 대한 차별적인 운영 계획 수립\n- **자주 발생하는 맥락:** 연간/분기별 매출 및 손익 목표 수립 회의카테고리 내 비효율 상품군 정리(스크랩) 및 신규 카테고리 확장 여부를 판단할 때\n- **고려해야 할 요소 3~5개:**\n  - 카테고리별 마진율 구조 및 목표 영업이익률\n  - 자사 유통 채널(자사몰, 오픈마켓, 백화점 등)별 판매 수수료 및 정산 주기\n  - 과거 시즌별 재고 회전율 및 악성 재고 처리 비용\n  - 경쟁사 카테고리 포트폴리오 대비 자사가 가질 수 있는 독점적 소싱 경쟁력\n- **정답이 없는 이유:** 공격적인 물량 확대로 매출을 키우는 전략과  타이트한 재고 관리로 마진을 방어하는 전략 중 시장 상황에 따라 우선순위가 계속 달라지기 때문.\n- **좋은 결정 vs 나쁜 결정의 갈림길:** 카테고리별 매출 기여도(A/B 분석)를 바탕으로 고마진 단독 상품 비율을 늘려 안정적인 흑자 구조를 설계하는 결정\n  ⟷ 손익 시뮬레이션 없이 외형적 매출 거래액(GMV) 규모만 키우기 위해 무리하게 저마진 상품만 늘려 적자를 보는 결정\n\n### [의사결정 3]\n\n- **결정해야 할 것:** 상품 주 고객층에 대한 접점 공략\n- **자주 발생하는 맥락:** 신규 소싱 브랜드 입점 및 첫 단독 특가(프로모션) 기획 단계나 특정 카테고리의 조회수 대비 구매 전환율(CVR)이 급격히 떨어지는 시점\n- **고려해야 할 요소 3~5개:**\n  - 고객이 상품 상세페이지와 리뷰에서 가장 먼저 확인하는 핵심 가치(리뷰 데이터 기반)\n  - 자사 유통 채널 내 고객 유입 경로(검색, 기획전, 외부 광고 등)별 행동 패턴\n  - 가격 저항선을 무너뜨릴 수 있는 최적의 세트 구성 및 단독 구성품 혜택\n  - 타깃 고객층이 가장 선호하는 구매 혜택 형식(쿠폰 할인, 1+1, 사은품 증정 등)\n- **정답이 없는 이유:** 동일한 혜택이라도 상품의 매력도, 상세페이지의 스토리텔링, 가격 제안 방식에 따라 고객이 체감하는 가치가 완전히 달라지기 때문.\n- **좋은 결정 vs 나쁜 결정의 갈림길:** 고객의 이탈 구간을 분석하여 매력적인 가격 제안과 진정성 있는 상품 스토리로 구매 장벽을 낮추는 결정\n  ⟷ 상품의 본질적인 매력을 보여주지 못한 채, 단순 가격 깎기(출혈 경쟁)식 할인 프로모션만 반복하여 브랜드 가치를 떨어뜨리는 결정\n\n---\n\n## [Part 3. 실무의 재료] ← 미션의 사실성 확보\n\n**자주 다루는 자료의 유형:**  \n- 원본 문서에 구체 항목 미작성\n\n**핵심 도구 Top 5:**\n\n1. 일러스트/포토샵/프리미어-시각적 광고 소재 및 프로모션 배너, 기획전 페이지를 직접 기획하고 제작\n2. 데이터분석 툴(GA4,네이버 데이터랩)-실시간 소비자 검색량, 유입경로,페이지 체류 시간 및 이탈률을 정량적으로 추적\n3. 엑셀-카테고리별 매출 실적을 가공하고 마진율을 계산, 재고 회전율 분석 및 수요 예측 시뮬레이션을 수행\n4. SCM-입점한 유통 채널의 관리자 페이지\n\n**핵심 용어 Top 10:**\n\n- **소싱:** 기업이 제품을 생산하거나 판매하기 위해 필요한 원자재, 부품, 완제품, 또는 서비스를 제공할 최적의 공급처(제조 공장이나 브랜드사)를 찾아내고 계약하는 전 과정\n- **독점소싱:** 경쟁사와 차별화하기 위해 유망한 브랜드나 제조사와 단독 계약을 맺어 상품을 유통하는 전략\n- **마진율:** 판매가에서 원가와 수수료 등을 제외하고 회사에 실제로 남는 순수익의 비율이며 md의 협력과 사업의 수익성을 평가하는 지표\n- **재고 회전율:** 일정 기간 동안 재고가 얼마나 빠르게 판매되고 회전되었는지를 나타내는 지표\n- **CVR:** 기획전이나 상품 상세페이지에 유입된 전체 방문자 중 실제로 구매를 완료한 고객의 비율이며 상품의 매력도와 상세페이지 전반의 매력도를 측정하는 기준\n\n---\n\n## [Part 4. 협업과 커뮤니케이션] ← 시나리오의 사회적 맥락\n\n**자주 함께 일하는 직군:**  \n- 디자이너: [브랜드의 시각적 정체성 및 상품 구현 담당 / 트렌드 분석에 기반한 상품 기획 방향성, 소싱 원단/자재 정보, 상세페이지에 강조할 소구점을 디자이너에게 제공하고 브랜드 무드에 맞는 결과물을 받아 완성도 높은 상품 비주얼을 구축 ]\n- 재무팀:[기업의 수익성 및 예산 통제 담당/상품별 매입·매출 원가 데이터, 카테고리별 마진율, 정산 주기 및 월별 마케팅 예산 한도를 주고받으며 최종 영업이익률 방어 및 사업계획 타당성 검증]\n- 타 브랜드나 제조사:[외부 상품 및 생산 공급 파트너 / 시장 트렌드 데이터, 제품 스펙(성분/소재), 최소 주문 수량(MOQ), 독점 공급 조건 및 납기를 주고받으며 경쟁력 있는 단독 상품 확보 및 공급 단가 협상]\n\n**자주 받는 요청의 형태 3~5개:**  \n※ 원본 요청 문장을 따옴표 형식으로 정리\n\n1. (보내는 사람: 디자이너) \"신제품 패키지 디자인 및 상세페이지 제작을 위한 기획서 요건 정의 요청\"\n2. (보내는 사람: 재무팀으로부터) \"분기별 카테고리 예상 손익 시뮬레이션 및 예산 검토 요청\"\n3. (보내는 사람: 제조사 및 파트너사로부터) \"단가 조정 및 원부자재 인상에 따른 최소 주문 수량(MOQ) 상향 요청\"\n\n**요청을 받았을 때의 전형적 응답 흐름:**\n\n### 요청 1 응답 흐름\n\n- 단계 1: 시즌 신상품 라인업 확정에 따른 디자인, 웹 배너 제작 일정 및 가이드 요청 수령\n- 단계 2: 시장 조사 기반의 타깃 취향 분석 결과, 경쟁사 벤치마킹 이미지, 패키지에 필수 기재해야 할 제품 스펙 및 상세페이지 최우선 소구점 가이드 전달\n- 단계 3: 디자이너가 작업한 1차 시안의 비주얼 무드가 초기 상품 기획 의도 및 브랜드 정체성과 일치하는지 피드백 공유\n- 단계 4: 최종 수정 및 확정된 디자인 자산을 확인하고, 자사몰/플랫폼 등록 일정에 맞춰 최종 유관 부서 배포 진행\n\n### 요청 2 응답 흐름\n\n- 단계 1: 다음 분기 전사 사업계획 수립을 위한 카테고리별 목표 매출액 대비 예상 이익률 검증 요청 수령\n- 단계 2: 과거 판매 데이터 분석 기반의 제품별 마진율, 예상 판매 수량, 마케팅 프로모션으로 인한 할인 폭을 반영한 손익 가이드라인 작성 및 공유\n- 단계 3: 재무팀이 제시한 비용 기준에 맞추어 마케팅 예산 한도 및 유통 채널별 수수료 조율 미팅 진행\n- 단계 4: 손익 리스크(악성 재고 발생 가능성 등)에 대한 방어 대책을 보완하여 최종 사업계획안 싱크 맞춤\n\n### 요청 3 응답 흐름\n\n- 단계 1: 글로벌 원자재 가격 상승 또는 인건비 증가로 인한 제조 공장의 공급 단가 인상 및 MOQ 조건 변경 요청 수령\n- 단계 2: 자사의 카테고리 판매 회전율 데이터를 바탕으로, 제조사 요구 조건을 수용했을 때 발생할 재고 리스크 및 마진 감소율 시뮬레이션\n- 단계 3: 초도 물량을 늘리는 대신 단독 공급 기간(독점권)을 보장받거나, 비수기 생산을 조건으로 단가를 방어하는 대안적 협상안 제시\n- 단계 4: 양사 간 합의된 최종 발주 수량, 단가, 납기를 반영하여 발주서 발급 및 계약 조건 업데이트\n\n**결과물의 전달 형태:**\n\n- 상품 기획 컨셉 및 스토리보드(문서): 타깃 분석 결과, 제품 스펙(소재/성분), 카피라이팅 가이드 및 상세페이지 레이아웃 구조안\n- 손익 시뮬레이션 엑셀 시트: 카테고리별 매입·매출 원가 데이터, 채널별 유통 수수료 차감 후 예상 영업이익률 산출 리포트\n\n\n---\n",
+    "usage": "background_only"
+  }
+}

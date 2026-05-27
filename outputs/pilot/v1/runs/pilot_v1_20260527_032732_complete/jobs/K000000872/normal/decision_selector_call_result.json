@@ -1,0 +1,38 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_004",
+    "primary_task_type": "planning_and_proposal",
+    "selected_material_types": [
+      "table",
+      "memo"
+    ],
+    "mission_design_type": "general_research_analysis",
+    "matched_evidence": [
+      "영업과 마케팅",
+      "정보 수집",
+      "글쓰기"
+    ],
+    "selection_reason": "광고대행 계약을 위한 자료 조사·분석과 광고기획서 작성이 핵심이어서 ‘계획 수립 및 제안’에 가장 직접적으로 대응하며, 마케팅 지식과 정보 수집, 기획서 글쓰기 능력이 필요함.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 2160,
+    "output_tokens": 1154,
+    "reasoning_tokens": 1022,
+    "total_tokens": 3314
+  },
+  "errors": []
+}

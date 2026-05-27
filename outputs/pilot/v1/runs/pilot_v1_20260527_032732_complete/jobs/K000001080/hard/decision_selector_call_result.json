@@ -1,0 +1,40 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_004",
+    "primary_task_type": "diagnosis_and_improvement",
+    "selected_material_types": [
+      "table",
+      "chart",
+      "checklist"
+    ],
+    "mission_design_type": "data_diagnosis",
+    "matched_evidence": [
+      "논리적 분석",
+      "정보 처리",
+      "기술 분석",
+      "수리력"
+    ],
+    "selection_reason": "데이터 진단 목적에 맞춰 마이닝/네트워크/클러스터 등 분석 기법을 선택·적용하는 활동이 핵심이므로 exec_004가 적합함. 표/차트로 결과를 검증하고, 체크리스트로 분석 절차를 점검하도록 설계 가능함.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 1842,
+    "output_tokens": 849,
+    "reasoning_tokens": 698,
+    "total_tokens": 2691
+  },
+  "errors": []
+}

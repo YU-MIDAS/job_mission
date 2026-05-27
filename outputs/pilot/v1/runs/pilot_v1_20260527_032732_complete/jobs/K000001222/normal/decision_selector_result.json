@@ -1,0 +1,16 @@
+{
+  "selected_exec_job_id": "exec_001",
+  "primary_task_type": "communication_and_reporting",
+  "selected_material_types": [
+    "checklist",
+    "table"
+  ],
+  "mission_design_type": "general_research_analysis",
+  "matched_evidence": [
+    "글쓰기",
+    "정보 수집",
+    "정보 작성, 기록"
+  ],
+  "selection_reason": "사건·사고 취재 후 인터뷰를 바탕으로 기사로 작성하는 역할(exec_001)과 직접적으로 맞으며, 체크리스트와 기사 구성표로 취재→수집→작성 흐름을 점검하기에 적합함.",
+  "confidence": "high"
+}

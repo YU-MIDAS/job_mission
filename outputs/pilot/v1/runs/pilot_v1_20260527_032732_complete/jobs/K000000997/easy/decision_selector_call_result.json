@@ -1,0 +1,36 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_004",
+    "primary_task_type": "research_and_analysis",
+    "selected_material_types": [
+      "table"
+    ],
+    "mission_design_type": "data_diagnosis",
+    "matched_evidence": [
+      "사물, 행동, 사건 파악",
+      "영업과 마케팅"
+    ],
+    "selection_reason": "시장/판매 수준과 소비자 평가 정보를 체계적으로 수집·분석하는 활동이 핵심이어서 데이터 진단형 임무와 연구/분석 과업에 적합하며, 한 장의 표로 자료 정리와 비교가 용이함.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 1773,
+    "output_tokens": 739,
+    "reasoning_tokens": 609,
+    "total_tokens": 2512
+  },
+  "errors": []
+}

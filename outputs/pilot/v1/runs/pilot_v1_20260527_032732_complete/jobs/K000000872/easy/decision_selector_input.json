@@ -1,0 +1,206 @@
+{
+  "schema_version": "decision_selector_input.v1",
+  "job_identity": {
+    "job_cd": "K000000872",
+    "job_name": "광고·홍보·마케팅전문가"
+  },
+  "difficulty": {
+    "level": "easy",
+    "material_count_range": [
+      1,
+      1
+    ]
+  },
+  "exec_jobs": [
+    {
+      "exec_job_id": "exec_001",
+      "text": "사업체의 마케팅, 광고, 홍보 전략에 대해 자문한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 1
+      }
+    },
+    {
+      "exec_job_id": "exec_002",
+      "text": "인쇄나 전자매체에 적절한 마케팅, 광고캠페인을 개발하고 실행한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 2
+      }
+    },
+    {
+      "exec_job_id": "exec_003",
+      "text": "특정기업 또는 사업체에 대한 대중의 인식과 이해를 개선하려는 PR프로그램을 연구, 조언한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 3
+      }
+    },
+    {
+      "exec_job_id": "exec_004",
+      "text": "광고주에게 대행사를 효과적으로 알려 광고대행계약을 하고, 광고할 상품이나 용역에 관한 자료를 조사하여 분석하고, 광고주와 협의하여 광고기획서를 작성한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 4
+      }
+    },
+    {
+      "exec_job_id": "exec_005",
+      "text": "광고제작팀과 협의하여 광고기획서를 수정·보완하고 광고주의 의사결정자와 협의하여 광고의 제작방향을 결정한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 5
+      }
+    },
+    {
+      "exec_job_id": "exec_006",
+      "text": "광고제작에 소요되는 예산을 수립·조정한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 6
+      }
+    },
+    {
+      "exec_job_id": "exec_007",
+      "text": "광고대상 상품의 경쟁상황, 시장상황, 판매기간 등에 대한 자료를 조사·분석하고 광고매체에 대한 효과를 분석한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 7
+      }
+    },
+    {
+      "exec_job_id": "exec_008",
+      "text": "광고의 목표를 설정하고, 광고 표현계획과 제작계획을 수립하며, 광고의 제작상황을 감독한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 8
+      }
+    },
+    {
+      "exec_job_id": "exec_009",
+      "text": "제작된 광고를 검토·평가한 후 광고를 실시하며, 시행광고의 효과를 조사·분석한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 9
+      }
+    }
+  ],
+  "top_evidence": {
+    "abilities": [
+      {
+        "name": "창의력",
+        "score": 93,
+        "description": "주어진 주제나 상황에 대하여 독특하고 기발한 아이디어를 산출한다"
+      },
+      {
+        "name": "글쓰기",
+        "score": 92,
+        "description": "글을 통해서 다른 사람과 효과적으로 의사소통한다"
+      },
+      {
+        "name": "협상",
+        "score": 89,
+        "description": "사람들과의 의견차이를 좁혀 합의점을 찾는다"
+      },
+      {
+        "name": "설득",
+        "score": 89,
+        "description": "다른 사람들의 마음이나 행동을 변화시키기 위해 설득한다"
+      },
+      {
+        "name": "읽고 이해하기",
+        "score": 87,
+        "description": "업무와 관련된 문서를 읽고 이해한다"
+      }
+    ],
+    "knowledge": [
+      {
+        "name": "영업과 마케팅",
+        "score": 91,
+        "description": "상품이나 서비스를 판매하거나 촉진을 하는 것에 관한 지식(마케팅 전략, 상품의 전시와 판매기법, 영업관리 등)"
+      },
+      {
+        "name": "의사소통과 미디어",
+        "score": 87,
+        "description": "말, 글, 그림 등을 이메일이나 방송매체를 통해 전달하는 것에 관한 지식"
+      },
+      {
+        "name": "사무",
+        "score": 86,
+        "description": "워드 프로세스, 문서처리 및 기타 다른 사무절차에 관한 지식"
+      },
+      {
+        "name": "국어",
+        "score": 84,
+        "description": "맞춤법, 작문법, 문법에 관한 지식"
+      },
+      {
+        "name": "경영 및 행정",
+        "score": 77,
+        "description": "사업운영, 기획, 자원배분, 인적자원관리, 리더십, 생산기법에 대한 원리 등 경영 및 관리에 관한 지식"
+      }
+    ],
+    "work_activities": [
+      {
+        "name": "창조적 생각",
+        "score": 97,
+        "description": "새로운 소프트웨어, 생각, 시스템, 제품 등을 설계하고 개발하기 활동 중요도"
+      },
+      {
+        "name": "정보 수집",
+        "score": 95,
+        "description": "모든 관련 자료에서 정보를 수집, 관찰하기 중요도"
+      },
+      {
+        "name": "사람들에게 영향력 행사",
+        "score": 94,
+        "description": "사람들에게 물건을 팔거나 그들의 생각과 행동을 바꾸도록 설득하기 활동 중요도"
+      },
+      {
+        "name": "조직 외부인과 소통",
+        "score": 91,
+        "description": "조직 외부인에게 회사를 대표해서 직접 이야기하거나, 전화, 서면, 이메일로 정보를 전달하기 활동 중요도"
+      },
+      {
+        "name": "사물, 행동, 사건 파악",
+        "score": 90,
+        "description": "차이점과 유사점을 분류하고 어떤 상황에서 변화를 알아차림으로써 정보를 파악하기 활동 중요도"
+      }
+    ]
+  },
+  "allowed_task_types": [
+    "communication_and_reporting",
+    "coordination_and_negotiation",
+    "decision_making",
+    "diagnosis_and_improvement",
+    "operation_and_scheduling",
+    "planning_and_proposal",
+    "research_and_analysis"
+  ],
+  "allowed_material_types": [
+    "card",
+    "chart",
+    "checklist",
+    "email",
+    "log",
+    "memo",
+    "schedule",
+    "table"
+  ],
+  "allowed_mission_design_types": [
+    "data_diagnosis",
+    "financial_research_judgment",
+    "general_research_analysis",
+    "market_feedback_prioritization",
+    "product_design_with_constraints"
+  ]
+}

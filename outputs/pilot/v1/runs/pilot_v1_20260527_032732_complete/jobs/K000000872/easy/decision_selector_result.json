@@ -1,0 +1,15 @@
+{
+  "selected_exec_job_id": "exec_001",
+  "primary_task_type": "planning_and_proposal",
+  "selected_material_types": [
+    "memo"
+  ],
+  "mission_design_type": "general_research_analysis",
+  "matched_evidence": [
+    "영업과 마케팅",
+    "정보 수집",
+    "글쓰기"
+  ],
+  "selection_reason": "사업체의 마케팅·광고·홍보 전략을 자문하는 역할이므로 간단한 조사 분석 결과를 바탕으로 제안 메모를 작성하는 형태가 적합함",
+  "confidence": "high"
+}

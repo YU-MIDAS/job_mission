@@ -1,0 +1,605 @@
+{
+  "schema_version": "repair_request.v1",
+  "attempt": 1,
+  "locked_fields": [
+    "job_identity",
+    "target_exec_job",
+    "mission.difficulty",
+    "mission.task_type",
+    "mission.secondary_task_types",
+    "mission.allowed_material_types"
+  ],
+  "system_decisions": {
+    "schema_version": "system_decisions.v1",
+    "job_cd": "K000001179",
+    "job_name": "투자분석가",
+    "difficulty": {
+      "level": "hard",
+      "label": "어려움",
+      "estimated_time_minutes": 20,
+      "material_bundle_style": "work_document_packet",
+      "material_count_range": [
+        3,
+        3
+      ],
+      "task_count_range": [
+        2,
+        2
+      ],
+      "answer_length_hint": "3-5 short sentences per task",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "selected_exec_job": {
+      "exec_job_id": "exec_003",
+      "text": "주식 및 채권보고서, 경제예측, 거래량, 금융잡지, 증권편람, 회사재무제표 등을 활용하여 회사, 주식, 채권 및 기타 투자에 대한 정보를 수집한다.",
+      "source_ref": {
+        "file": "K000001179/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 3
+      },
+      "selection_reason": "주식·채권 보고서와 재무자료 등을 활용해 투자 정보를 체계적으로 수집·분석하는 작업이므로 연구분석 중심(primary_task_type: research_and_analysis)에 적합하며, 표/차트/메모로 핵심 데이터와 결론을 정리하기 위해 자료 유형을 3개로 구성함."
+    },
+    "primary_task_type": "research_and_analysis",
+    "secondary_task_types": [
+      "communication_and_reporting"
+    ],
+    "allowed_material_types": [
+      "table",
+      "chart",
+      "memo"
+    ],
+    "mission_design": {
+      "schema_version": "mission_design.v1",
+      "mission_design_type": "financial_research_judgment",
+      "design_intent": "경제, 산업, 금융 성격의 자료를 종합해 우선순위나 전망을 판단하는 미션",
+      "selection_method": "llm_decision_selector",
+      "selection_reason": "주식·채권 보고서와 재무자료 등을 활용해 투자 정보를 체계적으로 수집·분석하는 작업이므로 연구분석 중심(primary_task_type: research_and_analysis)에 적합하며, 표/차트/메모로 핵심 데이터와 결론을 정리하기 위해 자료 유형을 3개로 구성함."
+    },
+    "excluded_material_types": [
+      "image",
+      "screenshot"
+    ],
+    "generation_constraints": {
+      "language": "ko",
+      "json_only": true,
+      "no_real_company_names": true,
+      "no_real_person_names": true,
+      "no_external_research": true,
+      "non_expert_friendly": true,
+      "must_use_provided_materials_only": true,
+      "llm_must_not_create_reliability_score": true,
+      "factual_status_required": true
+    },
+    "decision_trace": [
+      {
+        "step": "llm_decision_selector",
+        "method": "llm_structured_output",
+        "selected": "exec_003",
+        "reason": "주식·채권 보고서와 재무자료 등을 활용해 투자 정보를 체계적으로 수집·분석하는 작업이므로 연구분석 중심(primary_task_type: research_and_analysis)에 적합하며, 표/차트/메모로 핵심 데이터와 결론을 정리하기 위해 자료 유형을 3개로 구성함.",
+        "matched_evidence": [
+          "정보 수집",
+          "경제와 회계",
+          "판단과 의사결정"
+        ],
+        "confidence": "high",
+        "primary_task_type": "research_and_analysis",
+        "selected_material_types": [
+          "table",
+          "chart",
+          "memo"
+        ],
+        "mission_design_type": "financial_research_judgment"
+      }
+    ],
+    "decision_warnings": []
+  },
+  "allowed_evidence_names": [
+    "수리력",
+    "판단과 의사결정",
+    "선택적 집중력",
+    "논리적 분석",
+    "공간지각력",
+    "경제와 회계",
+    "영어",
+    "사무",
+    "경영 및 행정",
+    "산수와 수학",
+    "치열한 경쟁",
+    "마감시간",
+    "이메일 이용하기",
+    "앉아서 근무",
+    "연설, 발표, 회의하기",
+    "정보 수집",
+    "목표, 전략 수립",
+    "사물, 행동, 사건 파악",
+    "정보의 의미 해석",
+    "사람들에게 조언, 상담",
+    "의사 결정, 문제점 해결",
+    "정보, 자료 분석",
+    "절차, 자료, 주변환경 관찰",
+    "정보 처리",
+    "대인관계 유지"
+  ],
+  "mission_output_draft": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000001179",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "금융·보험 전문가",
+      "job_smcl_nm": "투자분석가",
+      "source_ref": {
+        "file": "K000001179/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_003",
+      "text": "주식 및 채권보고서, 경제예측, 거래량, 금융잡지, 증권편람, 회사재무제표 등을 활용하여 회사, 주식, 채권 및 기타 투자에 대한 정보를 수집한다.",
+      "source_ref": {
+        "file": "K000001179/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": null
+      },
+      "selection_reason": "주식·채권 보고서와 재무자료 등을 활용해 투자 정보를 체계적으로 수집·분석하는 작업이므로 연구분석 중심(primary_task_type: research_and_analysis)에 적합하며, 표/차트/메모로 핵심 데이터와 결론을 정리하기 위해 자료 유형을 3개로 구성함."
+    },
+    "mission_facts": {
+      "org_name": "은하자산운용 리서치팀(가상)",
+      "domain": "고객 브리프용 주식 비교(가상 기업 2곳)",
+      "period": [
+        "최근 6개월(주가 흐름)",
+        "최근 분기(핵심 재무 요약)",
+        "최근 2주(산업/시장 배경)"
+      ],
+      "trend_pattern": "오로라전자는 6개월 동안 비교적 완만한 상승 흐름, 케이프운송은 중간에 꺾인 뒤 약세 흐름",
+      "main_issue": "고객에게 먼저 소개할 회사를 1곳 고르고, 그 회사에 대해 브리프에 넣을 ‘확인할 점(주의사항)’ 1개를 문장으로 정리해야 함",
+      "feedback_themes": [
+        "선택의 근거가 표·차트·메모 중 최소 1곳에 연결되어야 함",
+        "주의사항이 ‘자료에 나온 약점/이슈’에서 바로 보여야 함",
+        "문장이 짧고 구체적이어야 함"
+      ],
+      "decision_goal": "오로라전자와 케이프운송 중 고객 브리프의 첫 추천을 고르고, 1가지 주의 문장을 작성하기"
+    },
+    "mission": {
+      "title": "고객 브리프용 ‘먼저 소개할 회사’ 선택과 확인할 점 1개",
+      "task_type": "research_and_analysis",
+      "secondary_task_types": [
+        "communication_and_reporting"
+      ],
+      "difficulty": {
+        "level": "hard",
+        "label": "어려움",
+        "estimated_time_minutes": 20,
+        "material_bundle_style": "work_document_packet",
+        "material_count_range": [
+          3,
+          3
+        ],
+        "task_count_range": [
+          2,
+          2
+        ],
+        "answer_length_hint": "3-5 short sentences per task",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "당신은 은하자산운용 리서치팀의 투자분석가 인턴입니다.",
+        "context": "팀장이 이번 주 고객에게 보낼 1페이지 브리프를 급히 요청했습니다. 브리프 초안에 ‘어느 회사를 먼저 추천할지’와 ‘끝에 한 줄로 짚을 확인할 점’을 넣어야 해요. 아래 자료 3개를 보고, 2개의 답변을 순서대로 작성해 주세요. (힌트: 선택은 표/차트/메모에서 보이는 차이로만 정리하면 충분합니다.)",
+        "goal": "오로라전자 vs 케이프운송 중 고객 브리프의 첫 추천 회사를 고르고, 그 회사에 대해 자료 기반으로 확인할 점(주의문장) 1개를 쓰세요.",
+        "constraints": [
+          "자료에 없는 내용을 추가하지 마세요.",
+          "두 회사 중 1개만 선택하세요.",
+          "주의 문장은 1개만 쓰세요."
+        ],
+        "glossary": [
+          {
+            "term": "영업이익",
+            "definition": "회사가 본업으로 벌어들인 돈(비용을 빼고 남는 이익)입니다."
+          },
+          {
+            "term": "현금흐름",
+            "definition": "실제로 현금이 얼마나 들어오고(유입) 나가는지의 흐름입니다."
+          },
+          {
+            "term": "일회성(비용/요인)",
+            "definition": "한 번 생기고 다음에는 반복되지 않을 가능성이 있는 요인입니다."
+          },
+          {
+            "term": "변동성",
+            "definition": "주가가 시간에 따라 얼마나 크게 출렁이는지의 정도입니다."
+          }
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "mat_stock_table",
+          "type": "table",
+          "subtype": "기업 비교 요약(최근 분기)",
+          "title": "오로라전자 vs 케이프운송: 최근 분기 핵심 숫자(가상)",
+          "description": "두 회사의 ‘좋아 보이는 점’과 ‘불안해 보이는 점’을 한눈에 비교한 표입니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "어느 회사가 고객 브리프의 첫 추천으로 더 설득력 있는지 근거를 고르기 위해 사용",
+          "evidence_source": [
+            "경제와 회계",
+            "정보, 자료 분석"
+          ],
+          "mission_fact_refs": [
+            "domain",
+            "decision_goal",
+            "main_issue"
+          ],
+          "data": {
+            "chart_type": "line",
+            "x_axis": {
+              "label": "unused",
+              "values": []
+            },
+            "y_axis": {
+              "label": "unused",
+              "unit": "unused"
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "회사"
+              },
+              {
+                "key": "strength",
+                "label": "강점(자료에 나온 좋은 점)"
+              },
+              {
+                "key": "weakness",
+                "label": "약점(자료에 나온 걱정되는 점)"
+              },
+              {
+                "key": "priority",
+                "label": "내부 메모 점수(참고)"
+              }
+            ],
+            "rows": [
+              {
+                "option": "오로라전자",
+                "strength": "매출 성장률 +8% / 영업이익률 12%(전분기 대비 +2%p) / 장기계약(구독) 매출 비중 70%",
+                "weakness": "현금흐름 -15%(운전자금이 늘며 현금이 덜 들어온 것으로 메모에 표시)",
+                "priority": 1
+              },
+              {
+                "option": "케이프운송",
+                "strength": "최근 1개월 주가가 +6%로 반등 / 비용 절감 조치가 진행 중",
+                "weakness": "영업이익률 6%로 낮음 / 변동성이 커 보임(주가가 출렁이는 편) / 운영 이슈로 매출 인식이 지연될 수 있음(메모에서 재확인 필요)",
+                "priority": 2
+              }
+            ],
+            "author": "",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.62,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": [
+              "table.data에는 실제로는 chart_type/x_axis/y_axis가 비어있지 않게 들어가야 하지만, 본 미션에서는 표 읽기에만 사용합니다."
+            ]
+          }
+        },
+        {
+          "material_id": "mat_price_chart",
+          "type": "chart",
+          "subtype": "주가 흐름(최근 6개월)",
+          "title": "최근 6개월 주가 흐름(가상 지수)",
+          "description": "두 회사의 주가가 시간에 따라 어떻게 움직였는지 보여주는 선 그래프입니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "브리프 첫 추천을 고를 때 ‘추세(흐름)’ 근거로 쓰기 위해 사용",
+          "evidence_source": [
+            "사물, 행동, 사건 파악",
+            "정보 처리"
+          ],
+          "mission_fact_refs": [
+            "domain",
+            "trend_pattern",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "line",
+            "x_axis": {
+              "label": "월(가상)",
+              "values": [
+                "2026-01",
+                "2026-02",
+                "2026-03",
+                "2026-04",
+                "2026-05",
+                "2026-06"
+              ]
+            },
+            "y_axis": {
+              "label": "주가 지수(기준=100)",
+              "unit": "지수"
+            },
+            "series": [
+              {
+                "name": "오로라전자 지수",
+                "values": [
+                  100,
+                  106,
+                  111,
+                  113,
+                  118,
+                  121
+                ]
+              },
+              {
+                "name": "케이프운송 지수",
+                "values": [
+                  108,
+                  104,
+                  103,
+                  99,
+                  98,
+                  95
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "unused"
+              },
+              {
+                "key": "strength",
+                "label": "unused"
+              },
+              {
+                "key": "weakness",
+                "label": "unused"
+              },
+              {
+                "key": "priority",
+                "label": "unused"
+              }
+            ],
+            "rows": [],
+            "author": "",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.7,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": [
+              "chart는 상승/하락 추세 확인에만 사용하면 됩니다."
+            ]
+          }
+        },
+        {
+          "material_id": "mat_industry_memo",
+          "type": "memo",
+          "subtype": "산업/시장 메모(요약)",
+          "title": "이번 주 산업·시장 메모(가상)",
+          "description": "팀에서 모아온 시장 배경과, 두 회사에서 한 번 더 체크할 포인트를 짧게 정리한 메모입니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "선택의 이유(왜 지금 그 회사가 먼저 떠오르는지)와 주의 문장(무엇을 확인할지)을 자료에서 뽑기 위해 사용",
+          "evidence_source": [
+            "정보의 의미 해석",
+            "절차, 자료, 주변환경 관찰",
+            "사람들에게 조언, 상담"
+          ],
+          "mission_fact_refs": [
+            "domain",
+            "main_issue",
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "line",
+            "x_axis": {
+              "label": "unused",
+              "values": []
+            },
+            "y_axis": {
+              "label": "unused",
+              "unit": "unused"
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "unused"
+              },
+              {
+                "key": "strength",
+                "label": "unused"
+              },
+              {
+                "key": "weakness",
+                "label": "unused"
+              },
+              {
+                "key": "priority",
+                "label": "unused"
+              }
+            ],
+            "rows": [],
+            "author": "리서치팀(가상)",
+            "items": [
+              {
+                "text": "시장 배경: 최근 2주 동안 ‘금리 기대가 낮아질 때’ 장기계약(구독/고정 매출) 성격의 기업에 자금이 더 붙는 분위기가 기록됨.",
+                "period": "최근 2주",
+                "task": "브리프 첫 문단 근거로 연결",
+                "constraint": "자료 밖의 뉴스 해석은 쓰지 않기",
+                "label": "시장 배경",
+                "status": "checked",
+                "importance": "높음"
+              },
+              {
+                "text": "케이프운송 운영 이슈: 운송 지연으로 고객 인도일이 약 2주 밀렸고, 그 영향으로 매출 인식 타이밍이 뒤로 미뤄졌을 가능성이 메모에 표시됨.",
+                "period": "최근 분기/운영",
+                "task": "추천 우선순위 판단에 사용",
+                "constraint": "‘가능성’ 문장 그대로 간단히 언급",
+                "label": "운영 이슈",
+                "status": "issue",
+                "importance": "높음"
+              },
+              {
+                "text": "오로라전자 현금흐름: 표에 나온 현금흐름 감소(-15%)는 ‘원자재 선결제’ 같은 일회성 요인일 수 있으니, 다음 분기에도 현금흐름이 회복되는지 확인이 필요하다고 표시됨.",
+                "period": "최근 분기~다음 분기 확인",
+                "task": "주의 문장(확인할 점)으로 사용",
+                "constraint": "정확한 원인 확정 표현은 금지(‘일회성일 수 있음’ 형태로)",
+                "label": "확인 포인트",
+                "status": "checked",
+                "importance": "높음"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.66,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": [
+              "memo는 ‘무엇을 확인하라’와 ‘추천 근거’를 문장 그대로 뽑아 쓰는 데 사용합니다."
+            ]
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_1",
+          "instruction": "아래 자료를 보고 고객 브리프의 첫 추천으로 ‘오로라전자’와 ‘케이프운송’ 중 하나를 고르세요. 어떤 회사를 고르는지와 이유를 함께 3~4문장으로 적어주세요.",
+          "required_materials": [
+            "mat_stock_table",
+            "mat_price_chart",
+            "mat_industry_memo"
+          ],
+          "expected_action": "선택(1개) + 자료 근거를 포함해 짧게 설명하기"
+        },
+        {
+          "task_id": "task_2",
+          "instruction": "1번에서 선택한 회사에 대해, 브리프 하단에 넣을 ‘확인할 점(주의 문장)’을 1개 적어보세요. 반드시 자료에 나온 약점/이슈에서 하나를 골라 3~5문장으로 설명하세요.",
+          "required_materials": [
+            "mat_stock_table",
+            "mat_industry_memo"
+          ],
+          "expected_action": "주의 문장 1개를 자료 근거로 설명하기"
+        }
+      ],
+      "submission_format": {
+        "type": "short_text",
+        "estimated_time_minutes": 20,
+        "required_sections": [
+          "1) 첫 추천 회사 선택(오로라전자 또는 케이프운송)",
+          "2) 선택 회사의 확인할 점(주의 문장) 1개"
+        ],
+        "length_hint": "각 답변 3~5문장 내외"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "차트(주가 흐름)와 표(핵심 숫자)에서 차이를 근거로 선택한다",
+        "메모의 ‘시장 배경/운영 이슈/확인 포인트’를 선택 이유와 주의 문장에 연결한다",
+        "주의 문장이 ‘자료에 있는 약점/가능성’을 그대로 담고, 확인할 방향이 보인다"
+      ],
+      "rubric": [
+        {
+          "criterion": "선택 근거의 적합성(자료 연결)",
+          "description": "브리프 첫 추천을 정할 때 표/차트/메모 중 최소 2개 이상 근거를 선택 문장에 연결한다.",
+          "points": 30,
+          "linked_evidence": [
+            "정보 수집",
+            "정보, 자료 분석"
+          ]
+        },
+        {
+          "criterion": "선택의 일관성(흐름과 숫자 정리)",
+          "description": "차트의 추세(상승/약세)와 표의 강점/약점을 말로 연결해, ‘왜 그 회사가 먼저인지’가 자연스럽다.",
+          "points": 25,
+          "linked_evidence": [
+            "사물, 행동, 사건 파악",
+            "정보의 의미 해석"
+          ]
+        },
+        {
+          "criterion": "주의 문장의 정확성(자료 기반)",
+          "description": "2번 답변의 주의 문장이 표의 약점 또는 메모의 확인 포인트에서 직접 나오며, ‘확인해야 할 대상’이 명확하다.",
+          "points": 25,
+          "linked_evidence": [
+            "절차, 자료, 주변환경 관찰",
+            "의사 결정, 문제점 해결"
+          ]
+        },
+        {
+          "criterion": "문장 가독성 및 간결성",
+          "description": "두 답변이 짧고 직접적이며, 한 문장에 선택/주의의 결론이 분명히 드러난다.",
+          "points": 20,
+          "linked_evidence": [
+            "정보 처리",
+            "대인관계 유지"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_003",
+        "text": "주식 및 채권보고서, 경제예측, 거래량, 금융잡지, 증권편람, 회사재무제표 등을 활용하여 회사, 주식, 채권 및 기타 투자에 대한 정보를 수집한다."
+      },
+      "linked_evidence": {
+        "activities": [],
+        "knowledge": [],
+        "abilities": []
+      },
+      "material_evidence_map": []
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "validator_errors": [
+    {
+      "path": "mission.materials[1].data.x_axis.values",
+      "severity": "fail",
+      "code": "MATERIAL_SIZE_TOO_LARGE",
+      "message": "count 6 exceeds max 5.",
+      "required_fix": "Reduce items.",
+      "repairable": true
+    }
+  ],
+  "validator_warnings": [],
+  "repair_rules": [
+    "material.evidence_source must use only exact strings from allowed_evidence_names.",
+    "Do not use source_ref file names, XML field names, or invented evidence labels.",
+    "For table materials, data.columns keys must be option, strength, weakness, priority and rows must use the same keys.",
+    "mission_fact_refs must use only real mission_facts keys such as org_name, domain, period, trend_pattern, main_issue, feedback_themes, and decision_goal.",
+    "evaluation.rubric points must sum exactly to 100.",
+    "evaluation.rubric.linked_evidence must use job profile evidence names, not material ids.",
+    "Respect validator material size limits for chart, log, checklist, memo, email, table, schedule, and card materials.",
+    "Chart series count must be 1 or 2.",
+    "Keep learner-facing text beginner-friendly and job-experience oriented; do not add professional knowledge requirements.",
+    "Make the mission easier than a real workplace task.",
+    "Prefer everyday workplace words over specialist terms.",
+    "Avoid legal, financial, technical, policy, compliance, or expert judgment unless the material explains it in beginner terms.",
+    "Each task must require only one learner action or deliverable.",
+    "JSON만 출력한다.",
+    "target_exec_job, task_type, secondary_task_types, difficulty는 변경하지 않는다.",
+    "allowed_material_types 밖의 material을 추가하지 않는다.",
+    "reliability는 {\"status\":\"pending_validation\"}로 둔다.",
+    "validator_errors와 validator_warnings에 해당하는 부분만 수정한다."
+  ]
+}

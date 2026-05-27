@@ -1,0 +1,179 @@
+{
+  "schema_version": "decision_selector_input.v1",
+  "job_identity": {
+    "job_cd": "K000001080",
+    "job_name": "데이터분석가(빅데이터분석가)"
+  },
+  "difficulty": {
+    "level": "hard",
+    "material_count_range": [
+      3,
+      3
+    ]
+  },
+  "exec_jobs": [
+    {
+      "exec_job_id": "exec_001",
+      "text": "분석 목표에 따라 데이터의 분석 방법을 기획한다.",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 1
+      }
+    },
+    {
+      "exec_job_id": "exec_002",
+      "text": "분석할 데이터 자원을 수집한다.",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 2
+      }
+    },
+    {
+      "exec_job_id": "exec_003",
+      "text": "대용량의 데이터를 처리하는 플랫폼을 활용하여 처리·분석한다.",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 3
+      }
+    },
+    {
+      "exec_job_id": "exec_004",
+      "text": "분석 방법에 따라 마이닝, 네트워크 분석, 복잡계기법 분석, 클러스터 분석 등을 활용한다.",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 4
+      }
+    },
+    {
+      "exec_job_id": "exec_005",
+      "text": "프로그램을 사용하여 분석 결과를 시각화한다.",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 5
+      }
+    },
+    {
+      "exec_job_id": "exec_006",
+      "text": "데이터와 관련된 새로운 기술, 유행, 트렌드 등을 수시로 파악한다.",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 6
+      }
+    }
+  ],
+  "top_evidence": {
+    "abilities": [
+      {
+        "name": "수리력",
+        "score": 96,
+        "description": "어떤 문제를 해결하기 위해 수학을 사용한다"
+      },
+      {
+        "name": "전산",
+        "score": 95,
+        "description": "다양한 목적을 위해 소프트웨어나 인터넷을 활용하거나 프로그램을 작성한다"
+      },
+      {
+        "name": "논리적 분석",
+        "score": 92,
+        "description": "문제를 해결하기 위해(혹은 의사결정을 하기 위해) 체계적으로 이치에 맞는 생각을 해낸다"
+      },
+      {
+        "name": "추리력",
+        "score": 90,
+        "description": "문제해결 및 의사결정을 위해 새로운 정보가 가지는 의미를 파악한다"
+      },
+      {
+        "name": "기술 분석",
+        "score": 89,
+        "description": "새로운 방법을 고안하고 기존의 방법을 개선하기 위해서 현재 사용되는 도구와 기술을 분석한다"
+      }
+    ],
+    "knowledge": [
+      {
+        "name": "산수와 수학",
+        "score": 93,
+        "description": "연산, 대수학, 통계, 기하학의 계산 및 응용에 관한 지식"
+      },
+      {
+        "name": "컴퓨터와 전자공학",
+        "score": 87,
+        "description": "컴퓨터의 하드웨어, 회로판, 처리장치, 반도체, 전자장비에 관한 지식"
+      },
+      {
+        "name": "영어",
+        "score": 75,
+        "description": "영어를 읽고, 쓰고, 듣고 말하는데 필요한 지식"
+      },
+      {
+        "name": "공학과 기술",
+        "score": 72,
+        "description": "다양한 물건을 만들고 설계하거나 서비스를 제공하기 위해 필요한 공학적인 원리, 기법, 장비 등을 실제로 적용시키는 지식"
+      },
+      {
+        "name": "사무",
+        "score": 63,
+        "description": "워드 프로세스, 문서처리 및 기타 다른 사무절차에 관한 지식"
+      }
+    ],
+    "work_activities": [
+      {
+        "name": "정보 수집",
+        "score": 97,
+        "description": "모든 관련 자료에서 정보를 수집, 관찰하기 중요도"
+      },
+      {
+        "name": "정보 처리",
+        "score": 95,
+        "description": "정보 또는 자료를 수집, 분류, 계산, 검증하거나 표로 만들기 활동 중요도"
+      },
+      {
+        "name": "사물, 행동, 사건 파악",
+        "score": 95,
+        "description": "차이점과 유사점을 분류하고 어떤 상황에서 변화를 알아차림으로써 정보를 파악하기 활동 중요도"
+      },
+      {
+        "name": "컴퓨터 업무",
+        "score": 95,
+        "description": "프로그램 제작, 소프트웨어 저작, 기능 설정, 정보 입력, 정보 처리를 하기 위한 컴퓨터 시스템 사용하기 활동 중요도"
+      },
+      {
+        "name": "의사 결정, 문제점 해결",
+        "score": 93,
+        "description": "가장 좋은 해결책을 선택하기 위해 정보를 분석하고 문제점을 해결하기 위해 결과를 평가하기 활동 중요도"
+      }
+    ]
+  },
+  "allowed_task_types": [
+    "communication_and_reporting",
+    "coordination_and_negotiation",
+    "decision_making",
+    "diagnosis_and_improvement",
+    "operation_and_scheduling",
+    "planning_and_proposal",
+    "research_and_analysis"
+  ],
+  "allowed_material_types": [
+    "card",
+    "chart",
+    "checklist",
+    "email",
+    "log",
+    "memo",
+    "schedule",
+    "table"
+  ],
+  "allowed_mission_design_types": [
+    "data_diagnosis",
+    "financial_research_judgment",
+    "general_research_analysis",
+    "market_feedback_prioritization",
+    "product_design_with_constraints"
+  ]
+}

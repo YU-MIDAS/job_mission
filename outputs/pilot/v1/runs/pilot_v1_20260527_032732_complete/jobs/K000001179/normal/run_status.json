@@ -1,0 +1,31 @@
+{
+  "schema_version": "mission_run_status.v1",
+  "run_id": "pilot_v1_20260527_032732",
+  "job_cd": "K000001179",
+  "job_name": "투자분석가",
+  "difficulty": {
+    "code": "normal",
+    "label": "보통"
+  },
+  "status": "saved",
+  "repair_count": 0,
+  "reliability_score": 1.0,
+  "warning_count": 0,
+  "fail_count": 0,
+  "artifacts": {
+    "auto_pilot_config": "auto_pilot_config.json",
+    "decision_selector_input": "decision_selector_input.json",
+    "decision_selector_call_result": "decision_selector_call_result.json",
+    "decision_selector_result": "decision_selector_result.json",
+    "decision_selector_validation": "decision_selector_validation.json",
+    "system_decisions": "system_decisions.json",
+    "schema_constraints": "schema_constraints.json",
+    "llm_input_package": "llm_input_package.json",
+    "job_practice_sheet_background": "job_practice_sheet_background.json",
+    "llm_call_result_attempt_0": "llm_call_result_attempt_0.json",
+    "mission_draft_attempt_0": "mission_draft_attempt_0.json",
+    "validator_result_attempt_0": "validator_result_attempt_0.json",
+    "mission_output": "mission_output.json"
+  },
+  "error": null
+}

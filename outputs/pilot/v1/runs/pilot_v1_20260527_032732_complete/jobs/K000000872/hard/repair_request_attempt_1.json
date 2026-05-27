@@ -1,0 +1,626 @@
+{
+  "schema_version": "repair_request.v1",
+  "attempt": 1,
+  "locked_fields": [
+    "job_identity",
+    "target_exec_job",
+    "mission.difficulty",
+    "mission.task_type",
+    "mission.secondary_task_types",
+    "mission.allowed_material_types"
+  ],
+  "system_decisions": {
+    "schema_version": "system_decisions.v1",
+    "job_cd": "K000000872",
+    "job_name": "광고·홍보·마케팅전문가",
+    "difficulty": {
+      "level": "hard",
+      "label": "어려움",
+      "estimated_time_minutes": 20,
+      "material_bundle_style": "work_document_packet",
+      "material_count_range": [
+        3,
+        3
+      ],
+      "task_count_range": [
+        2,
+        2
+      ],
+      "answer_length_hint": "3-5 short sentences per task",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "selected_exec_job": {
+      "exec_job_id": "exec_007",
+      "text": "광고대상 상품의 경쟁상황, 시장상황, 판매기간 등에 대한 자료를 조사·분석하고 광고매체에 대한 효과를 분석한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 7
+      },
+      "selection_reason": "경쟁·시장·판매기간 자료를 조사·분석하고 광고매체 효과까지 평가하므로 연구·분석 중심의 미션에 적합하며, 결과를 표/차트와 메모로 정리하기 좋다."
+    },
+    "primary_task_type": "research_and_analysis",
+    "secondary_task_types": [],
+    "allowed_material_types": [
+      "table",
+      "chart",
+      "memo"
+    ],
+    "mission_design": {
+      "schema_version": "mission_design.v1",
+      "mission_design_type": "general_research_analysis",
+      "design_intent": "제공 자료를 조사, 비교, 분석해 근거 기반 결론을 도출하는 일반 분석 미션",
+      "selection_method": "llm_decision_selector",
+      "selection_reason": "경쟁·시장·판매기간 자료를 조사·분석하고 광고매체 효과까지 평가하므로 연구·분석 중심의 미션에 적합하며, 결과를 표/차트와 메모로 정리하기 좋다."
+    },
+    "excluded_material_types": [
+      "image",
+      "screenshot"
+    ],
+    "generation_constraints": {
+      "language": "ko",
+      "json_only": true,
+      "no_real_company_names": true,
+      "no_real_person_names": true,
+      "no_external_research": true,
+      "non_expert_friendly": true,
+      "must_use_provided_materials_only": true,
+      "llm_must_not_create_reliability_score": true,
+      "factual_status_required": true
+    },
+    "decision_trace": [
+      {
+        "step": "llm_decision_selector",
+        "method": "llm_structured_output",
+        "selected": "exec_007",
+        "reason": "경쟁·시장·판매기간 자료를 조사·분석하고 광고매체 효과까지 평가하므로 연구·분석 중심의 미션에 적합하며, 결과를 표/차트와 메모로 정리하기 좋다.",
+        "matched_evidence": [
+          "영업과 마케팅",
+          "정보 수집",
+          "사물, 행동, 사건 파악"
+        ],
+        "confidence": "high",
+        "primary_task_type": "research_and_analysis",
+        "selected_material_types": [
+          "table",
+          "chart",
+          "memo"
+        ],
+        "mission_design_type": "general_research_analysis"
+      }
+    ],
+    "decision_warnings": []
+  },
+  "allowed_evidence_names": [
+    "창의력",
+    "글쓰기",
+    "협상",
+    "설득",
+    "읽고 이해하기",
+    "영업과 마케팅",
+    "의사소통과 미디어",
+    "사무",
+    "국어",
+    "경영 및 행정",
+    "재택근무",
+    "다른 사람과의 상호작용",
+    "다른 사람들을 조율하거나 이끌기",
+    "이메일 이용하기",
+    "앉아서 근무",
+    "창조적 생각",
+    "정보 수집",
+    "사람들에게 영향력 행사",
+    "조직 외부인과 소통",
+    "사물, 행동, 사건 파악",
+    "목표, 전략 수립",
+    "업무, 활동에 대한 일정관리",
+    "대인관계 유지",
+    "사람들의 업무와 활동을 조직, 편성",
+    "업무상 사람들을 직접 응대"
+  ],
+  "mission_output_draft": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000000872",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "광고·조사·상품기획·행사기획 전문가",
+      "job_smcl_nm": "광고·홍보·마케팅전문가",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_007",
+      "text": "광고대상 상품의 경쟁상황, 시장상황, 판매기간 등에 대한 자료를 조사·분석하고 광고매체에 대한 효과를 분석한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 7
+      },
+      "selection_reason": "경쟁·시장·판매기간 자료를 조사·분석하고 광고매체 효과까지 평가하므로 연구·분석 중심의 미션에 적합하며, 결과를 표/차트와 메모로 정리하기 좋다."
+    },
+    "mission_facts": {
+      "org_name": "루나푸드",
+      "domain": "간편식 정기구독 서비스",
+      "period": [
+        "신제품 '루나박스' 4주차 중 2주차 구간",
+        "최근 2주(캠페인 오픈 후 10~20일)"
+      ],
+      "trend_pattern": "검색 유입은 늘었지만, 소셜/동영상 쪽은 광고비 대비 매출 효율이 떨어지는 흐름",
+      "main_issue": "이번 신제품에서 어떤 광고 매체를 다음 주에 더 밀어야 할지 판단이 흔들림(숫자는 있는데, 기준이 헷갈림)",
+      "feedback_themes": [
+        "“검색광고는 매출이 좋아 보이는데, 왜 더 써야 하는지 한 문장으로 설명이 필요해요.”",
+        "“이번 지표가 어떤 범위의 구매를 포함하는지 확인하고 말해야 해요.”",
+        "“경쟁사도 같이 뛰는 구간이라, 단순 비교는 위험해요.”"
+      ],
+      "decision_goal": "제공된 자료로 우선 집행할 광고 매체 1개를 고르고, 실행 전에 해석을 조심할 점 1가지를 적는다."
+    },
+    "mission": {
+      "title": "신제품 광고 매체, 효율 근거로 다음 주 선택하기",
+      "task_type": "research_and_analysis",
+      "secondary_task_types": [],
+      "difficulty": {
+        "level": "hard",
+        "label": "어려움",
+        "estimated_time_minutes": 20,
+        "material_bundle_style": "work_document_packet",
+        "material_count_range": [
+          3,
+          3
+        ],
+        "task_count_range": [
+          2,
+          2
+        ],
+        "answer_length_hint": "3-5 short sentences per task",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "당신은 루나푸드 마케팅 팀 인턴입니다.",
+        "context": "팀장님이 신제품 ‘루나박스’ 캠페인 리뷰를 앞두고, “다음 주에 광고비를 더 넣을 매체를 딱 1개만 정해서 설명해줘. 그리고 지표를 해석할 때 조심할 점도 하나 같이 적어줘.”라고 요청했습니다. 당신은 아래 자료(매체 상황 표, 매체별 효율 차트, 해석 주의 메모)를 보고 초보자도 이해할 수 있게 정리하면 됩니다.",
+        "goal": "자료를 바탕으로 우선 집행할 매체 1개를 결정하고, 실행 전에 조심할 점 1가지를 적어 팀장님에게 전달하세요.",
+        "constraints": [
+          "정답은 하나만 고르세요(매체 1개 선택).",
+          "두 번째 답변은 ‘주의/체크’에만 집중하세요(원인 분석이나 복잡한 계산은 하지 않아도 됩니다).",
+          "제공된 자료에서 보이는 내용만 근거로 삼으세요.",
+          "각 답변은 3~5문장으로 짧게 적어주세요."
+        ],
+        "glossary": [
+          {
+            "term": "ROAS",
+            "definition": "광고비 대비로 매출이 얼마나 나왔는지 보는 효율 지표(값이 클수록 광고비 대비 매출이 좋았다는 뜻)."
+          },
+          {
+            "term": "전환(구매)",
+            "definition": "광고를 보고 들어온 사람이 실제로 구매를 완료한 것을 뜻합니다."
+          },
+          {
+            "term": "중복 집계",
+            "definition": "한 고객이 여러 광고에 동시에 반응해서, 분석에서 같은 사람이 여러 매체 성과로 함께 잡히는 상황을 말합니다."
+          }
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "mat_media_situation_table",
+          "type": "table",
+          "subtype": "매체별 상황 요약",
+          "title": "매체별 최근 상황(경쟁/운영 관점) 요약표",
+          "description": "다음 주 집행 결정을 돕기 위해, 각 광고 매체에서 체감되는 강점과 약점(주의할 점)만 간단히 정리했습니다. ‘우선순위(관심도)’는 팀 내부의 감(상황 체감)을 숫자로 옮긴 것이고, 최종 효율 결론은 차트의 ROAS로 확인해야 합니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "매체별 강점/약점을 근거로 ‘왜 그 매체가 유리한지’를 설명하는 데 사용",
+          "evidence_source": [
+            "정보 수집",
+            "사물, 행동, 사건 파악",
+            "영업과 마케팅"
+          ],
+          "mission_fact_refs": [
+            "period",
+            "trend_pattern",
+            "main_issue"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "매체",
+              "values": [
+                "검색광고",
+                "소셜광고",
+                "동영상광고"
+              ]
+            },
+            "y_axis": {
+              "label": "(이 표는 ROAS가 아니라 상황 요약입니다)",
+              "unit": "-"
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "매체"
+              },
+              {
+                "key": "strength",
+                "label": "강점"
+              },
+              {
+                "key": "weakness",
+                "label": "약점(주의)"
+              },
+              {
+                "key": "priority",
+                "label": "우선순위(관심도)"
+              }
+            ],
+            "rows": [
+              {
+                "option": "검색광고",
+                "strength": "검색 유입이 늘어 ‘구매 의도’가 비교적 높은 사람들이 들어옴",
+                "weakness": "경쟁사도 같은 키워드에 많이 붙어서, 광고비 효율이 흔들릴 수 있음",
+                "priority": 2
+              },
+              {
+                "option": "소셜광고",
+                "strength": "브랜드 노출이 잘 되어 ‘관심’은 빠르게 커짐",
+                "weakness": "관심 단계의 유입이 많아 실제 구매 전 이탈이 상대적으로 큼",
+                "priority": 1
+              },
+              {
+                "option": "동영상광고",
+                "strength": "신제품 소개 영상으로 처음 보는 사람 유입에 강함",
+                "weakness": "끝까지 보는 비율이 낮아 구매로 이어지는 효율이 약함",
+                "priority": 3
+              }
+            ],
+            "author": "루나푸드 마케팅 어시스턴트",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.72,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_media_roas_chart",
+          "type": "chart",
+          "subtype": "매체별 효율(ROAS) 차트",
+          "title": "매체별 광고비 대비 매출(ROAS) - 최근 2주",
+          "description": "신제품 ‘루나박스’ 캠페인 오픈 후 10~20일 구간에서, 매체별 ROAS(광고비 대비 매출)를 정리한 것입니다. 이 숫자는 ‘다음 주에 더 밀어야 할 매체’를 고르는 핵심 근거입니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "선택할 매체 1개를 고르는 데 사용(ROAS가 가장 높은 매체를 선택)",
+          "evidence_source": [
+            "정보 수집",
+            "사람들에게 영향력 행사",
+            "사물, 행동, 사건 파악"
+          ],
+          "mission_fact_refs": [
+            "period",
+            "decision_goal",
+            "main_issue"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "광고 매체",
+              "values": [
+                "검색광고",
+                "소셜광고",
+                "동영상광고"
+              ]
+            },
+            "y_axis": {
+              "label": "ROAS",
+              "unit": "배"
+            },
+            "series": [
+              {
+                "name": "ROAS",
+                "values": [
+                  2.4,
+                  1.7,
+                  1.3
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "매체"
+              },
+              {
+                "key": "strength",
+                "label": "(표가 아님)"
+              },
+              {
+                "key": "weakness",
+                "label": "(표가 아님)"
+              },
+              {
+                "key": "priority",
+                "label": "(표가 아님)"
+              }
+            ],
+            "rows": [],
+            "author": "루나푸드 데이터 정리",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.78,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_interpretation_memo",
+          "type": "memo",
+          "subtype": "데이터 해석 주의 메모",
+          "title": "팀에서 꼭 같이 보자는 데이터 해석 주의사항",
+          "description": "이번 자료를 쓸 때, 숫자를 오해하지 않기 위해 팀에서 미리 합의한 체크 포인트를 모아 둔 메모입니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "두 번째 답변(주의/체크 1가지)을 작성하는 데 사용",
+          "evidence_source": [
+            "읽고 이해하기",
+            "글쓰기",
+            "국어"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "",
+              "values": []
+            },
+            "y_axis": {
+              "label": "",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "(메모는 표가 아닙니다)"
+              },
+              {
+                "key": "strength",
+                "label": ""
+              },
+              {
+                "key": "weakness",
+                "label": ""
+              },
+              {
+                "key": "priority",
+                "label": ""
+              }
+            ],
+            "rows": [],
+            "author": "루나푸드 마케팅 팀장",
+            "items": [
+              {
+                "text": "ROAS 계산 기준이 ‘첫구매(신규 구매)’에 맞춰져 있어요. 기존에 이미 구독 중이던 고객의 재구매는 비교에서 덜 잡힐 수 있습니다.",
+                "period": "최근 2주",
+                "task": "숫자 해석",
+                "constraint": "‘광고가 전체 매출을 얼마나 올렸는지’로 단정하지 말기",
+                "label": "기준 범위",
+                "status": "issue",
+                "importance": "높음"
+              },
+              {
+                "text": "측정기간이 캠페인 오픈 후 10~20일로, 다음 주 진행 전 ‘학습/최적화가 더 되는 구간’이 남아 있어요. 그래서 지금 수치를 그대로 ‘고정 성과’처럼 말하면 안 됩니다.",
+                "period": "최근 2주",
+                "task": "비교 기준",
+                "constraint": "“지금은 초기 구간”임을 한 문장에 포함하기",
+                "label": "기간 차이",
+                "status": "checked",
+                "importance": "중간"
+              },
+              {
+                "text": "검색광고와 소셜광고에서 같은 고객이 함께 잡히는 중복 집계가 있어요(대략 8% 내외). 그래서 ‘매체 A가 다 해냈다’처럼 100% 분리해서 주장하면 위험합니다.",
+                "period": "전체 집계 구간",
+                "task": "성과 분리 주의",
+                "constraint": "매체 기여도를 ‘가능성’ 수준으로 조심스럽게 표현하기",
+                "label": "중복 집계",
+                "status": "issue",
+                "importance": "높음"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.7,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": [
+              "메모는 선택형 주의사항을 제공하며, 학습/최적화 표현은 일반적인 맥락으로만 사용했습니다."
+            ]
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_1_choose_media",
+          "instruction": "아래 자료를 보고 ‘다음 주에 우선 집행할 광고 매체’를 검색광고/소셜광고/동영상광고 중 1개로 고르세요. 그리고 그 매체를 고른 이유를, 차트(ROAS)와 표(강점/약점) 내용 중 최소 1개를 꼭 끼워서 3~5문장으로 설명해보세요.",
+          "required_materials": [
+            "mat_media_roas_chart",
+            "mat_media_situation_table"
+          ],
+          "expected_action": "선택한 매체 1개와 근거를 3~5문장으로 작성"
+        },
+        {
+          "task_id": "task_2_write_caution",
+          "instruction": "이번 지표를 그대로 믿지 않기 위해 ‘실행 전에 조심할 점(주의/체크)’을 메모에서 1가지를 골라 3~5문장으로 적어주세요. 주의사항이 왜 필요한지, 숫자를 어떻게 말 조심하면 좋은지도 함께 한 번만 적어주세요.",
+          "required_materials": [
+            "mat_interpretation_memo"
+          ],
+          "expected_action": "메모의 주의사항 1개를 골라, 왜 필요한지 포함해 3~5문장으로 작성"
+        }
+      ],
+      "submission_format": {
+        "type": "text",
+        "estimated_time_minutes": 20,
+        "required_sections": [
+          "(1) 다음 주 우선 집행 매체 선택 + 이유",
+          "(2) 실행 전에 조심할 점(주의/체크) 1가지"
+        ],
+        "length_hint": "각 답변 3~5문장, 전체 간단 요약 형태"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "ROAS(광고비 대비 매출) 차트의 패턴을 근거로 매체를 1개 선택한다.",
+        "매체 선택 설명에 표의 강점/약점 내용을 최소 1개 연결한다.",
+        "주의 메모에서 제공된 ‘기준 범위/기간 차이/중복 집계’ 중 1가지를 골라, 숫자 표현을 조심스럽게 만든다.",
+        "답변이 초보자도 읽기 쉬운 짧은 문장으로 정리되어 있다."
+      ],
+      "rubric": [
+        {
+          "criterion": "매체 선택의 근거가 ROAS 차트와 연결됨",
+          "description": "선택한 매체가 차트에서 높은 ROAS 패턴과 일치하고, 왜 그런 선택인지가 숫자 흐름을 통해 설명됨.",
+          "points": 25,
+          "linked_evidence": [
+            "정보 수집",
+            "사물, 행동, 사건 파악"
+          ]
+        },
+        {
+          "criterion": "표의 강점/약점 내용을 선택 이유에 1개 이상 반영함",
+          "description": "표(강점/약점/관심도)가 말하고 있는 상황을 선택 이유 문장에 최소 1개 연결해 설명함.",
+          "points": 25,
+          "linked_evidence": [
+            "영업과 마케팅",
+            "읽고 이해하기"
+          ]
+        },
+        {
+          "criterion": "주의사항이 메모에서 정확히 1가지를 골라 제시됨",
+          "description": "주의 메모의 ‘기준 범위/기간 차이/중복 집계’ 중 1가지를 골라, 왜 조심해야 하는지 설명함.",
+          "points": 25,
+          "linked_evidence": [
+            "읽고 이해하기",
+            "국어"
+          ]
+        },
+        {
+          "criterion": "문장 전달력(초보자용)과 분량이 적절함",
+          "description": "각 답변이 3~5문장 범위 안에서 명확하고, 어려운 전문용어를 과하게 쓰지 않으며 읽기 쉬운 톤을 유지함.",
+          "points": 25,
+          "linked_evidence": [
+            "글쓰기",
+            "의사소통과 미디어"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_007",
+        "text": "광고대상 상품의 경쟁상황, 시장상황, 판매기간 등에 대한 자료를 조사·분석하고 광고매체에 대한 효과를 분석한다."
+      },
+      "linked_evidence": {
+        "activities": [
+          "정보 수집",
+          "사물, 행동, 사건 파악"
+        ],
+        "knowledge": [
+          "영업과 마케팅",
+          "의사소통과 미디어"
+        ],
+        "abilities": [
+          "읽고 이해하기",
+          "글쓰기"
+        ]
+      },
+      "material_evidence_map": [
+        {
+          "material_id": "mat_media_situation_table",
+          "supported_by": [
+            "정보 수집",
+            "사물, 행동, 사건 파악",
+            "영업과 마케팅"
+          ]
+        },
+        {
+          "material_id": "mat_media_roas_chart",
+          "supported_by": [
+            "정보 수집",
+            "사물, 행동, 사건 파악"
+          ]
+        },
+        {
+          "material_id": "mat_interpretation_memo",
+          "supported_by": [
+            "읽고 이해하기",
+            "국어",
+            "글쓰기"
+          ]
+        }
+      ]
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "validator_errors": [
+    {
+      "path": "mission.materials[1].data.x_axis.values",
+      "severity": "fail",
+      "code": "MATERIAL_SIZE_TOO_SMALL",
+      "message": "count 3 is below minimum 4.",
+      "required_fix": "Add items.",
+      "repairable": true
+    },
+    {
+      "path": "mission.tasks[0].instruction",
+      "severity": "fail",
+      "code": "EXTERNAL_KNOWLEDGE_REQUIRED",
+      "message": "task appears to require external knowledge.",
+      "required_fix": "Use provided materials only.",
+      "repairable": true
+    }
+  ],
+  "validator_warnings": [],
+  "repair_rules": [
+    "material.evidence_source must use only exact strings from allowed_evidence_names.",
+    "Do not use source_ref file names, XML field names, or invented evidence labels.",
+    "For table materials, data.columns keys must be option, strength, weakness, priority and rows must use the same keys.",
+    "mission_fact_refs must use only real mission_facts keys such as org_name, domain, period, trend_pattern, main_issue, feedback_themes, and decision_goal.",
+    "evaluation.rubric points must sum exactly to 100.",
+    "evaluation.rubric.linked_evidence must use job profile evidence names, not material ids.",
+    "Respect validator material size limits for chart, log, checklist, memo, email, table, schedule, and card materials.",
+    "Chart series count must be 1 or 2.",
+    "Keep learner-facing text beginner-friendly and job-experience oriented; do not add professional knowledge requirements.",
+    "Make the mission easier than a real workplace task.",
+    "Prefer everyday workplace words over specialist terms.",
+    "Avoid legal, financial, technical, policy, compliance, or expert judgment unless the material explains it in beginner terms.",
+    "Each task must require only one learner action or deliverable.",
+    "JSON만 출력한다.",
+    "target_exec_job, task_type, secondary_task_types, difficulty는 변경하지 않는다.",
+    "allowed_material_types 밖의 material을 추가하지 않는다.",
+    "reliability는 {\"status\":\"pending_validation\"}로 둔다.",
+    "validator_errors와 validator_warnings에 해당하는 부분만 수정한다."
+  ]
+}

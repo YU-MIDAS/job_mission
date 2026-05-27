@@ -1,0 +1,86 @@
+{
+  "schema_version": "system_decisions.v1",
+  "job_cd": "K000001222",
+  "job_name": "방송기자",
+  "difficulty": {
+    "level": "hard",
+    "label": "어려움",
+    "estimated_time_minutes": 20,
+    "material_bundle_style": "work_document_packet",
+    "material_count_range": [
+      3,
+      3
+    ],
+    "task_count_range": [
+      2,
+      2
+    ],
+    "answer_length_hint": "3-5 short sentences per task",
+    "requires_cross_material_reasoning": true,
+    "requires_tradeoff_judgment": false,
+    "requires_domain_expertise": false
+  },
+  "selected_exec_job": {
+    "exec_job_id": "exec_002",
+    "text": "독자 제보를 받거나 경찰서, 각 정부부처 등에 출입하면서 해당 기관과 관련한 뉴스, 인물 등을 취재하고, 기사화될 만한 것을 직접 찾아내 심층취재를 하기도 하며 기자회견에 참여할 때도 있다.",
+    "source_ref": {
+      "file": "K000001222/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 2
+    },
+    "selection_reason": "정부부처·경찰서 등 기관을 드나들며 관련 뉴스/인물을 찾아 심층취재하고 기사화하므로, 정보 수집과 분석 및 기관 소통·협상 역량이 핵심이다. 체크리스트로 취재원·자료를 점검하고 메모·표로 쟁점과 근거를 체계화하기 적합하다."
+  },
+  "primary_task_type": "research_and_analysis",
+  "secondary_task_types": [],
+  "allowed_material_types": [
+    "checklist",
+    "memo",
+    "table"
+  ],
+  "mission_design": {
+    "schema_version": "mission_design.v1",
+    "mission_design_type": "general_research_analysis",
+    "design_intent": "제공 자료를 조사, 비교, 분석해 근거 기반 결론을 도출하는 일반 분석 미션",
+    "selection_method": "llm_decision_selector",
+    "selection_reason": "정부부처·경찰서 등 기관을 드나들며 관련 뉴스/인물을 찾아 심층취재하고 기사화하므로, 정보 수집과 분석 및 기관 소통·협상 역량이 핵심이다. 체크리스트로 취재원·자료를 점검하고 메모·표로 쟁점과 근거를 체계화하기 적합하다."
+  },
+  "excluded_material_types": [
+    "image",
+    "screenshot"
+  ],
+  "generation_constraints": {
+    "language": "ko",
+    "json_only": true,
+    "no_real_company_names": true,
+    "no_real_person_names": true,
+    "no_external_research": true,
+    "non_expert_friendly": true,
+    "must_use_provided_materials_only": true,
+    "llm_must_not_create_reliability_score": true,
+    "factual_status_required": true
+  },
+  "decision_trace": [
+    {
+      "step": "llm_decision_selector",
+      "method": "llm_structured_output",
+      "selected": "exec_002",
+      "reason": "정부부처·경찰서 등 기관을 드나들며 관련 뉴스/인물을 찾아 심층취재하고 기사화하므로, 정보 수집과 분석 및 기관 소통·협상 역량이 핵심이다. 체크리스트로 취재원·자료를 점검하고 메모·표로 쟁점과 근거를 체계화하기 적합하다.",
+      "matched_evidence": [
+        "정보 수집",
+        "조직 외부인과 소통",
+        "협상",
+        "법",
+        "의사소통과 미디어"
+      ],
+      "confidence": "high",
+      "primary_task_type": "research_and_analysis",
+      "selected_material_types": [
+        "checklist",
+        "memo",
+        "table"
+      ],
+      "mission_design_type": "general_research_analysis"
+    }
+  ],
+  "decision_warnings": []
+}

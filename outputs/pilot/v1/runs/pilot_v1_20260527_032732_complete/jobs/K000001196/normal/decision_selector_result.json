@@ -1,0 +1,16 @@
+{
+  "selected_exec_job_id": "exec_001",
+  "primary_task_type": "diagnosis_and_improvement",
+  "selected_material_types": [
+    "table",
+    "checklist"
+  ],
+  "mission_design_type": "data_diagnosis",
+  "matched_evidence": [
+    "인적자원 관리",
+    "인사",
+    "인사 업무"
+  ],
+  "selection_reason": "현재·미래 결원 파악과 부서별 충원요청을 기존 정원과 대비해 인력수급계획을 수립하는 업무로, 인적자원 관리 및 인사 업무 지식에 기반한 데이터 진단형 분석 과제가 적합하다.",
+  "confidence": "high"
+}

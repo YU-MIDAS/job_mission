@@ -1,0 +1,39 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_001",
+    "primary_task_type": "planning_and_proposal",
+    "selected_material_types": [
+      "table",
+      "checklist"
+    ],
+    "mission_design_type": "data_diagnosis",
+    "matched_evidence": [
+      "논리적 분석",
+      "의사 결정, 문제점 해결",
+      "정보 수집",
+      "정보 처리"
+    ],
+    "selection_reason": "분석 목표에 맞는 분석 방법을 기획하는 작업이 핵심이며, 논리적 분석과 문제해결(의사결정)에 기반해 수집·처리 관점이 포함되기 때문",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 1842,
+    "output_tokens": 431,
+    "reasoning_tokens": 302,
+    "total_tokens": 2273
+  },
+  "errors": []
+}

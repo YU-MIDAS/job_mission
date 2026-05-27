@@ -1,0 +1,38 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_006",
+    "primary_task_type": "decision_making",
+    "selected_material_types": [
+      "table",
+      "memo"
+    ],
+    "mission_design_type": "financial_research_judgment",
+    "matched_evidence": [
+      "수리력",
+      "판단과 의사결정",
+      "정보 수집"
+    ],
+    "selection_reason": "저평가 기업의 적정주가를 다양한 평가방법으로 재산정하는 작업이므로 수리 기반 분석과 판단 역량이 핵심이며, 결과를 표와 메모로 정리해 의사결정에 활용하기 적합하다.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 2079,
+    "output_tokens": 585,
+    "reasoning_tokens": 452,
+    "total_tokens": 2664
+  },
+  "errors": []
+}

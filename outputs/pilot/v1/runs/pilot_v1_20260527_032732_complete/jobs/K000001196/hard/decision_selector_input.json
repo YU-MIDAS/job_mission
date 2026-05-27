@@ -1,0 +1,188 @@
+{
+  "schema_version": "decision_selector_input.v1",
+  "job_identity": {
+    "job_cd": "K000001196",
+    "job_name": "인사·교육·훈련사무원"
+  },
+  "difficulty": {
+    "level": "hard",
+    "material_count_range": [
+      3,
+      3
+    ]
+  },
+  "exec_jobs": [
+    {
+      "exec_job_id": "exec_001",
+      "text": "현재 및 미래에 있을 결원을 파악하고 부서별 충원요청 시 기존의 정원과 대비·검토하고 인력수급계획을 수립한다.",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 1
+      }
+    },
+    {
+      "exec_job_id": "exec_002",
+      "text": "광고나 사내공고, 학교추천의뢰 등을 통하여 원서를 접수하고 서류심사 및 소정의 전형을 진행·주관한다.",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 2
+      }
+    },
+    {
+      "exec_job_id": "exec_003",
+      "text": "지원자들에게 채용 요건에 관해 설명해 주고, 합격자에게는 소정의 서류를 구비토록 하여 배치계획에 따라 인사발령을 품의한다.",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 3
+      }
+    },
+    {
+      "exec_job_id": "exec_004",
+      "text": "경영목표 달성을 위한 인건비예산의 수립지침서를 입안하고 인건비예산을 총괄하며 취합된 인건비예산안을 경영목표, 과거실적, 예정임금인상율 등을 감안하여 분석·보고한다.",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 4
+      }
+    },
+    {
+      "exec_job_id": "exec_005",
+      "text": "매월, 분기, 반기, 년간 인원현황과 인건비 지급실적을 예산과 대비하여 분석, 보고한다.",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 5
+      }
+    },
+    {
+      "exec_job_id": "exec_006",
+      "text": "인사제도, 인사고과의 활용, 복리후생, 안전보건, 인간관계, 사원의 사기 등을 파악하여 타사 및 관계문헌을 조사·비교·분석하여 개선안을 기획·품의한다.",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 6
+      }
+    },
+    {
+      "exec_job_id": "exec_007",
+      "text": "직원의 채용, 전보, 휴직, 복직 및 면직, 승진, 표창 및 징계에 관한 업무를 수행하고 직원의 종합인사평점과 인사기록을 확인하고 관리한다.",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 7
+      }
+    }
+  ],
+  "top_evidence": {
+    "abilities": [
+      {
+        "name": "인적자원 관리",
+        "score": 99,
+        "description": "직원의 근로의욕을 높이고 능력을 개발하며 적재적소에 인재를 배치한다"
+      },
+      {
+        "name": "사람 파악",
+        "score": 92,
+        "description": "타인의 반응을 파악하고 왜 그렇게 행동하는지 이해한다"
+      },
+      {
+        "name": "설득",
+        "score": 89,
+        "description": "다른 사람들의 마음이나 행동을 변화시키기 위해 설득한다"
+      },
+      {
+        "name": "전산",
+        "score": 84,
+        "description": "다양한 목적을 위해 소프트웨어나 인터넷을 활용하거나 프로그램을 작성한다"
+      },
+      {
+        "name": "말하기",
+        "score": 83,
+        "description": "자기가 알고 있는 것을 다른 사람에게 조리있게 말한다"
+      }
+    ],
+    "knowledge": [
+      {
+        "name": "인사",
+        "score": 97,
+        "description": "채용, 훈련, 급여, 노사관계와 같은 인적자원관리에 관한 지식"
+      },
+      {
+        "name": "사무",
+        "score": 84,
+        "description": "워드 프로세스, 문서처리 및 기타 다른 사무절차에 관한 지식"
+      },
+      {
+        "name": "교육 및 훈련",
+        "score": 84,
+        "description": "사람을 가르치고 훈련시키는데 필요한 방법 및 이론에 관한 지식"
+      },
+      {
+        "name": "경영 및 행정",
+        "score": 83,
+        "description": "사업운영, 기획, 자원배분, 인적자원관리, 리더십, 생산기법에 대한 원리 등 경영 및 관리에 관한 지식"
+      },
+      {
+        "name": "법",
+        "score": 83,
+        "description": "법률, 규정에 관한 지식"
+      }
+    ],
+    "work_activities": [
+      {
+        "name": "인사 업무",
+        "score": 100,
+        "description": "조직에서 직원을 모집, 면담, 채용하고 승진시키기 활동 중요도"
+      },
+      {
+        "name": "사람들을 훈련, 교육",
+        "score": 96,
+        "description": "교육 요구 사항을 파악하고, 공식적인 교육 또는 훈련 프로그램을 만들며, 교육이나 강의를 제공하기 활동 중요도"
+      },
+      {
+        "name": "부하 직원들에게 업무 안내, 지시, 동기부여",
+        "score": 91,
+        "description": "부하 직원들의 업무 기준을 정하여 업무 성과를 관찰하고 업무 방향과 지침을 제공하기 활동 중요도"
+      },
+      {
+        "name": "사물, 서비스, 사람의 질 판단",
+        "score": 90,
+        "description": "사물, 사람의 가치, 중요성, 질을 평가하기 활동 중요도"
+      },
+      {
+        "name": "협상, 갈등 해결",
+        "score": 89,
+        "description": "불평, 분쟁, 충돌을 해결하고 협상하기 활동 중요도"
+      }
+    ]
+  },
+  "allowed_task_types": [
+    "communication_and_reporting",
+    "coordination_and_negotiation",
+    "decision_making",
+    "diagnosis_and_improvement",
+    "operation_and_scheduling",
+    "planning_and_proposal",
+    "research_and_analysis"
+  ],
+  "allowed_material_types": [
+    "card",
+    "chart",
+    "checklist",
+    "email",
+    "log",
+    "memo",
+    "schedule",
+    "table"
+  ],
+  "allowed_mission_design_types": [
+    "data_diagnosis",
+    "financial_research_judgment",
+    "general_research_analysis",
+    "market_feedback_prioritization",
+    "product_design_with_constraints"
+  ]
+}

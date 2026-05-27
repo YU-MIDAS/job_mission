@@ -1,0 +1,1469 @@
+{
+  "schema_version": "llm_input_package.v1",
+  "job_profile": {
+    "schema_version": "job_mission_profile.v1",
+    "source_root": "data/api_raw",
+    "job_identity": {
+      "job_cd": "K000001196",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "경영지원 사무원",
+      "job_smcl_nm": "인사·교육·훈련사무원",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo"
+      }
+    },
+    "work": {
+      "job_summary": {
+        "text": "사원의 채용·배치·전환·퇴직·급여·인사고과·담당섭외 업무를 기획·건의·집행하는 인사노무 사무를 수행한다.",
+        "source_ref": {
+          "file": "K000001196/dtlGb_2.xml",
+          "field": "jobsDo.jobSum"
+        }
+      },
+      "exec_jobs": [
+        {
+          "exec_job_id": "exec_001",
+          "text": "현재 및 미래에 있을 결원을 파악하고 부서별 충원요청 시 기존의 정원과 대비·검토하고 인력수급계획을 수립한다.",
+          "source_ref": {
+            "file": "K000001196/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 1
+          }
+        },
+        {
+          "exec_job_id": "exec_002",
+          "text": "광고나 사내공고, 학교추천의뢰 등을 통하여 원서를 접수하고 서류심사 및 소정의 전형을 진행·주관한다.",
+          "source_ref": {
+            "file": "K000001196/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 2
+          }
+        },
+        {
+          "exec_job_id": "exec_003",
+          "text": "지원자들에게 채용 요건에 관해 설명해 주고, 합격자에게는 소정의 서류를 구비토록 하여 배치계획에 따라 인사발령을 품의한다.",
+          "source_ref": {
+            "file": "K000001196/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 3
+          }
+        },
+        {
+          "exec_job_id": "exec_004",
+          "text": "경영목표 달성을 위한 인건비예산의 수립지침서를 입안하고 인건비예산을 총괄하며 취합된 인건비예산안을 경영목표, 과거실적, 예정임금인상율 등을 감안하여 분석·보고한다.",
+          "source_ref": {
+            "file": "K000001196/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 4
+          }
+        },
+        {
+          "exec_job_id": "exec_005",
+          "text": "매월, 분기, 반기, 년간 인원현황과 인건비 지급실적을 예산과 대비하여 분석, 보고한다.",
+          "source_ref": {
+            "file": "K000001196/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 5
+          }
+        },
+        {
+          "exec_job_id": "exec_006",
+          "text": "인사제도, 인사고과의 활용, 복리후생, 안전보건, 인간관계, 사원의 사기 등을 파악하여 타사 및 관계문헌을 조사·비교·분석하여 개선안을 기획·품의한다.",
+          "source_ref": {
+            "file": "K000001196/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 6
+          }
+        },
+        {
+          "exec_job_id": "exec_007",
+          "text": "직원의 채용, 전보, 휴직, 복직 및 면직, 승진, 표창 및 징계에 관한 업무를 수행하고 직원의 종합인사평점과 인사기록을 확인하고 관리한다.",
+          "source_ref": {
+            "file": "K000001196/dtlGb_2.xml",
+            "field": "jobsDo.execJob",
+            "index": 7
+          }
+        }
+      ]
+    },
+    "technical_context": {
+      "techn_know": {
+        "text": "인사 및 노무사무원으로 일하는 데 필요한 학력은 근무하는 곳에 따라 차이가 있다. 일반적으로 소규모 업체나 중소기업은 고등학교 졸업 이상의 학력을 요구하며 대기업의 경우 법학, 경제학, 경영학, 무역학, 회계학 등 관련 분야 대졸 이상의 학력을 요구한다. 인사 및 노무사무원이 갖춰야 할 특별한 자격증은 없으나 인터넷 활용능력과 컴퓨터를 활용한 문서작성 능력은 필수로 갖추어야 한다. 또한, 취업한 뒤 일정 기간의 교육훈련과 현장견습이 필요하다.",
+        "source_ref": {
+          "file": "K000001196/dtlGb_3.xml",
+          "field": "way.technKnow"
+        }
+      }
+    },
+    "evidence": {
+      "abilities": [
+        {
+          "name": "인적자원 관리",
+          "score": 99,
+          "description": "직원의 근로의욕을 높이고 능력을 개발하며 적재적소에 인재를 배치한다",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 1
+          }
+        },
+        {
+          "name": "사람 파악",
+          "score": 92,
+          "description": "타인의 반응을 파악하고 왜 그렇게 행동하는지 이해한다",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2
+          }
+        },
+        {
+          "name": "설득",
+          "score": 89,
+          "description": "다른 사람들의 마음이나 행동을 변화시키기 위해 설득한다",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 3
+          }
+        },
+        {
+          "name": "전산",
+          "score": 84,
+          "description": "다양한 목적을 위해 소프트웨어나 인터넷을 활용하거나 프로그램을 작성한다",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 4
+          }
+        },
+        {
+          "name": "말하기",
+          "score": 83,
+          "description": "자기가 알고 있는 것을 다른 사람에게 조리있게 말한다",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 5
+          }
+        }
+      ],
+      "knowledge": [
+        {
+          "name": "인사",
+          "score": 97,
+          "description": "채용, 훈련, 급여, 노사관계와 같은 인적자원관리에 관한 지식",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 1
+          }
+        },
+        {
+          "name": "사무",
+          "score": 84,
+          "description": "워드 프로세스, 문서처리 및 기타 다른 사무절차에 관한 지식",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 2
+          }
+        },
+        {
+          "name": "교육 및 훈련",
+          "score": 84,
+          "description": "사람을 가르치고 훈련시키는데 필요한 방법 및 이론에 관한 지식",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 3
+          }
+        },
+        {
+          "name": "경영 및 행정",
+          "score": 83,
+          "description": "사업운영, 기획, 자원배분, 인적자원관리, 리더십, 생산기법에 대한 원리 등 경영 및 관리에 관한 지식",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 4
+          }
+        },
+        {
+          "name": "법",
+          "score": 83,
+          "description": "법률, 규정에 관한 지식",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 5
+          }
+        }
+      ],
+      "work_environment": [
+        {
+          "name": "다른 사람과의 접촉",
+          "score": 90,
+          "description": "업무 수행하면서 사람들과 접촉(전화, 대면, 메신저 등) 정도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 1
+          }
+        },
+        {
+          "name": "앉아서 근무",
+          "score": 89,
+          "description": "앉아서 근무하는 빈도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 2
+          }
+        },
+        {
+          "name": "전화 대화하기",
+          "score": 89,
+          "description": "업무 수행하면서 전화로 대화하는 정도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 3
+          }
+        },
+        {
+          "name": "이메일 이용하기",
+          "score": 88,
+          "description": "업무 수행하면서 이메일 사용하는 정도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 4
+          }
+        },
+        {
+          "name": "재택근무",
+          "score": 88,
+          "description": "재택근무 가능성",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001196/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 5
+          }
+        }
+      ],
+      "work_activities": [
+        {
+          "name": "인사 업무",
+          "score": 100,
+          "description": "조직에서 직원을 모집, 면담, 채용하고 승진시키기 활동 중요도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001196/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1
+          }
+        },
+        {
+          "name": "사람들을 훈련, 교육",
+          "score": 96,
+          "description": "교육 요구 사항을 파악하고, 공식적인 교육 또는 훈련 프로그램을 만들며, 교육이나 강의를 제공하기 활동 중요도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001196/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2
+          }
+        },
+        {
+          "name": "부하 직원들에게 업무 안내, 지시, 동기부여",
+          "score": 91,
+          "description": "부하 직원들의 업무 기준을 정하여 업무 성과를 관찰하고 업무 방향과 지침을 제공하기 활동 중요도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001196/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 3
+          }
+        },
+        {
+          "name": "사물, 서비스, 사람의 질 판단",
+          "score": 90,
+          "description": "사물, 사람의 가치, 중요성, 질을 평가하기 활동 중요도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001196/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4
+          }
+        },
+        {
+          "name": "협상, 갈등 해결",
+          "score": 89,
+          "description": "불평, 분쟁, 충돌을 해결하고 협상하기 활동 중요도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001196/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5
+          }
+        },
+        {
+          "name": "사람들의 업무와 활동을 조직, 편성",
+          "score": 88,
+          "description": "그룹 내 구성원들이 업무 완수를 위해 함께 일하도록 조율하기 활동 중요도",
+          "rank": 6,
+          "source_ref": {
+            "file": "K000001196/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 6
+          }
+        },
+        {
+          "name": "목표, 전략 수립",
+          "score": 84,
+          "description": "장기 목표를 세우고 그 목표를 달성하기 위한 전략과 실행할 목록을 명시하기 활동 중요도",
+          "rank": 7,
+          "source_ref": {
+            "file": "K000001196/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 7
+          }
+        },
+        {
+          "name": "기준에 따른 정보 평가",
+          "score": 82,
+          "description": "사건이나 절차가 법, 규정, 기준을 정확히 준수했는지 판단하기 위해 관련 정보나 개인 의견을 사용하기 활동 중요도",
+          "rank": 8,
+          "source_ref": {
+            "file": "K000001196/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 8
+          }
+        },
+        {
+          "name": "사람들의 능력 개발, 지도",
+          "score": 81,
+          "description": "사람들의 능력을 개발하고, 조언하거나, 지식과 기술을 개선하는데 도움을 주기 활동 중요도",
+          "rank": 9,
+          "source_ref": {
+            "file": "K000001196/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 9
+          }
+        },
+        {
+          "name": "상사, 동료, 부하직원과 소통",
+          "score": 78,
+          "description": "상사, 동료, 부하직원에게 정보를 서면, 이메일 또는 직접 전달하기 활동 중요도",
+          "rank": 10,
+          "source_ref": {
+            "file": "K000001196/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 10
+          }
+        }
+      ]
+    },
+    "source_files": [
+      {
+        "file": "K000001196/dtlGb_2.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000001196/dtlGb_5.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000001196/dtlGb_7.xml",
+        "required": true,
+        "loaded": true
+      },
+      {
+        "file": "K000001196/dtlGb_3.xml",
+        "required": false,
+        "loaded": true
+      }
+    ],
+    "loader_warnings": [],
+    "loader_errors": []
+  },
+  "system_decisions": {
+    "schema_version": "system_decisions.v1",
+    "job_cd": "K000001196",
+    "job_name": "인사·교육·훈련사무원",
+    "difficulty": {
+      "level": "easy",
+      "label": "쉬움",
+      "estimated_time_minutes": 10,
+      "material_bundle_style": "single_work_material",
+      "material_count_range": [
+        1,
+        1
+      ],
+      "task_count_range": [
+        1,
+        1
+      ],
+      "answer_length_hint": "1-2 short sentences",
+      "requires_cross_material_reasoning": false,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "selected_exec_job": {
+      "exec_job_id": "exec_002",
+      "text": "광고나 사내공고, 학교추천의뢰 등을 통하여 원서를 접수하고 서류심사 및 소정의 전형을 진행·주관한다.",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 2
+      },
+      "selection_reason": "원서 접수부터 서류심사·전형 진행/주관까지 단순 절차 수행이 중심이라 난이도 easy에 적합하며, 인사 지식과 ‘인사 업무’ 역량이 직접적으로 관련된다. 체크리스트로 단계별 점검 항목을 진단·정리하기 용이하다."
+    },
+    "primary_task_type": "operation_and_scheduling",
+    "secondary_task_types": [],
+    "allowed_material_types": [
+      "checklist"
+    ],
+    "mission_design": {
+      "schema_version": "mission_design.v1",
+      "mission_design_type": "data_diagnosis",
+      "design_intent": "지표와 로그를 바탕으로 원인을 진단하고 개선 방향을 판단하는 미션",
+      "selection_method": "llm_decision_selector",
+      "selection_reason": "원서 접수부터 서류심사·전형 진행/주관까지 단순 절차 수행이 중심이라 난이도 easy에 적합하며, 인사 지식과 ‘인사 업무’ 역량이 직접적으로 관련된다. 체크리스트로 단계별 점검 항목을 진단·정리하기 용이하다."
+    },
+    "excluded_material_types": [
+      "image",
+      "screenshot"
+    ],
+    "generation_constraints": {
+      "language": "ko",
+      "json_only": true,
+      "no_real_company_names": true,
+      "no_real_person_names": true,
+      "no_external_research": true,
+      "non_expert_friendly": true,
+      "must_use_provided_materials_only": true,
+      "llm_must_not_create_reliability_score": true,
+      "factual_status_required": true
+    },
+    "decision_trace": [
+      {
+        "step": "llm_decision_selector",
+        "method": "llm_structured_output",
+        "selected": "exec_002",
+        "reason": "원서 접수부터 서류심사·전형 진행/주관까지 단순 절차 수행이 중심이라 난이도 easy에 적합하며, 인사 지식과 ‘인사 업무’ 역량이 직접적으로 관련된다. 체크리스트로 단계별 점검 항목을 진단·정리하기 용이하다.",
+        "matched_evidence": [
+          "인사",
+          "인사 업무"
+        ],
+        "confidence": "high",
+        "primary_task_type": "operation_and_scheduling",
+        "selected_material_types": [
+          "checklist"
+        ],
+        "mission_design_type": "data_diagnosis"
+      }
+    ],
+    "decision_warnings": []
+  },
+  "schema_constraints": {
+    "schema_version": "schema_constraints.v1",
+    "output_schema": "mission_output.v1",
+    "material_detail_schema": "material_detail_schema.v1",
+    "task_material_taxonomy": "task_and_material_taxonomy.v1",
+    "difficulty_policy": "mission_difficulty_policy.v1",
+    "json_only": true,
+    "required_top_level_fields": [
+      "schema_version",
+      "mission_id",
+      "job_identity",
+      "target_exec_job",
+      "mission_facts",
+      "mission",
+      "evaluation",
+      "evidence_chain_draft",
+      "reliability"
+    ],
+    "forbidden_fields": [
+      "reliability.score",
+      "reliability.passed",
+      "evidence_chain"
+    ],
+    "must_copy_from_system_decisions": [
+      "target_exec_job",
+      "mission.task_type",
+      "mission.secondary_task_types",
+      "mission.difficulty"
+    ],
+    "material_rules": {
+      "allowed_material_types": [
+        "card",
+        "chart",
+        "checklist",
+        "email",
+        "log",
+        "memo",
+        "schedule",
+        "table"
+      ],
+      "allowed_evidence_names": [
+        "인적자원 관리",
+        "사람 파악",
+        "설득",
+        "전산",
+        "말하기",
+        "인사",
+        "사무",
+        "교육 및 훈련",
+        "경영 및 행정",
+        "법",
+        "다른 사람과의 접촉",
+        "앉아서 근무",
+        "전화 대화하기",
+        "이메일 이용하기",
+        "재택근무",
+        "인사 업무",
+        "사람들을 훈련, 교육",
+        "부하 직원들에게 업무 안내, 지시, 동기부여",
+        "사물, 서비스, 사람의 질 판단",
+        "협상, 갈등 해결",
+        "사람들의 업무와 활동을 조직, 편성",
+        "목표, 전략 수립",
+        "기준에 따른 정보 평가",
+        "사람들의 능력 개발, 지도",
+        "상사, 동료, 부하직원과 소통"
+      ],
+      "use_only_allowed_material_types": true,
+      "excluded_material_types": [
+        "image",
+        "screenshot"
+      ],
+      "factual_status_required": true,
+      "mission_fact_refs_required": true,
+      "evidence_source_required": true,
+      "factual_status_value": "synthetic_mission_material"
+    },
+    "mission_fact_rules": {
+      "must_create_before_materials": true,
+      "all_material_refs_must_exist": true,
+      "no_cross_material_conflict": true
+    },
+    "repair_policy": {
+      "max_repair_attempts": 1,
+      "repair_only_validator_errors": true,
+      "do_not_change_system_decisions": true
+    },
+    "structured_output_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "mission_id",
+        "job_identity",
+        "target_exec_job",
+        "mission_facts",
+        "mission",
+        "evaluation",
+        "evidence_chain_draft",
+        "reliability"
+      ],
+      "properties": {
+        "schema_version": {
+          "enum": [
+            "mission_output.v1"
+          ]
+        },
+        "mission_id": {
+          "enum": [
+            "draft"
+          ]
+        },
+        "job_identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "job_cd",
+            "job_lrcl_nm",
+            "job_mdcl_nm",
+            "job_smcl_nm",
+            "source_ref"
+          ],
+          "properties": {
+            "job_cd": {
+              "type": "string"
+            },
+            "job_lrcl_nm": {
+              "type": "string"
+            },
+            "job_mdcl_nm": {
+              "type": "string"
+            },
+            "job_smcl_nm": {
+              "type": "string"
+            },
+            "source_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "field",
+                "index"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string"
+                },
+                "index": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "target_exec_job": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "exec_job_id",
+            "text",
+            "source_ref",
+            "selection_reason"
+          ],
+          "properties": {
+            "exec_job_id": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "source_ref": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "field",
+                "index"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string"
+                },
+                "index": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "selection_reason": {
+              "type": "string"
+            }
+          }
+        },
+        "mission_facts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "org_name",
+            "domain",
+            "period",
+            "trend_pattern",
+            "main_issue",
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "properties": {
+            "org_name": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "period": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "trend_pattern": {
+              "type": "string"
+            },
+            "main_issue": {
+              "type": "string"
+            },
+            "feedback_themes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "decision_goal": {
+              "type": "string"
+            }
+          }
+        },
+        "mission": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "task_type",
+            "secondary_task_types",
+            "difficulty",
+            "scenario",
+            "materials",
+            "tasks",
+            "submission_format"
+          ],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "task_type": {
+              "type": "string"
+            },
+            "secondary_task_types": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "difficulty": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "level",
+                "label",
+                "estimated_time_minutes",
+                "material_bundle_style",
+                "material_count_range",
+                "task_count_range",
+                "answer_length_hint",
+                "requires_cross_material_reasoning",
+                "requires_tradeoff_judgment",
+                "requires_domain_expertise"
+              ],
+              "properties": {
+                "level": {
+                  "enum": [
+                    "easy",
+                    "normal",
+                    "hard"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "estimated_time_minutes": {
+                  "type": "integer"
+                },
+                "material_bundle_style": {
+                  "type": "string"
+                },
+                "material_count_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "task_count_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "answer_length_hint": {
+                  "type": "string"
+                },
+                "requires_cross_material_reasoning": {
+                  "type": "boolean"
+                },
+                "requires_tradeoff_judgment": {
+                  "type": "boolean"
+                },
+                "requires_domain_expertise": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "scenario": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "role",
+                "context",
+                "goal",
+                "constraints",
+                "glossary"
+              ],
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "context": {
+                  "type": "string"
+                },
+                "goal": {
+                  "type": "string"
+                },
+                "constraints": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "glossary": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "term",
+                      "definition"
+                    ],
+                    "properties": {
+                      "term": {
+                        "type": "string"
+                      },
+                      "definition": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "materials": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "material_id",
+                  "type",
+                  "subtype",
+                  "title",
+                  "description",
+                  "factual_status",
+                  "used_for",
+                  "evidence_source",
+                  "mission_fact_refs",
+                  "data",
+                  "confidence"
+                ],
+                "properties": {
+                  "material_id": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "card",
+                      "chart",
+                      "checklist",
+                      "email",
+                      "log",
+                      "memo",
+                      "schedule",
+                      "table"
+                    ]
+                  },
+                  "subtype": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "factual_status": {
+                    "enum": [
+                      "synthetic_mission_material"
+                    ]
+                  },
+                  "used_for": {
+                    "type": "string"
+                  },
+                  "evidence_source": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "인적자원 관리",
+                        "사람 파악",
+                        "설득",
+                        "전산",
+                        "말하기",
+                        "인사",
+                        "사무",
+                        "교육 및 훈련",
+                        "경영 및 행정",
+                        "법",
+                        "다른 사람과의 접촉",
+                        "앉아서 근무",
+                        "전화 대화하기",
+                        "이메일 이용하기",
+                        "재택근무",
+                        "인사 업무",
+                        "사람들을 훈련, 교육",
+                        "부하 직원들에게 업무 안내, 지시, 동기부여",
+                        "사물, 서비스, 사람의 질 판단",
+                        "협상, 갈등 해결",
+                        "사람들의 업무와 활동을 조직, 편성",
+                        "목표, 전략 수립",
+                        "기준에 따른 정보 평가",
+                        "사람들의 능력 개발, 지도",
+                        "상사, 동료, 부하직원과 소통"
+                      ]
+                    }
+                  },
+                  "mission_fact_refs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "chart_type",
+                      "x_axis",
+                      "y_axis",
+                      "series",
+                      "columns",
+                      "rows",
+                      "author",
+                      "items",
+                      "thread",
+                      "entries",
+                      "cards"
+                    ],
+                    "properties": {
+                      "chart_type": {
+                        "enum": [
+                          "line",
+                          "bar",
+                          "pie"
+                        ]
+                      },
+                      "x_axis": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "label",
+                          "values"
+                        ],
+                        "properties": {
+                          "label": {
+                            "type": "string"
+                          },
+                          "values": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "y_axis": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "label",
+                          "unit"
+                        ],
+                        "properties": {
+                          "label": {
+                            "type": "string"
+                          },
+                          "unit": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "series": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "name",
+                            "values"
+                          ],
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "values": {
+                              "type": "array",
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "columns": {
+                        "type": "array",
+                        "minItems": 4,
+                        "maxItems": 4,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "key",
+                            "label"
+                          ],
+                          "properties": {
+                            "key": {
+                              "enum": [
+                                "option",
+                                "strength",
+                                "weakness",
+                                "priority"
+                              ]
+                            },
+                            "label": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "rows": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "option",
+                            "strength",
+                            "weakness",
+                            "priority"
+                          ],
+                          "properties": {
+                            "option": {
+                              "type": "string"
+                            },
+                            "strength": {
+                              "type": "string"
+                            },
+                            "weakness": {
+                              "type": "string"
+                            },
+                            "priority": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      },
+                      "author": {
+                        "type": "string"
+                      },
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "text",
+                            "period",
+                            "task",
+                            "constraint",
+                            "label",
+                            "status",
+                            "importance"
+                          ],
+                          "properties": {
+                            "text": {
+                              "type": "string"
+                            },
+                            "period": {
+                              "type": "string"
+                            },
+                            "task": {
+                              "type": "string"
+                            },
+                            "constraint": {
+                              "type": "string"
+                            },
+                            "label": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "enum": [
+                                "checked",
+                                "unchecked",
+                                "issue"
+                              ]
+                            },
+                            "importance": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "thread": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "from",
+                            "to",
+                            "subject",
+                            "body"
+                          ],
+                          "properties": {
+                            "from": {
+                              "type": "string"
+                            },
+                            "to": {
+                              "type": "string"
+                            },
+                            "subject": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "entries": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "time",
+                            "actor",
+                            "event",
+                            "note"
+                          ],
+                          "properties": {
+                            "time": {
+                              "type": "string"
+                            },
+                            "actor": {
+                              "type": "string"
+                            },
+                            "event": {
+                              "type": "string"
+                            },
+                            "note": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "cards": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "title",
+                            "attributes"
+                          ],
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "attributes": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "required": [
+                                "strength",
+                                "weakness",
+                                "fit"
+                              ],
+                              "properties": {
+                                "strength": {
+                                  "type": "string"
+                                },
+                                "weakness": {
+                                  "type": "string"
+                                },
+                                "fit": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "confidence": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "score",
+                      "checks",
+                      "warnings"
+                    ],
+                    "properties": {
+                      "score": {
+                        "type": "number"
+                      },
+                      "checks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "synthetic_material"
+                        ],
+                        "properties": {
+                          "synthetic_material": {
+                            "type": "boolean"
+                          }
+                        }
+                      },
+                      "warnings": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "task_id",
+                  "instruction",
+                  "required_materials",
+                  "expected_action"
+                ],
+                "properties": {
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "instruction": {
+                    "type": "string"
+                  },
+                  "required_materials": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "expected_action": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "submission_format": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "estimated_time_minutes",
+                "required_sections",
+                "length_hint"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "estimated_time_minutes": {
+                  "type": "integer"
+                },
+                "required_sections": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "length_hint": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "evaluation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "expected_insights",
+            "rubric"
+          ],
+          "properties": {
+            "expected_insights": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "rubric": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "criterion",
+                  "description",
+                  "points",
+                  "linked_evidence"
+                ],
+                "properties": {
+                  "criterion": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "points": {
+                    "type": "integer"
+                  },
+                  "linked_evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "evidence_chain_draft": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_exec_job",
+            "linked_evidence",
+            "material_evidence_map"
+          ],
+          "properties": {
+            "source_exec_job": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "text"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              }
+            },
+            "linked_evidence": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "activities",
+                "knowledge",
+                "abilities"
+              ],
+              "properties": {
+                "activities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "knowledge": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "abilities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "material_evidence_map": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "material_id",
+                  "supported_by"
+                ],
+                "properties": {
+                  "material_id": {
+                    "type": "string"
+                  },
+                  "supported_by": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "reliability": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "pending_validation"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "job_practice_sheet_background": {
+    "schema_version": "job_practice_sheet_background.v1",
+    "job_cd": "K000001196",
+    "source_path": "data/additional_search/K000001196.md",
+    "content_markdown": "# K000001196 추가 조사 자료\n\n<!-- 이 파일은 data/additional_search의 묶음 파일에서 직무코드 K000001196 섹션을 분리해 생성했습니다. -->\n\n---\n\n## 원본 파일: 직업정보정리_2.md\n\n# 실무 조사 시트 - 인사∙교육∙훈련사무원 HR\n\n---\n\n## [기본 정보]\n\n**직업명:** 인사∙교육∙훈련사무원 HR\n\n**KNOW 코드 / 분류:** K000001196/경영지원 사무원\n\n**대표 직급/연차:**  \n- 사원,주임/1~3년차\n- 대리/4~7년차\n- 과장/8~12년차\n- 차장/13~15년차\n- 부장,팀장/16년차 이상\n\n**출처 리스트:**\n\n- 채용공고:4건([유앤어스]HR담당자 채용/[사람인](https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53898497&location=ts&searchword=HR&searchType=search&paid_fl=n&search_uuid=ce5dd47f-3b5d-4076-b051-8b2d14d7fd0f&t_ref=search&t_ref_content=generic#seq=0))\n  - ([아이센스]인사 계약직 채용/[사람인](https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53952840&location=ts&searchword=HR&searchType=search&paid_fl=n&inner_source=saramin&inner_medium=pattern&inner_campaign=SRI_050_SCH_CVS_RCT_AVA_NONMEM&inner_term=4&referNonce=b0387854fa4c38e1d949&t_ref=search&t_ref_content=SRI_050_SCH_CVS_RCT_AVA_NONMEM&t_ref_scnid=829#seq=0))\n  - ([에너닷]HR담당자/[사람인](https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53852885&location=ts&searchword=HR&searchType=search&paid_fl=n&search_uuid=ce5dd47f-3b5d-4076-b051-8b2d14d7fd0f&t_ref=search&t_ref_content=generic#seq=0))\n  - ([시앤피컨설팅]HR경력 및 신입 컨설턴트 모집/[사람인](https://www.saramin.co.kr/zf_user/jobs/relay/view?view_type=search&rec_idx=53773218&location=ts&searchword=HR&searchType=search&paid_fl=n&search_uuid=ce5dd47f-3b5d-4076-b051-8b2d14d7fd0f&t_ref=search&t_ref_content=generic#seq=0))\n- 직무인터뷰:2건 ([직무인터뷰]/[알바몬](https://m.albamon.com/alba-talk/interview/21737))\n  - ([궁금한 직무 이야기]인사 담당자 직무 인터뷰/[한솔그룹블로그](https://blog.hansol.com/1040))\n- 영상: 2건 ([HR]대기업 인사담당자 피셜, 인사 경험은 이러헥 쌓으세요/[앤드 스튜디오](https://www.youtube.com/watch?v=JPnruc931L4))\n  - (인사 지원하시는 분들 필수시청![필요한 역량/준비방법]/[내일부터 출근](https://www.youtube.com/watch?v=tWc9CLu50kA))\n- 기타:1건 (HR이란?인사팀 업무부터 HR 직무·역량·용어까지 총정리/[CLAP 블로그](https://blog.clap.company/what_is_hr/))\n\n**한 줄 정의:**  조직과 구성원의 성장을 연결하여 기업의 비전 달성과 비즈니스 성공에 기여하는 사랑\n\n---\n\n## [Part 1. 일상 업무] ← 채용공고 + 영상 기반\n\n**주요 업무 3~5개:**\n\n1. 채용 및 배치\n2. 평가 및 보상(직원에게 제고오디는 금전적∙비금전적 혜택 관리)\n3. 교육 및 인재 육성\n4. 조직문화 및 노무 관리\n\n**각 업무를 한 줄로 풀어쓰기:**  \n※ \"무엇을, 어떤 도구로, 어떤 목적으로\" 형식\n\n1. **채용 및 배치**: ATS와 인재서칭 툴을 활용하여 우수 인재를 발굴하고 온보딩함으로써, 회사의 성장에 필요한 핵심 인력을 적시에 확보하기 위함.\n2. **평가 및 보상**: MS Excel과 HRIS를 통해 성과 평가 및 급여 계산을 처리함으로써, 공정한 보상으로 임직원의 업무 몰입도를 높이고 이탈을 방지하기위함.\n3. **교육 및 육성**: MS PowerPoint와 화상 툴로 직무 및 리더십 교육을 기획·운영함으로써, 임직원의 역량을 키워 회사의 비즈니스 경쟁력을 강화하기위함.\n4. **조직문화 및 노무**: 사내 협업 툴과 노동법 가이드를 기반으로 복지 제도와 사규를 관리함으로써, 일하기 좋은 환경을 조성하고 법적 리스크를 예방하기위함.\n\n**업무의 입력/출력 구조:**  \n※ 각 업무가 무엇을 받아서 무엇을 만들어내는지  \n※ 미션에서 \"제시 자료 / 요구 결과물\" 설계할 때 사용\n\n업무 1:현업 부서의 인원 충원 요청 및 지원자 이력서 → 검증된 핵심 인재 최종 합격 및 부서 배치  \n업무 2:임직원의 근태·성과 데이터 및 연봉 계약서 → 정확한 급여 지급 및 성과에 따른 인센티브 지급이나 승진  \n업무 3:경영진의 비즈니스 전략 요구사항 및 역량 부족한 부분 → 맞춤형 사내 교육 과정  \n업무 4:임직원의 불만·건의사항 및 고용노동부 개정 법령 → 개선된 사내 복지 제도 및 리스크가 줄어든 취업 규칙  \n\n---\n\n## [Part 2. 의사결정 / 판단 순간] ★ 미션의 핵심 원료\n\n※ 정답이 없는 상태에서 판단을 내려야 하는 반복적 상황 중심으로 정리\n\n### [의사결정 1]\n\n- **결정해야 할 것:** 신규 입사자가 조직에 밍글이 되지않는 경우\n- **자주 발생하는 맥락:** 공채나 대규모 수시 채용 직후나 수평적 문화의 스타트업에 보수적인 대기업 출신 경력직이 입사하여 기존 팀원들과 융화되지 못하고 겉돌 때\n- **고려해야 할 요소 3~5개:**\n  - 해당 부서 리더의 매니지먼트 스타일 및 팀원들의 수용도\n  - 신규 입사자의 직무 기술서(R&R)와 실제 부여된 업무의 일치 여부\n  - 회사의 핵심 가치(Culture Fit)와 개인 성향의 충돌 지점\n  - 기존 온보딩/버디 프로그램의 실효성 및 소통 주기\n- **정답이 없는 이유:** 사람의 성향과 조직 역학 관계는 정량화할 수 없으며 부적응의 원인이 개인의 태도 문제인지 조직 환경의 문제인지 확실하게 판단할 수 없기 때문.\n- **좋은 결정 vs 나쁜 결정의 갈림길:** 양측(입사자, 팀원, 리더)의 심층 인터뷰를 통해 오해를 풀고 직무나 멘토를 재조정하는 등 실질적 안착을 돕는 결정\n  ⟷ 시간이 해결해줄것이라는 안일한 생각으로 방치하거나 개인의 역량 부족으로 조기 퇴사를 유발하는 결정\n\n### [의사결정 2]\n\n- **결정해야 할 것:** 새로운 인재를 채용하기 위한 더 나은 평가와 지원 방안을 고민\n- **자주 발생하는 맥락:** 기존의 서류-면접 방식으로 뽑은 입사자들의 퇴사율이 높거나 시장에서 실무 역량이 뛰어난 직무 인재를 선별하기 어려울 때\n- **고려해야 할 요소 3~5개:**\n  - 현업 부서에서 요구하는 필수 직무 역량과 하드 스킬의 기준\n  - 구직자에게 부정적 인상을 주지 않는 채용 전형의 속도와 프로세스\n  - 코딩 테스트, 과제 전형, 구조화 면접 등 평가 도구의 타당도와 비용\n  - 타사 대비 자사의 채용 브랜드 인지도 및 처우 경쟁력\n- **정답이 없는 이유:** 평가 프로세스를 강화하면 검증은 잘 되지만 지원자가 이탈할 것이고 간소화하면 지원자는 늘지만 경쟁자 수가 많아져 최적의 균형 잡기가 어렵기 때문.\n- **좋은 결정 vs 나쁜 결정의 갈림길:** 데이터(지원율, 면접 만족도, 입사 후 성과)를 기반으로 우리 회사에 맞는 핵심 평가 요소를 도입하는 결정\n  ⟷ 유행하는 면접 방식(예: AI 면접, 무리한 과제)을 맹목적으로 도입해 지원자 경험만 망치는 결정\n\n### [의사결정 3]\n\n- **결정해야 할 것:** 부서나 구성원 사이의 갈등상황 해결할 때나 민감한 문제를 해결할 때\n- **자주 발생하는 맥락:** 조직 개편 후 업무 R&R 경계가 모호해져 부서 간 책임 전가가 발생하거나 시니어와 주니어 간의 소통 방식 차이로 사내 불만이 접수되었을 때\n- **고려해야 할 요소 3~5개:**\n  - 갈등 양측의 공식적인 입장과 주관적 감정의 원인 분석\n  - 취업규칙, 근로기준법 등 사내 규정 및 법적 리스크 위반 여부\n  - 해당 갈등이 조직 전체의 사기와 생산성에 미치는 파급력\n- **정답이 없는 이유:** 감정적으로 얽혀 있어 한쪽 편을 들 경우 반대쪽의 이탈이나 조직 붕괴로 이어짐.\n- **좋은 결정 vs 나쁜 결정의 갈림길:** 중립적인 태도로 사실관계 파악하며 제도를 보완하거나 직무 분장을 명확히 하여 재발을 방지하는 결정\n  ⟷ 감정적으로 중재하거나 갈등을 심화시키는 결정\n\n---\n\n## [Part 3. 실무의 재료] ← 미션의 사실성 확보\n\n**자주 다루는 자료의 유형:**  \n- 원본 문서에 구체 항목 미작성\n\n**핵심 도구 Top 5:**\n\n1. MS Office(PowerPoint,Excel)-직원의 급여 계산, 근태 기록, 성과 평가 점수를 오류없이 집계하고 통계를 내기 위해 사용, 인사 기획안, 채용 전략, 조직문화 방향성을 시각적으로 설득력 있게 전달하기 위해 사용\n2. ATS(나인히어)-지원서 접수부터 면접 일정 조율, 합격 통보까지 채용의 전 과정을 한 곳에서 자동화하고, 면접관들과 실시간으로 합격 서류를 공유 및 평가하기 위해.\n3. 링크드인, 리멤버 커리어, 사람인-사담당자가 직접 이직 시장에 나온 검증된 인재들의 프로필을 검색하고 먼저 제안을 보내기 위해 사용\n\n**핵심 용어 Top 10:**\n\n- **채용 브랜딩:** 구직자들에게 \"우리 회사는 정말 일하기 좋은 곳\"이라는 긍정적인 이미지를 심어주는 활동\n- **HR프로젝트:** 특정 목표를 가지고 기간을 정해 추진하는 중장기 과제\n- **조직 스케일업:** 회사가 급성장하면서 조직의 규모(인원, 매출)와 시스템을 한 단계 크게 확장하는 과정\n- **인재 파이프라인:** 향후 결원이 생기거나 필요할 때 바로 영입할 수 있도록 우수 인재 후보군을 미리 확보·관리하는 명단\n- **다이렉트 소싱:** 인사담당자가 직접 타사 인재를 발굴하여 이직 제안을 하는 직접 채용 방식\n- **온보딩 프로그램:** 신규 입사자가 조직의 문화와 업무에 빠르게 적응할 수 있도록 돕는 초기 안착 시스템\n- **HRM (Human Resource Management):** 인사관리 전반으로, 채용부터 평가, 보상, 승진, 조직운영까지 사람과 관련된 제도와 절차를 관리하는 기능.\n- **HRD (Human Resource Development):** 구성원 개개인의 성장과 역량 개발을 위한 교육과 코칭, 리더십 개발 활동 전반.\n- **TA (Talent Acquisition):** 조직이 필요로 하는 우수 인재를 찾고 채용하는 활동.\n- **TM (Talent Management):** 핵심인재를 선발해 육성하고, 승계 계획을 통해 조직의 지속가능성을 높이는 활동.\n- **C&B (Compensation & Benefit):** 급여, 성과급, 복리후생 등 보상 정책을 설계하고 운영하는 역할.\n- **L&D (Learning & Development):** 구성원이 스스로 배우고 성장할 수 있는 학습 환경과 프로그램을 제공하는 기능.\n- **GA (General Affairs):** 회사 내 총무, 시설 관리, 사내 환경 관리, 행사 및 지원 업무를 총괄하는 부서.\n\n---\n\n## [Part 4. 협업과 커뮤니케이션] ← 시나리오의 사회적 맥락\n\n**자주 함께 일하는 직군:**  \n- 현업 부서 리더 (Line Manager): [부서의 목표 달성 및 팀원 매니지먼트 담당 / 조직 개편에 따른 필요한 인재상과 팀 내 성과 평가 데이터, 구성원 갈등 및 부적응 이슈를 HR에 제공하여 HR로부터 최적의 인재 배치와 맞춤형 인사 솔루션을 받아 조직의 생산성을 극대화]\n- 현업 실무 직군 (개발자, 마케터, 디자이너 등): [회사의 최전선에서 비즈니스를 실행하고 성과를 창출하는 담당 / 현업의 실제 업무 프로세스, 실무자 관점의 일하는 방식 및 사내 복지·조직문화에 대한 의견을 HR에 제공하고 HR로부터 몰입할 수 있는 업무 환경과 성장을 돕는 맞춤형 교육(HRD) 프로그램을 받아 직무 역량을 극대화]\n- 법무팀:[회사의 법적 리스크 방지 및 컴플라이언스 준수 담당 / 최신 노동법 개정 동향, 법적 쟁점 판례 및 징계·계약 관련 리스크 검토 의견을 HR에 제공하여 HR로부터 사내 인사 분쟁 현황과 정책 개정안을 받아 법적으로 안전하고 견고한 인사 시스템을 구축]\n\n**자주 받는 요청의 형태 3~5개:**  \n※ 원본 요청 문장을 따옴표 형식으로 정리\n\n1. (보내는 사람: 현업 부서 리더) \"팀 내 신규 입사자의 조직 부적응(밍글 이슈)에 대한 상담 및 조언 요청\"\n2. (보내는 사람: 현업 실무자) \"직무 역량 강화를 위한 외부 교육 수강 및 비용 지원 요청\"\n3. (보내는 사람: 법무팀) \"사내 징계위원회 개최에 따른 징계 절차 및 소명 자료 법적 정당성 검토 요청\"\n\n**요청을 받았을 때의 전형적 응답 흐름:**\n\n### 요청 1 응답 흐름\n\n- 단계 1: \"최근 뽑은 경력직 직원이 기존 팀원들과 융화되지 못하고 겉돈다\"는 현업 리더의 고충 및 면담 요청 수령\n- 단계 2: 해당 리더를 통해 부적응의 구체적인 맥락(업무 R&R 충돌, 소통 방식 차이 등)을 파악하고, 신규 입사자와의 비밀 보장 1:1 HR 면담 추가 진행\n- 단계 3: 양측의 의견을 종합하여 직무 기술서 재조정, 멘토(버디) 교체, 혹은 소통 방식 개선 방안이 담긴 맞춤형 온보딩 솔루션 가이드를 현업 리더에게 제안\n- 단계 4: 조정안 실행 후 1~2달간 주기적인 모니터링을 통해 적응 여부를 지속 추적하고 조기 퇴사 리스크 방지\n\n### 요청 2 응답 흐름\n\n- 단계 1: 실무자로부터 최신 트렌드/기술 습득을 위한 외부 유료 세미나, 강의 수강 신청서 및 비용 지원 요청 수령\n- 단계 2: 해당 교육이 개인의 직무 R&R 및 부서 목표 성장에 부합하는지 검토하고, 사내 교육 예산 및 지원 규정 기준 확인\n- 단계 3: 교육 승인 및 결재를 처리하고, 수강 후 사내 지식 공유(리포트 작성 또는 세미나 진행)를 조건으로 가이드 안내\n- 단계 4: 증빙 영수증을 취합하여 재무팀에 비용 처리를 요청하고, 교육 종료 후 실무자의 만족도 피드백을 기록하여 추후 HRD 계획에 반영\n\n### 요청 3 응답 흐름\n\n- 단계 1: 사내 부정행위나 직장 내 괴롭힘 등 징계 사유가 발생하여, HR이 취합한 사실관계 조사 보고서와 증거 자료를 법무팀에 전달하고 절차적 정당성 검토 요청\n- 단계 2: 법무팀과 함께 해당 사안이 해고나 감봉 등 중징계 처분을 내리기에 법적으로 충분한 사유가 되는지 양정(징계 수위)의 적정성 확인\n- 단계 3: 징계위원회 개최 통보서 발송, 소명 기회 부여 등 근로기준법이 정한 리스크 없는 징계 절차 프로세스 조율\n- 단계 4: 위원회 결정을 바탕으로 징계처분 결과를 대상자에게 공식 통보하고, 사후 발생할 수 있는 지방노동위원회(지노위) 구제신청 등 법적 분쟁 시나리오 공동 대비\n\n**결과물의 전달 형태:**\n\n- 맞춤형 온보딩/케어 가이드:밍글 이슈를 해결하기 위한 팀 내 R&R 재조정안과 주차별 신입 면담 체크리스트 및 멘토링 운영안\n- 징계위원회 의결서 및 사실관계 조사 보고서:직장 내 불미스러운 일들에 대한 사건 경위 조사서, 증거 자산 목록, 법적 정당성을 확보한 소명 기회 부여 통지서\n\n\n---\n",
+    "usage": "background_only"
+  }
+}

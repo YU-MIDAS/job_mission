@@ -1,0 +1,234 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "draft_generation",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000001179",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "금융·보험 전문가",
+      "job_smcl_nm": "투자분석가",
+      "source_ref": {
+        "file": "K000001179/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_001",
+      "text": "국내외 경제상황 및 산업·기업별 정보를 수집·분석한다.",
+      "source_ref": {
+        "file": "K000001179/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 1
+      },
+      "selection_reason": "난이도 easy에서 핵심인 국내외 경제·산업·기업 정보를 ‘수집’하고 간단히 분석하는 작업에 exec_001이 가장 직접적으로 부합한다."
+    },
+    "mission_facts": {
+      "org_name": "솔라빈 리서치팀(가상)",
+      "domain": "국내 경제 브리핑용 간단 지표 정리",
+      "period": [
+        "2025년 3월"
+      ],
+      "trend_pattern": "물가상승률이 1~2월 대비 3월에 다시 오르는 흐름",
+      "main_issue": "팀 메모 문장에 적힌 ‘3월 물가상승률’ 수치가 대시보드 데이터와 다름",
+      "feedback_themes": [
+        "자료 확인 없이 문장을 고치면 실수가 그대로 전달됨",
+        "숫자 일치 여부를 먼저 점검하는 습관이 중요함"
+      ],
+      "decision_goal": "브리핑에 쓸 문장이 표의 근거와 맞게 선택(또는 교정)되도록 한다."
+    },
+    "mission": {
+      "title": "브리핑 메모 문장, 표 숫자부터 맞추기",
+      "task_type": "research_and_analysis",
+      "secondary_task_types": [],
+      "difficulty": {
+        "level": "easy",
+        "label": "쉬움",
+        "estimated_time_minutes": 10,
+        "material_bundle_style": "single_work_material",
+        "material_count_range": [
+          1,
+          1
+        ],
+        "task_count_range": [
+          1,
+          1
+        ],
+        "answer_length_hint": "1-2 short sentences",
+        "requires_cross_material_reasoning": false,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "당신은 솔라빈 리서치팀의 신입 인턴입니다.",
+        "context": "팀장님이 다음 주 ‘국내 경제 한 줄 브리핑’용 메모를 읽고 있어요. 그런데 메모에 적힌 ‘3월 물가상승률’ 문장이 대시보드의 숫자와 다를 수 있어 보입니다. 당신은 아래 표만 보고, 메모 문장에서 눈에 띄는 문제를 한 번 확인해 주세요.",
+        "goal": "메모 문장 중 무엇을 고쳐야 하는지(또는 그대로 써도 되는지) 한 가지를 고르세요.",
+        "constraints": [
+          "아래 표에 적힌 값만 보고 판단하세요.",
+          "정답은 한 가지 선택(또는 한 가지 문제 지적)으로 끝내면 됩니다.",
+          "이유는 숫자가 어떻게 다른지(또는 같은지)로 1문장만 적어주세요."
+        ],
+        "glossary": []
+      },
+      "materials": [
+        {
+          "material_id": "table_001",
+          "type": "table",
+          "subtype": "economic_indicator_check",
+          "title": "국내 경제 대시보드 vs 팀 메모(3월 물가상승률) 비교표",
+          "description": "브리핑에 쓰려는 메모 문장이 대시보드 숫자와 일치하는지 확인할 수 있게 만든 표입니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "메모 문장의 수치가 표의 근거와 맞는지 확인",
+          "evidence_source": [
+            "정보 수집"
+          ],
+          "mission_fact_refs": [
+            "domain",
+            "period",
+            "trend_pattern",
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "구분",
+              "values": [
+                "대시보드",
+                "팀 메모"
+              ]
+            },
+            "y_axis": {
+              "label": "물가상승률(%)",
+              "unit": "%"
+            },
+            "series": [
+              {
+                "name": "값",
+                "values": [
+                  4.1,
+                  3.2
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "문장/항목"
+              },
+              {
+                "key": "strength",
+                "label": "표에서 보이는 점"
+              },
+              {
+                "key": "weakness",
+                "label": "표 기준으로 문제점"
+              },
+              {
+                "key": "priority",
+                "label": "확인 우선순위"
+              }
+            ],
+            "rows": [
+              {
+                "option": "대시보드(데이터): 3월 물가상승률 4.1%",
+                "strength": "1~2월 물가상승률이 3.7%→3.9%로 이어진 뒤, 3월에 4.1%로 증가",
+                "weakness": "",
+                "priority": 1
+              },
+              {
+                "option": "팀 메모 문장: 3월 물가상승률 3.2% 둔화",
+                "strength": "",
+                "weakness": "대시보드에 적힌 3월 값(4.1%)과 수치가 다름",
+                "priority": 2
+              }
+            ],
+            "author": "솔라빈 리서치팀(가상)",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.78,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_001",
+          "instruction": "아래 표를 보고, ‘팀 메모 문장(3월 물가상승률 3.2% 둔화)’에서 눈에 띄는 문제가 무엇인지 한 가지로 고르되, 왜 그런지 1문장으로 적어보세요.",
+          "required_materials": [
+            "table_001"
+          ],
+          "expected_action": "메모 문장의 숫자가 대시보드 값과 다르다는 점을 짚고, 어떤 수치/문장을 따라야 하는지 한 문장으로 정리한다."
+        }
+      ],
+      "submission_format": {
+        "type": "text",
+        "estimated_time_minutes": 5,
+        "required_sections": [
+          "선택한 문장(또는 수정 내용) + 이유 1문장"
+        ],
+        "length_hint": "1-2문장"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "표의 근거 숫자(3월 물가상승률 4.1%)와 메모 문장(3월 3.2%)이 불일치함을 정확히 짚는다.",
+        "이유를 ‘숫자가 다르다’는 형태로 짧고 명확하게 설명한다."
+      ],
+      "rubric": [
+        {
+          "criterion": "표 근거와 메모 문장 불일치(숫자 차이)를 올바르게 지적하고, 그에 맞는 한 가지 선택/수정 방향을 1-2문장으로 제시함",
+          "description": "대시보드의 3월 물가상승률 값과 메모에 적힌 값이 다르다는 점을 확인하고, 그 사실을 바탕으로 무엇을 따라야 하는지(또는 무엇을 고쳐야 하는지)를 한 문장으로 설명한다.",
+          "points": 100,
+          "linked_evidence": [
+            "정보 수집"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_001",
+        "text": "국내외 경제상황 및 산업·기업별 정보를 수집·분석한다."
+      },
+      "linked_evidence": {
+        "activities": [
+          "정보 수집"
+        ],
+        "knowledge": [],
+        "abilities": []
+      },
+      "material_evidence_map": []
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "usage": {
+    "input_tokens": 10374,
+    "output_tokens": 4382,
+    "reasoning_tokens": 2820,
+    "total_tokens": 14756
+  },
+  "errors": []
+}

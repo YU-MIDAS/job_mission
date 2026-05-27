@@ -1,0 +1,329 @@
+{
+  "schema_version": "validator_result.v1",
+  "attempt": 0,
+  "status": "pass",
+  "passed": true,
+  "repairable": false,
+  "discarded": false,
+  "reliability": {
+    "score_breakdown": {
+      "schema": {
+        "max": 20,
+        "earned": 20
+      },
+      "system_decisions": {
+        "max": 15,
+        "earned": 15
+      },
+      "materials": {
+        "max": 20,
+        "earned": 20
+      },
+      "mission_facts": {
+        "max": 15,
+        "earned": 15
+      },
+      "evidence": {
+        "max": 20,
+        "earned": 20
+      },
+      "evaluation": {
+        "max": 10,
+        "earned": 10
+      }
+    },
+    "raw_score": 100,
+    "score": 1.0,
+    "passed": true,
+    "calculated_by": "validator.v1",
+    "human_review_required": true,
+    "warning_count": 0,
+    "fail_count": 0
+  },
+  "errors": [],
+  "warnings": [],
+  "checks": {
+    "json_parse": {
+      "passed": true
+    },
+    "schema": {
+      "required_checked": true
+    },
+    "system_decisions": {
+      "aligned": true
+    },
+    "mission_facts": {
+      "fact_key_count": 7
+    },
+    "materials": {
+      "count": 2,
+      "material_ids": [
+        "mat_checklist_001",
+        "mat_table_001"
+      ]
+    },
+    "tasks": {
+      "count": 2
+    },
+    "evaluation": {
+      "rubric_points": 100
+    },
+    "evidence": {
+      "final_evidence_chain_created": true,
+      "item_count": 2
+    },
+    "difficulty": {}
+  },
+  "final_evidence_chain": {
+    "created_by": "validator.v1",
+    "source_exec_job": {
+      "exec_job_id": "exec_001",
+      "text": "정치부, 사회부, 문화부, 경제부, 국제부, 체육부 등에 소속되어 해당 사건·사고, 뉴스 등을 취재하고, 관련 인물을 인터뷰하여 기사화하는 일을 한다.",
+      "source_ref": {
+        "file": "K000001222/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 1
+      },
+      "selection_reason": "사건·사고 취재 후 인터뷰를 바탕으로 기사로 작성하는 역할(exec_001)과 직접적으로 맞으며, 체크리스트와 기사 구성표로 취재→수집→작성 흐름을 점검하기에 적합함."
+    },
+    "linked_evidence": {
+      "activities": [
+        {
+          "name": "정보 작성, 기록",
+          "score": 100,
+          "description": "정보를 전자 또는 서면으로 작성, 기록, 저장, 관리하기 활동 중요도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001222/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1
+          }
+        },
+        {
+          "name": "절차, 자료, 주변환경 관찰",
+          "score": 100,
+          "description": "문제점을 확인하고 평가하기 위하여 자료, 사건, 주변 환경에서 정보를 관찰하고 검토하기 활동 중요도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001222/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2
+          }
+        },
+        {
+          "name": "사물, 행동, 사건 파악",
+          "score": 100,
+          "description": "차이점과 유사점을 분류하고 어떤 상황에서 변화를 알아차림으로써 정보를 파악하기 활동 중요도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001222/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 3
+          }
+        },
+        {
+          "name": "정보 수집",
+          "score": 99,
+          "description": "모든 관련 자료에서 정보를 수집, 관찰하기 중요도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001222/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4
+          }
+        },
+        {
+          "name": "조직 외부인과 소통",
+          "score": 98,
+          "description": "조직 외부인에게 회사를 대표해서 직접 이야기하거나, 전화, 서면, 이메일로 정보를 전달하기 활동 중요도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001222/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "글쓰기",
+          "score": 99,
+          "description": "글을 통해서 다른 사람과 효과적으로 의사소통한다",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001222/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 1
+          }
+        },
+        {
+          "name": "시간 관리",
+          "score": 98,
+          "description": "자신의 시간과 다른 사람의 시간을 관리한다",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001222/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2
+          }
+        },
+        {
+          "name": "협상",
+          "score": 97,
+          "description": "사람들과의 의견차이를 좁혀 합의점을 찾는다",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001222/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 3
+          }
+        }
+      ],
+      "knowledge": [
+        {
+          "name": "국어",
+          "score": 96,
+          "description": "맞춤법, 작문법, 문법에 관한 지식",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001222/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 1
+          }
+        },
+        {
+          "name": "역사",
+          "score": 95,
+          "description": "역사적 사건과 원인 그리고 유적에 관한 지식",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001222/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 2
+          }
+        },
+        {
+          "name": "의사소통과 미디어",
+          "score": 90,
+          "description": "말, 글, 그림 등을 이메일이나 방송매체를 통해 전달하는 것에 관한 지식",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001222/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 3
+          }
+        }
+      ],
+      "work_environment": [
+        {
+          "name": "마감시간",
+          "score": 100,
+          "description": "마감시간을 엄격하게 지켜야하는 빈도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001222/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 1
+          }
+        },
+        {
+          "name": "치열한 경쟁",
+          "score": 99,
+          "description": "동료 혹은 다른 사람들과의 경쟁 정도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001222/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 2
+          }
+        },
+        {
+          "name": "이미지/평판/재정에 미치는 영향력",
+          "score": 98,
+          "description": "본인의 의사결정이 다른 사람 또는 회사 이미지/평판/재정에 영향을 주는 빈도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001222/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 3
+          }
+        }
+      ]
+    },
+    "material_evidence_map": [
+      {
+        "material_id": "mat_checklist_001",
+        "supported_by": [
+          "절차, 자료, 주변환경 관찰",
+          "정보 수집"
+        ]
+      },
+      {
+        "material_id": "mat_table_001",
+        "supported_by": [
+          "정보의 의미 해석",
+          "정보 작성, 기록",
+          "마감시간"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "target_type": "material",
+        "target_id": "mat_checklist_001",
+        "mission_fact_refs": [
+          "main_issue",
+          "decision_goal",
+          "domain"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001222/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001222/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      },
+      {
+        "target_type": "material",
+        "target_id": "mat_table_001",
+        "mission_fact_refs": [
+          "decision_goal",
+          "main_issue",
+          "period"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001222/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 6,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001222/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001222/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 1,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      }
+    ]
+  }
+}

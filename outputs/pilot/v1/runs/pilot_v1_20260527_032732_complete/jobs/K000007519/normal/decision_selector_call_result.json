@@ -1,0 +1,38 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_003",
+    "primary_task_type": "research_and_analysis",
+    "selected_material_types": [
+      "table",
+      "checklist"
+    ],
+    "mission_design_type": "financial_research_judgment",
+    "matched_evidence": [
+      "산수와 수학",
+      "경제와 회계",
+      "정보, 자료 분석"
+    ],
+    "selection_reason": "보험료와 책임준비금 산출에 직접적으로 필요한 수학·통계(산수와 수학)와 경제·회계 관점(경제와 회계), 그리고 자료 분석(정보, 자료 분석) 역량이 핵심이어서 exec_003에 가장 적합함. 난이도 normal에서 2개 자료(계산 결과 표, 검증 체크리스트)로 미션 구성이 가능함.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 1999,
+    "output_tokens": 1065,
+    "reasoning_tokens": 871,
+    "total_tokens": 3064
+  },
+  "errors": []
+}

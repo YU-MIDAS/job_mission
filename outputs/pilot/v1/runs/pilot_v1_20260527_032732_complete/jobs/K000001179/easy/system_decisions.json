@@ -1,0 +1,78 @@
+{
+  "schema_version": "system_decisions.v1",
+  "job_cd": "K000001179",
+  "job_name": "투자분석가",
+  "difficulty": {
+    "level": "easy",
+    "label": "쉬움",
+    "estimated_time_minutes": 10,
+    "material_bundle_style": "single_work_material",
+    "material_count_range": [
+      1,
+      1
+    ],
+    "task_count_range": [
+      1,
+      1
+    ],
+    "answer_length_hint": "1-2 short sentences",
+    "requires_cross_material_reasoning": false,
+    "requires_tradeoff_judgment": false,
+    "requires_domain_expertise": false
+  },
+  "selected_exec_job": {
+    "exec_job_id": "exec_001",
+    "text": "국내외 경제상황 및 산업·기업별 정보를 수집·분석한다.",
+    "source_ref": {
+      "file": "K000001179/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 1
+    },
+    "selection_reason": "난이도 easy에서 핵심인 국내외 경제·산업·기업 정보를 ‘수집’하고 간단히 분석하는 작업에 exec_001이 가장 직접적으로 부합한다."
+  },
+  "primary_task_type": "research_and_analysis",
+  "secondary_task_types": [],
+  "allowed_material_types": [
+    "table"
+  ],
+  "mission_design": {
+    "schema_version": "mission_design.v1",
+    "mission_design_type": "general_research_analysis",
+    "design_intent": "제공 자료를 조사, 비교, 분석해 근거 기반 결론을 도출하는 일반 분석 미션",
+    "selection_method": "llm_decision_selector",
+    "selection_reason": "난이도 easy에서 핵심인 국내외 경제·산업·기업 정보를 ‘수집’하고 간단히 분석하는 작업에 exec_001이 가장 직접적으로 부합한다."
+  },
+  "excluded_material_types": [
+    "image",
+    "screenshot"
+  ],
+  "generation_constraints": {
+    "language": "ko",
+    "json_only": true,
+    "no_real_company_names": true,
+    "no_real_person_names": true,
+    "no_external_research": true,
+    "non_expert_friendly": true,
+    "must_use_provided_materials_only": true,
+    "llm_must_not_create_reliability_score": true,
+    "factual_status_required": true
+  },
+  "decision_trace": [
+    {
+      "step": "llm_decision_selector",
+      "method": "llm_structured_output",
+      "selected": "exec_001",
+      "reason": "난이도 easy에서 핵심인 국내외 경제·산업·기업 정보를 ‘수집’하고 간단히 분석하는 작업에 exec_001이 가장 직접적으로 부합한다.",
+      "matched_evidence": [
+        "정보 수집"
+      ],
+      "confidence": "high",
+      "primary_task_type": "research_and_analysis",
+      "selected_material_types": [
+        "table"
+      ],
+      "mission_design_type": "general_research_analysis"
+    }
+  ],
+  "decision_warnings": []
+}

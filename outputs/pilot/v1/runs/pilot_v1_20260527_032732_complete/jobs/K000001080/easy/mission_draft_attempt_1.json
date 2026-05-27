@@ -1,0 +1,247 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "draft",
+  "job_identity": {
+    "job_cd": "K000001080",
+    "job_lrcl_nm": "연구직 및 공학 기술직",
+    "job_mdcl_nm": "데이터·네트워크 및 시스템 운영 전문가",
+    "job_smcl_nm": "데이터분석가(빅데이터분석가)",
+    "source_ref": {
+      "file": "K000001080/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": null
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_001",
+    "text": "분석 목표에 따라 데이터의 분석 방법을 기획한다.",
+    "source_ref": {
+      "file": "K000001080/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 1
+    },
+    "selection_reason": "난이도 easy에 맞게 분석 목표에 따라 수행 방법을 먼저 기획하는 단계가 적절하며, 체크리스트로 필요한 항목을 1가지로 정리하기 용이함."
+  },
+  "mission_facts": {
+    "org_name": "네오마켓(N Market)",
+    "domain": "커머스 앱 프로모션 성과 분석",
+    "period": [
+      "최근 4주"
+    ],
+    "trend_pattern": "쿠폰 프로모션 기간에는 주문 전환이 오르내림(일부 날은 개선, 일부 날은 정체)",
+    "main_issue": "이번 달 프로모션 성과를 볼 ‘첫 번째 기준(KPI)’과 분석 방법의 초점이 팀마다 달라서, 무엇부터 정리해야 할지 혼선이 있음",
+    "feedback_themes": [
+      "지표 정의가 명확하지 않으면 보고서가 길어짐",
+      "데이터 범위를 먼저 정해두지 않으면 계산이 자꾸 바뀜"
+    ],
+    "decision_goal": "분석 방법을 기획할 때 체크리스트에서 ‘가장 먼저’ 확인해야 할 항목을 하나 고르고, 그 이유를 한 문장으로 설명하기"
+  },
+  "mission": {
+    "title": "프로모션 성과 분석 ‘초안’ 기획—체크리스트로 첫 항목 고르기",
+    "task_type": "planning_and_proposal",
+    "secondary_task_types": [
+      "research_and_analysis"
+    ],
+    "difficulty": {
+      "level": "easy",
+      "label": "쉬움",
+      "estimated_time_minutes": 10,
+      "material_bundle_style": "single_work_material",
+      "material_count_range": [
+        1,
+        1
+      ],
+      "task_count_range": [
+        1,
+        1
+      ],
+      "answer_length_hint": "1-2 short sentences",
+      "requires_cross_material_reasoning": false,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "신입 데이터 분석가 인턴",
+      "context": "네오마켓(N Market) 데이터팀에서 프로모션 성과를 빠르게 확인하려고 합니다. 오늘 아침 팀장님이 “분석 방법 초안부터 잡자. 일단 체크리스트에서 뭐부터 정리할지 같이 맞추자”라고 요청했어요. 이번 프로모션은 최근 4주 동안 쿠폰이 섞여 있었고, 전환이 날마다 출렁여서 ‘어떤 걸 먼저 성과로 볼지’가 흔들릴 수 있습니다.",
+      "goal": "아래 체크리스트를 보고, 분석 방법을 기획할 때 가장 먼저 확인해야 할 항목을 하나 고르세요.",
+      "constraints": [
+        "체크리스트에 적힌 항목만 근거로 사용하세요.",
+        "정답을 찾는 것처럼 느껴도, 한 문장으로 ‘선택’과 ‘이유’만 적으면 됩니다.",
+        "분석 원인(왜 그런지)을 추측해서 길게 쓰지 말고, ‘가장 먼저’의 이유만 짧게 적어주세요."
+      ],
+      "glossary": [
+        {
+          "term": "KPI",
+          "definition": "성과를 숫자로 딱 정해서 보는 ‘핵심 지표’입니다."
+        }
+      ]
+    },
+    "materials": [
+      {
+        "material_id": "chk_001",
+        "type": "checklist",
+        "subtype": "초안용",
+        "title": "분석 방법 기획 체크리스트(초안용)",
+        "description": "아래는 ‘분석 방법’을 초안으로 잡을 때 팀에서 쓰는 간단 체크리스트입니다.\n\n1) 분석 목표/질문을 한 줄로 정한다 (무엇을 개선/확인하려는지)\n2) 사용할 데이터의 기간과 범위를 정한다 (어떤 날/어떤 이벤트를 볼지)\n3) 성과를 볼 KPI(핵심 지표)를 간단히 정의한다\n4) 결과를 전달할 형태를 정한다 (표/간단 대시보드 중 무엇으로 볼지)\n5) 필요한 작업 순서를 3단계 정도로만 적는다 (데이터 → 계산/검증 → 공유)\n\n이 체크리스트는 ‘먼저 정해야 보고서가 흔들리지 않는다’는 목적을 가지고 있습니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "분석 방법 기획에서 첫 항목이 무엇인지 선택하게 함",
+        "evidence_source": [
+          "목표, 전략 수립",
+          "정보 처리"
+        ],
+        "mission_fact_refs": [
+          "decision_goal",
+          "main_issue"
+        ],
+        "data": {
+          "chart_type": "line",
+          "x_axis": {
+            "label": "예시 단계",
+            "values": [
+              "1",
+              "2"
+            ]
+          },
+          "y_axis": {
+            "label": "예시",
+            "unit": ""
+          },
+          "series": [
+            {
+              "name": "완성도(예시)",
+              "values": [
+                0.3,
+                0.8
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "항목"
+            },
+            {
+              "key": "priority",
+              "label": "우선"
+            },
+            {
+              "key": "strength",
+              "label": "강점"
+            },
+            {
+              "key": "weakness",
+              "label": "주의"
+            }
+          ],
+          "rows": [
+            {
+              "option": "분석 목표/질문 1항목",
+              "strength": "무엇을 먼저 확인할지 기준이 됨",
+              "weakness": "목표가 없으면 뒤 단계가 계속 바뀔 수 있음",
+              "priority": 1
+            }
+          ],
+          "author": "",
+          "items": [
+            {
+              "text": "분석 목표/질문을 한 줄로 정한다",
+              "period": "최근 4주",
+              "task": "항목 1",
+              "constraint": "체크리스트에서 1번 항목을 먼저 선택할지 판단하기",
+              "label": "1번",
+              "status": "unchecked",
+              "importance": "high"
+            },
+            {
+              "text": "사용할 데이터의 기간과 범위를 정한다",
+              "period": "최근 4주",
+              "task": "항목 2",
+              "constraint": "기간/범위를 먼저 정해 기준을 고정하기",
+              "label": "2번",
+              "status": "unchecked",
+              "importance": "medium"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.74,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "task_001",
+        "instruction": "체크리스트의 1~5번 항목 중, ‘분석 방법을 기획할 때 가장 먼저’ 확인해야 할 항목 번호와 항목명을 한 문장으로 적어주세요. 그리고 그렇게 정해야 하는 이유를 같이 적어주세요.",
+        "required_materials": [
+          "chk_001"
+        ],
+        "expected_action": "체크리스트에서 가장 먼저 볼 항목 1개를 선택하고, 선택 이유를 한 문장으로 설명한다."
+      }
+    ],
+    "submission_format": {
+      "type": "short_text",
+      "estimated_time_minutes": 10,
+      "required_sections": [
+        "선택한 항목(번호+명칭)",
+        "선택 이유"
+      ],
+      "length_hint": "1-2 short sentences"
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "분석 방법 기획에서 ‘목표/질문 정하기’가 먼저 와야 뒤의 데이터 범위·KPI·전달 형태가 흔들리지 않는다는 점을 짚는다."
+    ],
+    "rubric": [
+      {
+        "criterion": "가장 먼저 확인해야 할 항목(번호와 명칭) 선택이 체크리스트의 1번과 일치함",
+        "description": "선택한 항목이 ‘분석 목표/질문을 한 줄로 정한다’에 해당하고, 번호/명칭이 명확하다.",
+        "points": 70,
+        "linked_evidence": [
+          "목표, 전략 수립"
+        ]
+      },
+      {
+        "criterion": "선택 이유가 ‘뒤 단계가 바뀌지 않게 기준을 세우는 것’에 초점을 둠",
+        "description": "이유가 데이터 범위/성과 지표/결과 형태를 정하는 데 기준이 된다는 흐름으로 짧게 설명된다.",
+        "points": 30,
+        "linked_evidence": [
+          "정보 처리"
+        ]
+      }
+    ]
+  },
+  "evidence_chain_draft": {
+    "source_exec_job": {
+      "id": "exec_001",
+      "text": "분석 목표에 따라 데이터의 분석 방법을 기획한다."
+    },
+    "linked_evidence": {
+      "activities": [
+        "목표, 전략 수립",
+        "정보 처리"
+      ],
+      "knowledge": [],
+      "abilities": []
+    },
+    "material_evidence_map": [
+      {
+        "material_id": "chk_001",
+        "supported_by": [
+          "목표, 전략 수립",
+          "정보 처리"
+        ]
+      }
+    ]
+  },
+  "reliability": {
+    "status": "pending_validation"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": "run_manifest.v1",
+  "run_id": "pilot_v1_20260527_032732",
+  "created_at": "2026-05-27T03:27:32+09:00",
+  "timezone": "Asia/Seoul",
+  "source_root": "data/api_raw",
+  "use_kmeans": false,
+  "use_llm_decision_selector": true,
+  "use_practice_sheet_background": true,
+  "pipeline_version": "v1",
+  "llm_runtime": {
+    "provider": "openai",
+    "api": "responses",
+    "model": "gpt-5.4-nano",
+    "reasoning_effort": "medium",
+    "draft_temperature": 0.8,
+    "repair_temperature": 0.4,
+    "temperature_application": {
+      "request_parameter": "omitted",
+      "temperature_applied": false,
+      "temperature_omitted_reason": "unsupported_by_model"
+    }
+  },
+  "jobs": [
+    {
+      "job_cd": "K000000872",
+      "job_name": "광고·홍보·마케팅전문가"
+    },
+    {
+      "job_cd": "K000000997",
+      "job_name": "상품기획자"
+    },
+    {
+      "job_cd": "K000001080",
+      "job_name": "데이터분석가(빅데이터분석가)"
+    },
+    {
+      "job_cd": "K000001179",
+      "job_name": "투자분석가"
+    },
+    {
+      "job_cd": "K000001196",
+      "job_name": "인사·교육·훈련사무원"
+    },
+    {
+      "job_cd": "K000001222",
+      "job_name": "방송기자"
+    },
+    {
+      "job_cd": "K000007519",
+      "job_name": "보험상품개발자"
+    }
+  ],
+  "difficulties": [
+    "easy",
+    "normal",
+    "hard"
+  ],
+  "max_repair_attempts": 1
+}

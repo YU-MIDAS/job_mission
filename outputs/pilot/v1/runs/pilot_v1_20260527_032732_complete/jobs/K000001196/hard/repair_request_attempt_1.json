@@ -1,0 +1,630 @@
+{
+  "schema_version": "repair_request.v1",
+  "attempt": 1,
+  "locked_fields": [
+    "job_identity",
+    "target_exec_job",
+    "mission.difficulty",
+    "mission.task_type",
+    "mission.secondary_task_types",
+    "mission.allowed_material_types"
+  ],
+  "system_decisions": {
+    "schema_version": "system_decisions.v1",
+    "job_cd": "K000001196",
+    "job_name": "인사·교육·훈련사무원",
+    "difficulty": {
+      "level": "hard",
+      "label": "어려움",
+      "estimated_time_minutes": 20,
+      "material_bundle_style": "work_document_packet",
+      "material_count_range": [
+        3,
+        3
+      ],
+      "task_count_range": [
+        2,
+        2
+      ],
+      "answer_length_hint": "3-5 short sentences per task",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "selected_exec_job": {
+      "exec_job_id": "exec_006",
+      "text": "인사제도, 인사고과의 활용, 복리후생, 안전보건, 인간관계, 사원의 사기 등을 파악하여 타사 및 관계문헌을 조사·비교·분석하여 개선안을 기획·품의한다.",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 6
+      },
+      "selection_reason": "타사·관계문헌 조사·비교·분석을 통해 인사제도 및 복리후생/안전보건 개선안을 기획·품의하므로 진단 및 개선 중심 과업에 적합하며, 인사 지식과 법·규정 고려 근거를 활용할 수 있다."
+    },
+    "primary_task_type": "diagnosis_and_improvement",
+    "secondary_task_types": [],
+    "allowed_material_types": [
+      "table",
+      "checklist",
+      "memo"
+    ],
+    "mission_design": {
+      "schema_version": "mission_design.v1",
+      "mission_design_type": "general_research_analysis",
+      "design_intent": "제공 자료를 조사, 비교, 분석해 근거 기반 결론을 도출하는 일반 분석 미션",
+      "selection_method": "llm_decision_selector",
+      "selection_reason": "타사·관계문헌 조사·비교·분석을 통해 인사제도 및 복리후생/안전보건 개선안을 기획·품의하므로 진단 및 개선 중심 과업에 적합하며, 인사 지식과 법·규정 고려 근거를 활용할 수 있다."
+    },
+    "excluded_material_types": [
+      "image",
+      "screenshot"
+    ],
+    "generation_constraints": {
+      "language": "ko",
+      "json_only": true,
+      "no_real_company_names": true,
+      "no_real_person_names": true,
+      "no_external_research": true,
+      "non_expert_friendly": true,
+      "must_use_provided_materials_only": true,
+      "llm_must_not_create_reliability_score": true,
+      "factual_status_required": true
+    },
+    "decision_trace": [
+      {
+        "step": "llm_decision_selector",
+        "method": "llm_structured_output",
+        "selected": "exec_006",
+        "reason": "타사·관계문헌 조사·비교·분석을 통해 인사제도 및 복리후생/안전보건 개선안을 기획·품의하므로 진단 및 개선 중심 과업에 적합하며, 인사 지식과 법·규정 고려 근거를 활용할 수 있다.",
+        "matched_evidence": [
+          "인적자원 관리",
+          "인사",
+          "법"
+        ],
+        "confidence": "high",
+        "primary_task_type": "diagnosis_and_improvement",
+        "selected_material_types": [
+          "table",
+          "checklist",
+          "memo"
+        ],
+        "mission_design_type": "general_research_analysis"
+      }
+    ],
+    "decision_warnings": []
+  },
+  "allowed_evidence_names": [
+    "인적자원 관리",
+    "사람 파악",
+    "설득",
+    "전산",
+    "말하기",
+    "인사",
+    "사무",
+    "교육 및 훈련",
+    "경영 및 행정",
+    "법",
+    "다른 사람과의 접촉",
+    "앉아서 근무",
+    "전화 대화하기",
+    "이메일 이용하기",
+    "재택근무",
+    "인사 업무",
+    "사람들을 훈련, 교육",
+    "부하 직원들에게 업무 안내, 지시, 동기부여",
+    "사물, 서비스, 사람의 질 판단",
+    "협상, 갈등 해결",
+    "사람들의 업무와 활동을 조직, 편성",
+    "목표, 전략 수립",
+    "기준에 따른 정보 평가",
+    "사람들의 능력 개발, 지도",
+    "상사, 동료, 부하직원과 소통"
+  ],
+  "mission_output_draft": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000001196",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "경영지원 사무원",
+      "job_smcl_nm": "인사·교육·훈련사무원",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_006",
+      "text": "인사제도, 인사고과의 활용, 복리후생, 안전보건, 인간관계, 사원의 사기 등을 파악하여 타사 및 관계문헌을 조사·비교·분석하여 개선안을 기획·품의한다.",
+      "source_ref": {
+        "file": "K000001196/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 6
+      },
+      "selection_reason": "타사·관계문헌 조사·비교·분석을 통해 인사제도 및 복리후생/안전보건 개선안을 기획·품의하므로 진단 및 개선 중심 과업에 적합하며, 인사 지식과 법·규정 고려 근거를 활용할 수 있다."
+    },
+    "mission_facts": {
+      "org_name": "가온HR(가상 조직)",
+      "domain": "신규 입사자 온보딩(인간관계·사기) 개선",
+      "period": [
+        "최근 3개월"
+      ],
+      "trend_pattern": "경력직 신규 입사 후 초기 적응이 늦어지고, 질문이 줄어드는 패턴이 나타남",
+      "main_issue": "최근 경력직 신규 입사자들이 첫 4주 동안 ‘업무 요청 방식’과 ‘피드백 받는 타이밍’을 헷갈려 팀에서 겉도는 신호가 보임",
+      "feedback_themes": [
+        "버디(멘토)에게 언제 무엇을 물어봐야 하는지 기준이 불명확함",
+        "주차별 업무 요청/기대치가 자주 바뀌어 신규가 따라가기 어려움",
+        "팀 가치와 ‘처음에 기대하는 행동’ 안내가 늦게 들어옴",
+        "문제 생겼을 때 연락할 창구가 한 곳으로 모이지 않음"
+      ],
+      "decision_goal": "다른 회사 운영 방식을 비교해 우리 팀에 맞는 ‘신규 입사자 케어 운영 방식’을 1개로 고르고, 실행 전에 꼭 챙길 주의사항 1가지를 함께 적어 개선안을 초안 수준으로 정리"
+    },
+    "mission": {
+      "title": "신규 입사자 케어 운영 방식 개선안 1차 초안(비교·분석)",
+      "task_type": "diagnosis_and_improvement",
+      "secondary_task_types": [],
+      "difficulty": {
+        "level": "hard",
+        "label": "어려움",
+        "estimated_time_minutes": 20,
+        "material_bundle_style": "work_document_packet",
+        "material_count_range": [
+          3,
+          3
+        ],
+        "task_count_range": [
+          2,
+          2
+        ],
+        "answer_length_hint": "3-5 short sentences per task",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "당신은 인사팀 신입 인턴입니다.",
+        "context": "최근 ‘가온HR’의 신규 경력직이 첫 달 적응이 느리다는 이야기가 팀 리더에게서 들어왔습니다. 리더는 “말은 잘하는데, 막상 업무 요청이나 피드백을 언제 어떻게 받는지 감을 못 잡는 것 같다”고 했고, 신규 입사자 쪽에서도 “누구에게 언제 물어봐야 하는지 기준이 매번 다르게 느껴진다”는 반응이 나왔습니다. \n\n인사팀에서는 타사에서 실제로 쓰는 온보딩 운영 방식을 간단히 비교해, 우리 팀에 맞는 케어 운영 방식을 골라서 바로 리더에게 공유하려고 합니다.",
+        "goal": "아래 제공된 자료를 보고, 우리 팀에 더 맞는 케어 운영 방식을 1개 결정하고(과제 1), 실행 전에 꼭 체크할 주의사항 1가지를 적어(과제 2) 리더에게 전달할 초안 문장을 만드세요.",
+        "constraints": [
+          "반드시 아래 자료(표 1개, 체크리스트 1개, 메모 1개) 안에 있는 정보만 근거로 사용하세요.",
+          "외부 조사나 검색은 하지 않습니다.",
+          "정답이 하나뿐이라기보다 ‘자료에서 가장 일관되게 맞는 선택’에 초점을 둡니다.",
+          "각 과제는 한 가지를 고르거나 한 가지를 조심해야 하는 포인트만 적으세요."
+        ],
+        "glossary": []
+      },
+      "materials": [
+        {
+          "material_id": "mat_table_01",
+          "type": "table",
+          "subtype": "onboarding_comparison",
+          "title": "타사 ‘신규 입사자 케어(초기 4주)’ 운영 방식 비교",
+          "description": "세 회사의 초기 케어 운영 방식(버디/주차별 안내/피드백 흐름)을 비교해, 우리 팀의 ‘헷갈림’ 피드백과 연결해 보세요.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "과제 1에서 우리 팀에 더 맞는 운영 방식을 1개 고르는 근거",
+          "evidence_source": [
+            "인사",
+            "인적자원 관리"
+          ],
+          "mission_fact_refs": [
+            "feedback_themes",
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "운영 방식",
+              "values": []
+            },
+            "y_axis": {
+              "label": "우선순위",
+              "unit": "점수"
+            },
+            "series": [
+              {
+                "name": "우선순위",
+                "values": [
+                  3,
+                  2,
+                  1
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "운영 방식"
+              },
+              {
+                "key": "strength",
+                "label": "강점(자료에 적힌 특징)"
+              },
+              {
+                "key": "weakness",
+                "label": "약점(자료에 적힌 한계)"
+              },
+              {
+                "key": "priority",
+                "label": "우리 상황에서의 우선도(자료 표기)"
+              }
+            ],
+            "rows": [
+              {
+                "option": "A. 주차별 체크리스트+버디 고정",
+                "strength": "주차(1~4주)마다 ‘무엇을 확인할지’가 체크리스트로 제공되고, 버디가 고정이라 질문 루트가 매번 같음",
+                "weakness": "버디가 바뀌는 상황(업무 급변)이 생기면 체크리스트 업데이트가 필요함",
+                "priority": 3
+              },
+              {
+                "option": "B. 주차별 체크리스트+버디 교체(문제 시)",
+                "strength": "초기엔 체크리스트를 쓰되, 신규가 막히는 신호가 보이면 버디를 바꿔 다른 관점으로 설명함",
+                "weakness": "‘교체 기준’이 없으면 신규가 혼란을 느낄 수 있음",
+                "priority": 2
+              },
+              {
+                "option": "C. 교육영상 위주(피드백 흐름 약함)",
+                "strength": "정해진 콘텐츠로 기본 이해를 빠르게 맞출 수 있음",
+                "weakness": "업무 중 질문 타이밍/창구가 흐려져서 ‘언제 무엇을’이 남을 수 있음",
+                "priority": 1
+              }
+            ],
+            "author": "synthetic",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.82,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_memo_01",
+          "type": "memo",
+          "subtype": "feedback_summary",
+          "title": "우리 팀 신규 입사자 ‘첫 4주’ 피드백 메모 요약",
+          "description": "리더와 신규 입사자에게서 나온 말들을 ‘헷갈림의 원인’ 관점으로만 정리했습니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "과제 1에서 ‘어떤 운영 방식이 맞는지’ 선택 이유를 연결",
+          "evidence_source": [
+            "사람 파악",
+            "인사 업무"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "pie",
+            "x_axis": {
+              "label": "",
+              "values": []
+            },
+            "y_axis": {
+              "label": "",
+              "unit": ""
+            },
+            "series": [
+              {
+                "name": "",
+                "values": []
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "항목"
+              },
+              {
+                "key": "strength",
+                "label": "피드백에 나타난 사실"
+              },
+              {
+                "key": "weakness",
+                "label": "그 결과로 생긴 문제"
+              },
+              {
+                "key": "priority",
+                "label": "메모에서 강조된 핵심"
+              }
+            ],
+            "rows": [
+              {
+                "option": "질문 타이밍",
+                "strength": "“누구에게 언제 물어봐야 하는지” 기준이 잘 안 보였어요.",
+                "weakness": "질문이 줄고, 혼자 끌고 가다가 결국 늦게 표면화됨",
+                "priority": 3
+              },
+              {
+                "option": "주차별 업무 기대치",
+                "strength": "주차마다 업무 요청이 바뀌어 따라가기 어려웠어요.",
+                "weakness": "체크가 늦어지고 ‘내가 맞게 하고 있나’ 불안이 커짐",
+                "priority": 2
+              },
+              {
+                "option": "팀 가치/기대 행동",
+                "strength": "처음에 ‘우리 팀이 원하는 행동’이 늦게 설명됐어요.",
+                "weakness": "초기 방향감이 약해지고, 협업 리듬이 늦게 잡힘",
+                "priority": 2
+              }
+            ],
+            "author": "synthetic",
+            "items": [
+              {
+                "text": "요약 포인트: 신규가 가장 힘들어한 건 ‘언제/어디에/무엇을’ 확인해야 하는지의 기준이 흐릿했다는 점.",
+                "period": "최근 3개월",
+                "task": "리더 상담 후 메모",
+                "constraint": "자료 내 표현 그대로 요약",
+                "label": "요약",
+                "status": "checked",
+                "importance": "높음"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.79,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_checklist_01",
+          "type": "checklist",
+          "subtype": "execution_caution",
+          "title": "케어 운영 개선안 실행 전 체크리스트(주의 3가지)",
+          "description": "실행 중에 ‘다시 혼란이 생기지 않게’ 하려면 최소한 확인해야 하는 항목만 모았습니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "과제 2에서 주의사항 1가지를 고르고 이유를 짧게 적는 근거",
+          "evidence_source": [
+            "상사, 동료, 부하직원과 소통",
+            "사람들의 능력 개발, 지도"
+          ],
+          "mission_fact_refs": [
+            "decision_goal",
+            "main_issue"
+          ],
+          "data": {
+            "chart_type": "pie",
+            "x_axis": {
+              "label": "",
+              "values": []
+            },
+            "y_axis": {
+              "label": "",
+              "unit": ""
+            },
+            "series": [
+              {
+                "name": "",
+                "values": []
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "주의 항목"
+              },
+              {
+                "key": "strength",
+                "label": "무엇을 확인? (체크 질문)"
+              },
+              {
+                "key": "weakness",
+                "label": "체크하지 않으면 생길 수 있는 현상"
+              },
+              {
+                "key": "priority",
+                "label": "주의도"
+              }
+            ],
+            "rows": [
+              {
+                "option": "1) 버디 ‘역할/답변 범위’",
+                "strength": "버디가 도와줄 수 있는 범위(업무 가이드/질문 답변/일정 안내)를 한 문장으로 공유했는가?",
+                "weakness": "버디에게서 오히려 ‘답이 안 나오는 답변’이 생기며 신규가 더 위축됨",
+                "priority": 3
+              },
+              {
+                "option": "2) 주차 체크리스트 업데이트",
+                "strength": "주차별 체크리스트가 바뀔 때(업무 요청이 실제로 달라질 때) 문서도 같이 바뀌는 절차가 있는가?",
+                "weakness": "체크리스트는 옛날 기준인데 업무는 달라져 ‘또 혼란’이 반복됨",
+                "priority": 3
+              },
+              {
+                "option": "3) 민감한 개인 이슈 공유 금지",
+                "strength": "개인 사정/고민 같은 민감 내용은 당사자 동의 없이 다른 사람에게 공유하지 않기로 정했는가?",
+                "weakness": "신규가 상담/피드백을 꺼리게 되어 케어가 약해짐",
+                "priority": 2
+              }
+            ],
+            "author": "synthetic",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.75,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_01",
+          "instruction": "아래 표의 운영 방식 A~C 중에서, 우리 팀 신규 입사자 피드백(질문 타이밍/주차별 기대치/팀 가치 안내)에 가장 잘 맞는 방식을 1개 고르고, 그 이유를 3~5문장으로 적어보세요.",
+          "required_materials": [
+            "mat_table_01",
+            "mat_memo_01"
+          ],
+          "expected_action": "운영 방식 1개 선택 + 이유 연결해 짧게 서술"
+        },
+        {
+          "task_id": "task_02",
+          "instruction": "위 체크리스트 항목 1~3 중에서, 실행 전에 꼭 확인해야 할 ‘주의사항’ 1가지를 고르세요. 선택한 이유를 3~5문장으로 적어보세요.",
+          "required_materials": [
+            "mat_checklist_01"
+          ],
+          "expected_action": "주의 항목 1개 선택 + 이유 서술"
+        }
+      ],
+      "submission_format": {
+        "type": "서술형 답변",
+        "estimated_time_minutes": 20,
+        "required_sections": [
+          "과제 1 답(운영 방식 선택+이유)",
+          "과제 2 답(주의사항 선택+이유)"
+        ],
+        "length_hint": "과제 1, 2 각각 3~5문장"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "표의 운영 방식 차이(버디 고정/교체, 주차 체크리스트, 피드백 흐름)와 메모의 피드백 원인을 연결해 선택하는지",
+        "주의사항을 체크리스트의 ‘혼란 재발/위축 방지’ 관점에서 한 가지로 뽑아 설명하는지",
+        "답변이 짧고(각 과제 3~5문장) 자료 근거가 분명한지"
+      ],
+      "rubric": [
+        {
+          "criterion": "과제 1: 운영 방식 선택이 메모의 피드백(질문 타이밍/주차 기대치/팀 가치)과 잘 맞는지",
+          "description": "표의 A~C 중 1개를 고르고, 메모의 ‘헷갈림 포인트’와 연결해 이유를 설명한다.",
+          "points": 40,
+          "linked_evidence": [
+            "인사",
+            "인적자원 관리"
+          ]
+        },
+        {
+          "criterion": "과제 1: 표의 강점/약점 요소를 제대로 사용했는지",
+          "description": "선택 근거로 ‘체크리스트가 주차 기준을 제공’하거나 ‘버디 루트가 고정/흐려짐’ 같은 표의 특징을 활용한다.",
+          "points": 30,
+          "linked_evidence": [
+            "인사",
+            "사람 파악"
+          ]
+        },
+        {
+          "criterion": "과제 2: 체크리스트에서 한 가지 주의사항을 정확히 골랐는지",
+          "description": "항목 1~3 중 1개를 고르고, 체크하지 않으면 생길 수 있는 현상을 자료 내용에 맞게 설명한다.",
+          "points": 20,
+          "linked_evidence": [
+            "상사, 동료, 부하직원과 소통",
+            "사람들의 능력 개발, 지도"
+          ]
+        },
+        {
+          "criterion": "형식/명확성: 각 과제 답변이 짧고 읽기 쉽게 구성됐는지",
+          "description": "각 답변이 3~5문장으로 제한되고, ‘선택/이유’가 한 덩어리로 명확하다.",
+          "points": 10,
+          "linked_evidence": [
+            "말하기"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_006",
+        "text": "인사제도·인간관계·사기 관련 개선안을 타사 운영과 비교해 기획·품의."
+      },
+      "linked_evidence": {
+        "activities": [
+          "인사 업무",
+          "사람들을 훈련, 교육"
+        ],
+        "knowledge": [
+          "인사",
+          "사무"
+        ],
+        "abilities": [
+          "사람 파악"
+        ]
+      },
+      "material_evidence_map": [
+        {
+          "material_id": "mat_table_01",
+          "supported_by": [
+            "운영 방식의 강점/약점이 표로 제공됨"
+          ]
+        },
+        {
+          "material_id": "mat_memo_01",
+          "supported_by": [
+            "신규 피드백이 메모로 요약되어 헷갈림 포인트가 드러남"
+          ]
+        },
+        {
+          "material_id": "mat_checklist_01",
+          "supported_by": [
+            "실행 전 주의 항목과 그 이유(혼란 재발/위축 방지)가 체크리스트로 제공됨"
+          ]
+        }
+      ]
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "validator_errors": [
+    {
+      "path": "mission.materials[1].data.items",
+      "severity": "fail",
+      "code": "MATERIAL_SIZE_TOO_SMALL",
+      "message": "count 1 is below minimum 2.",
+      "required_fix": "Add items.",
+      "repairable": true
+    },
+    {
+      "path": "mission.materials[2].data.items",
+      "severity": "fail",
+      "code": "MATERIAL_SCHEMA_INVALID",
+      "message": "checklist items are required.",
+      "required_fix": "Add items.",
+      "repairable": true
+    },
+    {
+      "path": "mission.materials[2].data.items",
+      "severity": "fail",
+      "code": "MATERIAL_SIZE_TOO_SMALL",
+      "message": "count 0 is below minimum 3.",
+      "required_fix": "Add items.",
+      "repairable": true
+    }
+  ],
+  "validator_warnings": [],
+  "repair_rules": [
+    "material.evidence_source must use only exact strings from allowed_evidence_names.",
+    "Do not use source_ref file names, XML field names, or invented evidence labels.",
+    "For table materials, data.columns keys must be option, strength, weakness, priority and rows must use the same keys.",
+    "mission_fact_refs must use only real mission_facts keys such as org_name, domain, period, trend_pattern, main_issue, feedback_themes, and decision_goal.",
+    "evaluation.rubric points must sum exactly to 100.",
+    "evaluation.rubric.linked_evidence must use job profile evidence names, not material ids.",
+    "Respect validator material size limits for chart, log, checklist, memo, email, table, schedule, and card materials.",
+    "Chart series count must be 1 or 2.",
+    "Keep learner-facing text beginner-friendly and job-experience oriented; do not add professional knowledge requirements.",
+    "Make the mission easier than a real workplace task.",
+    "Prefer everyday workplace words over specialist terms.",
+    "Avoid legal, financial, technical, policy, compliance, or expert judgment unless the material explains it in beginner terms.",
+    "Each task must require only one learner action or deliverable.",
+    "JSON만 출력한다.",
+    "target_exec_job, task_type, secondary_task_types, difficulty는 변경하지 않는다.",
+    "allowed_material_types 밖의 material을 추가하지 않는다.",
+    "reliability는 {\"status\":\"pending_validation\"}로 둔다.",
+    "validator_errors와 validator_warnings에 해당하는 부분만 수정한다."
+  ]
+}

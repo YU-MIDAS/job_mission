@@ -1,0 +1,36 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_001",
+    "primary_task_type": "planning_and_proposal",
+    "selected_material_types": [
+      "checklist"
+    ],
+    "mission_design_type": "general_research_analysis",
+    "matched_evidence": [
+      "논리적 분석",
+      "정보 처리"
+    ],
+    "selection_reason": "난이도 easy에 맞게 분석 목표에 따라 수행 방법을 먼저 기획하는 단계가 적절하며, 체크리스트로 필요한 항목을 1가지로 정리하기 용이함.",
+    "confidence": "medium"
+  },
+  "usage": {
+    "input_tokens": 1842,
+    "output_tokens": 726,
+    "reasoning_tokens": 615,
+    "total_tokens": 2568
+  },
+  "errors": []
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_002",
+    "primary_task_type": "planning_and_proposal",
+    "selected_material_types": [
+      "table",
+      "checklist",
+      "memo"
+    ],
+    "mission_design_type": "product_design_with_constraints",
+    "matched_evidence": [
+      "창의력",
+      "영업과 마케팅",
+      "상품 제조 및 공정"
+    ],
+    "selection_reason": "소비자 취향을 조사·분석해 판매 가능한 상품을 기획·개발하는 내용이 상품기획자 직무의 핵심이며, 상품 제약을 반영한 기획안을 제안하기에 적합하다. 또한 아이디어 도출(창의력)과 마케팅 관점(영업과 마케팅), 제조·공정 고려(상품 제조 및 공정) 증거가 직접적으로 연결된다.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 1773,
+    "output_tokens": 939,
+    "reasoning_tokens": 741,
+    "total_tokens": 2712
+  },
+  "errors": []
+}

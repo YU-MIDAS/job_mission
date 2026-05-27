@@ -1,0 +1,19 @@
+{
+  "selected_exec_job_id": "exec_002",
+  "primary_task_type": "research_and_analysis",
+  "selected_material_types": [
+    "checklist",
+    "memo",
+    "table"
+  ],
+  "mission_design_type": "general_research_analysis",
+  "matched_evidence": [
+    "정보 수집",
+    "조직 외부인과 소통",
+    "협상",
+    "법",
+    "의사소통과 미디어"
+  ],
+  "selection_reason": "정부부처·경찰서 등 기관을 드나들며 관련 뉴스/인물을 찾아 심층취재하고 기사화하므로, 정보 수집과 분석 및 기관 소통·협상 역량이 핵심이다. 체크리스트로 취재원·자료를 점검하고 메모·표로 쟁점과 근거를 체계화하기 적합하다.",
+  "confidence": "high"
+}

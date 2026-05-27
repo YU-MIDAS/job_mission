@@ -1,0 +1,14 @@
+{
+  "selected_exec_job_id": "exec_001",
+  "primary_task_type": "planning_and_proposal",
+  "selected_material_types": [
+    "checklist"
+  ],
+  "mission_design_type": "general_research_analysis",
+  "matched_evidence": [
+    "논리적 분석",
+    "정보 처리"
+  ],
+  "selection_reason": "난이도 easy에 맞게 분석 목표에 따라 수행 방법을 먼저 기획하는 단계가 적절하며, 체크리스트로 필요한 항목을 1가지로 정리하기 용이함.",
+  "confidence": "medium"
+}

@@ -1,0 +1,188 @@
+{
+  "schema_version": "decision_selector_input.v1",
+  "job_identity": {
+    "job_cd": "K000007519",
+    "job_name": "보험상품개발자"
+  },
+  "difficulty": {
+    "level": "easy",
+    "material_count_range": [
+      1,
+      1
+    ]
+  },
+  "exec_jobs": [
+    {
+      "exec_job_id": "exec_001",
+      "text": "국내외 보험상품 관련 제도를 조사하고, 소비자심리 및 보험료에 영향을 미치는 요인을 분석한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 1
+      }
+    },
+    {
+      "exec_job_id": "exec_002",
+      "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 2
+      }
+    },
+    {
+      "exec_job_id": "exec_003",
+      "text": "수학, 통계학, 재무이론, 확률 등의 지식을 적용해 적절한 보험료와 책임준비금을 산출한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 3
+      }
+    },
+    {
+      "exec_job_id": "exec_004",
+      "text": "보험약관에 의한 대출금을 계산하고 각종 적립금이나 준비금 등을 평가하여 보험사업 전반에 걸친 수리 및 통계분석 업무를 한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 4
+      }
+    },
+    {
+      "exec_job_id": "exec_005",
+      "text": "사망률, 재해율, 질병, 장애, 퇴직률 등을 평가하고 각종 통계를 분석한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 5
+      }
+    },
+    {
+      "exec_job_id": "exec_006",
+      "text": "보험회사의 투자, 경영, 재무 관련 위험성을 분석·평가·진단하여 보험회사의 손익을 계산한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 6
+      }
+    },
+    {
+      "exec_job_id": "exec_007",
+      "text": "각종 통계자료의 분석을 통해 경영지표를 수립·제시한다. 기타 보험수리와 관련된 업무를 한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 7
+      }
+    }
+  ],
+  "top_evidence": {
+    "abilities": [
+      {
+        "name": "수리력",
+        "score": 97,
+        "description": "어떤 문제를 해결하기 위해 수학을 사용한다"
+      },
+      {
+        "name": "재정 관리",
+        "score": 93,
+        "description": "업무를 완료하기 위해 필요한 비용을 파악하고 구체적 소요 내역을 산출한다"
+      },
+      {
+        "name": "인적자원 관리",
+        "score": 89,
+        "description": "직원의 근로의욕을 높이고 능력을 개발하며 적재적소에 인재를 배치한다"
+      },
+      {
+        "name": "읽고 이해하기",
+        "score": 89,
+        "description": "업무와 관련된 문서를 읽고 이해한다"
+      },
+      {
+        "name": "논리적 분석",
+        "score": 88,
+        "description": "문제를 해결하기 위해(혹은 의사결정을 하기 위해) 체계적으로 이치에 맞는 생각을 해낸다"
+      }
+    ],
+    "knowledge": [
+      {
+        "name": "산수와 수학",
+        "score": 99,
+        "description": "연산, 대수학, 통계, 기하학의 계산 및 응용에 관한 지식"
+      },
+      {
+        "name": "경제와 회계",
+        "score": 93,
+        "description": "돈의 흐름, 은행업무, 그리고 재무자료의 보고와 분석과 같은 경제 및 회계원리에 관한 지식"
+      },
+      {
+        "name": "사무",
+        "score": 88,
+        "description": "워드 프로세스, 문서처리 및 기타 다른 사무절차에 관한 지식"
+      },
+      {
+        "name": "의료",
+        "score": 81,
+        "description": "질병이나 치아의 질환 여부를 진단하고 치료하는 것에 관한 지식"
+      },
+      {
+        "name": "법",
+        "score": 80,
+        "description": "법률, 규정에 관한 지식"
+      }
+    ],
+    "work_activities": [
+      {
+        "name": "기준에 따른 정보 평가",
+        "score": 96,
+        "description": "사건이나 절차가 법, 규정, 기준을 정확히 준수했는지 판단하기 위해 관련 정보나 개인 의견을 사용하기 활동 중요도"
+      },
+      {
+        "name": "의사 결정, 문제점 해결",
+        "score": 94,
+        "description": "가장 좋은 해결책을 선택하기 위해 정보를 분석하고 문제점을 해결하기 위해 결과를 평가하기 활동 중요도"
+      },
+      {
+        "name": "협상, 갈등 해결",
+        "score": 94,
+        "description": "불평, 분쟁, 충돌을 해결하고 협상하기 활동 중요도"
+      },
+      {
+        "name": "정보, 자료 분석",
+        "score": 93,
+        "description": "정보 또는 자료를 분석하여 근본 원리, 이유, 사실을 알아내기 활동 중요도"
+      },
+      {
+        "name": "목표, 전략 수립",
+        "score": 92,
+        "description": "장기 목표를 세우고 그 목표를 달성하기 위한 전략과 실행할 목록을 명시하기 활동 중요도"
+      }
+    ]
+  },
+  "allowed_task_types": [
+    "communication_and_reporting",
+    "coordination_and_negotiation",
+    "decision_making",
+    "diagnosis_and_improvement",
+    "operation_and_scheduling",
+    "planning_and_proposal",
+    "research_and_analysis"
+  ],
+  "allowed_material_types": [
+    "card",
+    "chart",
+    "checklist",
+    "email",
+    "log",
+    "memo",
+    "schedule",
+    "table"
+  ],
+  "allowed_mission_design_types": [
+    "data_diagnosis",
+    "financial_research_judgment",
+    "general_research_analysis",
+    "market_feedback_prioritization",
+    "product_design_with_constraints"
+  ]
+}

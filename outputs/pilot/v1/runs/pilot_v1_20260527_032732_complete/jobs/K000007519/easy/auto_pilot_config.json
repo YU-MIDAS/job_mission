@@ -1,0 +1,109 @@
+{
+  "schema_version": "auto_pilot_config.v1",
+  "job_cd": "K000007519",
+  "job_name": "보험상품개발자",
+  "source": {
+    "profile_schema_version": "job_mission_profile.v1",
+    "generated_from": "outputs/profiles/v1/K000007519.json",
+    "generator_version": "auto_pilot_config_generator.v1"
+  },
+  "config": {
+    "preferred_exec_job_id": "exec_002",
+    "preferred_exec_job_keywords": [
+      "분석결과",
+      "토대",
+      "사회환경",
+      "경제실정",
+      "보험상품",
+      "개발"
+    ],
+    "preferred_primary_task_type": "planning_and_proposal",
+    "materials": {
+      "easy": [
+        "table"
+      ],
+      "normal": [
+        "table",
+        "chart"
+      ],
+      "hard": [
+        "email",
+        "table",
+        "chart"
+      ]
+    }
+  },
+  "confidence": {
+    "score": 0.9,
+    "level": "high",
+    "review_required": false,
+    "reasons": [
+      "exec_job score contribution=0.4",
+      "task_type score contribution=0.15",
+      "material score contribution=0.25"
+    ]
+  },
+  "decision_trace": [
+    {
+      "step": "select_preferred_exec_job",
+      "method": "auto_exec_job_score",
+      "selected": "exec_002",
+      "reason": "total=50, action=6, evidence=28, combo=10."
+    },
+    {
+      "step": "classify_primary_task_type",
+      "method": "exec_job_verb_rule",
+      "selected": "planning_and_proposal",
+      "reason": "Keyword score 1."
+    },
+    {
+      "step": "select_materials_easy",
+      "method": "auto_material_rule",
+      "selected": [
+        "table"
+      ],
+      "reason": "easy material candidates selected within max 1.",
+      "trimmed_candidates": [
+        "email",
+        "log",
+        "checklist",
+        "card",
+        "chart",
+        "schedule"
+      ]
+    },
+    {
+      "step": "select_materials_normal",
+      "method": "auto_material_rule",
+      "selected": [
+        "table",
+        "chart"
+      ],
+      "reason": "normal material candidates selected within max 2.",
+      "trimmed_candidates": [
+        "email",
+        "log",
+        "checklist",
+        "card",
+        "schedule"
+      ]
+    },
+    {
+      "step": "select_materials_hard",
+      "method": "auto_material_rule",
+      "selected": [
+        "email",
+        "table",
+        "chart"
+      ],
+      "reason": "hard material candidates selected within max 3.",
+      "trimmed_candidates": [
+        "log",
+        "checklist",
+        "card",
+        "schedule"
+      ]
+    }
+  ],
+  "decision_warnings": []
+}

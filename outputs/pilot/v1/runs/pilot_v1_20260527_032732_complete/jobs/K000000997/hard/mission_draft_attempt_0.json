@@ -1,0 +1,510 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "draft",
+  "job_identity": {
+    "job_cd": "K000000997",
+    "job_lrcl_nm": "경영·사무·금융·보험직",
+    "job_mdcl_nm": "광고·조사·상품기획·행사기획 전문가",
+    "job_smcl_nm": "상품기획자",
+    "source_ref": {
+      "file": "K000000997/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": 1
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_002",
+    "text": "소비자의 현재 또는 장래 취향을 조사·분석하여 판매 가능한 상품을 기획·개발한다.",
+    "source_ref": {
+      "file": "K000000997/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 2
+    },
+    "selection_reason": "소비자 취향을 조사·분석해 판매 가능한 상품을 기획·개발하는 내용이 상품기획자 직무의 핵심이며, 상품 제약을 반영한 기획안을 제안하기에 적합하다. 또한 아이디어 도출(창의력)과 마케팅 관점(영업과 마케팅), 제조·공정 고려(상품 제조 및 공정) 증거가 직접적으로 연결된다."
+  },
+  "mission_facts": {
+    "org_name": "푸른마켓(가상)",
+    "domain": "구독형 간편식(테이크아웃 도시락/샐러드 키트) 상품기획",
+    "period": [
+      "2026년 5월 넷째 주"
+    ],
+    "trend_pattern": "‘바로 먹을 수 있는 간편함’과 ‘보관 편의(며칠째 먹을 수 있나)’를 동시에 묻는 고객이 늘어남",
+    "main_issue": "이번 주에 맞춰 출시할 상품은 A/B 두 안 중 1개만 선택해야 하는데, 고객 선호는 A와 B가 모두 강하고 생산/비용 제약은 서로 다름",
+    "feedback_themes": [
+      "기획안이 고객이 바로 이해할 한 문장(핵심 포인트)이 부족하다는 피드백이 있었음",
+      "이번 주는 일정이 촘촘해서 ‘리드타임(완성까지 걸리는 기간)’ 확인이 먼저 필요함"
+    ],
+    "decision_goal": "고객 선호(무엇을 좋아하는지)와 이번 주 제약(비용/일정)을 함께 고려해 1개 기획안을 제안하고, 진행 전 확인할 주의사항 1가지를 적어보기"
+  },
+  "mission": {
+    "title": "고객 취향과 생산 제약을 같이 보는 상품 1안 제안",
+    "task_type": "planning_and_proposal",
+    "secondary_task_types": [
+      "research_and_analysis"
+    ],
+    "difficulty": {
+      "level": "hard",
+      "label": "어려움",
+      "estimated_time_minutes": 20,
+      "material_bundle_style": "work_document_packet",
+      "material_count_range": [
+        3,
+        3
+      ],
+      "task_count_range": [
+        2,
+        2
+      ],
+      "answer_length_hint": "3-5 short sentences per task",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "당신은 푸른마켓 상품기획 인턴입니다.",
+      "context": "실무 리더가 이번 주 출시 기획을 맡기며 이렇게 요청했어요. “고객이 좋아하는 포인트는 A/B 두 안 다 보이는데, 생산 일정과 목표 단가 때문에 이번 달에는 딱 1개만 제안해야 해. 그리고 제안서에 넣기 전에 ‘이번 주 특히 조심’해야 할 항목도 꼭 잡아줘.”\n아래 자료는 고객 선호 비교, 생산/비용 제약, 마지막 체크리스트로 구성돼 있습니다. 답은 자료에서 보이는 내용만 근거로 작성해 주세요.",
+      "goal": "A/B 중 1개 기획안을 골라 제안 문장을 만들고, 체크리스트에서 주의사항 1가지를 골라 이유를 적어주세요.",
+      "constraints": [
+        "A/B 중 1개를 선택해 제안 문장으로 작성하세요.",
+        "주의사항은 체크리스트와 생산/비용 제약 메모에 근거해서 1가지만 고르세요.",
+        "자료에 없는 고객/가격/일정 가정은 하지 마세요.",
+        "실제 기업명·브랜드명·인명은 쓰지 마세요(자료의 가상 정보만 사용)."
+      ],
+      "glossary": [
+        {
+          "term": "리드타임",
+          "definition": "주문/확정부터 상품이 준비되어 출고되기까지 걸리는 기간입니다."
+        },
+        {
+          "term": "목표 단가",
+          "definition": "회사 내부에서 맞추려는 ‘상품을 만들고 팔기 위한 비용 상한’(또는 맞춰야 하는 가격 기준)입니다."
+        }
+      ]
+    },
+    "materials": [
+      {
+        "material_id": "mat_table_preference_01",
+        "type": "table",
+        "subtype": "고객 선호 비교",
+        "title": "고객 반응으로 본 A/B 기획안의 ‘좋아하는 포인트’",
+        "description": "두 안 모두 고객 반응이 있으나, 고객이 더 오래 머무르는 포인트가 조금씩 달라요.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "1안 선택(고객이 좋아하는 포인트) 근거 확인에 사용",
+        "evidence_source": [
+          "정보 수집",
+          "영업과 마케팅"
+        ],
+        "mission_fact_refs": [
+          "domain",
+          "period",
+          "main_issue",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "기획안",
+            "values": [
+              "A",
+              "B"
+            ]
+          },
+          "y_axis": {
+            "label": "고객이 중요하다고 답한 비율(%)",
+            "unit": "%"
+          },
+          "series": [
+            {
+              "name": "선호 핵심 포인트 비율",
+              "values": [
+                62,
+                58
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "기획안"
+            },
+            {
+              "key": "strength",
+              "label": "고객에게 강하게 먹히는 점"
+            },
+            {
+              "key": "weakness",
+              "label": "고객이 불편해할 수 있는 점"
+            },
+            {
+              "key": "priority",
+              "label": "고객 반응(이 자료 기준)"
+            }
+          ],
+          "rows": [
+            {
+              "option": "A: ‘10분 데워먹는 미니 도시락’",
+              "strength": "‘조리/준비 시간이 짧다(10분 내)’를 핵심으로 봄(선호 핵심 포인트 62%)",
+              "weakness": "‘냉장 보관 기간이 짧으면 불안하다’는 의견이 상대적으로 많음(권장 보관 24시간 기준)",
+              "priority": 2
+            },
+            {
+              "option": "B: ‘냉장 3일 샐러드 키트’",
+              "strength": "‘며칠째까지 편하게 먹을 수 있다(보관 편의)’를 핵심으로 봄(선호 핵심 포인트 58%)",
+              "weakness": "‘개봉 후 소분/도구(포크 등) 준비가 덜하면 번거롭다’는 불만이 발생 가능",
+              "priority": 1
+            }
+          ],
+          "author": "푸른마켓 인턴용 가상 고객 데이터",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.74,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": [
+            "표의 수치는 가상의 예시이며, 실제 회사 데이터가 아님"
+          ]
+        }
+      },
+      {
+        "material_id": "mat_memo_constraints_01",
+        "type": "memo",
+        "subtype": "생산/비용 제약",
+        "title": "이번 주 출시를 위한 A/B 생산·비용 메모",
+        "description": "리더가 준 ‘이번 주 제약’ 요약입니다. 제안 1개를 고를 때는 이 메모의 숫자/조건을 같이 봐야 해요.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "1안 선택에 필요한 일정(리드타임)과 목표 단가 근거, 그리고 주의사항 파악에 사용",
+        "evidence_source": [
+          "상품 제조 및 공정",
+          "정보 수집"
+        ],
+        "mission_fact_refs": [
+          "org_name",
+          "period",
+          "main_issue",
+          "decision_goal",
+          "feedback_themes"
+        ],
+        "data": {
+          "chart_type": "pie",
+          "x_axis": {
+            "label": "항목",
+            "values": [
+              "A",
+              "B"
+            ]
+          },
+          "y_axis": {
+            "label": "비중(참고용)",
+            "unit": "%"
+          },
+          "series": [
+            {
+              "name": "참고용",
+              "values": [
+                55,
+                45
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "기획안"
+            },
+            {
+              "key": "strength",
+              "label": "가능/유리한 조건"
+            },
+            {
+              "key": "weakness",
+              "label": "주의할 조건"
+            },
+            {
+              "key": "priority",
+              "label": "제약 관점 우선순위"
+            }
+          ],
+          "rows": [
+            {
+              "option": "A: 10분 데워먹는 미니 도시락",
+              "strength": "리드타임 3일(이번 주 마감 전 출고 가능), 목표 단가(9,900원) 내 예상 단가 6,200원",
+              "weakness": "냉장 보관 24시간 권장(고객 불안 포인트가 자료 A에 반영됨)",
+              "priority": 1
+            },
+            {
+              "option": "B: 냉장 3일 샐러드 키트",
+              "strength": "고객 선호 포인트(보관 편의)와 맞닿아 있음",
+              "weakness": "리드타임 7일(출시일에 맞추려면 이번 주 내 확정 필요), 예상 단가 7,600원 → 목표 단가 11,000원 상단을 ‘근접하게’ 맞추는 구조",
+              "priority": 2
+            }
+          ],
+          "author": "푸른마켓 상품기획 운영팀 가상 메모",
+          "items": [
+            {
+              "text": "출시 예정일: 5/30(금) / 제작 확정 마감: 5/25(월) 오전 10시",
+              "period": "2026년 5월 넷째 주",
+              "task": "리드타임 기반 일정 확인",
+              "constraint": "B는 리드타임이 길어 확정 마감이 핵심",
+              "label": "일정",
+              "status": "checked",
+              "importance": "높음"
+            },
+            {
+              "text": "목표 단가 기준: A(9,900원), B(11,000원). 둘 다 ‘완전 초과’는 아니지만 B는 상단에 근접",
+              "period": "동일",
+              "task": "단가(비용) 여유 폭 확인",
+              "constraint": "상단 근접 시 포장 옵션 변경이 생기면 넘어갈 수 있음",
+              "label": "단가",
+              "status": "issue",
+              "importance": "높음"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.7,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": [
+            "표/메모의 수치는 교육용 가상 수치이며, 실제 수치가 아님"
+          ]
+        }
+      },
+      {
+        "material_id": "mat_checklist_01",
+        "type": "checklist",
+        "subtype": "제안서 사전 체크",
+        "title": "상품 제안서에 넣기 전 체크리스트(이번 주 특히 조심)",
+        "description": "리더가 보낸 ‘제안서 제출 전’ 체크리스트입니다. 아래 항목 중 이번 주에 특히 조심으로 표시된 것은 빼면 안 돼요.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "Task 2의 ‘주의사항 1가지’ 고르기 근거",
+        "evidence_source": [
+          "의사 결정, 문제점 해결",
+          "사물, 서비스, 사람의 질 판단"
+        ],
+        "mission_fact_refs": [
+          "decision_goal",
+          "feedback_themes",
+          "main_issue"
+        ],
+        "data": {
+          "chart_type": "pie",
+          "x_axis": {
+            "label": "체크 항목",
+            "values": [
+              "핵심문장",
+              "리드타임",
+              "단가근접"
+            ]
+          },
+          "y_axis": {
+            "label": "중요도(참고용)",
+            "unit": "점"
+          },
+          "series": [
+            {
+              "name": "중요도(참고용)",
+              "values": [
+                3,
+                5,
+                4
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "체크 항목"
+            },
+            {
+              "key": "strength",
+              "label": "포함해야 할 내용"
+            },
+            {
+              "key": "weakness",
+              "label": "빼면 생길 문제"
+            },
+            {
+              "key": "priority",
+              "label": "중요도(체크표시)"
+            }
+          ],
+          "rows": [
+            {
+              "option": "(필수) 고객이 바로 이해할 핵심문장 1개",
+              "strength": "A/B 각각에서 ‘고객이 좋아한 포인트’를 한 문장으로 연결",
+              "weakness": "문장이 없으면 제안서가 ‘좋아하는 이유’ 없이 보일 수 있음",
+              "priority": 3
+            },
+            {
+              "option": "(이번 주 특히 조심) 리드타임(출고까지 걸리는 기간) 확정 여부",
+              "strength": "출시일에 맞추려면 확정 마감 전 단계가 되는지 명시",
+              "weakness": "확정이 늦으면 출시일에 맞춘 납품이 어려워짐",
+              "priority": 5
+            },
+            {
+              "option": "(이번 주 참고) 목표 단가 상단 근접 여부",
+              "strength": "B는 목표 단가 상단에 근접하니 포장 변경 같은 변수가 생기면 흔들릴 수 있음을 적기",
+              "weakness": "수치 근접을 숨기면 나중에 조정 비용이 커질 수 있음",
+              "priority": 4
+            }
+          ],
+          "author": "푸른마켓 리더 가상 체크리스트",
+          "items": [
+            {
+              "text": "고객이 좋아한 포인트를 ‘한 문장’으로 제안서 앞부분에 연결하기",
+              "period": "제안서 제출 전",
+              "task": "핵심문장 구성",
+              "constraint": "A/B 비교 자료에서 가져올 것",
+              "label": "핵심문장",
+              "status": "checked",
+              "importance": "보통"
+            },
+            {
+              "text": "리드타임(출고까지 걸리는 기간)이 확정 마감 전인지 제안서에 명시하기",
+              "period": "이번 주",
+              "task": "일정 확정 여부 확인",
+              "constraint": "리드타임이 긴 안(B)은 특히 확인",
+              "label": "리드타임 확정(이번 주 특히 조심)",
+              "status": "issue",
+              "importance": "높음"
+            },
+            {
+              "text": "목표 단가 상단에 근접하는지(특히 B) 한 줄로 기록하기",
+              "period": "이번 주",
+              "task": "단가 여유 폭 확인",
+              "constraint": "포장 옵션 변수가 생기면 넘어갈 수 있음",
+              "label": "단가 상단 근접(이번 주 참고)",
+              "status": "issue",
+              "importance": "중간"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.68,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": [
+            "체크 항목 중 ‘이번 주 특히 조심’에 해당하는 기준은 자료에만 의존함"
+          ]
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "task_01",
+        "instruction": "아래 자료를 보고, 이번 주에 출시할 상품 기획안(A 또는 B) 1개를 선택해 제안 문장으로 적어보세요. 제안 문장에는 ‘고객이 좋아하는 포인트 1개’와 ‘생산/비용 제약 1개(리드타임 또는 목표 단가)’를 함께 적어주세요.",
+        "required_materials": [
+          "mat_table_preference_01",
+          "mat_memo_constraints_01"
+        ],
+        "expected_action": "A/B 선택 + 고객 포인트 1개 + 제약(리드타임 또는 단가) 1개를 근거로 3-5문장으로 제안하기"
+      },
+      {
+        "task_id": "task_02",
+        "instruction": "체크리스트에서 ‘이번 주 특히 조심’으로 표시된 항목 1가지를 고르고, 왜 그걸 먼저 확인해야 하는지 3-5문장으로 적어주세요. 답은 체크리스트와 생산/비용 메모에 나온 내용만 사용하세요.",
+        "required_materials": [
+          "mat_checklist_01",
+          "mat_memo_constraints_01"
+        ],
+        "expected_action": "체크리스트의 ‘이번 주 특히 조심’ 항목 1개 선택 + 확인 이유를 메모 근거로 3-5문장으로 설명하기"
+      }
+    ],
+    "submission_format": {
+      "type": "text",
+      "estimated_time_minutes": 20,
+      "required_sections": [
+        "기획안 선택 및 이유(A/B)",
+        "주의사항 1가지(체크리스트 근거)"
+      ],
+      "length_hint": "각 섹션당 3-5문장"
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "고객 선호(어떤 포인트를 좋아하는지)와 생산 제약(리드타임/단가)을 같이 봐서 1개를 선택하는 감각을 익힘",
+      "체크리스트에서 우선 확인할 ‘이번 주 조심 포인트’를 뽑아, 제안서 품질을 먼저 잡는 방식 이해"
+    ],
+    "rubric": [
+      {
+        "criterion": "기획안 선택의 타당성(고객 포인트 1개 + 제약 근거 1개 포함)",
+        "description": "A/B 중 1개를 고르고, 표의 고객 선호 포인트와 메모의 리드타임/목표 단가 중 최소 1개를 함께 연결해 이유를 설명함.",
+        "points": 50,
+        "linked_evidence": [
+          "영업과 마케팅",
+          "상품 제조 및 공정",
+          "정보 수집"
+        ]
+      },
+      {
+        "criterion": "주의사항 정확도(‘이번 주 특히 조심’ 항목을 바르게 고르고 이유를 메모로 뒷받침)",
+        "description": "체크리스트에서 이번 주 특히 조심 항목을 1개 고르며, 생산/비용 메모에 있는 일정 또는 단가 관점으로 ‘왜 먼저 확인해야 하는지’를 설명함.",
+        "points": 50,
+        "linked_evidence": [
+          "의사 결정, 문제점 해결",
+          "사물, 서비스, 사람의 질 판단"
+        ]
+      }
+    ]
+  },
+  "evidence_chain_draft": {
+    "source_exec_job": {
+      "id": "exec_002",
+      "text": "소비자의 현재 또는 장래 취향을 조사·분석하여 판매 가능한 상품을 기획·개발한다."
+    },
+    "linked_evidence": {
+      "activities": [
+        "정보 수집",
+        "의사 결정, 문제점 해결",
+        "사물, 서비스, 사람의 질 판단",
+        "창조적 생각"
+      ],
+      "knowledge": [
+        "영업과 마케팅",
+        "상품 제조 및 공정"
+      ],
+      "abilities": [
+        "설득",
+        "창의력"
+      ]
+    },
+    "material_evidence_map": [
+      {
+        "material_id": "mat_table_preference_01",
+        "supported_by": [
+          "정보 수집",
+          "영업과 마케팅"
+        ]
+      },
+      {
+        "material_id": "mat_memo_constraints_01",
+        "supported_by": [
+          "상품 제조 및 공정",
+          "정보 수집"
+        ]
+      },
+      {
+        "material_id": "mat_checklist_01",
+        "supported_by": [
+          "의사 결정, 문제점 해결",
+          "사물, 서비스, 사람의 질 판단"
+        ]
+      }
+    ]
+  },
+  "reliability": {
+    "status": "pending_validation"
+  }
+}

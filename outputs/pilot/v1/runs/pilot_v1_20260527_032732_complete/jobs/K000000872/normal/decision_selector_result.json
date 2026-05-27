@@ -1,0 +1,16 @@
+{
+  "selected_exec_job_id": "exec_004",
+  "primary_task_type": "planning_and_proposal",
+  "selected_material_types": [
+    "table",
+    "memo"
+  ],
+  "mission_design_type": "general_research_analysis",
+  "matched_evidence": [
+    "영업과 마케팅",
+    "정보 수집",
+    "글쓰기"
+  ],
+  "selection_reason": "광고대행 계약을 위한 자료 조사·분석과 광고기획서 작성이 핵심이어서 ‘계획 수립 및 제안’에 가장 직접적으로 대응하며, 마케팅 지식과 정보 수집, 기획서 글쓰기 능력이 필요함.",
+  "confidence": "high"
+}

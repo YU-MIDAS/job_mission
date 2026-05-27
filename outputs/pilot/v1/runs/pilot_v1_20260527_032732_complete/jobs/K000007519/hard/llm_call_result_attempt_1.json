@@ -1,0 +1,511 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "repair_generation",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.4,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000007519",
+      "job_lrcl_nm": "경영·사무·금융·보험직",
+      "job_mdcl_nm": "금융·보험 전문가",
+      "job_smcl_nm": "보험상품개발자",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_003",
+      "text": "수학, 통계학, 재무이론, 확률 등의 지식을 적용해 적절한 보험료와 책임준비금을 산출한다.",
+      "source_ref": {
+        "file": "K000007519/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 3
+      },
+      "selection_reason": "보험료와 책임준비금을 산출해 적절한 상품안을 확정하는 의사결정이 핵심이므로 보험수리 계산 역량과 경제·회계 관점, 문제 해결/선택 근거를 요구하는 exec_003이 적합하다."
+    },
+    "mission_facts": {
+      "org_name": "알토라 가상보험",
+      "domain": "보험상품 개발(보험료·책임준비금 산출)",
+      "period": [
+        "2026년 1월~5월"
+      ],
+      "trend_pattern": "일부 연령대에서 만성 건강 이슈로 인한 청구가 계절적으로 늘고, 월별 손해율 변동이 커지는 흐름",
+      "main_issue": "신규 건강 담보를 출시하려고 하는데, 가격(보험료) 안에 따라 손해율 변동과 책임준비금 수준이 달라져 고객 문의가 달라질 수 있음",
+      "feedback_themes": [
+        "보험료가 언제는 낮고 언제는 높게 느껴진다는 문의",
+        "특정 월에 ‘예상과 다르다’는 반응이 반복됨",
+        "검증 과정에서 계산 기준(월/연, 시점)이 문서와 다르면 혼란이 생김"
+      ],
+      "decision_goal": "가격안 3가지 중 하나를 고르고(결정), 최종 반영 전에 반드시 점검할 주의점 1가지를 쓰기"
+    },
+    "mission": {
+      "title": "건강 담보 가격안 선택: 손해율 변동을 보고 보험료를 고르기",
+      "task_type": "decision_making",
+      "secondary_task_types": [],
+      "difficulty": {
+        "level": "hard",
+        "label": "어려움",
+        "estimated_time_minutes": 20,
+        "material_bundle_style": "work_document_packet",
+        "material_count_range": [
+          3,
+          3
+        ],
+        "task_count_range": [
+          2,
+          2
+        ],
+        "answer_length_hint": "3-5 short sentences per task",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "당신은 알토라 가상보험 상품개발팀 인턴입니다.",
+        "context": "곧 출시할 ‘건강 습관 케어 담보’의 가격안을 1차로 정해야 합니다. 상단 회의에서 “초기엔 보험료가 좀 낮아 보여도, 특정 달에 손해율이 크게 튀면 고객 문의가 늘 수 있다”는 얘기가 나왔어요. 당신은 제공된 자료를 보고 가격안을 하나 선택하고, 마지막으로 계산을 확정하기 전에 놓치기 쉬운 주의점 1가지를 골라 적어야 합니다.",
+        "goal": "자료를 보고 보험료 산출에 쓰는 ‘가격안’을 1개 결정하고, 최종 반영 전에 반드시 확인할 주의점 1가지를 쓰세요.",
+        "constraints": [
+          "답은 반드시 제공된 자료(차트/표/체크리스트)에서 확인 가능한 내용만 근거로 작성하세요.",
+          "첫 번째 과제는 ‘가격안 3가지 중 1개 선택’만 포함하세요(다른 과제에서 설명 금지).",
+          "두 번째 과제는 ‘주의점 1개’를 문장으로만 쓰세요(원인 분석/대안 여러 개 제시 금지).",
+          "전문 용어는 제공된 용어 설명을 기준으로 쉽게 풀어 쓰세요.",
+          "정확히 2개의 답만 제출하세요(과제 1, 과제 2)."
+        ],
+        "glossary": [
+          {
+            "term": "손해율",
+            "definition": "고객에게 실제로 나가야 하는 보험금이, 그 달에 받은 보험료 대비 어느 정도인지(비율)로 보는 지표입니다."
+          },
+          {
+            "term": "보험료",
+            "definition": "고객이 매달(또는 매년) 내는 돈입니다. 가격안이 달라지면 보험료도 달라집니다."
+          },
+          {
+            "term": "책임준비금",
+            "definition": "앞으로 고객에게 지급할 보험금 등을 위해 회사가 미리 ‘쌓아 두는 돈’이라고 생각하면 됩니다."
+          }
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "mat_chart_01",
+          "type": "chart",
+          "subtype": "line",
+          "title": "월별 예상 손해율(%) 비교: 가격안 B vs 가격안 C",
+          "description": "같은 조건(대상 고객 구성, 보장 기간)은 고정하고, 가격안에 따라 손해율이 월별로 어떻게 달라지는지 본 자료입니다. 이 차트의 ‘손해율 변동’이 큰 가격안은 고객이 느끼는 체감이 흔들릴 수 있습니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "가격안 선택 시 손해율이 특정 달에 크게 튀는지 확인",
+          "evidence_source": [
+            "정보, 자료 분석",
+            "의사 결정, 문제점 해결"
+          ],
+          "mission_fact_refs": [
+            "trend_pattern",
+            "main_issue",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "line",
+            "x_axis": {
+              "label": "월",
+              "values": [
+                "1월",
+                "2월",
+                "3월",
+                "4월",
+                "5월"
+              ]
+            },
+            "y_axis": {
+              "label": "예상 손해율(%)",
+              "unit": "%"
+            },
+            "series": [
+              {
+                "name": "가격안 B",
+                "values": [
+                  78,
+                  80,
+                  79,
+                  81,
+                  80
+                ]
+              },
+              {
+                "name": "가격안 C",
+                "values": [
+                  74,
+                  76,
+                  91,
+                  85,
+                  83
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "(차트 참고용)"
+              },
+              {
+                "key": "priority",
+                "label": "(차트 참고용)"
+              },
+              {
+                "key": "strength",
+                "label": "(차트 참고용)"
+              },
+              {
+                "key": "weakness",
+                "label": "(차트 참고용)"
+              }
+            ],
+            "rows": [
+              {
+                "option": "(차트)",
+                "strength": "-",
+                "weakness": "-",
+                "priority": 0
+              }
+            ],
+            "author": "알토라 계리 실무 시뮬레이션",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.86,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_table_01",
+          "type": "table",
+          "subtype": "comparison",
+          "title": "가격안 3가지 요약(문서용)",
+          "description": "가격안 A/B/C의 장점·단점을 한 장으로 정리한 표입니다. 우선순위는 ‘고객 문의가 늘 확률이 낮은 쪽’을 기준으로 팀에서 초안으로 표시했습니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "가격안 3가지 중 최종 선택(결정) 근거 만들기",
+          "evidence_source": [
+            "의사 결정, 문제점 해결",
+            "정보 처리",
+            "읽고 이해하기"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "feedback_themes",
+            "decision_goal"
+          ],
+          "data": {
+            "chart_type": "pie",
+            "x_axis": {
+              "label": "",
+              "values": []
+            },
+            "y_axis": {
+              "label": "",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "가격안"
+              },
+              {
+                "key": "strength",
+                "label": "강점(자료에서 확인되는 점)"
+              },
+              {
+                "key": "weakness",
+                "label": "약점(자료에서 확인되는 점)"
+              },
+              {
+                "key": "priority",
+                "label": "팀 초안 우선순위"
+              }
+            ],
+            "rows": [
+              {
+                "option": "가격안 A",
+                "strength": "손해율 변동이 작고, 고객 문의 테마(‘언제는 낮고 언제는 높다’)가 비교적 적게 나타난 것으로 정리됨",
+                "weakness": "다른 안보다 보험료가 전반적으로 더 높게 잡혀 초기 반응이 보수적일 수 있음",
+                "priority": 2
+              },
+              {
+                "option": "가격안 B",
+                "strength": "손해율이 월별로 비교적 안정적으로 유지되는 흐름이며, ‘특정 달에 예상과 다르다’ 문의가 상대적으로 덜한 편으로 정리됨(차트 B 참고)",
+                "weakness": "보험료가 A보다는 조금 낮아도, 일부 연령대에서 문의가 완전히 0이 되진 않음",
+                "priority": 1
+              },
+              {
+                "option": "가격안 C",
+                "strength": "초기 보험료가 낮게 느껴질 수 있으나, 특정 월에 손해율이 크게 튀는 패턴이 관찰됨(차트 C 참고)",
+                "weakness": "고객이 ‘특정 달에 예상과 다르다’고 느낄 수 있는 구간이 생김",
+                "priority": 3
+              },
+              {
+                "option": "기준(출시 전 체크용)",
+                "strength": "선택 기준은 ‘손해율 변동이 작고 문서 상 가정이 검증된 안’으로 잡음",
+                "weakness": "변동이 큰 안은 고객 문의 테마와 연결될 수 있어 그대로 두면 위험",
+                "priority": 0
+              }
+            ],
+            "author": "알토라 상품개발팀(초안)",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.83,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_checklist_01",
+          "type": "checklist",
+          "subtype": "final_verification",
+          "title": "보험료·책임준비금 산출 최종 반영 체크리스트(발견된 이슈 포함)",
+          "description": "최종 반영 전에 개발자가 확인해야 하는 항목 3개입니다. 그중 1개는 ‘이슈’ 표시되어 있어, 이를 놓치면 문서와 계산 기준이 어긋날 수 있습니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "두 번째 과제(주의점) 작성: 체크리스트의 ‘이슈’ 항목을 근거로 한 문장 쓰기",
+          "evidence_source": [
+            "정확성, 정밀성 유지",
+            "기준에 따른 정보 평가",
+            "정보 처리"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "decision_goal",
+            "feedback_themes"
+          ],
+          "data": {
+            "chart_type": "pie",
+            "x_axis": {
+              "label": "",
+              "values": []
+            },
+            "y_axis": {
+              "label": "",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "(체크 항목)"
+              },
+              {
+                "key": "priority",
+                "label": "(중요도)"
+              },
+              {
+                "key": "strength",
+                "label": "(설명)"
+              },
+              {
+                "key": "weakness",
+                "label": "(주의점)"
+              }
+            ],
+            "rows": [
+              {
+                "option": "(체크리스트)",
+                "strength": "-",
+                "weakness": "-",
+                "priority": 0
+              }
+            ],
+            "author": "알토라 계리 실무(출시 전)",
+            "items": [
+              {
+                "text": "[이슈] 월/연 단위가 문서(고객용 안내)와 계산(보험료·준비금 산출 템플릿)에서 같은지 확인",
+                "period": "이번 주 최종 반영",
+                "task": "표기·산출 단위 점검",
+                "constraint": "월 단위로 계산한 값을 연 단위로 공시하지 않기",
+                "label": "단위 일치 점검",
+                "status": "issue",
+                "importance": "높음"
+              },
+              {
+                "text": "연령대별 손해율 입력값이 표(차트/표)에서 선택한 가격안과 연결되는지 확인",
+                "period": "이번 주 최종 반영",
+                "task": "입력값 매핑 확인",
+                "constraint": "A/B/C 선택에 따라 입력값이 바뀌는지 확인",
+                "label": "가격안-입력값 매핑",
+                "status": "unchecked",
+                "importance": "중간"
+              },
+              {
+                "text": "책임준비금이 ‘앞으로 지급할 보험금’ 시나리오에 맞게 계산되었는지(예: 지급시점 가정이 문서에 맞는지) 확인",
+                "period": "이번 주 최종 반영",
+                "task": "가정-문서 정합성 확인",
+                "constraint": "가정이 바뀌면 보험료 의사결정 근거도 흔들림",
+                "label": "준비금 가정 정합성",
+                "status": "unchecked",
+                "importance": "중간"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.8,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_01_decide_pricing",
+          "instruction": "아래 자료에서 ‘가격안 A/B/C’ 중 하나를 선택하세요. 그리고 그 선택 이유를 손해율 변동과 고객 문의 테마 관점에서 3~5문장으로 설명해 주세요(다른 주의점은 과제 2에서만).",
+          "required_materials": [
+            "mat_chart_01",
+            "mat_table_01"
+          ],
+          "expected_action": "1) 가격안 한 가지를 고른 뒤 2) 왜 그 안이 더 낫다고 보이는지 이유를 짧게 쓰세요."
+        },
+        {
+          "task_id": "task_02_write_caution",
+          "instruction": "체크리스트에서 ‘꼭 조심해야 하는 점’ 1가지를 골라, 최종 반영 전에 무엇을 다시 확인할지 3~5문장으로 적어 주세요. 답에는 체크리스트의 [이슈] 항목을 포함해야 합니다.",
+          "required_materials": [
+            "mat_checklist_01"
+          ],
+          "expected_action": "체크리스트의 이슈를 근거로 ‘무엇을 어떻게 확인’할지 한 문단으로 작성하세요."
+        }
+      ],
+      "submission_format": {
+        "type": "text",
+        "estimated_time_minutes": 20,
+        "required_sections": [
+          "과제 1: 가격안 선택과 이유",
+          "과제 2: 최종 반영 주의점 1개"
+        ],
+        "length_hint": "각 과제는 3-5문장"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "손해율이 월별로 크게 흔들리는 가격안이 고객이 느끼는 혼란(문의 테마)과 연결될 수 있음을 구체적으로 설명",
+        "표/차트에서 확인되는 ‘안정성’ 근거를 사용해 가격안을 하나로 좁히기",
+        "최종 반영에서 문서와 계산 기준(단위 등)이 어긋날 때 생길 문제를 체크리스트 기반으로 한 가지 주의점으로 정리"
+      ],
+      "rubric": [
+        {
+          "criterion": "가격안 선택의 적절성",
+          "description": "가격안 A/B/C 중 1개를 고르고, 제공된 표·차트 근거로 선택이 설득력 있게 설명됨.",
+          "points": 45,
+          "linked_evidence": [
+            "의사 결정, 문제점 해결"
+          ]
+        },
+        {
+          "criterion": "근거 사용(손해율 변동/문의 테마 연결)",
+          "description": "월별 손해율 변동(차트)과 고객 피드백 테마(표의 약점/강점)에 연결해서 이유를 썼음.",
+          "points": 25,
+          "linked_evidence": [
+            "정보, 자료 분석",
+            "정보 처리",
+            "읽고 이해하기"
+          ]
+        },
+        {
+          "criterion": "주의점(체크리스트 이슈 반영)",
+          "description": "체크리스트의 [이슈] 항목을 포함해 최종 반영 전에 다시 확인할 ‘무엇’과 ‘왜’를 명확히 적었음.",
+          "points": 25,
+          "linked_evidence": [
+            "정확성, 정밀성 유지",
+            "기준에 따른 정보 평가"
+          ]
+        },
+        {
+          "criterion": "문장 명확성 및 과제 범위 준수",
+          "description": "과제 1은 선택/이유에 집중하고, 과제 2는 주의점에 집중했으며 문장이 3~5문장 내로 읽기 쉬움.",
+          "points": 5,
+          "linked_evidence": [
+            "읽고 이해하기",
+            "정보 처리"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_003",
+        "text": "수학, 통계학, 재무이론, 확률 등의 지식을 적용해 적절한 보험료와 책임준비금을 산출한다."
+      },
+      "linked_evidence": {
+        "activities": [
+          "의사 결정, 문제점 해결",
+          "정보, 자료 분석",
+          "정보 처리"
+        ],
+        "knowledge": [
+          "경제와 회계",
+          "산수와 수학"
+        ],
+        "abilities": [
+          "논리적 분석",
+          "읽고 이해하기",
+          "정확성, 정밀성 유지"
+        ]
+      },
+      "material_evidence_map": [
+        {
+          "material_id": "mat_chart_01",
+          "supported_by": [
+            "월별 손해율 변동 패턴 제시(정보, 자료 분석)",
+            "선택의 이유로 연결(의사 결정, 문제점 해결)"
+          ]
+        },
+        {
+          "material_id": "mat_table_01",
+          "supported_by": [
+            "가격안 강점/약점 및 고객 문의 테마 연결(정보 처리, 읽고 이해하기)"
+          ]
+        },
+        {
+          "material_id": "mat_checklist_01",
+          "supported_by": [
+            "[이슈] 항목 기반 주의점 작성(정확성, 정밀성 유지·기준에 따른 정보 평가)"
+          ]
+        }
+      ]
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "usage": {
+    "input_tokens": 8084,
+    "output_tokens": 4332,
+    "reasoning_tokens": 720,
+    "total_tokens": 12416
+  },
+  "errors": []
+}

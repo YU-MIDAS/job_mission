@@ -1,0 +1,39 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_004",
+    "primary_task_type": "planning_and_proposal",
+    "selected_material_types": [
+      "memo",
+      "table",
+      "checklist"
+    ],
+    "mission_design_type": "general_research_analysis",
+    "matched_evidence": [
+      "영업과 마케팅",
+      "정보 수집",
+      "글쓰기"
+    ],
+    "selection_reason": "광고주와 협의해 자료 조사·분석 후 광고기획서를 작성하는 업무로, 기획(제안) 중심 과제에 적합하며 시장/상품 자료 분석을 요구하므로 일반 연구·분석 설계가 맞음. 문서형 산출물(메모·표·체크리스트)로 난이도 hard(3개 자료) 조건을 충족.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 2160,
+    "output_tokens": 1675,
+    "reasoning_tokens": 1511,
+    "total_tokens": 3835
+  },
+  "errors": []
+}

@@ -1,0 +1,424 @@
+{
+  "schema_version": "job_mission_profile.v1",
+  "source_root": "data/api_raw",
+  "job_identity": {
+    "job_cd": "K000000872",
+    "job_lrcl_nm": "경영·사무·금융·보험직",
+    "job_mdcl_nm": "광고·조사·상품기획·행사기획 전문가",
+    "job_smcl_nm": "광고·홍보·마케팅전문가",
+    "source_ref": {
+      "file": "K000000872/dtlGb_2.xml",
+      "field": "jobsDo"
+    }
+  },
+  "work": {
+    "job_summary": {
+      "text": "특정상품 및 서비스에 대한 마케팅, 광고, 홍보의 필요성을 분석하고그에 따른 적절한 방안을 계획하며 실행한다. 또한 고객을 위한광고물의 제작 및 광고행사를 기획·감독하고 조정 등을 한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_2.xml",
+        "field": "jobsDo.jobSum"
+      }
+    },
+    "exec_jobs": [
+      {
+        "exec_job_id": "exec_001",
+        "text": "사업체의 마케팅, 광고, 홍보 전략에 대해 자문한다.",
+        "source_ref": {
+          "file": "K000000872/dtlGb_2.xml",
+          "field": "jobsDo.execJob",
+          "index": 1
+        }
+      },
+      {
+        "exec_job_id": "exec_002",
+        "text": "인쇄나 전자매체에 적절한 마케팅, 광고캠페인을 개발하고 실행한다.",
+        "source_ref": {
+          "file": "K000000872/dtlGb_2.xml",
+          "field": "jobsDo.execJob",
+          "index": 2
+        }
+      },
+      {
+        "exec_job_id": "exec_003",
+        "text": "특정기업 또는 사업체에 대한 대중의 인식과 이해를 개선하려는 PR프로그램을 연구, 조언한다.",
+        "source_ref": {
+          "file": "K000000872/dtlGb_2.xml",
+          "field": "jobsDo.execJob",
+          "index": 3
+        }
+      },
+      {
+        "exec_job_id": "exec_004",
+        "text": "광고주에게 대행사를 효과적으로 알려 광고대행계약을 하고, 광고할 상품이나 용역에 관한 자료를 조사하여 분석하고, 광고주와 협의하여 광고기획서를 작성한다.",
+        "source_ref": {
+          "file": "K000000872/dtlGb_2.xml",
+          "field": "jobsDo.execJob",
+          "index": 4
+        }
+      },
+      {
+        "exec_job_id": "exec_005",
+        "text": "광고제작팀과 협의하여 광고기획서를 수정·보완하고 광고주의 의사결정자와 협의하여 광고의 제작방향을 결정한다.",
+        "source_ref": {
+          "file": "K000000872/dtlGb_2.xml",
+          "field": "jobsDo.execJob",
+          "index": 5
+        }
+      },
+      {
+        "exec_job_id": "exec_006",
+        "text": "광고제작에 소요되는 예산을 수립·조정한다.",
+        "source_ref": {
+          "file": "K000000872/dtlGb_2.xml",
+          "field": "jobsDo.execJob",
+          "index": 6
+        }
+      },
+      {
+        "exec_job_id": "exec_007",
+        "text": "광고대상 상품의 경쟁상황, 시장상황, 판매기간 등에 대한 자료를 조사·분석하고 광고매체에 대한 효과를 분석한다.",
+        "source_ref": {
+          "file": "K000000872/dtlGb_2.xml",
+          "field": "jobsDo.execJob",
+          "index": 7
+        }
+      },
+      {
+        "exec_job_id": "exec_008",
+        "text": "광고의 목표를 설정하고, 광고 표현계획과 제작계획을 수립하며, 광고의 제작상황을 감독한다.",
+        "source_ref": {
+          "file": "K000000872/dtlGb_2.xml",
+          "field": "jobsDo.execJob",
+          "index": 8
+        }
+      },
+      {
+        "exec_job_id": "exec_009",
+        "text": "제작된 광고를 검토·평가한 후 광고를 실시하며, 시행광고의 효과를 조사·분석한다.",
+        "source_ref": {
+          "file": "K000000872/dtlGb_2.xml",
+          "field": "jobsDo.execJob",
+          "index": 9
+        }
+      }
+    ]
+  },
+  "technical_context": {
+    "techn_know": {
+      "text": "대학에서 경영학, 통계학, 신문방송학, 심리학, 사회학 등 사회과학 분야를 전공하는 것이 유리하다. 보통 대졸 이상의 학력을 요구하지만 일부 업체에서는 석사학위 이상의 학력을 요구하기도 한다. 조사전문회사나 연구기관에서 수행하는 조사에 보조원으로 참여하거나 코딩, 펀칭, 전화조사원, 출구조사원 등의 아르바이트를 통하여 실무경험을 쌓는 것도 필요하다. 최근 외국회사의 국내 진출이나 국내 기업의 해외 마케팅 활동이 활발하므로 외국어 실력을 갖추는 것이 매우 중요해졌으며 마케팅이나 소비자행동론, 기획론 등의 지식도 갖추어야 한다. 관련 자격증으로 사회조사분석사가 있지만 필수적인 것은 아니다. 정규교육과정 외에도 한국생산성본부 등 관련 기관이나 사회교육기관, 사설학원 등에서 자격증 취득을 위한 관련 교육을 받을 수 있다. 주로 컨설팅회사, 광고회사 및 민간·공공부문에서 일하며 독립적으로 일하기도 한다.",
+      "source_ref": {
+        "file": "K000000872/dtlGb_3.xml",
+        "field": "way.technKnow"
+      }
+    }
+  },
+  "evidence": {
+    "abilities": [
+      {
+        "name": "창의력",
+        "score": 93,
+        "description": "주어진 주제나 상황에 대하여 독특하고 기발한 아이디어를 산출한다",
+        "rank": 1,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.jobAbil",
+          "index": 1
+        }
+      },
+      {
+        "name": "글쓰기",
+        "score": 92,
+        "description": "글을 통해서 다른 사람과 효과적으로 의사소통한다",
+        "rank": 2,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.jobAbil",
+          "index": 2
+        }
+      },
+      {
+        "name": "협상",
+        "score": 89,
+        "description": "사람들과의 의견차이를 좁혀 합의점을 찾는다",
+        "rank": 3,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.jobAbil",
+          "index": 3
+        }
+      },
+      {
+        "name": "설득",
+        "score": 89,
+        "description": "다른 사람들의 마음이나 행동을 변화시키기 위해 설득한다",
+        "rank": 4,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.jobAbil",
+          "index": 4
+        }
+      },
+      {
+        "name": "읽고 이해하기",
+        "score": 87,
+        "description": "업무와 관련된 문서를 읽고 이해한다",
+        "rank": 5,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.jobAbil",
+          "index": 5
+        }
+      }
+    ],
+    "knowledge": [
+      {
+        "name": "영업과 마케팅",
+        "score": 91,
+        "description": "상품이나 서비스를 판매하거나 촉진을 하는 것에 관한 지식(마케팅 전략, 상품의 전시와 판매기법, 영업관리 등)",
+        "rank": 1,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.Knwldg",
+          "index": 1
+        }
+      },
+      {
+        "name": "의사소통과 미디어",
+        "score": 87,
+        "description": "말, 글, 그림 등을 이메일이나 방송매체를 통해 전달하는 것에 관한 지식",
+        "rank": 2,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.Knwldg",
+          "index": 2
+        }
+      },
+      {
+        "name": "사무",
+        "score": 86,
+        "description": "워드 프로세스, 문서처리 및 기타 다른 사무절차에 관한 지식",
+        "rank": 3,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.Knwldg",
+          "index": 3
+        }
+      },
+      {
+        "name": "국어",
+        "score": 84,
+        "description": "맞춤법, 작문법, 문법에 관한 지식",
+        "rank": 4,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.Knwldg",
+          "index": 4
+        }
+      },
+      {
+        "name": "경영 및 행정",
+        "score": 77,
+        "description": "사업운영, 기획, 자원배분, 인적자원관리, 리더십, 생산기법에 대한 원리 등 경영 및 관리에 관한 지식",
+        "rank": 5,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.Knwldg",
+          "index": 5
+        }
+      }
+    ],
+    "work_environment": [
+      {
+        "name": "재택근무",
+        "score": 96,
+        "description": "재택근무 가능성",
+        "rank": 1,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.jobsEnv",
+          "index": 1
+        }
+      },
+      {
+        "name": "다른 사람과의 상호작용",
+        "score": 91,
+        "description": "업무 수행위해 팀/집단으로 함께 일하는 것의 중요성",
+        "rank": 2,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.jobsEnv",
+          "index": 2
+        }
+      },
+      {
+        "name": "다른 사람들을 조율하거나 이끌기",
+        "score": 91,
+        "description": "업무 특성상 다른 사람들을 조율하거나 이끄는 것의 중요성",
+        "rank": 3,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.jobsEnv",
+          "index": 3
+        }
+      },
+      {
+        "name": "이메일 이용하기",
+        "score": 90,
+        "description": "업무 수행하면서 이메일 사용하는 정도",
+        "rank": 4,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.jobsEnv",
+          "index": 4
+        }
+      },
+      {
+        "name": "앉아서 근무",
+        "score": 89,
+        "description": "앉아서 근무하는 빈도",
+        "rank": 5,
+        "source_ref": {
+          "file": "K000000872/dtlGb_5.xml",
+          "field": "ablKnwEnv.jobsEnv",
+          "index": 5
+        }
+      }
+    ],
+    "work_activities": [
+      {
+        "name": "창조적 생각",
+        "score": 97,
+        "description": "새로운 소프트웨어, 생각, 시스템, 제품 등을 설계하고 개발하기 활동 중요도",
+        "rank": 1,
+        "source_ref": {
+          "file": "K000000872/dtlGb_7.xml",
+          "field": "jobActv.jobActvImprtnc",
+          "index": 1
+        }
+      },
+      {
+        "name": "정보 수집",
+        "score": 95,
+        "description": "모든 관련 자료에서 정보를 수집, 관찰하기 중요도",
+        "rank": 2,
+        "source_ref": {
+          "file": "K000000872/dtlGb_7.xml",
+          "field": "jobActv.jobActvImprtnc",
+          "index": 2
+        }
+      },
+      {
+        "name": "사람들에게 영향력 행사",
+        "score": 94,
+        "description": "사람들에게 물건을 팔거나 그들의 생각과 행동을 바꾸도록 설득하기 활동 중요도",
+        "rank": 3,
+        "source_ref": {
+          "file": "K000000872/dtlGb_7.xml",
+          "field": "jobActv.jobActvImprtnc",
+          "index": 3
+        }
+      },
+      {
+        "name": "조직 외부인과 소통",
+        "score": 91,
+        "description": "조직 외부인에게 회사를 대표해서 직접 이야기하거나, 전화, 서면, 이메일로 정보를 전달하기 활동 중요도",
+        "rank": 4,
+        "source_ref": {
+          "file": "K000000872/dtlGb_7.xml",
+          "field": "jobActv.jobActvImprtnc",
+          "index": 4
+        }
+      },
+      {
+        "name": "사물, 행동, 사건 파악",
+        "score": 90,
+        "description": "차이점과 유사점을 분류하고 어떤 상황에서 변화를 알아차림으로써 정보를 파악하기 활동 중요도",
+        "rank": 5,
+        "source_ref": {
+          "file": "K000000872/dtlGb_7.xml",
+          "field": "jobActv.jobActvImprtnc",
+          "index": 5
+        }
+      },
+      {
+        "name": "목표, 전략 수립",
+        "score": 90,
+        "description": "장기 목표를 세우고 그 목표를 달성하기 위한 전략과 실행할 목록을 명시하기 활동 중요도",
+        "rank": 6,
+        "source_ref": {
+          "file": "K000000872/dtlGb_7.xml",
+          "field": "jobActv.jobActvImprtnc",
+          "index": 6
+        }
+      },
+      {
+        "name": "업무, 활동에 대한 일정관리",
+        "score": 90,
+        "description": "이벤트, 프로그램, 활동에 대한 일정을 관리하기 활동 중요도",
+        "rank": 7,
+        "source_ref": {
+          "file": "K000000872/dtlGb_7.xml",
+          "field": "jobActv.jobActvImprtnc",
+          "index": 7
+        }
+      },
+      {
+        "name": "대인관계 유지",
+        "score": 89,
+        "description": "다른 사람들과 건설적이고 협조적인 업무 관계를 맺고, 오랫동안 유지하기 활동 중요도",
+        "rank": 8,
+        "source_ref": {
+          "file": "K000000872/dtlGb_7.xml",
+          "field": "jobActv.jobActvImprtnc",
+          "index": 8
+        }
+      },
+      {
+        "name": "사람들의 업무와 활동을 조직, 편성",
+        "score": 88,
+        "description": "그룹 내 구성원들이 업무 완수를 위해 함께 일하도록 조율하기 활동 중요도",
+        "rank": 9,
+        "source_ref": {
+          "file": "K000000872/dtlGb_7.xml",
+          "field": "jobActv.jobActvImprtnc",
+          "index": 9
+        }
+      },
+      {
+        "name": "업무상 사람들을 직접 응대",
+        "score": 88,
+        "description": "식당, 상점에서 일반 손님을 접대하거나, 거래처 고객 또는 손님을 접대하기 활동 중요도",
+        "rank": 10,
+        "source_ref": {
+          "file": "K000000872/dtlGb_7.xml",
+          "field": "jobActv.jobActvImprtnc",
+          "index": 10
+        }
+      }
+    ]
+  },
+  "source_files": [
+    {
+      "file": "K000000872/dtlGb_2.xml",
+      "required": true,
+      "loaded": true
+    },
+    {
+      "file": "K000000872/dtlGb_5.xml",
+      "required": true,
+      "loaded": true
+    },
+    {
+      "file": "K000000872/dtlGb_7.xml",
+      "required": true,
+      "loaded": true
+    },
+    {
+      "file": "K000000872/dtlGb_3.xml",
+      "required": false,
+      "loaded": true
+    }
+  ],
+  "loader_warnings": [],
+  "loader_errors": []
+}

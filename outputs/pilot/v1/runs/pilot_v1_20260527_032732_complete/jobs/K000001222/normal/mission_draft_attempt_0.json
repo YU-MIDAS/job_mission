@@ -1,0 +1,387 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "draft",
+  "job_identity": {
+    "job_cd": "K000001222",
+    "job_lrcl_nm": "예술·디자인·방송·스포츠직",
+    "job_mdcl_nm": "기자 및 언론 전문가",
+    "job_smcl_nm": "방송기자",
+    "source_ref": {
+      "file": "K000001222/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": null
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_001",
+    "text": "정치부, 사회부, 문화부, 경제부, 국제부, 체육부 등에 소속되어 해당 사건·사고, 뉴스 등을 취재하고, 관련 인물을 인터뷰하여 기사화하는 일을 한다.",
+    "source_ref": {
+      "file": "K000001222/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 1
+    },
+    "selection_reason": "사건·사고 취재 후 인터뷰를 바탕으로 기사로 작성하는 역할(exec_001)과 직접적으로 맞으며, 체크리스트와 기사 구성표로 취재→수집→작성 흐름을 점검하기에 적합함."
+  },
+  "mission_facts": {
+    "org_name": "브리즈TV 보도국(가상)",
+    "domain": "지역사회 사건·사고 취재 및 방송 리포팅",
+    "period": [
+      "방송 당일 저녁",
+      "이전 2시간 내 제보 유입"
+    ],
+    "trend_pattern": "SNS에 먼저 퍼진 이슈가 방송용으로 바로 올라오는 패턴(단, 사실 확인은 늦게 따라오는 경우가 있음)",
+    "main_issue": "‘달빛시 해바라기마을 물류창고에서 연기가 났다’는 제보가 SNS와 함께 확산됐지만, 현재 확인된 단서는 제보자 1명뿐인 상황",
+    "feedback_themes": [
+      "확인되지 않은 내용을 단정하는 표현은 피하자",
+      "있는 자료(녹음/제보 기록)로만 말하고, 없는 자료는 ‘확인 중’으로 처리하자"
+    ],
+    "decision_goal": "오늘 밤 3분 뉴스에 어떤 방송 방식으로 싣고, 추가로 확인할 항목 1가지를 정하자."
+  },
+  "mission": {
+    "title": "사실 확인 상태에 맞게 방송 방식 고르기",
+    "task_type": "communication_and_reporting",
+    "secondary_task_types": [],
+    "difficulty": {
+      "level": "normal",
+      "label": "보통",
+      "estimated_time_minutes": 15,
+      "material_bundle_style": "light_work_material_bundle",
+      "material_count_range": [
+        2,
+        2
+      ],
+      "task_count_range": [
+        2,
+        2
+      ],
+      "answer_length_hint": "2-3 short sentences per task",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "당신은 방송 뉴스팀의 초보 인턴(편집 보조)입니다.",
+      "context": "브리즈TV 보도국에서 오늘 밤 8시 뉴스 3분 분량을 준비하고 있습니다. 저녁 무렵 ‘달빛시 해바라기마을 물류창고에서 연기가 났다’는 내용이 SNS에 퍼졌고, 우리 쪽에도 제보가 들어왔습니다.\n\n데스크(담당자)가 당신에게 두 가지를 부탁했어요. (1) 지금 확보된 사실 확인 상태에 맞게, 아래 후보 중 어떤 방송 방식을 선택할지 (2) 지금 더 확인해야 할 체크리스트 항목 하나를 골라 무엇을 확인할지 적어달라는 요청입니다.",
+      "goal": "체크리스트와 비교표를 보고, 방송 방식 1개를 고르고 추가로 확인할 항목 1개를 추천하세요.",
+      "constraints": [
+        "답은 반드시 제공된 ‘체크리스트’와 ‘비교표’ 내용만으로 작성하세요.",
+        "각 과제는 지시한 1개만 하세요(선택/추천 각각 1개).",
+        "근거는 짧게(표의 장단점 또는 체크리스트의 확인 상태를 1개만 언급) 적어주세요."
+      ],
+      "glossary": [
+        {
+          "term": "단신",
+          "definition": "짧게 한 가지 사실만 전하는 뉴스 방식입니다(상세 검증은 제한적일 수 있어요)."
+        },
+        {
+          "term": "독립 확인",
+          "definition": "서로 다른 출처(예: 다른 제보자/기관)가 같은 핵심 사실을 서로 다르게 말해 주는 것을 뜻합니다."
+        }
+      ]
+    },
+    "materials": [
+      {
+        "material_id": "mat_checklist_001",
+        "type": "checklist",
+        "subtype": "verification_checklist",
+        "title": "오늘 밤 방송용 취재 확인 체크리스트(초안)",
+        "description": "아직 확정 기사 쓰기 전에, ‘지금 있는 자료’ 기준으로 사실 확인이 어느 정도 됐는지 표시한 초안입니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "방송 후보를 고를 때, 어떤 확인이 부족한지 빠르게 보게 한다.",
+        "evidence_source": [
+          "절차, 자료, 주변환경 관찰",
+          "정보 수집"
+        ],
+        "mission_fact_refs": [
+          "main_issue",
+          "decision_goal",
+          "domain"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "항목",
+            "values": [
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          "y_axis": {
+            "label": "확인 상태",
+            "unit": "단계"
+          },
+          "series": [
+            {
+              "name": "상태",
+              "values": [
+                1,
+                0,
+                0
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "항목"
+            },
+            {
+              "key": "strength",
+              "label": "상태 설명"
+            },
+            {
+              "key": "weakness",
+              "label": "현재 한계"
+            },
+            {
+              "key": "priority",
+              "label": "중요도"
+            }
+          ],
+          "rows": [
+            {
+              "option": "1",
+              "strength": "확보됨",
+              "weakness": "제보자 A가 직접 현장에 있었고, 음성 녹음(일부)이 있음",
+              "priority": 3
+            },
+            {
+              "option": "2",
+              "strength": "부족",
+              "weakness": "같은 시간대에 다른 제보자/기관의 추가 확인이 아직 없음(독립 확인 2곳 미만)",
+              "priority": 3
+            },
+            {
+              "option": "3",
+              "strength": "미확인",
+              "weakness": "정확한 사건 시간/접수 기록을 원본(기관 기록 형태)으로 맞춘 근거가 아직 없음",
+              "priority": 2
+            }
+          ],
+          "author": "브리즈TV 데스크",
+          "items": [
+            {
+              "text": "(1) 제보자 직접성: ‘현장에 있었던 사람’인지, 녹음/기록 등 직접 근거가 있는지",
+              "period": "현재",
+              "task": "확인 여부",
+              "constraint": "있으면 checked, 없으면 unchecked",
+              "label": "1",
+              "status": "checked",
+              "importance": "high"
+            },
+            {
+              "text": "(2) 독립 확인: 같은 핵심 사실을 다른 출처에서도 확인할 수 있는지(제보자/기관 등)",
+              "period": "현재",
+              "task": "확인 여부",
+              "constraint": "2곳 이상 확인되면 checked, 1곳이면 issue",
+              "label": "2",
+              "status": "issue",
+              "importance": "high"
+            },
+            {
+              "text": "(3) 사건 시간 근거: ‘언제’인지 원본 기록으로 맞출 수 있는지",
+              "period": "현재",
+              "task": "확인 여부",
+              "constraint": "기관 기록 형태로 확인되면 checked, 아니면 unchecked",
+              "label": "3",
+              "status": "unchecked",
+              "importance": "medium"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.76,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "mat_table_001",
+        "type": "table",
+        "subtype": "broadcast_option_comparison",
+        "title": "오늘 밤 방송 방식 3가지 후보 비교표",
+        "description": "데스크가 후보를 3개로 정리해 둔 비교표입니다. 체크리스트의 ‘확인 상태’에 맞춰 고르려면 표의 장단점을 같이 봐야 합니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "체크리스트에서 부족한 확인을 고려해, 가장 맞는 방송 후보를 고르게 한다.",
+        "evidence_source": [
+          "정보의 의미 해석",
+          "정보 작성, 기록",
+          "마감시간"
+        ],
+        "mission_fact_refs": [
+          "decision_goal",
+          "main_issue",
+          "period"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "후보",
+            "values": [
+              "옵션1",
+              "옵션2",
+              "옵션3"
+            ]
+          },
+          "y_axis": {
+            "label": "우선순위(높을수록 권장)",
+            "unit": "점"
+          },
+          "series": [
+            {
+              "name": "우선순위",
+              "values": [
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "방송 방식 후보"
+            },
+            {
+              "key": "strength",
+              "label": "장점"
+            },
+            {
+              "key": "weakness",
+              "label": "단점(지금 상태에서의 한계)"
+            },
+            {
+              "key": "priority",
+              "label": "데스크 메모 우선도"
+            }
+          ],
+          "rows": [
+            {
+              "option": "옵션1: SNS 제보만으로 30초 단신",
+              "strength": "속보로 빨리 나갈 수 있음",
+              "weakness": "독립 확인이 부족하고(체크리스트 2), 사건 시간 근거도 없음(체크리스트 3)",
+              "priority": 1
+            },
+            {
+              "option": "옵션2: 제보자 A 인터뷰(짧게) + 확보된 음성 중심 단신",
+              "strength": "제보자 직접성(체크리스트 1)으로 ‘있었던 이야기’를 전할 수 있음",
+              "weakness": "독립 확인(체크리스트 2)과 시간 근거(체크리스트 3)가 아직이라, 사실을 단정하기 어려움",
+              "priority": 2
+            },
+            {
+              "option": "옵션3: 오늘 밤은 ‘사실 확인 중’으로 방송 + 내일 업데이트 예고",
+              "strength": "지금의 확인 상태(체크리스트 2,3 부족)를 반영해 과장·단정 표현을 줄일 수 있음",
+              "weakness": "오늘 밤에는 결론이 제한적이라 시청자가 기다려야 함",
+              "priority": 3
+            }
+          ],
+          "author": "",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.73,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "task_001",
+        "instruction": "브리즈TV 오늘 밤 3분 뉴스에 넣을 방송 방식 후보를 ‘표’에서 1개 고르고, 체크리스트의 부족한 확인(1~3 중 하나)과 연결해서 이유를 한 문장으로 적어보세요.",
+        "required_materials": [
+          "mat_table_001",
+          "mat_checklist_001"
+        ],
+        "expected_action": "표의 옵션 1개 선택 + 체크리스트의 확인 부족을 1개 근거로 짧게 이유 작성"
+      },
+      {
+        "task_id": "task_002",
+        "instruction": "체크리스트에서 ‘지금 당장 더 확인해야 할 항목’ 1개를 골라, 무엇을(대상/형태) 확인할지 2~3문장으로 적어보세요.",
+        "required_materials": [
+          "mat_checklist_001"
+        ],
+        "expected_action": "체크리스트 항목(2 또는 3) 1개 선택 + 확인 방법을 대상/형태로 구체화해 간단히 추천"
+      }
+    ],
+    "submission_format": {
+      "type": "text",
+      "estimated_time_minutes": 15,
+      "required_sections": [
+        "과제 1: 선택한 방송 방식 + 이유 한 문장",
+        "과제 2: 추가 확인 항목 + 무엇을 확인할지 2~3문장"
+      ],
+      "length_hint": "각 과제는 짧게 2~3문장"
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "사실 확인 상태(체크리스트)와 방송 후보(표)를 연결해 가장 덜 위험한 선택을 함",
+      "부족한 항목 중 1가지를 골라 ‘무엇을 확인할지’를 시청자가 이해할 정도로 구체화함"
+    ],
+    "rubric": [
+      {
+        "criterion": "과제 1 정확한 선택",
+        "description": "표의 3개 후보 중 체크리스트 상태에 맞는 1개를 고름(선택과 근거 연결 포함).",
+        "points": 45,
+        "linked_evidence": [
+          "절차, 자료, 주변환경 관찰",
+          "정보의 의미 해석"
+        ]
+      },
+      {
+        "criterion": "과제 1 이유의 적절성",
+        "description": "이유가 체크리스트의 ‘확인 부족 항목’을 1개 이상 정확히 언급하며, 단정 표현을 피하는 방향으로 설명함.",
+        "points": 20,
+        "linked_evidence": [
+          "정보의 의미 해석",
+          "정보 작성, 기록"
+        ]
+      },
+      {
+        "criterion": "과제 2 추가 확인 항목 선택",
+        "description": "체크리스트에서 실제로 부족/미확인으로 표시된 항목 중 1개를 골라 제시함.",
+        "points": 20,
+        "linked_evidence": [
+          "정보 수집",
+          "절차, 자료, 주변환경 관찰"
+        ]
+      },
+      {
+        "criterion": "과제 2 확인 방식의 구체성",
+        "description": "‘무엇을/어떤 형태로’ 확인할지 대상과 형태가 드러나며, 2~3문장으로 읽히는 추천을 작성함.",
+        "points": 15,
+        "linked_evidence": [
+          "글쓰기",
+          "정보 작성, 기록"
+        ]
+      }
+    ]
+  },
+  "evidence_chain_draft": {
+    "source_exec_job": {
+      "id": "exec_001",
+      "text": "정치부, 사회부, 문화부, 경제부, 국제부, 체육부 등에 소속되어 해당 사건·사고, 뉴스 등을 취재하고, 관련 인물을 인터뷰하여 기사화하는 일을 한다."
+    },
+    "linked_evidence": {
+      "activities": [],
+      "knowledge": [],
+      "abilities": []
+    },
+    "material_evidence_map": []
+  },
+  "reliability": {
+    "status": "pending_validation"
+  }
+}

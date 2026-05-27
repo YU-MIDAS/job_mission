@@ -1,0 +1,36 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_002",
+    "primary_task_type": "operation_and_scheduling",
+    "selected_material_types": [
+      "checklist"
+    ],
+    "mission_design_type": "data_diagnosis",
+    "matched_evidence": [
+      "인사",
+      "인사 업무"
+    ],
+    "selection_reason": "원서 접수부터 서류심사·전형 진행/주관까지 단순 절차 수행이 중심이라 난이도 easy에 적합하며, 인사 지식과 ‘인사 업무’ 역량이 직접적으로 관련된다. 체크리스트로 단계별 점검 항목을 진단·정리하기 용이하다.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 2153,
+    "output_tokens": 856,
+    "reasoning_tokens": 716,
+    "total_tokens": 3009
+  },
+  "errors": []
+}

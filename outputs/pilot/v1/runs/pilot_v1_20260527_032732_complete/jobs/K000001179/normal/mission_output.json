@@ -1,0 +1,644 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "mission_K000001179_normal_001",
+  "job_identity": {
+    "job_cd": "K000001179",
+    "job_lrcl_nm": "경영·사무·금융·보험직",
+    "job_mdcl_nm": "금융·보험 전문가",
+    "job_smcl_nm": "투자분석가",
+    "source_ref": {
+      "file": "K000001179/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": null
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_006",
+    "text": "저평가된 기업들의 적정주가를 다양한 평가방법으로 재산정한다.",
+    "source_ref": {
+      "file": "K000001179/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 6
+    },
+    "selection_reason": "저평가 기업의 적정주가를 다양한 평가방법으로 재산정하는 작업이므로 수리 기반 분석과 판단 역량이 핵심이며, 결과를 표와 메모로 정리해 의사결정에 활용하기 적합하다."
+  },
+  "mission_facts": {
+    "org_name": "세븐리버 금융리서치(가상)",
+    "domain": "저평가로 보이는 기업의 적정주가를 간단히 재산정해 메모로 전달",
+    "period": [
+      "2026년 1분기"
+    ],
+    "trend_pattern": "실적 대비 주가가 낮게 형성되는 구간에서 ‘적정주가’ 재검토 요청이 들어오는 흐름",
+    "main_issue": "두 가지 평가방법(PER, PBR) 중 어떤 것을 우선으로 써서 메모에 적을지 결정이 필요함",
+    "feedback_themes": [
+      "선택 이유를 한 문장으로 분명히 적기",
+      "수치(적정주가)와 사용한 방법을 같이 언급하기",
+      "모호한 표현 대신 자료에 나온 조건을 그대로 옮기기"
+    ],
+    "decision_goal": "PB에게 전달할 메모에서 ‘우선할 평가방법 1개’와 ‘강조할 적정주가 수치 1개’를 결정한다"
+  },
+  "mission": {
+    "title": "저평가 기업 메모 작성: 평가방법 1개와 적정주가 1개 고르기",
+    "task_type": "decision_making",
+    "secondary_task_types": [],
+    "difficulty": {
+      "level": "normal",
+      "label": "보통",
+      "estimated_time_minutes": 15,
+      "material_bundle_style": "light_work_material_bundle",
+      "material_count_range": [
+        2,
+        2
+      ],
+      "task_count_range": [
+        2,
+        2
+      ],
+      "answer_length_hint": "2-3 short sentences per task",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "당신은 세븐리버 금융리서치 인턴입니다.",
+      "context": "팀장님이 PB에게 보낼 ‘저평가 기업 빠른 점검 메모’를 오늘 오후 3시까지 요청했습니다. 이번에 점검할 대상은 가상 기업 ‘솔라브릿지’이고, 팀에서 자주 쓰는 적정주가 평가방법이 2가지 있습니다. 먼저 어떤 방법을 우선으로 잡아야 할지, 그리고 메모 제목/첫 줄에 어떤 적정주가 수치를 강조할지 정리해야 합니다.",
+      "goal": "아래 자료를 보고(1) 우선할 평가방법 1개를 고르고, (2) 강조할 적정주가 수치 1개를 정해 메모 문장으로 적어주세요.",
+      "constraints": [
+        "각 과제는 딱 1가지 선택만 하세요.",
+        "답변은 2~3문장으로, 선택 이유를 자료의 조건에 맞춰 적어주세요.",
+        "계산을 새로 하거나 다른 방법을 추가로 제안하진 마세요(주어진 결과만 사용).",
+        "법/규정/리스크 수치 계산 같은 전문 판단은 묻지 않습니다. 자료에 나온 문장만 근거로 쓰세요."
+      ],
+      "glossary": [
+        {
+          "term": "적정주가",
+          "definition": "기업을 ‘현재 수준에서’ 얼마나 가치 있게 볼지에 대한 참고 가격(여기서는 계산 결과로 주어집니다)."
+        },
+        {
+          "term": "PER",
+          "definition": "주가를 ‘이익(수익)’과 비교해 보는 방식입니다. 이익이 안정적이면 비교가 쉬워집니다."
+        },
+        {
+          "term": "PBR",
+          "definition": "주가를 ‘장부가치(자산 기준)’와 비교해 보는 방식입니다. 자산 값이 의미 있게 변하면 비교가 쉬워집니다."
+        }
+      ]
+    },
+    "materials": [
+      {
+        "material_id": "mat_table_001",
+        "type": "table",
+        "subtype": "valuation_methods_compare",
+        "title": "평가방법 2가지: 쓸 때 좋은 조건과 주의점",
+        "description": "두 평가방법(PER, PBR)을 어떤 상황에서 더 우선으로 볼지 판단하기 위한 간단 비교표입니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "Task 1의 ‘우선할 평가방법’ 선택 이유를 뒷받침합니다.",
+        "evidence_source": [
+          "정보 처리",
+          "의사 결정, 문제점 해결"
+        ],
+        "mission_fact_refs": [
+          "main_issue",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "평가방법",
+            "values": [
+              "PER",
+              "PBR"
+            ]
+          },
+          "y_axis": {
+            "label": "설명용 가이드",
+            "unit": "해설"
+          },
+          "series": [
+            {
+              "name": "우선 사용 관점(설명)",
+              "values": [
+                1,
+                1
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "평가방법"
+            },
+            {
+              "key": "strength",
+              "label": "강점(잘 맞는 경우)"
+            },
+            {
+              "key": "weakness",
+              "label": "약점(덜 맞는 경우)"
+            },
+            {
+              "key": "priority",
+              "label": "이번 메모 우선순위(1=높음)"
+            }
+          ],
+          "rows": [
+            {
+              "option": "PER(이익 기준)",
+              "strength": "이익이 ‘0보다 크고’ 비교적 안정적일 때(흔들림이 적을 때) 더 깔끔하게 봄",
+              "weakness": "이익이 적자이거나, 이익이 분기마다 크게 들쭉날쭉하면 비교가 흔들릴 수 있음",
+              "priority": 1
+            },
+            {
+              "option": "PBR(자산 기준)",
+              "strength": "자산(장부가치)이 비교적 안정적이고, 자산 기반 해석이 의미 있을 때 참고로 유용",
+              "weakness": "자산 기준이 시장 현실과 잘 안 맞거나, 자산 변동/평가 변화가 크면 참고가 약해질 수 있음",
+              "priority": 2
+            }
+          ],
+          "author": "세븐리버 리서치(가상)",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.72,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": [
+            "table material은 설명형 비교표이며, 실제 수치 계산은 별도 메모 자료를 사용합니다."
+          ]
+        }
+      },
+      {
+        "material_id": "mat_memo_001",
+        "type": "memo",
+        "subtype": "company_fair_price_note",
+        "title": "솔라브릿지: ‘적정주가’ 계산 결과와 관찰 메모(가상)",
+        "description": "솔라브릿지에 대해 팀이 미리 정리한 관찰 조건과, PER/PBR 방식으로 나온 적정주가 결과가 들어 있습니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "Task 1의 ‘왜 이 방법이 우선인지’(회사 조건)와 Task 2의 ‘강조할 적정주가 수치’(결과) 판단에 사용합니다.",
+        "evidence_source": [
+          "정보 수집",
+          "정보, 자료 분석",
+          "정보의 의미 해석"
+        ],
+        "mission_fact_refs": [
+          "org_name",
+          "domain",
+          "trend_pattern",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "pie",
+          "x_axis": {
+            "label": "항목",
+            "values": [
+              "관찰 조건",
+              "결과(적정주가)"
+            ]
+          },
+          "y_axis": {
+            "label": "정성/수치",
+            "unit": "원/설명"
+          },
+          "series": [
+            {
+              "name": "구성",
+              "values": [
+                1,
+                1
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "항목"
+            },
+            {
+              "key": "strength",
+              "label": "내용"
+            },
+            {
+              "key": "weakness",
+              "label": "비고"
+            },
+            {
+              "key": "priority",
+              "label": "해석"
+            }
+          ],
+          "rows": [
+            {
+              "option": "(1) 관찰 조건",
+              "strength": "최근 2개 분기: 영업이익이 ‘플러스(+)’이고, 분기별 변동이 크지 않았습니다. 자산(장부가치)은 큰 폭으로 흔들리지 않았습니다.",
+              "weakness": "자산이 흔들리지는 않지만, 이 메모에서는 ‘이익 기준 비교의 안정성’ 쪽을 먼저 씁니다.",
+              "priority": 1
+            },
+            {
+              "option": "(2) 계산 결과(이번 메모에서 쓸 수치)",
+              "strength": "PER 기준 적정주가: 18,500원 / PBR 기준 적정주가: 15,200원",
+              "weakness": "계산 자체는 이미 끝났고, 오늘은 ‘무엇을 우선으로 메모에 쓸지’만 정합니다.",
+              "priority": 1
+            }
+          ],
+          "author": "팀 RA(가상)",
+          "items": [
+            {
+              "text": "솔라브릿지 관찰 조건: 최근 2개 분기 영업이익이 플러스(+)이고 변동이 크지 않음.",
+              "period": "최근 2개 분기(가상)",
+              "task": "평가방법 우선순위 판단",
+              "constraint": "자료에 나온 ‘이익 안정성’ 문장을 그대로 써야 함",
+              "label": "관찰 조건",
+              "status": "checked",
+              "importance": "높음"
+            },
+            {
+              "text": "계산 결과(가상): PER 적정주가 18,500원, PBR 적정주가 15,200원.",
+              "period": "이번 메모용(가상)",
+              "task": "메모에 강조할 수치 결정",
+              "constraint": "새 계산 없이 주어진 두 수치 중 1개만 선택",
+              "label": "결과 수치",
+              "status": "checked",
+              "importance": "높음"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.78,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": [
+            "memo는 우선순위 판단에 필요한 ‘관찰 조건’과 ‘계산 결과’가 함께 제공됩니다."
+          ]
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "task_001",
+        "instruction": "아래 자료를 보고, 솔라브릿지 적정주가 메모에서 ‘우선으로 쓸 평가방법’을 PER 또는 PBR 중 1개를 고르세요. 선택 이유도 1문장에 함께 적어주세요.",
+        "required_materials": [
+          "mat_table_001",
+          "mat_memo_001"
+        ],
+        "expected_action": "짧게 2~3문장으로, ‘PER(또는 PBR) + 이유(이익 안정성/약점과 연결)’를 적어주세요."
+      },
+      {
+        "task_id": "task_002",
+        "instruction": "아래 자료를 보고, 메모 제목/첫 줄에 강조할 적정주가 수치를 18,500원 또는 15,200원 중 1개를 고르세요. 어떤 수치를 고르는지와 그 근거(자료에 나온 결과 문장)를 1~2문장으로 적어주세요.",
+        "required_materials": [
+          "mat_memo_001"
+        ],
+        "expected_action": "짧게 2~3문장으로, ‘18,500원(또는 15,200원) + 근거(PER 또는 PBR 결과 문장)’를 적어주세요."
+      }
+    ],
+    "submission_format": {
+      "type": "short_written_response",
+      "estimated_time_minutes": 15,
+      "required_sections": [
+        "(1) 평가방법 선택(선택 1개 + 이유)",
+        "(2) 적정주가 수치 선택(선택 1개 + 근거)"
+      ],
+      "length_hint": "각 과제 답변은 2~3문장입니다."
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "PER 또는 PBR 중 ‘솔라브릿지의 관찰 조건’에 더 맞는 방법을 고르는 근거를 글로 연결함",
+      "메모에 강조할 적정주가 수치를 주어진 결과(18,500원/15,200원)에서 1개로 명확히 선택하고, 어떤 방법 결과인지 같이 적음"
+    ],
+    "rubric": [
+      {
+        "criterion": "평가방법 선택의 적합성",
+        "description": "PER/PBR 중 1개를 고르고, 표에 나온 강점/약점과 솔라브릿지 관찰 조건(이익 안정성 등)을 연결해 이유를 적었는지 확인합니다.",
+        "points": 25,
+        "linked_evidence": [
+          "정보 처리",
+          "의사 결정, 문제점 해결"
+        ]
+      },
+      {
+        "criterion": "이유 문장의 근거성",
+        "description": "‘왜 그 방법인지’를 자료에 나온 문장(이익 플러스/변동 크지 않음 등)을 근거로 써서 모호함이 없는지 봅니다.",
+        "points": 25,
+        "linked_evidence": [
+          "정보의 의미 해석",
+          "정보 수집"
+        ]
+      },
+      {
+        "criterion": "적정주가 수치 선택의 정확성",
+        "description": "18,500원 또는 15,200원 중 1개를 선택했고, 자료에 있는 계산 결과 문장과 일치하는지 확인합니다.",
+        "points": 25,
+        "linked_evidence": [
+          "정보, 자료 분석",
+          "정보 수집"
+        ]
+      },
+      {
+        "criterion": "메모 전달용 문장 구성",
+        "description": "답변이 2~3문장으로 짧고, 선택 + 근거가 한 덩어리로 읽히는지(제목/첫 줄에 쓸 문장처럼) 확인합니다.",
+        "points": 25,
+        "linked_evidence": [
+          "판단과 의사결정",
+          "정보의 의미 해석"
+        ]
+      }
+    ]
+  },
+  "reliability": {
+    "score": 1.0,
+    "raw_score": 100,
+    "passed": true,
+    "calculated_by": "validator.v1",
+    "human_review_required": true,
+    "warning_count": 0,
+    "fail_count": 0,
+    "repair_count": 0,
+    "score_breakdown": {
+      "schema": {
+        "max": 20,
+        "earned": 20
+      },
+      "system_decisions": {
+        "max": 15,
+        "earned": 15
+      },
+      "materials": {
+        "max": 20,
+        "earned": 20
+      },
+      "mission_facts": {
+        "max": 15,
+        "earned": 15
+      },
+      "evidence": {
+        "max": 20,
+        "earned": 20
+      },
+      "evaluation": {
+        "max": 10,
+        "earned": 10
+      }
+    }
+  },
+  "evidence_chain": {
+    "created_by": "validator.v1",
+    "source_exec_job": {
+      "exec_job_id": "exec_006",
+      "text": "저평가된 기업들의 적정주가를 다양한 평가방법으로 재산정한다.",
+      "source_ref": {
+        "file": "K000001179/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 6
+      },
+      "selection_reason": "저평가 기업의 적정주가를 다양한 평가방법으로 재산정하는 작업이므로 수리 기반 분석과 판단 역량이 핵심이며, 결과를 표와 메모로 정리해 의사결정에 활용하기 적합하다."
+    },
+    "linked_evidence": {
+      "activities": [
+        {
+          "name": "정보 수집",
+          "score": 98,
+          "description": "모든 관련 자료에서 정보를 수집, 관찰하기 중요도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1
+          }
+        },
+        {
+          "name": "목표, 전략 수립",
+          "score": 97,
+          "description": "장기 목표를 세우고 그 목표를 달성하기 위한 전략과 실행할 목록을 명시하기 활동 중요도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 2
+          }
+        },
+        {
+          "name": "사물, 행동, 사건 파악",
+          "score": 95,
+          "description": "차이점과 유사점을 분류하고 어떤 상황에서 변화를 알아차림으로써 정보를 파악하기 활동 중요도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 3
+          }
+        },
+        {
+          "name": "정보의 의미 해석",
+          "score": 95,
+          "description": "정보가 뜻하는 바와 그것이 어떻게 사용되는지 번역하거나 설명하기 활동 중요도",
+          "rank": 4,
+          "source_ref": {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4
+          }
+        },
+        {
+          "name": "사람들에게 조언, 상담",
+          "score": 94,
+          "description": "경영진이나 다른 사람들에게 기술, 시스템 또는 관련 절차를 전문적으로 조언하고 안내하기 활동 중요도",
+          "rank": 5,
+          "source_ref": {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 5
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "수리력",
+          "score": 99,
+          "description": "어떤 문제를 해결하기 위해 수학을 사용한다",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 1
+          }
+        },
+        {
+          "name": "판단과 의사결정",
+          "score": 95,
+          "description": "이득과 손실을 평가해서 결정을 내린다",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 2
+          }
+        },
+        {
+          "name": "선택적 집중력",
+          "score": 94,
+          "description": "주의를 산만하게 하는 자극에도 불구하고 원하는 일에 집중한다",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobAbil",
+            "index": 3
+          }
+        }
+      ],
+      "knowledge": [
+        {
+          "name": "경제와 회계",
+          "score": 97,
+          "description": "돈의 흐름, 은행업무, 그리고 재무자료의 보고와 분석과 같은 경제 및 회계원리에 관한 지식",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 1
+          }
+        },
+        {
+          "name": "영어",
+          "score": 84,
+          "description": "영어를 읽고, 쓰고, 듣고 말하는데 필요한 지식",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 2
+          }
+        },
+        {
+          "name": "사무",
+          "score": 80,
+          "description": "워드 프로세스, 문서처리 및 기타 다른 사무절차에 관한 지식",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.Knwldg",
+            "index": 3
+          }
+        }
+      ],
+      "work_environment": [
+        {
+          "name": "치열한 경쟁",
+          "score": 93,
+          "description": "동료 혹은 다른 사람들과의 경쟁 정도",
+          "rank": 1,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 1
+          }
+        },
+        {
+          "name": "마감시간",
+          "score": 89,
+          "description": "마감시간을 엄격하게 지켜야하는 빈도",
+          "rank": 2,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 2
+          }
+        },
+        {
+          "name": "이메일 이용하기",
+          "score": 87,
+          "description": "업무 수행하면서 이메일 사용하는 정도",
+          "rank": 3,
+          "source_ref": {
+            "file": "K000001179/dtlGb_5.xml",
+            "field": "ablKnwEnv.jobsEnv",
+            "index": 3
+          }
+        }
+      ]
+    },
+    "material_evidence_map": [
+      {
+        "material_id": "mat_table_001",
+        "supported_by": [
+          "정보 처리",
+          "의사 결정, 문제점 해결"
+        ]
+      },
+      {
+        "material_id": "mat_memo_001",
+        "supported_by": [
+          "정보 수집",
+          "정보, 자료 분석",
+          "정보의 의미 해석"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "target_type": "material",
+        "target_id": "mat_table_001",
+        "mission_fact_refs": [
+          "main_issue",
+          "decision_goal"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 9,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 6,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      },
+      {
+        "target_type": "material",
+        "target_id": "mat_memo_001",
+        "mission_fact_refs": [
+          "org_name",
+          "domain",
+          "trend_pattern",
+          "decision_goal"
+        ],
+        "source_refs": [
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 1,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 7,
+            "source_root": "data/api_raw"
+          },
+          {
+            "file": "K000001179/dtlGb_7.xml",
+            "field": "jobActv.jobActvImprtnc",
+            "index": 4,
+            "source_root": "data/api_raw"
+          }
+        ],
+        "connection_reason": "직업 profile evidence와 생성 자료가 간접 연결됨",
+        "traceability": "indirect"
+      }
+    ]
+  }
+}

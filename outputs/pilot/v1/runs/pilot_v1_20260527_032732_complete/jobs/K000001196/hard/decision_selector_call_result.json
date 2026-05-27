@@ -1,0 +1,39 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_006",
+    "primary_task_type": "diagnosis_and_improvement",
+    "selected_material_types": [
+      "table",
+      "checklist",
+      "memo"
+    ],
+    "mission_design_type": "general_research_analysis",
+    "matched_evidence": [
+      "인적자원 관리",
+      "인사",
+      "법"
+    ],
+    "selection_reason": "타사·관계문헌 조사·비교·분석을 통해 인사제도 및 복리후생/안전보건 개선안을 기획·품의하므로 진단 및 개선 중심 과업에 적합하며, 인사 지식과 법·규정 고려 근거를 활용할 수 있다.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 2153,
+    "output_tokens": 1080,
+    "reasoning_tokens": 935,
+    "total_tokens": 3233
+  },
+  "errors": []
+}

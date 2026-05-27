@@ -1,0 +1,441 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "draft",
+  "job_identity": {
+    "job_cd": "K000001222",
+    "job_lrcl_nm": "예술·디자인·방송·스포츠직",
+    "job_mdcl_nm": "기자 및 언론 전문가",
+    "job_smcl_nm": "방송기자",
+    "source_ref": {
+      "file": "K000001222/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": null
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_002",
+    "text": "독자 제보를 받거나 경찰서, 각 정부부처 등에 출입하면서 해당 기관과 관련한 뉴스, 인물 등을 취재하고, 기사화될 만한 것을 직접 찾아내 심층취재를 하기도 하며 기자회견에 참여할 때도 있다.",
+    "source_ref": {
+      "file": "K000001222/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 2
+    },
+    "selection_reason": "정부부처·경찰서 등 기관을 드나들며 관련 뉴스/인물을 찾아 심층취재하고 기사화하므로, 정보 수집과 분석 및 기관 소통·협상 역량이 핵심이다. 체크리스트로 취재원·자료를 점검하고 메모·표로 쟁점과 근거를 체계화하기 적합하다."
+  },
+  "mission_facts": {
+    "org_name": "라이트뉴스 방송국",
+    "domain": "방송 뉴스 취재·검증",
+    "period": [
+      "오늘 아침",
+      "오늘 뉴스 첫 편성 전"
+    ],
+    "trend_pattern": "경찰서 발표 전, SNS에서 먼저 ‘검거됐다’는 말이 퍼짐",
+    "main_issue": "같은 사건에 대해 ‘검거 완료’ 주장과 ‘수사 진행 중’이 엇갈림",
+    "feedback_themes": [
+      "공식 자료 근거 없이 강한 단정 표현이 들어감",
+      "시간·장소가 확인되지 않은 자료가 섞임",
+      "방송 전 ‘확인 중’ 안내 문구가 빠짐"
+    ],
+    "decision_goal": "방송용 스크립트에서 더 안전한 표현을 고르고, 시청자에게 확인 상태를 알려주는 주의 문장을 작성하기"
+  },
+  "mission": {
+    "title": "SNS 속보와 경찰 발표가 엇갈릴 때, 방송용 표현 고르기",
+    "task_type": "research_and_analysis",
+    "secondary_task_types": [],
+    "difficulty": {
+      "level": "hard",
+      "label": "어려움",
+      "estimated_time_minutes": 20,
+      "material_bundle_style": "work_document_packet",
+      "material_count_range": [
+        3,
+        3
+      ],
+      "task_count_range": [
+        2,
+        2
+      ],
+      "answer_length_hint": "3-5 short sentences per task",
+      "requires_cross_material_reasoning": true,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "당신은 라이트뉴스 뉴스팀 인턴입니다.",
+      "context": "오늘 아침, 한 사건(나래시 물류창고 절도 사건)에 대해 SNS에는 ‘용의자가 전원 검거됐다’는 글이 먼저 올라왔습니다. 하지만 당신이 함께 확인한 경찰서 자료에는 ‘검거는 진행 중’이라는 문구가 보입니다. 데스크는 방송 첫 편성에 들어갈 리포트 초고를 빠르게 검토해달라고 했고, 표현이 너무 단정적이면 수정이 들어갈 수 있습니다.",
+      "goal": "아래 자료를 보고, 방송용 표현(초안 A/B)을 무엇으로 선택할지 결정하고, 방송 전에 붙일 주의 문장을 적어보세요.",
+      "constraints": [
+        "답은 반드시 제공된 체크리스트/메모/표에서 근거를 찾아 작성하세요.",
+        "정답을 ‘추측’하지 말고, 자료에 적힌 확인 상태(확인됨/확인 안 됨)를 따라 주세요.",
+        "문장 길이는 짧게(3~5문장) 유지하세요."
+      ],
+      "glossary": []
+    },
+    "materials": [
+      {
+        "material_id": "mat_checklist_01",
+        "type": "checklist",
+        "subtype": "취재원·자료 확인 체크(빠른 검증)",
+        "title": "확인 체크리스트: 오늘 아침 사건 자료 점검",
+        "description": "방송 초고에 넣기 전에, 각 자료가 ‘확인된 정보인지’와 ‘아직 불명확한 부분이 있는지’를 빠르게 구분한 결과입니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "표현(초안 A/B) 선택의 근거와, 무엇을 ‘확인 중’으로 표시할지 결정하기",
+        "evidence_source": [
+          "정보 수집",
+          "절차, 자료, 주변환경 관찰"
+        ],
+        "mission_fact_refs": [
+          "main_issue",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "",
+            "values": []
+          },
+          "y_axis": {
+            "label": "",
+            "unit": ""
+          },
+          "series": [],
+          "columns": [
+            {
+              "key": "option",
+              "label": "자료"
+            },
+            {
+              "key": "strength",
+              "label": "확인 상태"
+            },
+            {
+              "key": "weakness",
+              "label": "남은 문제"
+            },
+            {
+              "key": "priority",
+              "label": "주의 정도"
+            }
+          ],
+          "rows": [
+            {
+              "option": "경찰서 공식 브리핑 문서",
+              "strength": "확인됨(문서에 ‘수사 진행 중’ 문구)",
+              "weakness": "별도 수정 요구 없음",
+              "priority": 1
+            },
+            {
+              "option": "SNS 영상(누가 올린지/시점·장소 기록 없음)",
+              "strength": "부분만 확인됨(내용은 유사, 촬영 시점·장소 불명확)",
+              "weakness": "‘전원 검거’ 단정 근거로 쓰기 어려움",
+              "priority": 3
+            },
+            {
+              "option": "통화로 받은 제보(전화 가능, 발언 일부만 제공)",
+              "strength": "확인 대기(통화 요약만 있고 문서/녹취는 아직 없음)",
+              "weakness": "시간·인물 특정이 덜 명확함",
+              "priority": 2
+            }
+          ],
+          "author": "라이트뉴스 취재 인턴(초기 점검)",
+          "items": [
+            {
+              "text": "방송 초안 문장에 ‘검거 완료/전원’ 같은 강한 단정 표현이 들어가면, 경찰서 문서와 충돌할 수 있음.",
+              "period": "오늘 아침",
+              "task": "표현 점검",
+              "constraint": "단정 표현 금지(근거 확인 전)",
+              "label": "체크메모",
+              "status": "issue",
+              "importance": "높음"
+            },
+            {
+              "text": "SNS 영상은 시점·장소 기록이 없어 ‘사실을 확정’하는 용도로 쓰기 어려움.",
+              "period": "오늘 아침",
+              "task": "자료 점검",
+              "constraint": "확인 안 된 부분은 ‘추정/확인 중’으로 처리",
+              "label": "체크메모",
+              "status": "issue",
+              "importance": "높음"
+            },
+            {
+              "text": "경찰서 문서에는 ‘수사 진행 중’이 명시되어 있어, 그 표현은 우선 사용할 수 있음.",
+              "period": "오늘 아침",
+              "task": "근거 선택",
+              "constraint": "공식 문서 문구를 기본 뼈대로 삼기",
+              "label": "체크메모",
+              "status": "checked",
+              "importance": "높음"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.86,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "mat_memo_01",
+        "type": "memo",
+        "subtype": "방송용 스크립트 문장 초안 A/B",
+        "title": "방송 오프닝용 표현 초안(문장 비교 메모)",
+        "description": "데스크가 초고에 넣어보려던 두 문장 표현입니다. 하나는 ‘단정형’, 다른 하나는 ‘확인형’입니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "초안 A/B 중 어떤 표현이 더 적절한지 선택",
+        "evidence_source": [
+          "의사소통과 미디어",
+          "정보의 의미 해석"
+        ],
+        "mission_fact_refs": [
+          "trend_pattern",
+          "main_issue",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "pie",
+          "x_axis": {
+            "label": "",
+            "values": []
+          },
+          "y_axis": {
+            "label": "",
+            "unit": ""
+          },
+          "series": [],
+          "columns": [
+            {
+              "key": "option",
+              "label": "초안"
+            },
+            {
+              "key": "strength",
+              "label": "의도"
+            },
+            {
+              "key": "weakness",
+              "label": "취약점"
+            },
+            {
+              "key": "priority",
+              "label": "메모 우선순위"
+            }
+          ],
+          "rows": [
+            {
+              "option": "A안",
+              "strength": "시청자에게 ‘빠른 결론’을 주려는 목적",
+              "weakness": "‘전원 검거’처럼 아직 확인되지 않은 부분이 들어갈 수 있음",
+              "priority": 2
+            },
+            {
+              "option": "B안",
+              "strength": "경찰 문서 표현을 기반으로 ‘확인 중’을 남기는 목적",
+              "weakness": "시청자 입장에선 다소 덜 단정적으로 들릴 수 있음",
+              "priority": 1
+            }
+          ],
+          "author": "라이트뉴스 편집 데스크 메모",
+          "items": [
+            {
+              "text": "A안: “나래시 물류창고 절도 사건 용의자는 전원 검거됐습니다.”",
+              "period": "오늘 아침",
+              "task": "문장 선택",
+              "constraint": "단정 표현 여부 체크",
+              "label": "A안",
+              "status": "unchecked",
+              "importance": "높음"
+            },
+            {
+              "text": "B안: “경찰은 수사를 진행 중이며, 검거 상황은 추가 확인이 필요합니다.”",
+              "period": "오늘 아침",
+              "task": "문장 선택",
+              "constraint": "공식 문서와 충돌 여부 체크",
+              "label": "B안",
+              "status": "checked",
+              "importance": "높음"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.9,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      },
+      {
+        "material_id": "mat_table_01",
+        "type": "table",
+        "subtype": "초안 A/B의 안전성 비교 표",
+        "title": "초안 A/B 비교표(근거-표현 충돌 지점 표시)",
+        "description": "체크리스트의 확인 상태를 바탕으로, 초안 A/B가 어떤 부분에서 더 안전하거나 취약한지 정리한 비교표입니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "어떤 초안을 선택할지 빠르게 고르기(의도보다 ‘근거 일치도’ 중심)",
+        "evidence_source": [
+          "정보, 자료 분석",
+          "사물, 행동, 사건 파악"
+        ],
+        "mission_fact_refs": [
+          "org_name",
+          "main_issue",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "",
+            "values": []
+          },
+          "y_axis": {
+            "label": "",
+            "unit": ""
+          },
+          "series": [],
+          "columns": [
+            {
+              "key": "option",
+              "label": "초안"
+            },
+            {
+              "key": "strength",
+              "label": "좋은 점"
+            },
+            {
+              "key": "weakness",
+              "label": "주의할 점"
+            },
+            {
+              "key": "priority",
+              "label": "우선도(낮을수록 안전)"
+            }
+          ],
+          "rows": [
+            {
+              "option": "A안",
+              "strength": "문장 길이가 짧고 전달이 빠름",
+              "weakness": "SNS 영상에 의존해 보일 수 있고, 체크리스트에서 SNS 촬영 시점·장소 불명확으로 표시됨",
+              "priority": 2
+            },
+            {
+              "option": "B안",
+              "strength": "경찰서 문서에 있는 ‘수사 진행 중’ 표현을 그대로 사용",
+              "weakness": "‘추가 확인’이라고 밝혀서 시청자 오해를 줄이는 대신, 확정 소식의 속도감은 약해질 수 있음",
+              "priority": 1
+            }
+          ],
+          "author": "라이트뉴스 데스크 보조 메모 작성",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.84,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "task_01",
+        "instruction": "당신이 데스크에게 답장을 보낸다고 생각하고, 방송 오프닝 표현으로 ‘A안’과 ‘B안’ 중 무엇을 선택할지 정해 이유를 적어주세요. 답은 3~5문장으로, 선택 + 근거(자료에서 확인된 점 2가지)를 포함해 적어주세요.",
+        "required_materials": [
+          "mat_memo_01",
+          "mat_checklist_01",
+          "mat_table_01"
+        ],
+        "expected_action": "초안(A/B) 하나를 선택하고, 자료에 나온 근거 2가지를 문장으로 연결하기"
+      },
+      {
+        "task_id": "task_02",
+        "instruction": "방송 자막에 넣을 ‘주의 문장’을 1개 적어보세요. 3~5문장으로 쓰되, 첫 문장은 자막용 주의 문장 그대로(예: 확인 중/추가 확인 필요 같은 형태) 만들고, 나머지 문장 1~2개는 그 주의가 필요한 이유를 체크리스트 근거로 덧붙여주세요.",
+        "required_materials": [
+          "mat_checklist_01",
+          "mat_table_01"
+        ],
+        "expected_action": "자막용 주의 문장을 작성하고, 체크리스트에서 나온 ‘무엇이 불명확한지/어떤 충돌이 있는지’를 이유로 짧게 덧붙이기"
+      }
+    ],
+    "submission_format": {
+      "type": "text",
+      "estimated_time_minutes": 20,
+      "required_sections": [
+        "Task 1 답변",
+        "Task 2 답변"
+      ],
+      "length_hint": "각 Task당 3~5문장"
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "공식 문서와 SNS 주장 사이에서, 확인 상태가 다른 부분을 표현에서 어떻게 줄여야 하는지",
+      "초안 선택이 ‘전달력’보다 ‘근거 일치도’에 의해 달라질 수 있다는 점",
+      "방송 자막에서 ‘확인 중’ 안내가 어떤 오해를 막는지"
+    ],
+    "rubric": [
+      {
+        "criterion": "근거 기반으로 초안 A/B를 올바르게 선택함",
+        "description": "체크리스트와 비교표에서 ‘확인됨/불명확함’을 보고, 선택한 초안이 자료와 충돌하지 않음을 설명한다.",
+        "points": 35,
+        "linked_evidence": [
+          "정보, 자료 분석",
+          "절차, 자료, 주변환경 관찰"
+        ]
+      },
+      {
+        "criterion": "선택 이유를 자료의 확인 상태로 2가지 이상 제시함",
+        "description": "경찰서 문서 표현과 SNS(시점·장소 불명확) 같은 항목을 근거로, 이유를 구체적으로 연결한다.",
+        "points": 30,
+        "linked_evidence": [
+          "정보 수집",
+          "사물, 행동, 사건 파악"
+        ]
+      },
+      {
+        "criterion": "자막용 주의 문장이 적절하고, 근거가 체크리스트에 맞음",
+        "description": "‘확인 중/추가 확인 필요’처럼 안전한 형태의 문장을 만들고, 불명확한 항목(예: SNS 촬영 시점·장소, 제보 확인 대기)을 이유로 붙인다.",
+        "points": 25,
+        "linked_evidence": [
+          "정보의 의미 해석",
+          "의사소통과 미디어"
+        ]
+      },
+      {
+        "criterion": "문장이 짧고 명확하며 형식을 지킴",
+        "description": "각 과제 답변이 3~5문장으로 구성되고, 한 문단 안에서 선택/주의/이유가 읽히게 작성한다.",
+        "points": 10,
+        "linked_evidence": [
+          "글쓰기",
+          "국어"
+        ]
+      }
+    ]
+  },
+  "evidence_chain_draft": {
+    "source_exec_job": {
+      "id": "exec_002",
+      "text": "독자 제보를 받거나 경찰서, 각 정부부처 등에 출입하면서 해당 기관과 관련한 뉴스, 인물 등을 취재하고, 기사화될 만한 것을 직접 찾아내 심층취재를 하기도 하며 기자회견에 참여할 때도 있다."
+    },
+    "linked_evidence": {
+      "activities": [],
+      "knowledge": [],
+      "abilities": []
+    },
+    "material_evidence_map": []
+  },
+  "reliability": {
+    "status": "pending_validation"
+  }
+}

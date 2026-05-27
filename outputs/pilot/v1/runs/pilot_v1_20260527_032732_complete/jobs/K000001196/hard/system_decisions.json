@@ -1,0 +1,84 @@
+{
+  "schema_version": "system_decisions.v1",
+  "job_cd": "K000001196",
+  "job_name": "인사·교육·훈련사무원",
+  "difficulty": {
+    "level": "hard",
+    "label": "어려움",
+    "estimated_time_minutes": 20,
+    "material_bundle_style": "work_document_packet",
+    "material_count_range": [
+      3,
+      3
+    ],
+    "task_count_range": [
+      2,
+      2
+    ],
+    "answer_length_hint": "3-5 short sentences per task",
+    "requires_cross_material_reasoning": true,
+    "requires_tradeoff_judgment": false,
+    "requires_domain_expertise": false
+  },
+  "selected_exec_job": {
+    "exec_job_id": "exec_006",
+    "text": "인사제도, 인사고과의 활용, 복리후생, 안전보건, 인간관계, 사원의 사기 등을 파악하여 타사 및 관계문헌을 조사·비교·분석하여 개선안을 기획·품의한다.",
+    "source_ref": {
+      "file": "K000001196/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 6
+    },
+    "selection_reason": "타사·관계문헌 조사·비교·분석을 통해 인사제도 및 복리후생/안전보건 개선안을 기획·품의하므로 진단 및 개선 중심 과업에 적합하며, 인사 지식과 법·규정 고려 근거를 활용할 수 있다."
+  },
+  "primary_task_type": "diagnosis_and_improvement",
+  "secondary_task_types": [],
+  "allowed_material_types": [
+    "table",
+    "checklist",
+    "memo"
+  ],
+  "mission_design": {
+    "schema_version": "mission_design.v1",
+    "mission_design_type": "general_research_analysis",
+    "design_intent": "제공 자료를 조사, 비교, 분석해 근거 기반 결론을 도출하는 일반 분석 미션",
+    "selection_method": "llm_decision_selector",
+    "selection_reason": "타사·관계문헌 조사·비교·분석을 통해 인사제도 및 복리후생/안전보건 개선안을 기획·품의하므로 진단 및 개선 중심 과업에 적합하며, 인사 지식과 법·규정 고려 근거를 활용할 수 있다."
+  },
+  "excluded_material_types": [
+    "image",
+    "screenshot"
+  ],
+  "generation_constraints": {
+    "language": "ko",
+    "json_only": true,
+    "no_real_company_names": true,
+    "no_real_person_names": true,
+    "no_external_research": true,
+    "non_expert_friendly": true,
+    "must_use_provided_materials_only": true,
+    "llm_must_not_create_reliability_score": true,
+    "factual_status_required": true
+  },
+  "decision_trace": [
+    {
+      "step": "llm_decision_selector",
+      "method": "llm_structured_output",
+      "selected": "exec_006",
+      "reason": "타사·관계문헌 조사·비교·분석을 통해 인사제도 및 복리후생/안전보건 개선안을 기획·품의하므로 진단 및 개선 중심 과업에 적합하며, 인사 지식과 법·규정 고려 근거를 활용할 수 있다.",
+      "matched_evidence": [
+        "인적자원 관리",
+        "인사",
+        "법"
+      ],
+      "confidence": "high",
+      "primary_task_type": "diagnosis_and_improvement",
+      "selected_material_types": [
+        "table",
+        "checklist",
+        "memo"
+      ],
+      "mission_design_type": "general_research_analysis"
+    }
+  ],
+  "decision_warnings": []
+}

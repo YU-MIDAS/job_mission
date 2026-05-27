@@ -1,0 +1,464 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "draft_generation",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "schema_version": "mission_output.v1",
+    "mission_id": "draft",
+    "job_identity": {
+      "job_cd": "K000001080",
+      "job_lrcl_nm": "연구직 및 공학 기술직",
+      "job_mdcl_nm": "데이터·네트워크 및 시스템 운영 전문가",
+      "job_smcl_nm": "데이터분석가(빅데이터분석가)",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo",
+        "index": null
+      }
+    },
+    "target_exec_job": {
+      "exec_job_id": "exec_004",
+      "text": "분석 방법에 따라 마이닝, 네트워크 분석, 복잡계기법 분석, 클러스터 분석 등을 활용한다.",
+      "source_ref": {
+        "file": "K000001080/dtlGb_2.xml",
+        "field": "jobsDo.execJob",
+        "index": 4
+      },
+      "selection_reason": "데이터 진단 목적에 맞춰 마이닝/네트워크/클러스터 등 분석 기법을 선택·적용하는 활동이 핵심이므로 exec_004가 적합함. 표/차트로 결과를 검증하고, 체크리스트로 분석 절차를 점검하도록 설계 가능함."
+    },
+    "mission_facts": {
+      "org_name": "루미마켓 데이터팀",
+      "domain": "모바일 쇼핑앱 전환(클릭→구매) 모니터링",
+      "period": [
+        "2026-05-01~2026-05-07",
+        "2026-05-15~2026-05-21"
+      ],
+      "trend_pattern": "19~21시 구간에서 구매 전환율이 다른 시간대보다 크게 낮아짐",
+      "main_issue": "구매 전환율 하락이 특정 사용자 묶음(클러스터)과 시간대에서 집중되어 보여, 원인 후보를 좁혀 확인이 필요함",
+      "feedback_themes": [
+        "지표 계산/필터가 이전 기간과 동일한지 먼저 확인이 필요",
+        "purchase 이벤트 로그(구매 단계 기록)가 실제로 줄었는지 확인해야 함",
+        "하락이 큰 세그먼트(클러스터)를 우선으로 보면 빠르게 개선 방향을 잡을 수 있음"
+      ],
+      "decision_goal": "하락이 두드러지는 클러스터 1개를 선택하고, 결론을 내리기 전에 반드시 확인할 ‘주의 포인트’ 1가지를 제안"
+    },
+    "mission": {
+      "title": "전환율 하락, 어디를 먼저 봐야 할까요? (데이터 진단 체험)",
+      "task_type": "diagnosis_and_improvement",
+      "secondary_task_types": [],
+      "difficulty": {
+        "level": "hard",
+        "label": "어려움",
+        "estimated_time_minutes": 20,
+        "material_bundle_style": "work_document_packet",
+        "material_count_range": [
+          3,
+          3
+        ],
+        "task_count_range": [
+          2,
+          2
+        ],
+        "answer_length_hint": "3-5 short sentences per task",
+        "requires_cross_material_reasoning": true,
+        "requires_tradeoff_judgment": false,
+        "requires_domain_expertise": false
+      },
+      "scenario": {
+        "role": "당신은 루미마켓 데이터팀 인턴입니다.",
+        "context": "팀에서 데일리 전환 리포트를 보다가 “구매 전환율(클릭→구매)”이 지난 기간보다 떨어졌다는 알림을 받았습니다. 특히 19~21시 늦은 시간대에서만 눈에 띄게 낮아 보여요. 하지만 이게 실제로 고객 행동이 변한 걸까요, 아니면 ‘구매 단계 기록(purchase)’이 제대로 쌓이지 않아서 전환율이 낮게 보이는 걸까요?\n\n당신의 매니저가 오늘 안에 간단한 진단 초안을 요청했습니다. 아래 자료(시간대 차트, 클러스터 표, 체크리스트)를 보고, 먼저 어느 클러스터를 유력하게 볼지 고르고, 결론을 내기 전에 꼭 확인할 한 가지 주의점을 알려주세요.",
+        "goal": "(1) 하락에 가장 관련 있어 보이는 클러스터를 1개 선택하고 이유를 적기 (2) 같은 자료만으로도 오해가 생길 수 있으니, 체크리스트에서 주의할 점 1가지를 고르고 왜 확인해야 하는지 적기",
+        "constraints": [
+          "반드시 제공된 자료(차트/표/체크리스트)만 근거로 답하세요.",
+          "분석 용어가 낯설다면, 자료에 적힌 설명만으로도 판단 가능하게 구성했습니다.",
+          "정답 찾기보다는 ‘지금 당장 초안으로 좁혀보기’ 수준으로만 적어주세요."
+        ],
+        "glossary": [
+          {
+            "term": "구매 전환율(클릭→구매)",
+            "definition": "구매 버튼/결제 관련 ‘클릭’ 이후 실제로 ‘구매’가 일어난 비율입니다."
+          },
+          {
+            "term": "클러스터",
+            "definition": "사용자(또는 세션)를 비슷한 특징으로 묶어 놓은 그룹입니다. 여기서는 분석 결과로 자동 묶인 3개 그룹이 제공됩니다."
+          },
+          {
+            "term": "purchase 이벤트 로그",
+            "definition": "앱에서 ‘구매가 발생함’을 기록한 로그(데이터 기록)입니다. 로그가 실제보다 적게 쌓이면 전환율이 낮게 계산될 수 있습니다."
+          }
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "mat_chart_time",
+          "type": "chart",
+          "subtype": "bar",
+          "title": "시간대별 구매 전환율(클릭→구매)",
+          "description": "클릭 이후 구매로 이어진 비율이 시간대별로 어떻게 달라졌는지 보여줍니다. (이번주 기준, 단위 %)",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "19~21시 구간 하락이 다른 시간대와 비교해 얼마나 큰지 확인",
+          "evidence_source": [
+            "정보, 자료 분석",
+            "사물, 행동, 사건 파악"
+          ],
+          "mission_fact_refs": [
+            "trend_pattern",
+            "main_issue",
+            "period"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "시간대",
+              "values": [
+                "10-12시",
+                "13-15시",
+                "16-18시",
+                "19-21시"
+              ]
+            },
+            "y_axis": {
+              "label": "구매 전환율",
+              "unit": "%"
+            },
+            "series": [
+              {
+                "name": "전환율",
+                "values": [
+                  4.6,
+                  4.7,
+                  3.2,
+                  3.0
+                ]
+              }
+            ],
+            "columns": [
+              {
+                "key": "option",
+                "label": "항목"
+              },
+              {
+                "key": "strength",
+                "label": "값"
+              },
+              {
+                "key": "weakness",
+                "label": "설명"
+              },
+              {
+                "key": "priority",
+                "label": "순서"
+              }
+            ],
+            "rows": [
+              {
+                "option": "(참고)",
+                "strength": "차트에서 값이 직접 보임",
+                "weakness": "—",
+                "priority": 0
+              }
+            ],
+            "author": "synthetic",
+            "items": [
+              {
+                "text": "—",
+                "period": "",
+                "task": "",
+                "constraint": "",
+                "label": "",
+                "status": "unchecked",
+                "importance": ""
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.82,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        },
+        {
+          "material_id": "mat_table_clusters",
+          "type": "table",
+          "subtype": "cluster_funnel_summary",
+          "title": "클러스터별(3개 그룹) 전환율과 purchase 이벤트 변화",
+          "description": "같은 기간의 사용자 흐름을 3개 클러스터로 나눴을 때, 19~21시 시간대에서의 구매 전환율과 purchase 이벤트 로그가 얼마나 줄었는지 함께 적었습니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "19~21시 하락과 함께 움직이는 클러스터를 고르기",
+          "evidence_source": [
+            "논리적 분석",
+            "정보 처리"
+          ],
+          "mission_fact_refs": [
+            "main_issue",
+            "trend_pattern",
+            "feedback_themes",
+            "period"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "—",
+              "values": []
+            },
+            "y_axis": {
+              "label": "—",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "클러스터(사용자 묶음)"
+              },
+              {
+                "key": "strength",
+                "label": "19-21시 사용자 비중"
+              },
+              {
+                "key": "weakness",
+                "label": "구매 전환율(클릭→구매)"
+              },
+              {
+                "key": "priority",
+                "label": "전주 대비 purchase 이벤트 감소(%)"
+              }
+            ],
+            "rows": [
+              {
+                "option": "클러스터 B: 신규(모바일웹 위주)",
+                "strength": "55%",
+                "weakness": "2.8%",
+                "priority": 40
+              },
+              {
+                "option": "클러스터 A: 기존(앱 이용)",
+                "strength": "30%",
+                "weakness": "4.0%",
+                "priority": 10
+              },
+              {
+                "option": "클러스터 C: 재방문/전환 유예",
+                "strength": "15%",
+                "weakness": "3.1%",
+                "priority": 25
+              }
+            ],
+            "author": "synthetic",
+            "items": [],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.79,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": [
+              "표의 수치는 이번주 관측값+전주 대비 변화로 단순화되어 있습니다."
+            ]
+          }
+        },
+        {
+          "material_id": "mat_checklist_data",
+          "type": "checklist",
+          "subtype": "data_integrity_checks",
+          "title": "결론 내리기 전 체크리스트(초안용)",
+          "description": "하락 원인이 ‘실제 행동 변화’인지 ‘기록/정의 문제’인지 헷갈릴 때, 팀에서 먼저 확인하는 항목들입니다.",
+          "factual_status": "synthetic_mission_material",
+          "used_for": "주의 포인트 1가지를 골라 ‘왜 먼저 확인해야 하는지’ 설명하기",
+          "evidence_source": [
+            "정보 수집",
+            "의사 결정, 문제점 해결"
+          ],
+          "mission_fact_refs": [
+            "feedback_themes",
+            "decision_goal",
+            "main_issue"
+          ],
+          "data": {
+            "chart_type": "bar",
+            "x_axis": {
+              "label": "—",
+              "values": []
+            },
+            "y_axis": {
+              "label": "—",
+              "unit": ""
+            },
+            "series": [],
+            "columns": [
+              {
+                "key": "option",
+                "label": "체크 항목"
+              },
+              {
+                "key": "strength",
+                "label": "확인 포인트"
+              },
+              {
+                "key": "weakness",
+                "label": "건너뛰면 생길 수 있는 오해"
+              },
+              {
+                "key": "priority",
+                "label": "중요도"
+              }
+            ],
+            "rows": [
+              {
+                "option": "—",
+                "strength": "—",
+                "weakness": "—",
+                "priority": 0
+              }
+            ],
+            "author": "synthetic",
+            "items": [
+              {
+                "text": "19~21시에서 ‘purchase 이벤트 로그’ 건수가 같이 줄었는지 확인하기",
+                "period": "이번주 vs 전주",
+                "task": "로그 변화 점검",
+                "constraint": "전환율 하락과 함께 이벤트가 줄었는지 확인",
+                "label": "구매 이벤트 로그",
+                "status": "unchecked",
+                "importance": "높음"
+              },
+              {
+                "text": "시간대가 사용자 시간(현지)인지 서버 시간(UTC)인지 그래프 기준을 확인하기",
+                "period": "차트 생성 기준",
+                "task": "시간 기준 점검",
+                "constraint": "그래프가 잘못 잘려 보일 수 있는지 확인",
+                "label": "시간대 기준",
+                "status": "unchecked",
+                "importance": "중간"
+              },
+              {
+                "text": "퍼널 필터(‘클릭’과 ‘구매’의 정의)가 기간별로 동일했는지 확인하기",
+                "period": "이번주 vs 전주",
+                "task": "필터/정의 일치 확인",
+                "constraint": "기간 비교가 공정했는지 확인",
+                "label": "퍼널 정의",
+                "status": "unchecked",
+                "importance": "높음"
+              }
+            ],
+            "thread": [],
+            "entries": [],
+            "cards": []
+          },
+          "confidence": {
+            "score": 0.76,
+            "checks": {
+              "synthetic_material": true
+            },
+            "warnings": []
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "task_1_choose_cluster",
+          "instruction": "자료를 보고, 19~21시 전환율 하락과 가장 관련 있어 보이는 클러스터 1개를 고르고(클러스터 이름), 그 이유를 차트/표 수치에 근거해 3~5문장으로 적어주세요. (다음 단계 제안도 한 가지 문장으로 함께 포함해 주세요.)",
+          "required_materials": [
+            "mat_chart_time",
+            "mat_table_clusters"
+          ],
+          "expected_action": "클러스터 1개를 선택하고, 그 선택이 시간대 하락(차트)과 연결된다는 근거를 포함해 다음 단계(한 가지)를 제안하는 짧은 글 작성"
+        },
+        {
+          "task_id": "task_2_pick_caution",
+          "instruction": "같은 자료만으로 결론을 내리면 오해가 생길 수 있습니다. 체크리스트에서 ‘주의해서 먼저 확인할 항목’ 1개를 골라(항목명), 왜 그것을 먼저 봐야 하는지 3~5문장으로 적어주세요.",
+          "required_materials": [
+            "mat_checklist_data",
+            "mat_table_clusters",
+            "mat_chart_time"
+          ],
+          "expected_action": "체크리스트 항목 1개를 선택하고, 오해 방지 관점에서 확인 이유를 설명하는 짧은 글 작성"
+        }
+      ],
+      "submission_format": {
+        "type": "text",
+        "estimated_time_minutes": 20,
+        "required_sections": [
+          "선택한 클러스터와 근거(3~5문장)",
+          "주의 포인트 체크리스트 1개와 확인 이유(3~5문장)"
+        ],
+        "length_hint": "각 답변은 3~5문장, 총 2개 섹션"
+      }
+    },
+    "evaluation": {
+      "expected_insights": [
+        "19~21시 전환율 하락이 ‘특정 클러스터’의 낮은 전환율/구매 로그 감소와 함께 나타난다는 점을 짚어내기",
+        "행동 변화로 단정하기 전에, 체크리스트의 ‘데이터 기록/정의’ 확인이 필요한 이유를 명확히 설명하기"
+      ],
+      "rubric": [
+        {
+          "criterion": "클러스터 선택의 정확성(가장 관련 있어 보이는 1개)",
+          "description": "19~21시 하락(차트)과 클러스터 표의 구매 전환율/ purchase 이벤트 감소가 가장 잘 맞는 클러스터를 고른다.",
+          "points": 45,
+          "linked_evidence": [
+            "추리력",
+            "정보의 의미 해석"
+          ]
+        },
+        {
+          "criterion": "근거 연결(차트+표의 수치/문장 연결)",
+          "description": "답변에 차트의 ‘19~21시 하락’과 표의 해당 클러스터 수치(전환율 또는 purchase 이벤트 감소)를 함께 근거로 사용한다.",
+          "points": 30,
+          "linked_evidence": [
+            "논리적 분석",
+            "사물, 행동, 사건 파악"
+          ]
+        },
+        {
+          "criterion": "주의 포인트 선택의 적절성(체크리스트 기반)",
+          "description": "체크리스트에서 결론 오해를 줄이기 위해 먼저 확인해야 할 항목 1개를 골라, ‘왜 먼저 봐야 하는지’를 전환율 하락 맥락에 맞게 설명한다.",
+          "points": 25,
+          "linked_evidence": [
+            "의사 결정, 문제점 해결",
+            "정보 처리"
+          ]
+        }
+      ]
+    },
+    "evidence_chain_draft": {
+      "source_exec_job": {
+        "id": "exec_004",
+        "text": "분석 방법에 따라 마이닝, 네트워크 분석, 복잡계기법 분석, 클러스터 분석 등을 활용한다."
+      },
+      "linked_evidence": {
+        "activities": [],
+        "knowledge": [],
+        "abilities": []
+      },
+      "material_evidence_map": []
+    },
+    "reliability": {
+      "status": "pending_validation"
+    }
+  },
+  "usage": {
+    "input_tokens": 12987,
+    "output_tokens": 7894,
+    "reasoning_tokens": 4731,
+    "total_tokens": 20881
+  },
+  "errors": []
+}

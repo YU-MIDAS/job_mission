@@ -1,0 +1,81 @@
+{
+  "schema_version": "system_decisions.v1",
+  "job_cd": "K000001080",
+  "job_name": "데이터분석가(빅데이터분석가)",
+  "difficulty": {
+    "level": "easy",
+    "label": "쉬움",
+    "estimated_time_minutes": 10,
+    "material_bundle_style": "single_work_material",
+    "material_count_range": [
+      1,
+      1
+    ],
+    "task_count_range": [
+      1,
+      1
+    ],
+    "answer_length_hint": "1-2 short sentences",
+    "requires_cross_material_reasoning": false,
+    "requires_tradeoff_judgment": false,
+    "requires_domain_expertise": false
+  },
+  "selected_exec_job": {
+    "exec_job_id": "exec_001",
+    "text": "분석 목표에 따라 데이터의 분석 방법을 기획한다.",
+    "source_ref": {
+      "file": "K000001080/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 1
+    },
+    "selection_reason": "난이도 easy에 맞게 분석 목표에 따라 수행 방법을 먼저 기획하는 단계가 적절하며, 체크리스트로 필요한 항목을 1가지로 정리하기 용이함."
+  },
+  "primary_task_type": "planning_and_proposal",
+  "secondary_task_types": [
+    "research_and_analysis"
+  ],
+  "allowed_material_types": [
+    "checklist"
+  ],
+  "mission_design": {
+    "schema_version": "mission_design.v1",
+    "mission_design_type": "general_research_analysis",
+    "design_intent": "제공 자료를 조사, 비교, 분석해 근거 기반 결론을 도출하는 일반 분석 미션",
+    "selection_method": "llm_decision_selector",
+    "selection_reason": "난이도 easy에 맞게 분석 목표에 따라 수행 방법을 먼저 기획하는 단계가 적절하며, 체크리스트로 필요한 항목을 1가지로 정리하기 용이함."
+  },
+  "excluded_material_types": [
+    "image",
+    "screenshot"
+  ],
+  "generation_constraints": {
+    "language": "ko",
+    "json_only": true,
+    "no_real_company_names": true,
+    "no_real_person_names": true,
+    "no_external_research": true,
+    "non_expert_friendly": true,
+    "must_use_provided_materials_only": true,
+    "llm_must_not_create_reliability_score": true,
+    "factual_status_required": true
+  },
+  "decision_trace": [
+    {
+      "step": "llm_decision_selector",
+      "method": "llm_structured_output",
+      "selected": "exec_001",
+      "reason": "난이도 easy에 맞게 분석 목표에 따라 수행 방법을 먼저 기획하는 단계가 적절하며, 체크리스트로 필요한 항목을 1가지로 정리하기 용이함.",
+      "matched_evidence": [
+        "논리적 분석",
+        "정보 처리"
+      ],
+      "confidence": "medium",
+      "primary_task_type": "planning_and_proposal",
+      "selected_material_types": [
+        "checklist"
+      ],
+      "mission_design_type": "general_research_analysis"
+    }
+  ],
+  "decision_warnings": []
+}

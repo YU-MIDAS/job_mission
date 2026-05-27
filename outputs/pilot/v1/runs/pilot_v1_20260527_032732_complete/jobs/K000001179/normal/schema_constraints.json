@@ -1,0 +1,974 @@
+{
+  "schema_version": "schema_constraints.v1",
+  "output_schema": "mission_output.v1",
+  "material_detail_schema": "material_detail_schema.v1",
+  "task_material_taxonomy": "task_and_material_taxonomy.v1",
+  "difficulty_policy": "mission_difficulty_policy.v1",
+  "json_only": true,
+  "required_top_level_fields": [
+    "schema_version",
+    "mission_id",
+    "job_identity",
+    "target_exec_job",
+    "mission_facts",
+    "mission",
+    "evaluation",
+    "evidence_chain_draft",
+    "reliability"
+  ],
+  "forbidden_fields": [
+    "reliability.score",
+    "reliability.passed",
+    "evidence_chain"
+  ],
+  "must_copy_from_system_decisions": [
+    "target_exec_job",
+    "mission.task_type",
+    "mission.secondary_task_types",
+    "mission.difficulty"
+  ],
+  "material_rules": {
+    "allowed_material_types": [
+      "card",
+      "chart",
+      "checklist",
+      "email",
+      "log",
+      "memo",
+      "schedule",
+      "table"
+    ],
+    "allowed_evidence_names": [
+      "수리력",
+      "판단과 의사결정",
+      "선택적 집중력",
+      "논리적 분석",
+      "공간지각력",
+      "경제와 회계",
+      "영어",
+      "사무",
+      "경영 및 행정",
+      "산수와 수학",
+      "치열한 경쟁",
+      "마감시간",
+      "이메일 이용하기",
+      "앉아서 근무",
+      "연설, 발표, 회의하기",
+      "정보 수집",
+      "목표, 전략 수립",
+      "사물, 행동, 사건 파악",
+      "정보의 의미 해석",
+      "사람들에게 조언, 상담",
+      "의사 결정, 문제점 해결",
+      "정보, 자료 분석",
+      "절차, 자료, 주변환경 관찰",
+      "정보 처리",
+      "대인관계 유지"
+    ],
+    "use_only_allowed_material_types": true,
+    "excluded_material_types": [
+      "image",
+      "screenshot"
+    ],
+    "factual_status_required": true,
+    "mission_fact_refs_required": true,
+    "evidence_source_required": true,
+    "factual_status_value": "synthetic_mission_material"
+  },
+  "mission_fact_rules": {
+    "must_create_before_materials": true,
+    "all_material_refs_must_exist": true,
+    "no_cross_material_conflict": true
+  },
+  "repair_policy": {
+    "max_repair_attempts": 1,
+    "repair_only_validator_errors": true,
+    "do_not_change_system_decisions": true
+  },
+  "structured_output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "schema_version",
+      "mission_id",
+      "job_identity",
+      "target_exec_job",
+      "mission_facts",
+      "mission",
+      "evaluation",
+      "evidence_chain_draft",
+      "reliability"
+    ],
+    "properties": {
+      "schema_version": {
+        "enum": [
+          "mission_output.v1"
+        ]
+      },
+      "mission_id": {
+        "enum": [
+          "draft"
+        ]
+      },
+      "job_identity": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "job_cd",
+          "job_lrcl_nm",
+          "job_mdcl_nm",
+          "job_smcl_nm",
+          "source_ref"
+        ],
+        "properties": {
+          "job_cd": {
+            "type": "string"
+          },
+          "job_lrcl_nm": {
+            "type": "string"
+          },
+          "job_mdcl_nm": {
+            "type": "string"
+          },
+          "job_smcl_nm": {
+            "type": "string"
+          },
+          "source_ref": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "field",
+              "index"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "field": {
+                "type": "string"
+              },
+              "index": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "target_exec_job": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "exec_job_id",
+          "text",
+          "source_ref",
+          "selection_reason"
+        ],
+        "properties": {
+          "exec_job_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "source_ref": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "field",
+              "index"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "field": {
+                "type": "string"
+              },
+              "index": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            }
+          },
+          "selection_reason": {
+            "type": "string"
+          }
+        }
+      },
+      "mission_facts": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "org_name",
+          "domain",
+          "period",
+          "trend_pattern",
+          "main_issue",
+          "feedback_themes",
+          "decision_goal"
+        ],
+        "properties": {
+          "org_name": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "period": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "trend_pattern": {
+            "type": "string"
+          },
+          "main_issue": {
+            "type": "string"
+          },
+          "feedback_themes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "decision_goal": {
+            "type": "string"
+          }
+        }
+      },
+      "mission": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "task_type",
+          "secondary_task_types",
+          "difficulty",
+          "scenario",
+          "materials",
+          "tasks",
+          "submission_format"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "task_type": {
+            "type": "string"
+          },
+          "secondary_task_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "difficulty": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "level",
+              "label",
+              "estimated_time_minutes",
+              "material_bundle_style",
+              "material_count_range",
+              "task_count_range",
+              "answer_length_hint",
+              "requires_cross_material_reasoning",
+              "requires_tradeoff_judgment",
+              "requires_domain_expertise"
+            ],
+            "properties": {
+              "level": {
+                "enum": [
+                  "easy",
+                  "normal",
+                  "hard"
+                ]
+              },
+              "label": {
+                "type": "string"
+              },
+              "estimated_time_minutes": {
+                "type": "integer"
+              },
+              "material_bundle_style": {
+                "type": "string"
+              },
+              "material_count_range": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "task_count_range": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "answer_length_hint": {
+                "type": "string"
+              },
+              "requires_cross_material_reasoning": {
+                "type": "boolean"
+              },
+              "requires_tradeoff_judgment": {
+                "type": "boolean"
+              },
+              "requires_domain_expertise": {
+                "type": "boolean"
+              }
+            }
+          },
+          "scenario": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "role",
+              "context",
+              "goal",
+              "constraints",
+              "glossary"
+            ],
+            "properties": {
+              "role": {
+                "type": "string"
+              },
+              "context": {
+                "type": "string"
+              },
+              "goal": {
+                "type": "string"
+              },
+              "constraints": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "glossary": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "term",
+                    "definition"
+                  ],
+                  "properties": {
+                    "term": {
+                      "type": "string"
+                    },
+                    "definition": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "materials": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "material_id",
+                "type",
+                "subtype",
+                "title",
+                "description",
+                "factual_status",
+                "used_for",
+                "evidence_source",
+                "mission_fact_refs",
+                "data",
+                "confidence"
+              ],
+              "properties": {
+                "material_id": {
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "card",
+                    "chart",
+                    "checklist",
+                    "email",
+                    "log",
+                    "memo",
+                    "schedule",
+                    "table"
+                  ]
+                },
+                "subtype": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "factual_status": {
+                  "enum": [
+                    "synthetic_mission_material"
+                  ]
+                },
+                "used_for": {
+                  "type": "string"
+                },
+                "evidence_source": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "수리력",
+                      "판단과 의사결정",
+                      "선택적 집중력",
+                      "논리적 분석",
+                      "공간지각력",
+                      "경제와 회계",
+                      "영어",
+                      "사무",
+                      "경영 및 행정",
+                      "산수와 수학",
+                      "치열한 경쟁",
+                      "마감시간",
+                      "이메일 이용하기",
+                      "앉아서 근무",
+                      "연설, 발표, 회의하기",
+                      "정보 수집",
+                      "목표, 전략 수립",
+                      "사물, 행동, 사건 파악",
+                      "정보의 의미 해석",
+                      "사람들에게 조언, 상담",
+                      "의사 결정, 문제점 해결",
+                      "정보, 자료 분석",
+                      "절차, 자료, 주변환경 관찰",
+                      "정보 처리",
+                      "대인관계 유지"
+                    ]
+                  }
+                },
+                "mission_fact_refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "data": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "chart_type",
+                    "x_axis",
+                    "y_axis",
+                    "series",
+                    "columns",
+                    "rows",
+                    "author",
+                    "items",
+                    "thread",
+                    "entries",
+                    "cards"
+                  ],
+                  "properties": {
+                    "chart_type": {
+                      "enum": [
+                        "line",
+                        "bar",
+                        "pie"
+                      ]
+                    },
+                    "x_axis": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "label",
+                        "values"
+                      ],
+                      "properties": {
+                        "label": {
+                          "type": "string"
+                        },
+                        "values": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "y_axis": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "label",
+                        "unit"
+                      ],
+                      "properties": {
+                        "label": {
+                          "type": "string"
+                        },
+                        "unit": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "series": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "name",
+                          "values"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "values": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "columns": {
+                      "type": "array",
+                      "minItems": 4,
+                      "maxItems": 4,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "key",
+                          "label"
+                        ],
+                        "properties": {
+                          "key": {
+                            "enum": [
+                              "option",
+                              "strength",
+                              "weakness",
+                              "priority"
+                            ]
+                          },
+                          "label": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "option",
+                          "strength",
+                          "weakness",
+                          "priority"
+                        ],
+                        "properties": {
+                          "option": {
+                            "type": "string"
+                          },
+                          "strength": {
+                            "type": "string"
+                          },
+                          "weakness": {
+                            "type": "string"
+                          },
+                          "priority": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    },
+                    "author": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "text",
+                          "period",
+                          "task",
+                          "constraint",
+                          "label",
+                          "status",
+                          "importance"
+                        ],
+                        "properties": {
+                          "text": {
+                            "type": "string"
+                          },
+                          "period": {
+                            "type": "string"
+                          },
+                          "task": {
+                            "type": "string"
+                          },
+                          "constraint": {
+                            "type": "string"
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "enum": [
+                              "checked",
+                              "unchecked",
+                              "issue"
+                            ]
+                          },
+                          "importance": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "thread": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "from",
+                          "to",
+                          "subject",
+                          "body"
+                        ],
+                        "properties": {
+                          "from": {
+                            "type": "string"
+                          },
+                          "to": {
+                            "type": "string"
+                          },
+                          "subject": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "time",
+                          "actor",
+                          "event",
+                          "note"
+                        ],
+                        "properties": {
+                          "time": {
+                            "type": "string"
+                          },
+                          "actor": {
+                            "type": "string"
+                          },
+                          "event": {
+                            "type": "string"
+                          },
+                          "note": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "cards": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "title",
+                          "attributes"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          },
+                          "attributes": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "strength",
+                              "weakness",
+                              "fit"
+                            ],
+                            "properties": {
+                              "strength": {
+                                "type": "string"
+                              },
+                              "weakness": {
+                                "type": "string"
+                              },
+                              "fit": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "confidence": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "score",
+                    "checks",
+                    "warnings"
+                  ],
+                  "properties": {
+                    "score": {
+                      "type": "number"
+                    },
+                    "checks": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "synthetic_material"
+                      ],
+                      "properties": {
+                        "synthetic_material": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "task_id",
+                "instruction",
+                "required_materials",
+                "expected_action"
+              ],
+              "properties": {
+                "task_id": {
+                  "type": "string"
+                },
+                "instruction": {
+                  "type": "string"
+                },
+                "required_materials": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "expected_action": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "submission_format": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "estimated_time_minutes",
+              "required_sections",
+              "length_hint"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "estimated_time_minutes": {
+                "type": "integer"
+              },
+              "required_sections": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "length_hint": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "evaluation": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "expected_insights",
+          "rubric"
+        ],
+        "properties": {
+          "expected_insights": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rubric": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "criterion",
+                "description",
+                "points",
+                "linked_evidence"
+              ],
+              "properties": {
+                "criterion": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "points": {
+                  "type": "integer"
+                },
+                "linked_evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "evidence_chain_draft": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_exec_job",
+          "linked_evidence",
+          "material_evidence_map"
+        ],
+        "properties": {
+          "source_exec_job": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "text"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          },
+          "linked_evidence": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "activities",
+              "knowledge",
+              "abilities"
+            ],
+            "properties": {
+              "activities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "knowledge": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "abilities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "material_evidence_map": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "material_id",
+                "supported_by"
+              ],
+              "properties": {
+                "material_id": {
+                  "type": "string"
+                },
+                "supported_by": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "reliability": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "pending_validation"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,301 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "draft",
+  "job_identity": {
+    "job_cd": "K000001222",
+    "job_lrcl_nm": "예술·디자인·방송·스포츠직",
+    "job_mdcl_nm": "기자 및 언론 전문가",
+    "job_smcl_nm": "방송기자",
+    "source_ref": {
+      "file": "K000001222/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": null
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_003",
+    "text": "취재 계획서를 회사에 제출하여 평가받고, 취재 승인을 받으면 일정을 잡아 촬영기자, 뉴스 오디오맨과 한 팀이 되어 사건·사고 현장으로 취재를 간다.",
+    "source_ref": {
+      "file": "K000001222/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 3
+    },
+    "selection_reason": "취재 계획서를 제출하고 승인 후 촬영/팀 일정까지 잡아 현장 취재로 연결하는 업무가 핵심이라, 운영·일정 수립 중심의 쉬운 미션 설계에 적합함. 난이도(자료 1개) 조건에 맞춰 일정(schedule) 자료만 사용."
+  },
+  "mission_facts": {
+    "org_name": "새빛방송(가상)",
+    "domain": "TV 뉴스 제작 일정 운영",
+    "period": [
+      "당일(오전)"
+    ],
+    "trend_pattern": "편집 마감 시간이 자주 앞당겨지면서 촬영 단계와 겹치는 경우가 발생함",
+    "main_issue": "오디오 믹싱 마감 시간이 현장 촬영 종료보다 앞서 잡혀 있어 작업이 성립하기 어려운 충돌이 있음",
+    "feedback_themes": [
+      "시간표에서 ‘종료 시점’과 ‘마감 시점’을 같이 확인해야 함",
+      "마감이 앞당겨질수록 전 단계(촬영)와의 시간 충돌을 먼저 봐야 함"
+    ],
+    "decision_goal": "촬영→오디오 믹싱→송출 준비로 이어지는 흐름에서 시간 충돌을 한 가지 수정해 일정이 맞게 돌아가게 하기"
+  },
+  "mission": {
+    "title": "취재 승인 뒤, 일정 충돌 한 번만 찾아보기",
+    "task_type": "operation_and_scheduling",
+    "secondary_task_types": [
+      "decision_making"
+    ],
+    "difficulty": {
+      "level": "easy",
+      "label": "쉬움",
+      "estimated_time_minutes": 10,
+      "material_bundle_style": "single_work_material",
+      "material_count_range": [
+        1,
+        1
+      ],
+      "task_count_range": [
+        1,
+        1
+      ],
+      "answer_length_hint": "1-2 short sentences",
+      "requires_cross_material_reasoning": false,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "당신은 새빛방송 취재팀의 신규 인턴입니다.",
+      "context": "팀장님이 방금 “취재 계획서 승인받은 뒤, 촬영기자/오디오 담당이 바로 움직일 수 있게 일정이 맞는지 한 번만 확인해줘”라고 부탁했습니다. 일정표를 보다가, 어떤 단계가 다른 단계보다 시간상 먼저 끝나야 하는데 실제로는 순서가 어긋난 부분이 눈에 띄었습니다.",
+      "goal": "아래 취재 일정표에서 ‘시간이 성립하지 않는’ 오디오 믹싱 관련 문제를 한 가지 골라, 무엇을 어떻게 수정해야 하는지 1-2문장으로 적어보세요.",
+      "constraints": [
+        "정답은 일정표 안에만 있습니다.",
+        "반드시 일정의 ‘시간’만 근거로 써 주세요.",
+        "추가 취재나 원인 분석은 하지 않아도 됩니다."
+      ],
+      "glossary": []
+    },
+    "materials": [
+      {
+        "material_id": "sched_001",
+        "type": "schedule",
+        "subtype": "취재→편집→송출 일정표",
+        "title": "오늘 취재 일정(승인 후 실행용)",
+        "description": "촬영기자와 뉴스 오디오 담당이 함께 움직인다고 가정한, 오전 일정입니다. 시간 충돌이 있는지 확인해야 합니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "오디오 믹싱 마감 시간이 촬영 종료와 맞는지 확인하기",
+        "evidence_source": [
+          "시간 관리",
+          "마감시간"
+        ],
+        "mission_fact_refs": [
+          "org_name",
+          "domain",
+          "period",
+          "main_issue",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "단계",
+            "values": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ]
+          },
+          "y_axis": {
+            "label": "소요(분)",
+            "unit": "min"
+          },
+          "series": [
+            {
+              "name": "실행 범위",
+              "values": [
+                20,
+                60,
+                30,
+                0,
+                10
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "항목"
+            },
+            {
+              "key": "strength",
+              "label": "세부"
+            },
+            {
+              "key": "weakness",
+              "label": "문제"
+            },
+            {
+              "key": "priority",
+              "label": "중요도"
+            }
+          ],
+          "rows": [
+            {
+              "option": "1) 촬영 전 준비",
+              "strength": "09:30~09:50",
+              "weakness": "없음",
+              "priority": 3
+            },
+            {
+              "option": "2) 현장 촬영",
+              "strength": "10:00~10:30",
+              "weakness": "없음",
+              "priority": 3
+            },
+            {
+              "option": "3) 현장 오디오 믹싱(편집)",
+              "strength": "10:20~10:20(마감)",
+              "weakness": "현장 촬영 종료(10:30)보다 앞서야 작업이 완료됨",
+              "priority": 5
+            },
+            {
+              "option": "4) 인터뷰 오디오 싱크 체크",
+              "strength": "10:30~10:40",
+              "weakness": "오디오 믹싱 마감(10:20) 이후에 잡혀 있어 흐름이 끊김",
+              "priority": 4
+            },
+            {
+              "option": "5) 송출 파일 준비/등록",
+              "strength": "10:50~11:00",
+              "weakness": "오디오 단계가 성립해야 진행 가능",
+              "priority": 4
+            }
+          ],
+          "author": "편성실(가상)",
+          "items": [
+            {
+              "text": "1) 촬영 전 준비: 09:30~09:50",
+              "period": "당일(오전)",
+              "task": "준비",
+              "constraint": "없음",
+              "label": "A",
+              "status": "checked",
+              "importance": "중요"
+            },
+            {
+              "text": "2) 현장 촬영: 10:00~10:30",
+              "period": "당일(오전)",
+              "task": "촬영",
+              "constraint": "없음",
+              "label": "B",
+              "status": "checked",
+              "importance": "중요"
+            },
+            {
+              "text": "3) 현장 오디오 믹싱 마감: 10:20",
+              "period": "당일(오전)",
+              "task": "오디오 믹싱",
+              "constraint": "마감이 '10:20'으로 표기됨",
+              "label": "C",
+              "status": "issue",
+              "importance": "매우 중요"
+            },
+            {
+              "text": "4) 인터뷰 오디오 싱크 체크: 10:30~10:40",
+              "period": "당일(오전)",
+              "task": "싱크 체크",
+              "constraint": "믹싱이 완료되어야 시작 가능",
+              "label": "D",
+              "status": "unchecked",
+              "importance": "중요"
+            },
+            {
+              "text": "5) 송출 파일 준비/등록: 10:50~11:00",
+              "period": "당일(오전)",
+              "task": "송출 준비",
+              "constraint": "전 단계 완료 필요",
+              "label": "E",
+              "status": "unchecked",
+              "importance": "중요"
+            }
+          ],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0.74,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "task_001",
+        "instruction": "일정표를 보고, 현장 오디오 믹싱과 관련해 ‘시간이 맞지 않아 생길 수 있는 문제’를 한 가지 골라 1-2문장으로 적어보세요. (무엇을 무엇 기준으로 어떻게 수정하면 되는지도 같이 적어주세요.)",
+        "required_materials": [
+          "sched_001"
+        ],
+        "expected_action": "오디오 믹싱 마감 시간과 현장 촬영 종료 시간의 충돌을 지적하고, 시간 순서를 맞추는 수정 방향을 한 가지 문장으로 제시하기"
+      }
+    ],
+    "submission_format": {
+      "type": "text",
+      "estimated_time_minutes": 10,
+      "required_sections": [
+        "수정할 항목(오디오 믹싱 관련)",
+        "수정 기준(촬영 종료 시점과의 관계)"
+      ],
+      "length_hint": "1-2 short sentences"
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "오디오 믹싱 마감(10:20)이 현장 촬영 종료(10:30)보다 빨라 충돌이 생긴다는 점을 짚음",
+      "수정은 ‘마감 시점을 촬영 종료 이후로’ 같은 시간 기준으로 제시함"
+    ],
+    "rubric": [
+      {
+        "criterion": "문제 식별의 정확성",
+        "description": "오디오 믹싱 마감 시간이 촬영 종료 시점보다 앞서 성립하기 어렵다는 충돌을 정확히 짚는다.",
+        "points": 50,
+        "linked_evidence": [
+          "마감시간",
+          "시간 관리"
+        ]
+      },
+      {
+        "criterion": "수정 방향 제시",
+        "description": "촬영 종료 이후로 마감 시간을 조정하는 등, 한 가지 수정 방향을 시간 관계 기준으로 제시한다.",
+        "points": 30,
+        "linked_evidence": [
+          "시간 관리"
+        ]
+      },
+      {
+        "criterion": "간결성 및 문장 명확성",
+        "description": "답이 1-2문장으로 짧고, 무엇이 어떻게 바뀌어야 하는지 한눈에 드러나게 쓴다.",
+        "points": 20,
+        "linked_evidence": [
+          "글쓰기"
+        ]
+      }
+    ]
+  },
+  "evidence_chain_draft": {
+    "source_exec_job": {
+      "id": "exec_003",
+      "text": "취재 계획서 승인 후 일정을 잡아 촬영기자/오디오 담당과 팀을 이뤄 현장 취재로 연결"
+    },
+    "linked_evidence": {
+      "activities": [],
+      "knowledge": [],
+      "abilities": []
+    },
+    "material_evidence_map": []
+  },
+  "reliability": {
+    "status": "pending_validation"
+  }
+}

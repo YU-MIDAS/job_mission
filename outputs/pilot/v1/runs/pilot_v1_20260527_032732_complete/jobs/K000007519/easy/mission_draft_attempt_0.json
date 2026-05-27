@@ -1,0 +1,241 @@
+{
+  "schema_version": "mission_output.v1",
+  "mission_id": "draft",
+  "job_identity": {
+    "job_cd": "K000007519",
+    "job_lrcl_nm": "경영·사무·금융·보험직",
+    "job_mdcl_nm": "금융·보험 전문가",
+    "job_smcl_nm": "보험상품개발자",
+    "source_ref": {
+      "file": "K000007519/dtlGb_2.xml",
+      "field": "jobsDo",
+      "index": null
+    }
+  },
+  "target_exec_job": {
+    "exec_job_id": "exec_002",
+    "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다.",
+    "source_ref": {
+      "file": "K000007519/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 2
+    },
+    "selection_reason": "조사·분석 결과를 바탕으로 국내 사회·경제 여건에 맞는 보험상품을 개발하므로 기획/제안 중심 과업에 적합하고, 제약을 반영한 상품 설계형 미션이 맞음"
+  },
+  "mission_facts": {
+    "org_name": "해피라이프 보험개발팀(가상)",
+    "domain": "보험상품 설계 제안",
+    "period": [
+      "최근 1년"
+    ],
+    "trend_pattern": "건강 관련 상담은 늘고 있지만, 가입 초기 안내가 헷갈리면 민원도 함께 증가",
+    "main_issue": "상품 설명 문구와 실제 지급/보장 시작 조건이 맞지 않으면 고객 혼란이 생김",
+    "feedback_themes": [
+      "가입 초기 조건이 명확해야 함",
+      "고객이 읽는 설명이 조건과 정확히 일치해야 함"
+    ],
+    "decision_goal": "고객 혼란을 만들 가능성이 큰 옵션(설명-조건 불일치)을 먼저 찾아내기"
+  },
+  "mission": {
+    "title": "가입 초기 ‘설명-조건’이 맞는지 확인하기",
+    "task_type": "planning_and_proposal",
+    "secondary_task_types": [
+      "research_and_analysis"
+    ],
+    "difficulty": {
+      "level": "easy",
+      "label": "쉬움",
+      "estimated_time_minutes": 10,
+      "material_bundle_style": "single_work_material",
+      "material_count_range": [
+        1,
+        1
+      ],
+      "task_count_range": [
+        1,
+        1
+      ],
+      "answer_length_hint": "1-2 short sentences",
+      "requires_cross_material_reasoning": false,
+      "requires_tradeoff_judgment": false,
+      "requires_domain_expertise": false
+    },
+    "scenario": {
+      "role": "당신은 해피라이프 보험개발팀의 초급 인턴입니다.",
+      "context": "팀에서는 ‘간단 건강보장 특약(가상)’을 마케팅팀에 전달하기 전에, 고객이 읽을 안내문과 내부 조건이 서로 어긿하지 않은 부분이 없는지 먼저 확인합니다. 최근에는 가입 초기 안내가 애매하게 섞여 있어 고객 불만이 조금 늘었어요.",
+      "goal": "마케팅팀에 전달할 옵션 중, 고객에게 혼란을 줄 만한 ‘설명-조건 불일치’가 있는 옵션을 골라 주세요.",
+      "constraints": [
+        "아래 표에 나온 내용만 보고 답하세요.",
+        "옵션은 1개만 고르세요.",
+        "이유는 1문장으로 짧게 적으세요."
+      ],
+      "glossary": []
+    },
+    "materials": [
+      {
+        "material_id": "mat_001",
+        "type": "table",
+        "subtype": "상품 옵션 설명-조건 비교표",
+        "title": "간단 건강보장 특약: 옵션별 안내문/조건 요약",
+        "description": "마케팅팀이 사용할 ‘고객 안내 문장’(강점)과 내부 ‘지급 보장 시작 조건’(주의할 점)이 한 번에 보이도록 정리한 표입니다.",
+        "factual_status": "synthetic_mission_material",
+        "used_for": "설명-조건 불일치가 있는 옵션을 고르기 위한 비교",
+        "evidence_source": [
+          "정보, 자료 분석"
+        ],
+        "mission_fact_refs": [
+          "org_name",
+          "domain",
+          "main_issue",
+          "decision_goal"
+        ],
+        "data": {
+          "chart_type": "bar",
+          "x_axis": {
+            "label": "옵션",
+            "values": [
+              "A",
+              "B",
+              "C"
+            ]
+          },
+          "y_axis": {
+            "label": "우선순위(낮을수록 좋음)",
+            "unit": "순위"
+          },
+          "series": [
+            {
+              "name": "priority",
+              "values": [
+                3,
+                1,
+                2
+              ]
+            }
+          ],
+          "columns": [
+            {
+              "key": "option",
+              "label": "옵션"
+            },
+            {
+              "key": "strength",
+              "label": "안내문(강점) 요약"
+            },
+            {
+              "key": "weakness",
+              "label": "조건/주의(보장 시작 관련) 요약"
+            },
+            {
+              "key": "priority",
+              "label": "우선순위"
+            }
+          ],
+          "rows": [
+            {
+              "option": "옵션 A",
+              "strength": "‘가입 후 0개월 즉시 보장’으로 고객이 이해하기 쉬움",
+              "weakness": "하지만 주의 문구에는 ‘가입 후 3개월 동안은 지급 보류’가 같이 적혀 있어, 즉시 보장 안내와 충돌함",
+              "priority": 3
+            },
+            {
+              "option": "옵션 B",
+              "strength": "‘가입 후 3개월 뒤 보장’이라 고객이 언제부터 혜택이 시작되는지 분명함",
+              "weakness": "초기에는 보장이 없을 수 있으나, 안내와 조건이 일관됨",
+              "priority": 1
+            },
+            {
+              "option": "옵션 C",
+              "strength": "‘가입 후 6개월 뒤 보장’이라 초기 혼란이 줄어드는 편",
+              "weakness": "기다리는 시간이 길어 고객 이탈 가능성이 있어 우선순위를 낮게 봄",
+              "priority": 2
+            }
+          ],
+          "author": "해피라이프 보험개발팀(가상)",
+          "items": [],
+          "thread": [],
+          "entries": [],
+          "cards": []
+        },
+        "confidence": {
+          "score": 0,
+          "checks": {
+            "synthetic_material": true
+          },
+          "warnings": []
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "task_001",
+        "instruction": "아래 표를 보고, 고객에게 혼란을 줄 만한 ‘설명-조건 불일치’가 있는 옵션은 무엇인가요? 선택한 옵션과 이유를 1문장으로 적어주세요.",
+        "required_materials": [
+          "mat_001"
+        ],
+        "expected_action": "선택한 옵션 1개 + 불일치 이유 1문장 서술"
+      }
+    ],
+    "submission_format": {
+      "type": "short_text",
+      "estimated_time_minutes": 3,
+      "required_sections": [
+        "선택한 옵션(1개)",
+        "이유 1문장"
+      ],
+      "length_hint": "1-2 short sentences"
+    }
+  },
+  "evaluation": {
+    "expected_insights": [
+      "표에서 ‘즉시 보장’ 같은 표현과 ‘지급 보류’ 조건이 같이 적혀 충돌하는 부분을 찾아낼 수 있어야 함"
+    ],
+    "rubric": [
+      {
+        "criterion": "올바른 옵션 선택",
+        "description": "설명-조건이 서로 충돌하는 옵션을 정확히 1개 고름.",
+        "points": 60,
+        "linked_evidence": [
+          "정보, 자료 분석"
+        ]
+      },
+      {
+        "criterion": "이유가 표 내용에 근거함",
+        "description": "선택한 이유를 표의 두 표현(안내문/주의 내용) 불일치로 1문장 내로 설명함.",
+        "points": 40,
+        "linked_evidence": [
+          "정보의 의미 해석"
+        ]
+      }
+    ]
+  },
+  "evidence_chain_draft": {
+    "source_exec_job": {
+      "id": "exec_002",
+      "text": "분석결과를 토대로 국내 사회환경과 경제실정에 맞는 보험상품을 개발한다."
+    },
+    "linked_evidence": {
+      "activities": [
+        "정보, 자료 분석"
+      ],
+      "knowledge": [
+        "사무"
+      ],
+      "abilities": [
+        "읽고 이해하기"
+      ]
+    },
+    "material_evidence_map": [
+      {
+        "material_id": "mat_001",
+        "supported_by": [
+          "정보, 자료 분석",
+          "정보의 의미 해석"
+        ]
+      }
+    ]
+  },
+  "reliability": {
+    "status": "pending_validation"
+  }
+}

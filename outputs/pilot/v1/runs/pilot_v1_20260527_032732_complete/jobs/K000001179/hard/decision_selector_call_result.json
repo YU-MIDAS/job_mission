@@ -1,0 +1,39 @@
+{
+  "schema_version": "llm_call_result.v1",
+  "provider": "openai",
+  "api": "responses",
+  "model": "gpt-5.4-nano",
+  "call_type": "decision_selection",
+  "reasoning_effort": "medium",
+  "configured_temperature": 0.8,
+  "temperature_applied": false,
+  "temperature_omitted_reason": "unsupported_by_model",
+  "attempt_count": 1,
+  "retry_count": 0,
+  "retry_errors": [],
+  "status": "completed",
+  "output_json": {
+    "selected_exec_job_id": "exec_003",
+    "primary_task_type": "research_and_analysis",
+    "selected_material_types": [
+      "table",
+      "chart",
+      "memo"
+    ],
+    "mission_design_type": "financial_research_judgment",
+    "matched_evidence": [
+      "정보 수집",
+      "경제와 회계",
+      "판단과 의사결정"
+    ],
+    "selection_reason": "주식·채권 보고서와 재무자료 등을 활용해 투자 정보를 체계적으로 수집·분석하는 작업이므로 연구분석 중심(primary_task_type: research_and_analysis)에 적합하며, 표/차트/메모로 핵심 데이터와 결론을 정리하기 위해 자료 유형을 3개로 구성함.",
+    "confidence": "high"
+  },
+  "usage": {
+    "input_tokens": 2079,
+    "output_tokens": 837,
+    "reasoning_tokens": 683,
+    "total_tokens": 2916
+  },
+  "errors": []
+}

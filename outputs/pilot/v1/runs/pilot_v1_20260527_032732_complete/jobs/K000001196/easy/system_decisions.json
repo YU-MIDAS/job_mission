@@ -1,0 +1,79 @@
+{
+  "schema_version": "system_decisions.v1",
+  "job_cd": "K000001196",
+  "job_name": "인사·교육·훈련사무원",
+  "difficulty": {
+    "level": "easy",
+    "label": "쉬움",
+    "estimated_time_minutes": 10,
+    "material_bundle_style": "single_work_material",
+    "material_count_range": [
+      1,
+      1
+    ],
+    "task_count_range": [
+      1,
+      1
+    ],
+    "answer_length_hint": "1-2 short sentences",
+    "requires_cross_material_reasoning": false,
+    "requires_tradeoff_judgment": false,
+    "requires_domain_expertise": false
+  },
+  "selected_exec_job": {
+    "exec_job_id": "exec_002",
+    "text": "광고나 사내공고, 학교추천의뢰 등을 통하여 원서를 접수하고 서류심사 및 소정의 전형을 진행·주관한다.",
+    "source_ref": {
+      "file": "K000001196/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 2
+    },
+    "selection_reason": "원서 접수부터 서류심사·전형 진행/주관까지 단순 절차 수행이 중심이라 난이도 easy에 적합하며, 인사 지식과 ‘인사 업무’ 역량이 직접적으로 관련된다. 체크리스트로 단계별 점검 항목을 진단·정리하기 용이하다."
+  },
+  "primary_task_type": "operation_and_scheduling",
+  "secondary_task_types": [],
+  "allowed_material_types": [
+    "checklist"
+  ],
+  "mission_design": {
+    "schema_version": "mission_design.v1",
+    "mission_design_type": "data_diagnosis",
+    "design_intent": "지표와 로그를 바탕으로 원인을 진단하고 개선 방향을 판단하는 미션",
+    "selection_method": "llm_decision_selector",
+    "selection_reason": "원서 접수부터 서류심사·전형 진행/주관까지 단순 절차 수행이 중심이라 난이도 easy에 적합하며, 인사 지식과 ‘인사 업무’ 역량이 직접적으로 관련된다. 체크리스트로 단계별 점검 항목을 진단·정리하기 용이하다."
+  },
+  "excluded_material_types": [
+    "image",
+    "screenshot"
+  ],
+  "generation_constraints": {
+    "language": "ko",
+    "json_only": true,
+    "no_real_company_names": true,
+    "no_real_person_names": true,
+    "no_external_research": true,
+    "non_expert_friendly": true,
+    "must_use_provided_materials_only": true,
+    "llm_must_not_create_reliability_score": true,
+    "factual_status_required": true
+  },
+  "decision_trace": [
+    {
+      "step": "llm_decision_selector",
+      "method": "llm_structured_output",
+      "selected": "exec_002",
+      "reason": "원서 접수부터 서류심사·전형 진행/주관까지 단순 절차 수행이 중심이라 난이도 easy에 적합하며, 인사 지식과 ‘인사 업무’ 역량이 직접적으로 관련된다. 체크리스트로 단계별 점검 항목을 진단·정리하기 용이하다.",
+      "matched_evidence": [
+        "인사",
+        "인사 업무"
+      ],
+      "confidence": "high",
+      "primary_task_type": "operation_and_scheduling",
+      "selected_material_types": [
+        "checklist"
+      ],
+      "mission_design_type": "data_diagnosis"
+    }
+  ],
+  "decision_warnings": []
+}

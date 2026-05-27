@@ -1,0 +1,86 @@
+{
+  "schema_version": "system_decisions.v1",
+  "job_cd": "K000001179",
+  "job_name": "투자분석가",
+  "difficulty": {
+    "level": "hard",
+    "label": "어려움",
+    "estimated_time_minutes": 20,
+    "material_bundle_style": "work_document_packet",
+    "material_count_range": [
+      3,
+      3
+    ],
+    "task_count_range": [
+      2,
+      2
+    ],
+    "answer_length_hint": "3-5 short sentences per task",
+    "requires_cross_material_reasoning": true,
+    "requires_tradeoff_judgment": false,
+    "requires_domain_expertise": false
+  },
+  "selected_exec_job": {
+    "exec_job_id": "exec_003",
+    "text": "주식 및 채권보고서, 경제예측, 거래량, 금융잡지, 증권편람, 회사재무제표 등을 활용하여 회사, 주식, 채권 및 기타 투자에 대한 정보를 수집한다.",
+    "source_ref": {
+      "file": "K000001179/dtlGb_2.xml",
+      "field": "jobsDo.execJob",
+      "index": 3
+    },
+    "selection_reason": "주식·채권 보고서와 재무자료 등을 활용해 투자 정보를 체계적으로 수집·분석하는 작업이므로 연구분석 중심(primary_task_type: research_and_analysis)에 적합하며, 표/차트/메모로 핵심 데이터와 결론을 정리하기 위해 자료 유형을 3개로 구성함."
+  },
+  "primary_task_type": "research_and_analysis",
+  "secondary_task_types": [
+    "communication_and_reporting"
+  ],
+  "allowed_material_types": [
+    "table",
+    "chart",
+    "memo"
+  ],
+  "mission_design": {
+    "schema_version": "mission_design.v1",
+    "mission_design_type": "financial_research_judgment",
+    "design_intent": "경제, 산업, 금융 성격의 자료를 종합해 우선순위나 전망을 판단하는 미션",
+    "selection_method": "llm_decision_selector",
+    "selection_reason": "주식·채권 보고서와 재무자료 등을 활용해 투자 정보를 체계적으로 수집·분석하는 작업이므로 연구분석 중심(primary_task_type: research_and_analysis)에 적합하며, 표/차트/메모로 핵심 데이터와 결론을 정리하기 위해 자료 유형을 3개로 구성함."
+  },
+  "excluded_material_types": [
+    "image",
+    "screenshot"
+  ],
+  "generation_constraints": {
+    "language": "ko",
+    "json_only": true,
+    "no_real_company_names": true,
+    "no_real_person_names": true,
+    "no_external_research": true,
+    "non_expert_friendly": true,
+    "must_use_provided_materials_only": true,
+    "llm_must_not_create_reliability_score": true,
+    "factual_status_required": true
+  },
+  "decision_trace": [
+    {
+      "step": "llm_decision_selector",
+      "method": "llm_structured_output",
+      "selected": "exec_003",
+      "reason": "주식·채권 보고서와 재무자료 등을 활용해 투자 정보를 체계적으로 수집·분석하는 작업이므로 연구분석 중심(primary_task_type: research_and_analysis)에 적합하며, 표/차트/메모로 핵심 데이터와 결론을 정리하기 위해 자료 유형을 3개로 구성함.",
+      "matched_evidence": [
+        "정보 수집",
+        "경제와 회계",
+        "판단과 의사결정"
+      ],
+      "confidence": "high",
+      "primary_task_type": "research_and_analysis",
+      "selected_material_types": [
+        "table",
+        "chart",
+        "memo"
+      ],
+      "mission_design_type": "financial_research_judgment"
+    }
+  ],
+  "decision_warnings": []
+}
