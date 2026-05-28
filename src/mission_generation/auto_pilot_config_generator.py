@@ -1,3 +1,6 @@
+# 이전 방식 유틸이다. 현재 기본 PilotRunner 경로는 auto_pilot_config를 만들거나 사용하지 않는다.
+# 과거 결과 비교와 관련 테스트를 위해 모듈만 유지한다.
+
 from __future__ import annotations
 
 import re
@@ -123,7 +126,11 @@ MATERIAL_HINTS: tuple[tuple[tuple[str, ...], tuple[str, ...]], ...] = (
 
 
 class AutoPilotConfigGenerator:
+    """LLM 없이 job_profile을 점수화해 수행직무/task/material 후보 config를 만든다."""
+
     def build(self, job_profile: dict[str, Any], generated_from: str | None = None) -> dict[str, Any]:
+        """job_profile 하나를 auto_pilot_config.v1 구조로 변환한다."""
+
         warnings: list[dict[str, str]] = []
         trace: list[dict[str, Any]] = []
         job_identity = job_profile.get("job_identity", {})
@@ -205,6 +212,8 @@ class AutoPilotConfigGenerator:
         trace: list[dict[str, Any]],
         warnings: list[dict[str, str]],
     ) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+        """이전 auto config 방식에서 수행직무 후보를 점수화해 하나 선택한다."""
+
         exec_jobs = list(profile.get("work", {}).get("exec_jobs") or [])
         if not exec_jobs:
             warnings.append(
@@ -284,6 +293,8 @@ class AutoPilotConfigGenerator:
         trace: list[dict[str, Any]],
         warnings: list[dict[str, str]],
     ) -> tuple[str, dict[str, Any]]:
+        """이전 auto config 방식에서 수행직무/evidence 기반 대표 task type을 고른다."""
+
         scores = self._task_scores(selected_text)
         method = "exec_job_verb_rule"
         best_task, best_score = self._best_task(scores)
@@ -324,6 +335,8 @@ class AutoPilotConfigGenerator:
         trace: list[dict[str, Any]],
         warnings: list[dict[str, str]],
     ) -> tuple[list[str], dict[str, Any]]:
+        """이전 auto config 방식에서 난이도별 자료 유형 후보를 만든다."""
+
         max_count = {"easy": 1, "normal": 2, "hard": 3}.get(difficulty, 2)
         candidates = self._base_materials(selected_text, task_type, difficulty)
         evidence_text = self._high_score_evidence_text(profile)
@@ -499,6 +512,8 @@ class AutoPilotConfigGenerator:
         return tokens
 
     def _preferred_keywords(self, profile: dict[str, Any], selected_text: str) -> list[str]:
+        """수행직무와 evidence에 반복되는 키워드를 auto config 힌트로 추린다."""
+
         ordered: list[str] = []
         counts: Counter[str] = Counter()
         source_text = selected_text + " " + self._linked_evidence_text(profile, selected_text)

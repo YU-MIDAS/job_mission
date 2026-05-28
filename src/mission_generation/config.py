@@ -1,3 +1,5 @@
+# 파이프라인 기본 상수, 직무/난이도 기본값, OpenAI runtime 설정을 정의한다.
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -21,6 +23,8 @@ DIFFICULTIES: list[dict[str, str]] = [
     {"code": "hard", "label": "어려움"},
 ]
 
+# 기본 selector 성공 경로에서는 사용하지 않는다.
+# --no-llm-selector 또는 selector가 API 호출 전에 local skip될 때 이전 규칙 경로에서만 참조한다.
 PILOT_JOB_CONFIGS: dict[str, dict[str, Any]] = {
     "K000000997": {
         "preferred_exec_job_id": "exec_004",
@@ -80,6 +84,8 @@ EXCLUDED_MATERIAL_TYPES = {"image", "screenshot"}
 
 @dataclass(frozen=True)
 class RuntimeConfig:
+    """OpenAI Responses API 호출과 pilot 실행에 공통으로 쓰는 runtime 설정."""
+
     provider: str = "openai"
     api: str = "responses"
     model: str = "gpt-5.4-nano"
@@ -93,6 +99,8 @@ class RuntimeConfig:
     api_key_env: str = "OPENAI_API_KEY"
 
     def temperature_application(self) -> dict[str, Any]:
+        """현재 모델에서 temperature를 실제 API body에 적용할지 기록한다."""
+
         return {
             "request_parameter": "omitted",
             "temperature_applied": False,
@@ -100,6 +108,8 @@ class RuntimeConfig:
         }
 
     def as_manifest(self) -> dict[str, Any]:
+        """run_manifest.json에 남길 안전한 runtime 요약을 반환한다."""
+
         return {
             "provider": self.provider,
             "api": self.api,
@@ -111,6 +121,8 @@ class RuntimeConfig:
         }
 
     def as_full_config(self) -> dict[str, Any]:
+        """pilot_config.json에 저장할 전체 runtime 설정을 반환한다."""
+
         return {
             "schema_version": "llm_runtime_config.v1",
             "provider": self.provider,
@@ -153,6 +165,8 @@ class RuntimeConfig:
 
 
 def default_pilot_config() -> dict[str, Any]:
+    """옵션 없이 실행할 때 사용할 기본 직무/난이도/pipeline 설정을 만든다."""
+
     return {
         "schema_version": "pilot_generation_config.v1",
         "source_root": SOURCE_ROOT,

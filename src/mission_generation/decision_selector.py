@@ -1,3 +1,5 @@
+# 최종 미션 생성 전에 LLM으로 수행직무, task type, 자료 유형 방향을 고른다.
+
 from __future__ import annotations
 
 import json
@@ -12,7 +14,11 @@ CONFIDENCE_VALUES = {"high", "medium", "low"}
 
 
 class DecisionSelectorInputBuilder:
+    """최종 미션 작성 전에 LLM이 고를 수 있는 후보 목록만 압축해 만든다."""
+
     def build(self, job_profile: dict[str, Any], difficulty_code: str) -> dict[str, Any]:
+        """job_profile에서 selector가 판단할 수행직무, evidence, material 후보만 추린다."""
+
         material_count_range = {
             "easy": [1, 1],
             "normal": [2, 2],
@@ -48,6 +54,8 @@ class DecisionSelectorInputBuilder:
         }
 
     def _top_evidence(self, items: list[dict[str, Any]], limit: int = 5) -> list[dict[str, Any]]:
+        """selector prompt에 넣기 좋게 evidence의 이름, 점수, 설명만 남긴다."""
+
         return [
             {
                 "name": item.get("name", ""),
@@ -60,7 +68,11 @@ class DecisionSelectorInputBuilder:
 
 
 class DecisionSelectorPromptBuilder:
+    """MissionDecisionSelector가 사용할 system/user prompt를 만든다."""
+
     def prompts(self, selector_input: dict[str, Any]) -> dict[str, str]:
+        """selector_input을 final mission이 아닌 방향 선택용 prompt로 직렬화한다."""
+
         system_prompt = (
             "You select system decision candidates for a job-based mission generator. "
             "Do not write the final learner-facing mission. Return only valid JSON."
@@ -79,6 +91,8 @@ class DecisionSelectorPromptBuilder:
 
 
 class MissionDecisionSelector:
+    """미션 본문이 아니라 수행직무/task/material 같은 생성 방향만 고르는 LLM 호출자."""
+
     def __init__(
         self,
         runtime: OpenAIResponsesRuntime | None = None,
@@ -88,6 +102,8 @@ class MissionDecisionSelector:
         self.force_mock = force_mock
 
     def select(self, selector_input: dict[str, Any]) -> dict[str, Any]:
+        """기본 경로에서 LLM에게 수행직무/task/material 방향을 선택하게 한다."""
+
         if self.force_mock:
             return self._skipped("DECISION_SELECTOR_MOCK_MODE", "Decision selector is disabled in mock mode.")
         if not self.runtime.api_key_available():
@@ -111,6 +127,8 @@ class MissionDecisionSelector:
         }
 
     def structured_output_schema(self, selector_input: dict[str, Any]) -> dict[str, Any]:
+        """selector 응답을 허용 후보 안으로 묶는 strict JSON schema를 만든다."""
+
         exec_job_ids = [item["exec_job_id"] for item in selector_input.get("exec_jobs", []) if item.get("exec_job_id")]
         evidence_names = sorted(self._selector_evidence_names(selector_input))
         material_range = selector_input.get("difficulty", {}).get("material_count_range") or [2, 2]
@@ -155,6 +173,8 @@ class MissionDecisionSelector:
         }
 
     def _skipped(self, code: str, message: str) -> dict[str, Any]:
+        """API를 호출하지 않은 selector 결과도 표준 run 구조로 반환한다."""
+
         config = self.runtime.config
         return {
             "schema_version": "decision_selector_run.v1",
@@ -180,6 +200,8 @@ class MissionDecisionSelector:
         }
 
     def _selector_evidence_names(self, selector_input: dict[str, Any]) -> set[str]:
+        """selector_input 안에서 matched_evidence로 허용할 evidence 이름 집합을 만든다."""
+
         names: set[str] = set()
         for group in selector_input.get("top_evidence", {}).values():
             for item in group:
@@ -190,6 +212,8 @@ class MissionDecisionSelector:
 
 
 class DecisionSelectorValidator:
+    """selector 결과가 실제 profile 후보와 허용 enum 안에 있는지 검사한다."""
+
     def validate(
         self,
         selector_input: dict[str, Any],
@@ -197,6 +221,8 @@ class DecisionSelectorValidator:
         *,
         job_profile: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+        """selector_result가 실제 후보 목록과 profile evidence를 벗어나지 않는지 검증한다."""
+
         errors: list[dict[str, str]] = []
         if not isinstance(selector_result, dict):
             errors.append({"code": "SELECTOR_RESULT_MISSING", "message": "Selector did not return a JSON object."})
@@ -247,6 +273,8 @@ class DecisionSelectorValidator:
         return self._result(errors)
 
     def _result(self, errors: list[dict[str, str]]) -> dict[str, Any]:
+        """selector validation 오류 목록을 passed/failed 결과 구조로 감싼다."""
+
         return {
             "schema_version": "decision_selector_validation.v1",
             "status": "failed" if errors else "passed",
@@ -254,6 +282,8 @@ class DecisionSelectorValidator:
         }
 
     def _evidence_names(self, selector_input: dict[str, Any], job_profile: dict[str, Any] | None) -> set[str]:
+        """selector_input과 원본 profile 양쪽에서 검증 가능한 evidence 이름을 모은다."""
+
         names: set[str] = set()
         for group in selector_input.get("top_evidence", {}).values():
             for item in group:

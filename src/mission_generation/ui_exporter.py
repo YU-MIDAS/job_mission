@@ -1,3 +1,6 @@
+# 별도 CLI 유틸이다. PilotRunner가 미션 생성 중에 직접 호출하지 않는다.
+# run 저장 후 `python -m mission_generation.ui_exporter --view ...`로 실행한다.
+
 from __future__ import annotations
 
 import argparse
@@ -59,6 +62,8 @@ PRIVATE_LEARNER_KEYS = {
 
 
 class MissionUIExporter:
+    """pilot run 산출물을 QA용/학습자용 단일 HTML 파일로 변환한다."""
+
     def __init__(self, *, output_root: str | Path = "outputs") -> None:
         self.output_root = project_path(output_root)
 
@@ -69,6 +74,8 @@ class MissionUIExporter:
         pilot_run_dir: str | Path | None = None,
         ui_output_dir: str | Path | None = None,
         ) -> Path:
+        """기본 review 옵션에서 쓰는 QA용 mission_ui.html을 생성한다."""
+
         run_dir = project_path(pilot_run_dir) if pilot_run_dir else self.output_root / "pilot" / "v1" / "runs" / run_id
         ensure_inside_workspace(run_dir)
         mission_slots = self._load_mission_slots(run_dir)
@@ -99,6 +106,8 @@ class MissionUIExporter:
         pilot_run_dir: str | Path | None = None,
         ui_output_dir: str | Path | None = None,
     ) -> Path:
+        """--view learner 또는 --view both 옵션에서 학습자용 mission_learner.html을 생성한다."""
+
         run_dir = project_path(pilot_run_dir) if pilot_run_dir else self.output_root / "pilot" / "v1" / "runs" / run_id
         ensure_inside_workspace(run_dir)
         mission_slots = self._load_mission_slots(run_dir)
@@ -115,6 +124,8 @@ class MissionUIExporter:
         return output_path
 
     def _load_summary(self, run_dir: Path) -> dict[str, Any]:
+        """QA 화면 상단에 보여줄 run summary 핵심값만 읽는다."""
+
         path = run_dir / "pilot_summary.json"
         if not path.exists():
             return {"saved_count": None, "failed_count": None, "openai_api_called": None}
@@ -130,6 +141,8 @@ class MissionUIExporter:
         }
 
     def _load_mission_slots(self, run_dir: Path) -> list[dict[str, Any]]:
+        """pilot_config 기준 전체 slot을 읽고 saved/failed/missing 상태를 붙인다."""
+
         pilot_config = self._load_pilot_config(run_dir)
         artifacts = self._items_by_slot(self._load_optional_json(run_dir / "artifact_index.json").get("items", []))
         failures = self._items_by_slot(self._load_optional_json(run_dir / "_failed" / "failure_index.json").get("items", []))
@@ -210,6 +223,8 @@ class MissionUIExporter:
         return slots
 
     def _load_pilot_config(self, run_dir: Path) -> dict[str, Any]:
+        """run의 pilot_config를 읽고, 없으면 현재 기본 설정으로 보완한다."""
+
         config = self._load_optional_json(run_dir / "pilot_config.json")
         if not config:
             config = default_pilot_config()
@@ -223,6 +238,8 @@ class MissionUIExporter:
         return json.loads(path.read_text(encoding="utf-8"))
 
     def _items_by_slot(self, items: Any) -> dict[str, dict[str, Any]]:
+        """artifact/failure item 목록을 job_cd:difficulty_code key로 재색인한다."""
+
         if not isinstance(items, list):
             return {}
         by_slot: dict[str, dict[str, Any]] = {}
@@ -236,6 +253,8 @@ class MissionUIExporter:
         return by_slot
 
     def _load_mission(self, run_dir: Path, path: Path) -> dict[str, Any]:
+        """mission_output.json에서 UI payload에 필요한 표시/검토 필드만 추출한다."""
+
         data = json.loads(path.read_text(encoding="utf-8"))
         mission = data["mission"]
         job_identity = data["job_identity"]
@@ -272,6 +291,8 @@ class MissionUIExporter:
         run_status: dict[str, Any],
         run_status_path: str | None,
     ) -> dict[str, Any]:
+        """failed/missing slot에 보여줄 이유와 관련 파일 경로를 정리한다."""
+
         errors = ((run_status.get("error") or {}).get("errors") or [])
         first_error = errors[0] if errors and isinstance(errors[0], dict) else {}
         return {
@@ -289,6 +310,8 @@ class MissionUIExporter:
         return {"easy": "쉬움", "normal": "보통", "hard": "어려움"}.get(difficulty_code, difficulty_code)
 
     def _build_learner_payload(self, mission_slots: list[dict[str, Any]]) -> dict[str, Any]:
+        """학습자 화면에는 saved mission만 남기고 내부 검토 필드를 제거한다."""
+
         saved_slots = [slot for slot in mission_slots if slot["status"] == "saved" and slot.get("mission")]
         return {
             "schema_version": "mission_learner_payload.v1",
@@ -299,6 +322,8 @@ class MissionUIExporter:
         }
 
     def _learner_mission(self, mission: dict[str, Any], index: int) -> dict[str, Any]:
+        """review payload의 mission을 내부 필드 없는 학습자용 mission으로 바꾼다."""
+
         difficulty = mission.get("difficulty", {})
         original_materials = mission.get("materials", [])
         material_labels = {
@@ -333,12 +358,16 @@ class MissionUIExporter:
         }
 
     def _learner_scenario(self, scenario: dict[str, Any]) -> dict[str, Any]:
+        """scenario에서 내부 필드를 제거하고 glossary 보정까지 적용한다."""
+
         cleaned = self._strip_private_fields(scenario)
         if not isinstance(cleaned, dict):
             return {}
         return self._scenario_with_glossary_notes(cleaned)
 
     def _scenario_with_glossary_notes(self, scenario: dict[str, Any]) -> dict[str, Any]:
+        """이전 run의 '용어 설명:' 본문 메모를 glossary 카드 데이터로 보정한다."""
+
         if not isinstance(scenario, dict):
             return {}
         cleaned = dict(scenario)
@@ -366,6 +395,8 @@ class MissionUIExporter:
         return cleaned
 
     def _extract_glossary_note(self, text: str) -> tuple[str, list[dict[str, str]]]:
+        """이전 산출물의 '용어 설명:' 꼬리 문구를 본문과 glossary 후보로 분리한다."""
+
         match = re.search(r"\s*(용어\s*(?:설명|정리)\s*[:：]\s*)(.+?)\s*$", text, flags=re.S)
         if not match:
             return text, []
@@ -375,6 +406,8 @@ class MissionUIExporter:
         return before, [parsed] if parsed else []
 
     def _parse_glossary_note(self, note: str) -> dict[str, str] | None:
+        """'용어는 설명' 형태의 짧은 문장을 glossary 항목으로 바꾼다."""
+
         note = note.strip()
         if not note:
             return None
@@ -387,6 +420,8 @@ class MissionUIExporter:
         return {"term": "용어", "definition": note}
 
     def _learner_material(self, material: dict[str, Any], index: int) -> dict[str, Any]:
+        """내부 material_id 대신 자료 1, 자료 2 라벨을 가진 학습자용 자료로 바꾼다."""
+
         material_type = material.get("type")
         return {
             "uid": f"material_{index}",
@@ -404,6 +439,8 @@ class MissionUIExporter:
         index: int,
         material_labels: dict[Any, str],
     ) -> dict[str, Any]:
+        """expected_action과 raw material id를 숨긴 학습자용 task를 만든다."""
+
         labels = [
             material_labels.get(material_id)
             for material_id in task.get("required_materials", [])
@@ -416,6 +453,8 @@ class MissionUIExporter:
         }
 
     def _learner_submission(self, submission_format: dict[str, Any]) -> dict[str, Any]:
+        """submission_format을 한국어 라벨 중심의 학습자 표시 데이터로 바꾼다."""
+
         return {
             "type_label": self._submission_type_label(submission_format.get("type")),
             "estimated_time_minutes": submission_format.get("estimated_time_minutes"),
@@ -424,6 +463,8 @@ class MissionUIExporter:
         }
 
     def _learner_evaluation(self, evaluation: dict[str, Any]) -> dict[str, Any]:
+        """학습자 화면에는 rubric 세부 점수 대신 criterion 이름만 남긴다."""
+
         rubric = evaluation.get("rubric", [])
         return {
             "criteria": [
@@ -434,6 +475,8 @@ class MissionUIExporter:
         }
 
     def _strip_private_fields(self, value: Any) -> Any:
+        """학습자 payload에서 evidence, source, reliability 같은 내부 필드를 재귀적으로 제거한다."""
+
         if isinstance(value, dict):
             return {
                 key: self._strip_private_fields(item)
@@ -465,6 +508,8 @@ class MissionUIExporter:
         return LENGTH_HINT_LABELS.get(length_hint, length_hint)
 
     def _render_html(self, payload: dict[str, Any]) -> str:
+        """검토자용 QA HTML을 self-contained 정적 파일 문자열로 렌더링한다."""
+
         encoded_payload = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
         return f"""<!DOCTYPE html>
 <html lang="ko">
@@ -821,6 +866,8 @@ init();
 """
 
     def _render_learner_html(self, payload: dict[str, Any]) -> str:
+        """학습자용 HTML을 self-contained 정적 파일 문자열로 렌더링한다."""
+
         encoded_payload = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
         return f"""<!DOCTYPE html>
 <html lang="ko">
@@ -1161,6 +1208,8 @@ init();
 
 
 def main() -> None:
+    """CLI에서 review/learner/both HTML export를 실행하는 진입점."""
+
     parser = argparse.ArgumentParser(description="Export mission outputs to a single static HTML UI.")
     parser.add_argument("--run-id", default=DEFAULT_RUN_ID)
     parser.add_argument("--pilot-run-dir", default=None)

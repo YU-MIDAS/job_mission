@@ -1,3 +1,5 @@
+# OpenAIResponsesRuntime의 API key 처리, 오류 매핑, structured output 호출 형식을 검증한다.
+
 from __future__ import annotations
 
 import os

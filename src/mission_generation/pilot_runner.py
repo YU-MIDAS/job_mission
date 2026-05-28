@@ -1,3 +1,5 @@
+# 직무 profile 로드부터 LLM 생성, 검증, 저장까지 pilot run 전체를 실행한다.
+
 from __future__ import annotations
 
 import argparse
@@ -25,6 +27,8 @@ from .validator import MissionValidator
 
 
 class DecisionSelectionError(RuntimeError):
+    """LLM selector가 실제 후보를 벗어나 기본 생성을 진행할 수 없을 때의 오류."""
+
     def __init__(
         self,
         message: str,
@@ -38,6 +42,8 @@ class DecisionSelectionError(RuntimeError):
 
 
 class PilotRunner:
+    """profile 로드부터 LLM 생성, validator, 저장까지 한 target run을 순서대로 실행한다."""
+
     def __init__(
         self,
         *,
@@ -81,6 +87,8 @@ class PilotRunner:
         self.storage = StorageAdapter(output_root=self.output_root)
 
     def run(self) -> dict[str, Any]:
+        """설정된 직무/난이도 target 전체를 실행하고 pilot_summary를 반환한다."""
+
         started_at = iso_now()
         started_monotonic = time.monotonic()
         pilot_config = self._pilot_config()
@@ -201,6 +209,8 @@ class PilotRunner:
         return summary
 
     def _prepare_progress(self, pilot_config: dict[str, Any]) -> None:
+        """콘솔 진행 메시지에 표시할 target 순번과 전체 개수를 준비한다."""
+
         self._progress_positions = {}
         order = 1
         for job in pilot_config["jobs"]:
@@ -210,6 +220,8 @@ class PilotRunner:
         self._progress_total_targets = max(0, order - 1)
 
     def _pilot_config(self) -> dict[str, Any]:
+        """기본 pilot 설정에 CLI/API로 지정한 직무와 난이도 필터를 반영한다."""
+
         base = default_pilot_config()
         pilot_config = {
             **base,
@@ -257,12 +269,16 @@ class PilotRunner:
         return pilot_config
 
     def _dedupe_codes(self, values: list[str], label: str) -> list[str]:
+        """CLI/API로 받은 코드 목록에서 공백과 중복을 제거한다."""
+
         codes = [value.strip() for value in values if isinstance(value, str) and value.strip()]
         if not codes:
             raise ValueError(f"{label} must include at least one code.")
         return list(dict.fromkeys(codes))
 
     def _job_from_raw_api(self, job_cd: str) -> dict[str, str] | None:
+        """기본 pilot 목록에 없는 직무라도 data/api_raw 폴더가 있으면 실행 대상으로 만든다."""
+
         job_dir = self.source_root / job_cd
         if not job_dir.is_dir():
             return None
@@ -282,6 +298,8 @@ class PilotRunner:
         difficulty: dict[str, str],
         usage: dict[str, int],
     ) -> dict[str, Any]:
+        """직무/난이도 하나에 대해 decision, draft, validation, save 단계를 실행한다."""
+
         job_cd = job["job_cd"]
         difficulty_code = difficulty["code"]
         artifacts: dict[str, str] = {}
@@ -289,6 +307,9 @@ class PilotRunner:
         self._progress_target(job_cd, difficulty_code, "target started")
 
         try:
+            # selector/이전 규칙 단계가 끝나야만 draft LLM 입력을 만들 수 있다.
+            # 실제 selector 검증 실패는 여기서 decision_failed로 멈추고 fallback하지 않는다.
+            # decision_config는 selector 성공 시 쓰이지 않고, 이전 규칙 경로에만 전달된다.
             decision_config = PILOT_JOB_CONFIGS.get(job_cd, {})
             self._progress_target(job_cd, difficulty_code, "decisions started")
             decisions = self._build_system_decisions(
@@ -307,8 +328,9 @@ class PilotRunner:
             )
             evidence_names = self._evidence_names(profile)
             constraints = self.constraints_builder.build(evidence_names=evidence_names)
-            practice_profile = self.practice_profile_loader.load(job_cd)
+            practice_profile = None
             practice_sheet_background = None
+            # 기본 경로는 Markdown 조사시트만 배경지식으로 쓰고, 이전 mission_seed 입력은 만들지 않는다.
             if self.use_practice_sheet_background:
                 mission_seed = None
                 practice_excerpt = None
@@ -316,6 +338,7 @@ class PilotRunner:
                 detail = "loaded" if practice_sheet_background is not None else "missing"
                 self._progress_target(job_cd, difficulty_code, "practice sheet background", detail)
             else:
+                practice_profile = self.practice_profile_loader.load(job_cd)
                 mission_seed = self.seed_builder.build(
                     job_profile=profile,
                     practice_profile=practice_profile,
@@ -422,6 +445,7 @@ class PilotRunner:
             }
         )
 
+        # 첫 검증에서 고칠 수 있는 오류가 나오면 validator 결과를 repair 요청에 그대로 넘긴다.
         if validation["status"] == "repair_required":
             self._progress_target(job_cd, difficulty_code, "repair LLM started")
             repair_request = RepairPromptBuilder().build(decisions, draft, validation, self._evidence_names(profile))
@@ -458,6 +482,7 @@ class PilotRunner:
                 }
             )
 
+        # 최종 저장은 validator가 pass를 준 draft만 대상으로 한다.
         if validation["status"] == "pass":
             final_output = self.assembler.assemble(
                 mission_output_draft=draft,
@@ -508,6 +533,7 @@ class PilotRunner:
             )
             return result
 
+        # pass하지 못한 target도 run_status와 failure_index에 남겨 나중에 원인을 추적할 수 있게 한다.
         status = "discarded" if validation["status"] == "discard" else "repair_failed"
         self._progress_target(job_cd, difficulty_code, status, (validation["errors"] or [{"code": "VALIDATOR_FAILED"}])[0]["code"])
         status_path = self.storage.save_run_status(
@@ -564,6 +590,8 @@ class PilotRunner:
         results: list[dict[str, Any]] | None,
         artifacts: dict[str, str] | None = None,
     ) -> dict[str, Any]:
+        """profile/decision/LLM 단계에서 중단된 target의 실패 산출물과 index를 저장한다."""
+
         status_path = self.storage.save_run_status(
             job_cd=job_cd,
             job_name=job_name,
@@ -614,6 +642,8 @@ class PilotRunner:
         job: dict[str, str],
         difficulty: dict[str, str],
     ) -> dict[str, Any]:
+        """병렬 실행 시 target 결과와 해당 target의 usage를 함께 반환한다."""
+
         usage = self._empty_usage()
         result = self._run_one(profile, job, difficulty, usage)
         return {"result": result, "usage": usage}
@@ -628,10 +658,14 @@ class PilotRunner:
         usage: dict[str, int],
         artifacts: dict[str, str],
     ) -> dict[str, Any]:
+        """기본 selector 경로 또는 --no-llm-selector 규칙 경로로 system_decisions를 만든다."""
+
         if not self.use_llm_decision_selector:
-            self._progress_target(job_cd, difficulty_code, "selector disabled", "legacy rules")
+            self._progress_target(job_cd, difficulty_code, "selector disabled", "이전 규칙 사용")
             return self.decision_builder.build(profile, difficulty_code, decision_config)
 
+        # selector는 미션 본문이 아니라 system_decisions 후보만 고른다.
+        # 검증을 통과한 selector 결과만 이후 draft 생성 단계로 넘어간다.
         selector_input = self.selector_input_builder.build(profile, difficulty_code)
         self.storage.save_job_artifact(job_cd, difficulty_code, "decision_selector_input.json", selector_input)
         artifacts["decision_selector_input"] = "decision_selector_input.json"
@@ -661,7 +695,7 @@ class PilotRunner:
 
         if self._selector_was_locally_skipped(call_result):
             usage["selector_fallback_count"] += 1
-            self._progress_target(job_cd, difficulty_code, "selector skipped", "legacy rules")
+            self._progress_target(job_cd, difficulty_code, "selector skipped", "이전 규칙 사용")
             return self.decision_builder.build(profile, difficulty_code, decision_config)
 
         usage["selector_failed_count"] += 1
@@ -680,6 +714,8 @@ class PilotRunner:
         stage: str,
         detail: str | None = None,
     ) -> None:
+        """직무/난이도 기준으로 현재 target의 진행 메시지를 출력한다."""
+
         current = self._progress_positions.get((job_cd, difficulty_code))
         total = self._progress_total_targets or None
         self.progress.target(
@@ -692,6 +728,8 @@ class PilotRunner:
         )
 
     def _selector_was_locally_skipped(self, call_result: dict[str, Any]) -> bool:
+        """API key 없음/mock처럼 실제 selector 호출 전 skip된 경우만 fallback 대상으로 본다."""
+
         if call_result.get("provider") != "local" or call_result.get("status") != "skipped":
             return False
         codes = {
@@ -702,6 +740,8 @@ class PilotRunner:
         return bool(codes & {"DECISION_SELECTOR_MOCK_MODE", "OPENAI_API_KEY_MISSING"})
 
     def _empty_usage(self) -> dict[str, int]:
+        """run/target 단위 LLM usage 누적값의 초기 구조를 만든다."""
+
         return {
             "selector_call_count": 0,
             "selector_fallback_count": 0,
@@ -717,15 +757,21 @@ class PilotRunner:
         }
 
     def _merge_usage(self, total: dict[str, int], delta: dict[str, int]) -> None:
+        """target별 usage를 run 전체 usage에 더한다."""
+
         for key in total:
             total[key] += int(delta.get(key) or 0)
 
     def _collect_usage(self, call_result: dict[str, Any], usage: dict[str, int]) -> None:
+        """LLM call_result 안의 token usage를 누적 dict에 반영한다."""
+
         call_usage = call_result.get("usage") or {}
         for key in ("input_tokens", "output_tokens", "reasoning_tokens", "total_tokens"):
             usage[key] += int(call_usage.get(key) or 0)
 
     def _evidence_names(self, profile: dict[str, Any]) -> list[str]:
+        """schema/repair에 넘길 profile evidence 이름을 중복 없이 수집한다."""
+
         names: list[str] = []
         for group in profile.get("evidence", {}).values():
             for item in group:
@@ -743,6 +789,8 @@ class PilotRunner:
         finished_at: str,
         duration_seconds: float,
     ) -> dict[str, Any]:
+        """target 결과와 LLM usage를 run 단위 pilot_summary 구조로 집계한다."""
+
         saved = [item for item in results if item["status"] == "saved"]
         failed = [item for item in results if item["status"] != "saved"]
         scores = [item["reliability_score"] for item in saved if item.get("reliability_score") is not None]
@@ -766,29 +814,31 @@ class PilotRunner:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run mission generation v1 pilot.")
+    """CLI에서 pilot runner를 실행하는 진입점."""
+
+    parser = argparse.ArgumentParser(description="미션 생성 v1 pilot을 실행합니다.")
     parser.add_argument("--source-root", default="data/api_raw")
     parser.add_argument("--output-root", default="outputs")
-    parser.add_argument("--mock", action="store_true", help="Use local mock generation even when API key is absent.")
-    parser.add_argument("--concurrency", type=int, default=2, help="Number of job/difficulty targets to run in parallel.")
-    parser.add_argument("--jobs", type=_parse_codes, default=None, help="Comma-separated job codes to run, e.g. K000000997,K000001080.")
-    parser.add_argument("--difficulties", type=_parse_codes, default=None, help="Comma-separated difficulty codes to run, e.g. normal.")
-    parser.add_argument("--no-llm-selector", action="store_true", help="Disable the LLM decision selector and use legacy system decision rules.")
-    parser.add_argument("--quiet", action="store_true", help="Suppress console progress messages.")
+    parser.add_argument("--mock", action="store_true", help="API key가 있어도 로컬 mock 생성 결과를 사용합니다.")
+    parser.add_argument("--concurrency", type=int, default=2, help="직무/난이도 target을 동시에 실행할 개수입니다.")
+    parser.add_argument("--jobs", type=_parse_codes, default=None, help="실행할 직무 코드를 쉼표로 구분해 입력합니다. 예: K000000997,K000001080")
+    parser.add_argument("--difficulties", type=_parse_codes, default=None, help="실행할 난이도 코드를 쉼표로 구분해 입력합니다. 예: normal")
+    parser.add_argument("--no-llm-selector", action="store_true", help="LLM decision selector를 끄고 이전 규칙 기반 system_decisions를 사용합니다.")
+    parser.add_argument("--quiet", action="store_true", help="콘솔 진행 메시지를 출력하지 않습니다.")
     parser.add_argument(
         "--practice-sheet-background",
         dest="use_practice_sheet_background",
         action="store_true",
-        help="Use data/additional_search/{job_cd}.md as background instead of mission_seed. This is the default.",
+        help="mission_seed 대신 data/additional_search/{job_cd}.md 직무조사시트를 배경지식으로 사용합니다. 기본값입니다.",
     )
     parser.add_argument(
         "--mission-seed",
         dest="use_practice_sheet_background",
         action="store_false",
-        help="Use the legacy mission_seed flow instead of practice sheet background.",
+        help="직무조사시트 배경지식 대신 이전 mission_seed 흐름을 사용합니다.",
     )
     parser.set_defaults(use_practice_sheet_background=True)
-    parser.add_argument("--practice-sheet-root", default="data/additional_search", help="Directory containing {job_cd}.md practice sheet background files.")
+    parser.add_argument("--practice-sheet-root", default="data/additional_search", help="{job_cd}.md 직무조사시트 파일이 있는 폴더 경로입니다.")
     args = parser.parse_args()
     runner = PilotRunner(
         source_root=args.source_root,
@@ -811,6 +861,8 @@ def main() -> None:
 
 
 def _parse_codes(value: str) -> list[str]:
+    """쉼표로 구분된 CLI 코드 목록을 공백 제거된 리스트로 변환한다."""
+
     codes = [part.strip() for part in value.split(",") if part.strip()]
     if not codes:
         raise argparse.ArgumentTypeError("must include at least one comma-separated code")

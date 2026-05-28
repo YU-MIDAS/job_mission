@@ -1,3 +1,5 @@
+# LLM 입력 패키지를 prompt/API/mock draft 생성 흐름으로 변환한다.
+
 from __future__ import annotations
 
 import copy
@@ -9,6 +11,8 @@ from .llm_runtime import OpenAIResponsesRuntime
 
 
 class LLMInputPackageBuilder:
+    """profile, system decisions, schema, optional background를 하나의 생성 입력으로 묶는다."""
+
     def build(
         self,
         job_profile: dict[str, Any],
@@ -18,6 +22,8 @@ class LLMInputPackageBuilder:
         mission_seed: dict[str, Any] | None = None,
         job_practice_sheet_background: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+        """미션 생성 LLM이 받는 최종 입력 JSON 패키지를 구성한다."""
+
         package = {
             "schema_version": "llm_input_package.v1",
             "job_profile": job_profile,
@@ -34,6 +40,8 @@ class LLMInputPackageBuilder:
 
 
 class MissionDraftGenerator:
+    """llm_input_package를 실제 미션 draft 생성 호출로 넘긴다."""
+
     def __init__(
         self,
         runtime: OpenAIResponsesRuntime | None = None,
@@ -45,6 +53,8 @@ class MissionDraftGenerator:
         self.force_mock = force_mock
 
     def generate(self, llm_input_package: dict[str, Any]) -> dict[str, Any]:
+        """실제 LLM 또는 mock builder로 mission_output draft를 생성한다."""
+
         config = self.runtime.config
         if self.force_mock or (not self.runtime.api_key_available() and self.allow_mock_without_key):
             draft = MockMissionDraftBuilder().build(llm_input_package)
@@ -71,6 +81,8 @@ class MissionDraftGenerator:
         draft: dict[str, Any],
         temperature: float,
     ) -> dict[str, Any]:
+        """mock draft도 실제 LLM call_result와 같은 메타데이터 모양으로 감싼다."""
+
         return {
             "schema_version": "llm_call_result.v1",
             "provider": "mock",
@@ -92,7 +104,11 @@ class MissionDraftGenerator:
 
 
 class PromptBuilder:
+    """저장용 입력 패키지에서 prompt 본문에 넣을 지침과 JSON payload를 만든다."""
+
     def draft_prompts(self, llm_input_package: dict[str, Any]) -> dict[str, str]:
+        """mission_seed/background 사용 여부에 맞춰 draft 생성 prompt를 만든다."""
+
         practice_requirements = ""
         if llm_input_package.get("mission_seed"):
             practice_requirements = (
@@ -194,15 +210,22 @@ class PromptBuilder:
 
     @staticmethod
     def _prompt_input_package(llm_input_package: dict[str, Any]) -> dict[str, Any]:
+        """prompt에 넣을 입력에서 API로 따로 전달되는 큰 schema만 제거한다."""
+
         prompt_input_package = copy.deepcopy(llm_input_package)
         schema_constraints = prompt_input_package.get("schema_constraints")
         if isinstance(schema_constraints, dict):
+            # 전체 JSON schema는 API structured output 설정으로 전달하므로 prompt 본문에서는 빼서 토큰을 줄인다.
             schema_constraints.pop("structured_output_schema", None)
         return prompt_input_package
 
 
 class MockMissionDraftBuilder:
+    """API 호출 없이 저장 구조와 validator 흐름을 확인하기 위한 고정 패턴 draft 생성기."""
+
     def build(self, llm_input_package: dict[str, Any]) -> dict[str, Any]:
+        """mock run에서 실제 API 대신 사용할 mission_output.v1 초안을 만든다."""
+
         profile = llm_input_package["job_profile"]
         decisions = llm_input_package["system_decisions"]
         seed = llm_input_package.get("mission_seed")
@@ -279,6 +302,8 @@ class MockMissionDraftBuilder:
         }
 
     def _context(self, job_cd: str, profile: dict[str, Any], seed: dict[str, Any] | None = None) -> dict[str, str]:
+        """mock draft가 직무별로 그럴듯한 시나리오 기본값을 갖도록 맥락을 만든다."""
+
         defaults = {
             "K000000997": {
                 "org_name": "B가게",
@@ -322,6 +347,8 @@ class MockMissionDraftBuilder:
         return context
 
     def _mission_facts(self, context: dict[str, str], difficulty: str) -> dict[str, Any]:
+        """mock 자료들이 공유해서 참조할 synthetic mission_facts를 만든다."""
+
         month_count = {"easy": 3, "normal": 4, "hard": 5}.get(difficulty, 4)
         months = ["1월", "2월", "3월", "4월", "5월"][:month_count]
         return {
@@ -343,6 +370,8 @@ class MockMissionDraftBuilder:
         profile: dict[str, Any],
         difficulty: str,
     ) -> dict[str, Any]:
+        """mock run에서 validator를 통과할 수 있는 자료 객체 하나를 만든다."""
+
         material_id = f"mat_{idx:03d}"
         evidence_source = self._evidence_sources(profile, material_type)
         base = {
@@ -390,9 +419,12 @@ class MockMissionDraftBuilder:
         return f"{context['org_name']} {labels[material_type]}"
 
     def _material_data(self, material_type: str, facts: dict[str, Any], difficulty: str) -> dict[str, Any]:
+        """자료 유형과 난이도에 맞는 mock data payload를 만든다."""
+
         periods = facts["period"]
         hard = difficulty == "hard"
         easy = difficulty == "easy"
+        # mock 자료는 API 없이도 validator와 UI export 흐름을 확인할 수 있는 최소 샘플이다.
         if material_type == "chart":
             values = [72, 76, 81, 84, 73, 69, 68][: len(periods)]
             return {
@@ -495,6 +527,8 @@ class MockMissionDraftBuilder:
         difficulty: str,
         seed: dict[str, Any] | None = None,
     ) -> list[dict[str, Any]]:
+        """난이도별 task 개수와 mission_seed task plan을 반영해 mock task를 만든다."""
+
         material_ids = [material["material_id"] for material in materials]
         task_min, task_max = {"easy": (1, 1), "normal": (2, 2), "hard": (2, 2)}.get(difficulty, (2, 2))
         if seed and seed.get("task_plan"):
@@ -534,6 +568,8 @@ class MockMissionDraftBuilder:
         return tasks[:task_max]
 
     def _submission_format(self, difficulty: str) -> dict[str, Any]:
+        """mock mission의 난이도별 제출 형식과 길이 힌트를 만든다."""
+
         if difficulty == "easy":
             return {
                 "type": "single_response",
@@ -556,6 +592,8 @@ class MockMissionDraftBuilder:
         }
 
     def _evaluation(self, profile: dict[str, Any], tasks: list[dict[str, Any]]) -> dict[str, Any]:
+        """mock mission의 평가 기준과 profile evidence 연결을 만든다."""
+
         linked = [item["name"] for item in profile["evidence"]["work_activities"][:3]]
         return {
             "expected_insights": [
@@ -586,6 +624,8 @@ class MockMissionDraftBuilder:
         }
 
     def _evidence_sources(self, profile: dict[str, Any], material_type: str) -> list[str]:
+        """자료 유형별로 가장 연결이 자연스러운 profile evidence 이름을 고른다."""
+
         preferences = {
             "chart": ["정보, 자료 분석", "정보 수집", "사물, 행동, 사건 파악"],
             "table": ["기준에 따른 정보 평가", "의사 결정, 문제점 해결", "목표, 전략 수립", "정보 처리"],

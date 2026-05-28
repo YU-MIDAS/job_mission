@@ -1,3 +1,5 @@
+# validator 실패 원인을 바탕으로 미션 draft를 LLM 또는 로컬 규칙으로 보정한다.
+
 from __future__ import annotations
 
 import copy
@@ -8,6 +10,8 @@ from .llm_runtime import OpenAIResponsesRuntime
 
 
 class RepairPromptBuilder:
+    """validator 오류를 LLM repair 요청에 필요한 입력 패키지로 바꾼다."""
+
     locked_fields = [
         "job_identity",
         "target_exec_job",
@@ -24,6 +28,8 @@ class RepairPromptBuilder:
         validator_result: dict[str, Any],
         allowed_evidence_names: list[str] | None = None,
     ) -> dict[str, Any]:
+        """validator가 지적한 항목만 고치도록 제한한 repair_request를 만든다."""
+
         return {
             "schema_version": "repair_request.v1",
             "attempt": 1,
@@ -57,6 +63,8 @@ class RepairPromptBuilder:
 
 
 class RepairManager:
+    """미션 draft가 validator를 통과하지 못했을 때 LLM 또는 mock repair를 실행한다."""
+
     def __init__(
         self,
         runtime: OpenAIResponsesRuntime | None = None,
@@ -73,6 +81,8 @@ class RepairManager:
         repair_request: dict[str, Any],
         json_schema: dict[str, Any],
     ) -> dict[str, Any]:
+        """실제 API repair 또는 로컬 규칙 repair를 수행하고 새 draft를 반환한다."""
+
         config = self.runtime.config
         if self.force_mock or (not self.runtime.api_key_available() and self.allow_mock_without_key):
             repaired = LocalRuleRepairer().repair(repair_request)
@@ -110,6 +120,8 @@ class RepairManager:
         return {"llm_call_result": call_result, "mission_draft": call_result.get("output_json")}
 
     def _repair_prompts(self, repair_request: dict[str, Any]) -> dict[str, str]:
+        """validator 오류를 고치는 데 필요한 최소한의 repair prompt를 만든다."""
+
         system = (
             "너는 validator가 지적한 문제만 고치는 JSON repair 작성자다. "
             "시스템 결정 필드와 allowed_material_types를 변경하지 않는다. "
@@ -144,7 +156,11 @@ class RepairManager:
 
 
 class LocalRuleRepairer:
+    """API를 쓰지 않는 mock 경로에서 최소한의 구조 오류를 보정하는 repairer."""
+
     def repair(self, repair_request: dict[str, Any]) -> dict[str, Any]:
+        """system_decisions와 material/fact 참조를 기준으로 draft를 보정한다."""
+
         draft = copy.deepcopy(repair_request["mission_output_draft"])
         decisions = repair_request["system_decisions"]
         draft["schema_version"] = "mission_output.v1"
@@ -173,6 +189,8 @@ class LocalRuleRepairer:
         return draft
 
     def _repair_rubric_points(self, draft: dict[str, Any]) -> None:
+        """mock repair에서 rubric 점수 합계가 100이 되도록 균등 보정한다."""
+
         rubric = draft.get("evaluation", {}).get("rubric")
         if not isinstance(rubric, list) or not rubric:
             return

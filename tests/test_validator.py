@@ -1,3 +1,5 @@
+# MissionValidator가 schema, 자료, task, evidence 규칙을 제대로 판정하는지 검증한다.
+
 from __future__ import annotations
 
 import copy

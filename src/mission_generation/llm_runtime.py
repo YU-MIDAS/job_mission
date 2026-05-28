@@ -1,3 +1,5 @@
+# OpenAI Responses API structured output 호출과 응답 파싱을 담당한다.
+
 from __future__ import annotations
 
 import json
@@ -12,6 +14,8 @@ from .config import RuntimeConfig
 
 
 class OpenAIResponsesRuntime:
+    """OpenAI Responses API를 호출하고 공통 응답 메타데이터를 표준화한다."""
+
     endpoint = "https://api.openai.com/v1/responses"
 
     def __init__(self, config: RuntimeConfig | None = None) -> None:
@@ -19,9 +23,13 @@ class OpenAIResponsesRuntime:
         self._load_local_env_key()
 
     def api_key_available(self) -> bool:
+        """환경 변수 또는 .env.local에서 사용할 API key가 준비됐는지 확인한다."""
+
         return bool(os.environ.get(self.config.api_key_env))
 
     def _load_local_env_key(self) -> None:
+        """환경 변수에 key가 없을 때 .env.local에서 가져온다."""
+
         if os.environ.get(self.config.api_key_env):
             return
         env_path = Path.cwd() / ".env.local"
@@ -49,6 +57,8 @@ class OpenAIResponsesRuntime:
         max_output_tokens: int,
         schema_name: str = "mission_output_v1_draft",
     ) -> dict[str, Any]:
+        """strict JSON schema를 포함해 LLM을 호출하고 파싱된 JSON 결과만 반환한다."""
+
         if not self.api_key_available():
             return self._missing_key_result(call_type, temperature)
 
@@ -137,6 +147,8 @@ class OpenAIResponsesRuntime:
         }
 
     def _post(self, body: dict[str, Any]) -> dict[str, Any]:
+        """Responses API에 HTTP POST를 보내고 JSON 응답을 반환한다."""
+
         api_key = os.environ[self.config.api_key_env]
         data = json.dumps(body, ensure_ascii=False).encode("utf-8")
         request = urllib.request.Request(
@@ -152,6 +164,8 @@ class OpenAIResponsesRuntime:
             return json.loads(response.read().decode("utf-8"))
 
     def _missing_key_result(self, call_type: str, temperature: float) -> dict[str, Any]:
+        """API key가 없을 때도 저장 가능한 표준 call_result를 반환한다."""
+
         return {
             "schema_version": "llm_call_result.v1",
             "provider": self.config.provider,
@@ -182,6 +196,8 @@ class OpenAIResponsesRuntime:
         }
 
     def _extract_output_text(self, response: dict[str, Any]) -> str:
+        """Responses API 응답 형태 차이를 흡수해 출력 텍스트만 꺼낸다."""
+
         if isinstance(response.get("output_text"), str):
             return response["output_text"]
         chunks: list[str] = []
@@ -195,6 +211,8 @@ class OpenAIResponsesRuntime:
         raise ValueError("response did not contain output text")
 
     def _parse_json(self, text: str) -> Any:
+        """모델 출력에서 JSON 객체를 파싱하고, 앞뒤 잡음이 있으면 한 번 보정한다."""
+
         try:
             return json.loads(text)
         except json.JSONDecodeError:
@@ -205,6 +223,8 @@ class OpenAIResponsesRuntime:
             raise ValueError("could not parse JSON output")
 
     def _usage(self, response: dict[str, Any]) -> dict[str, int]:
+        """Responses API usage 필드를 프로젝트 표준 token usage 구조로 바꾼다."""
+
         usage = response.get("usage") or {}
         output_details = usage.get("output_tokens_details") or {}
         return {
@@ -215,9 +235,13 @@ class OpenAIResponsesRuntime:
         }
 
     def _empty_usage(self) -> dict[str, int]:
+        """LLM 호출이 없거나 실패했을 때 사용할 빈 usage 구조를 만든다."""
+
         return {"input_tokens": 0, "output_tokens": 0, "reasoning_tokens": 0, "total_tokens": 0}
 
     def _map_http_error(self, exc: urllib.error.HTTPError) -> dict[str, str]:
+        """HTTP status code를 프로젝트 표준 오류 코드로 바꾼다."""
+
         if exc.code in {401, 403}:
             code = "OPENAI_AUTH_FAILED"
         elif exc.code == 429:
@@ -229,6 +253,8 @@ class OpenAIResponsesRuntime:
         return {"code": code, "message": self._safe_http_error_message(exc)}
 
     def _safe_http_error_message(self, exc: urllib.error.HTTPError) -> str:
+        """API 오류 응답에서 key가 노출되지 않는 안전한 메시지만 추출한다."""
+
         fallback = f"OpenAI HTTP error {exc.code}."
         try:
             body = exc.read().decode("utf-8", errors="replace")
@@ -249,6 +275,8 @@ class OpenAIResponsesRuntime:
         return f"{message}{suffix}"
 
     def _should_retry(self, code: str, attempt: int) -> bool:
+        """일시적 오류와 출력 파싱 실패에 대해서만 설정된 횟수 안에서 재시도한다."""
+
         return attempt < self.config.max_api_retries and code in {
             "OPENAI_RATE_LIMITED",
             "OPENAI_TIMEOUT",

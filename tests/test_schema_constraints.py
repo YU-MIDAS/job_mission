@@ -1,3 +1,5 @@
+# mission_output 제약과 structured output schema가 기대 구조를 갖는지 검증한다.
+
 from __future__ import annotations
 
 import sys

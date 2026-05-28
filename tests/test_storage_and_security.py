@@ -1,3 +1,5 @@
+# run 산출물 저장 구조와 비밀값 스캔 같은 안전장치를 검증한다.
+
 from __future__ import annotations
 
 import sys

@@ -1,3 +1,5 @@
+# 이전 mission_seed 옵션에서 쓰는 practice profile/seed 생성 흐름을 검증한다.
+
 from __future__ import annotations
 
 import sys

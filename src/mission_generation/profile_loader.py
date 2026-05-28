@@ -1,3 +1,5 @@
+# KNOW 원천 XML 파일을 미션 생성용 job_profile JSON으로 정규화한다.
+
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
@@ -9,6 +11,8 @@ from .utils import normalize_text, parse_score, source_ref, split_exec_jobs, sor
 
 
 class ProfileLoadError(RuntimeError):
+    """KNOW XML에서 필수 profile 값을 만들 수 없을 때 발생하는 오류."""
+
     def __init__(self, job_cd: str, errors: list[dict[str, str]]) -> None:
         self.job_cd = job_cd
         self.errors = errors
@@ -16,6 +20,8 @@ class ProfileLoadError(RuntimeError):
 
 
 class JobProfileLoader:
+    """직무별 KNOW XML 원천 파일을 job_profile JSON 구조로 정규화한다."""
+
     required_files = ("dtlGb_2.xml", "dtlGb_5.xml", "dtlGb_7.xml")
     optional_files = ("dtlGb_3.xml",)
 
@@ -28,6 +34,8 @@ class JobProfileLoader:
         self.output_root = Path(output_root)
 
     def build(self, job_cd: str, save: bool = True) -> dict[str, Any]:
+        """직무 코드 하나에 대한 profile을 만들고, 필요하면 outputs에 저장한다."""
+
         job_dir = self.source_root / job_cd
         warnings: list[dict[str, str]] = []
         errors: list[dict[str, str]] = []
@@ -144,12 +152,16 @@ class JobProfileLoader:
         return profile
 
     def save(self, profile: dict[str, Any]) -> Path:
+        """생성된 job_profile을 표준 profile 산출물 경로에 저장한다."""
+
         job_cd = profile["job_identity"]["job_cd"]
         path = self.output_root / f"{job_cd}.json"
         write_json_atomic(path, profile)
         return path
 
     def _source_files(self, job_cd: str, job_dir: Path) -> list[dict[str, Any]]:
+        """profile 산출물에 남길 원천 XML 파일 로드 여부 목록을 만든다."""
+
         files: list[dict[str, Any]] = []
         for file_name in self.required_files:
             files.append({"file": f"{job_cd}/{file_name}", "required": True, "loaded": (job_dir / file_name).exists()})
@@ -164,6 +176,8 @@ class JobProfileLoader:
         warnings: list[dict[str, str]],
         errors: list[dict[str, str]],
     ) -> dict[str, Any]:
+        """필수 XML 누락처럼 profile을 만들 수 없을 때도 오류 저장용 최소 구조를 만든다."""
+
         return {
             "schema_version": "job_mission_profile.v1",
             "source_root": self.source_root.as_posix(),
@@ -177,6 +191,8 @@ class JobProfileLoader:
         }
 
     def _job_identity(self, job_cd: str, root: ET.Element) -> dict[str, Any]:
+        """dtlGb_2.xml에서 직무 코드와 분류명을 추출한다."""
+
         return {
             "job_cd": normalize_text(root.findtext("jobCd")) or job_cd,
             "job_lrcl_nm": normalize_text(root.findtext("jobLrclNm")),
@@ -186,6 +202,8 @@ class JobProfileLoader:
         }
 
     def _work(self, job_cd: str, root: ET.Element) -> dict[str, Any]:
+        """직무 요약과 수행직무 목록을 source_ref와 함께 만든다."""
+
         exec_jobs = []
         for idx, text in enumerate(split_exec_jobs(root.findtext("execJob")), start=1):
             exec_jobs.append(
@@ -209,6 +227,8 @@ class JobProfileLoader:
         root: ET.Element | None,
         warnings: list[dict[str, str]],
     ) -> dict[str, Any]:
+        """선택 XML인 dtlGb_3.xml에서 기술/지식 맥락을 읽는다."""
+
         if root is None:
             return {"techn_know": None}
         techn_know = normalize_text(root.findtext("technKnow"), preserve_newlines=True)
@@ -241,6 +261,8 @@ class JobProfileLoader:
         limit: int,
         warnings: list[dict[str, str]],
     ) -> list[dict[str, Any]]:
+        """능력/지식/환경/활동 XML 반복 항목을 점수순 evidence 목록으로 변환한다."""
+
         items: list[dict[str, Any]] = []
         for index, element in enumerate(root.findall(item_tag), start=1):
             score = parse_score(element.findtext(score_tag))
@@ -274,6 +296,8 @@ class JobProfileLoader:
         return selected
 
     def _validate_profile(self, profile: dict[str, Any]) -> None:
+        """미션 생성에 필요한 identity, summary, exec_jobs, evidence가 있는지 확인한다."""
+
         errors = profile["loader_errors"]
         identity = profile["job_identity"]
         if not identity.get("job_cd") or not identity.get("job_smcl_nm"):

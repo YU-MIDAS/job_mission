@@ -1,3 +1,5 @@
+# MissionDecisionSelector 입력, schema, 검증 실패/성공 흐름을 검증한다.
+
 from __future__ import annotations
 
 import sys

@@ -1,3 +1,5 @@
+# KNOW XML을 job_profile로 정규화하는 ProfileLoader 동작을 검증한다.
+
 from __future__ import annotations
 
 import sys

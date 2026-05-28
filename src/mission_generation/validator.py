@@ -1,3 +1,5 @@
+# LLM draft가 schema, system_decisions, evidence 규칙을 지키는지 검사한다.
+
 from __future__ import annotations
 
 import copy
@@ -36,6 +38,8 @@ AREA_BY_CODE = {
 
 
 class MissionValidator:
+    """LLM draft가 system decisions와 profile evidence를 지키는지 최종 저장 전에 검사한다."""
+
     def validate(
         self,
         *,
@@ -44,6 +48,8 @@ class MissionValidator:
         mission_output_draft: dict[str, Any] | str | None,
         attempt: int = 0,
     ) -> dict[str, Any]:
+        """draft를 검사하고 저장용 evidence_chain/reliability 계산 결과를 반환한다."""
+
         errors: list[dict[str, Any]] = []
         warnings: list[dict[str, Any]] = []
         checks: dict[str, Any] = {
@@ -78,6 +84,8 @@ class MissionValidator:
         errors: list[dict[str, Any]],
         checks: dict[str, Any],
     ) -> dict[str, Any] | None:
+        """dict 또는 JSON 문자열 draft를 검증 가능한 dict로 맞춘다."""
+
         if isinstance(draft, dict):
             checks["json_parse"] = {"passed": True}
             return draft
@@ -108,6 +116,8 @@ class MissionValidator:
         warnings: list[dict[str, Any]],
         checks: dict[str, Any],
     ) -> None:
+        """최상위 필드와 learner-facing scenario 구조가 필수 조건을 만족하는지 본다."""
+
         required = [
             "schema_version",
             "mission_id",
@@ -180,6 +190,8 @@ class MissionValidator:
         errors: list[dict[str, Any]],
         checks: dict[str, Any],
     ) -> None:
+        """LLM이 selector/system_decisions로 고정한 핵심 결정을 바꾸지 않았는지 확인한다."""
+
         mission = draft.get("mission") or {}
         selected = decisions["selected_exec_job"]
         target = draft.get("target_exec_job") or {}
@@ -200,6 +212,8 @@ class MissionValidator:
         warnings: list[dict[str, Any]],
         checks: dict[str, Any],
     ) -> None:
+        """materials가 참조할 공통 mission_facts가 충분히 만들어졌는지 확인한다."""
+
         facts = draft.get("mission_facts")
         if not isinstance(facts, dict) or not facts:
             self._add(errors, "REQUIRED_FIELD_MISSING", "fail", "mission_facts", "mission_facts must be a non-empty object.", "Add mission_facts.")
@@ -217,6 +231,8 @@ class MissionValidator:
         warnings: list[dict[str, Any]],
         checks: dict[str, Any],
     ) -> None:
+        """자료 개수, 허용 유형, fact/evidence 연결, task 사용 여부를 검사한다."""
+
         mission = draft.get("mission") or {}
         materials = mission.get("materials")
         tasks = mission.get("tasks") if isinstance(mission.get("tasks"), list) else []
@@ -289,11 +305,14 @@ class MissionValidator:
         errors: list[dict[str, Any]],
         warnings: list[dict[str, Any]],
     ) -> None:
+        """자료 유형별 data payload가 학습자 화면에서 렌더링 가능한 최소 구조인지 본다."""
+
         material_type = material.get("type")
         data = material.get("data")
         if not isinstance(data, dict):
             self._add(errors, "MATERIAL_SCHEMA_INVALID", "fail", f"{path}.data", "data must be an object.", "Add data object.")
             return
+        # 자료별 필수 구조와 크기 제한은 prompt의 material size rules와 같은 기준이다.
         if material_type == "chart":
             self._validate_chart(data, path, errors)
             self._check_size(len((data.get("x_axis") or {}).get("values") or []), *self._size_bounds(difficulty, (3, 4), (4, 5), (4, 5)), f"{path}.data.x_axis.values", errors, warnings)
@@ -355,6 +374,8 @@ class MissionValidator:
             self._check_size(len(cards or []), *self._size_bounds(difficulty, (2, 2), (2, 3), (2, 3)), f"{path}.data.cards", errors, warnings)
 
     def _validate_chart(self, data: dict[str, Any], path: str, errors: list[dict[str, Any]]) -> None:
+        """chart data의 축, series 길이, 숫자값, pie 합계를 검사한다."""
+
         chart_type = data.get("chart_type")
         if chart_type not in {"line", "bar", "pie"}:
             self._add(errors, "MATERIAL_SCHEMA_INVALID", "fail", f"{path}.data.chart_type", "chart_type is invalid.", "Use line, bar, or pie.")
@@ -382,6 +403,8 @@ class MissionValidator:
         warnings: list[dict[str, Any]],
         checks: dict[str, Any],
     ) -> None:
+        """task 개수와 required_materials 참조가 난이도 정책과 자료 목록에 맞는지 확인한다."""
+
         mission = draft.get("mission") or {}
         tasks = mission.get("tasks")
         materials = mission.get("materials") if isinstance(mission.get("materials"), list) else []
@@ -419,6 +442,8 @@ class MissionValidator:
         warnings: list[dict[str, Any]],
         checks: dict[str, Any],
     ) -> None:
+        """rubric 점수 합계와 평가 기준의 기본 완결성을 확인한다."""
+
         evaluation = draft.get("evaluation")
         if not isinstance(evaluation, dict):
             self._add(errors, "REQUIRED_FIELD_MISSING", "fail", "evaluation", "evaluation is required.", "Add evaluation.")
@@ -447,6 +472,10 @@ class MissionValidator:
         errors: list[dict[str, Any]],
         checks: dict[str, Any],
     ) -> dict[str, Any]:
+        """자료의 evidence_source 이름을 실제 profile source_ref로 다시 연결한다."""
+
+        # draft의 evidence_source 이름을 실제 job_profile evidence에 대조해 source_ref를 다시 만든다.
+        # 이 값만 final_assembler가 최종 evidence_chain으로 채택한다.
         evidence_by_name = self._evidence_name_map(profile)
         materials = (draft.get("mission") or {}).get("materials") or []
         items = []
@@ -497,6 +526,8 @@ class MissionValidator:
         errors: list[dict[str, Any]],
         warnings: list[dict[str, Any]],
     ) -> dict[str, Any]:
+        """validator 오류/경고 수를 최종 reliability score로 환산한다."""
+
         areas = {
             "schema": {"max": 20, "earned": 20},
             "system_decisions": {"max": 15, "earned": 15},
@@ -533,6 +564,8 @@ class MissionValidator:
         final_evidence_chain: dict[str, Any],
         reliability: dict[str, Any] | None,
     ) -> dict[str, Any]:
+        """검증 상태, 오류, 경고, evidence_chain, reliability를 표준 결과로 묶는다."""
+
         reliability = reliability or self._calculate_reliability(errors, warnings)
         if errors and attempt >= 1:
             status = "discard"
@@ -573,6 +606,8 @@ class MissionValidator:
         errors: list[dict[str, Any]],
         warnings: list[dict[str, Any]],
     ) -> None:
+        """자료 항목 수가 난이도별 최소/최대 범위 안에 있는지 확인한다."""
+
         if count < min_count:
             self._add(errors, "MATERIAL_SIZE_TOO_SMALL", "fail", path, f"count {count} is below minimum {min_count}.", "Add items.")
         elif count > max_count:
@@ -585,9 +620,13 @@ class MissionValidator:
         normal: tuple[int, int],
         hard: tuple[int, int],
     ) -> tuple[int, int]:
+        """난이도 코드에 맞는 자료 크기 제한을 고른다."""
+
         return {"easy": easy, "normal": normal, "hard": hard}.get(difficulty, normal)
 
     def _evidence_name_map(self, profile: dict[str, Any]) -> dict[str, dict[str, Any]]:
+        """profile evidence를 이름으로 빠르게 찾을 수 있게 dict로 색인한다."""
+
         return {
             item["name"]: item
             for group in profile.get("evidence", {}).values()
@@ -604,6 +643,8 @@ class MissionValidator:
         message: str,
         required_fix: str,
     ) -> None:
+        """validator 오류/경고 항목을 공통 구조로 추가한다."""
+
         target.append(
             {
                 "path": path,

@@ -1,3 +1,5 @@
+# 이전 방식 auto_pilot_config 생성 유틸의 회귀 동작을 검증한다.
+
 from __future__ import annotations
 
 import copy

@@ -1,3 +1,5 @@
+# mission_generation 패키지의 공개 모듈 목록을 정의한다.
+
 """Mission generation v1 pipeline."""
 
 __all__ = [

@@ -1,3 +1,6 @@
+# 기본 경로가 아닌 옵션용 코드다.
+# PilotRunner에서 use_practice_sheet_background=False이거나 CLI에서 --mission-seed를 줄 때만 사용한다.
+
 from __future__ import annotations
 
 import re
@@ -5,6 +8,8 @@ from typing import Any
 
 
 class MissionSeedBuilder:
+    """구조화된 practice_profile을 이전 방식의 mission_seed 입력으로 축약한다."""
+
     def build(
         self,
         *,
@@ -12,6 +17,8 @@ class MissionSeedBuilder:
         practice_profile: dict[str, Any] | None,
         system_decisions: dict[str, Any],
     ) -> dict[str, Any] | None:
+        """practice_profile이 있을 때 normal 난이도용 seed를 만든다."""
+
         if not practice_profile or system_decisions["difficulty"]["level"] != "normal":
             return None
         if not (practice_profile.get("profile_quality") or {}).get("ready_for_normal_mission", False):
@@ -60,6 +67,8 @@ class MissionSeedBuilder:
         }
 
     def excerpt(self, practice_profile: dict[str, Any], mission_seed: dict[str, Any]) -> dict[str, Any]:
+        """LLM 입력에 필요한 practice_profile 일부만 seed 기준으로 잘라낸다."""
+
         decision = self._find_by_id(practice_profile.get("decision_situations") or [], mission_seed["selected_decision_situation_id"])
         task_ids = set(mission_seed.get("selected_practice_task_ids") or [])
         material_ids = {item["source_practice_material_id"] for item in mission_seed.get("material_blueprints") or []}
@@ -94,6 +103,8 @@ class MissionSeedBuilder:
         }
 
     def _select_decision(self, practice_profile: dict[str, Any]) -> dict[str, Any] | None:
+        """practice profile에서 normal 미션으로 만들 수 있는 결정 상황을 고른다."""
+
         decisions = practice_profile.get("decision_situations") or []
         valid = [
             item
@@ -122,6 +133,8 @@ class MissionSeedBuilder:
         decision: dict[str, Any],
         system_decisions: dict[str, Any],
     ) -> list[dict[str, Any]]:
+        """practice_material을 LLM이 만들 learner-visible 자료 설계도로 바꾼다."""
+
         materials = practice_profile.get("practice_materials") or []
         min_count, max_count = system_decisions["difficulty"]["material_count_range"]
         target_count = max(2, min(min_count, max_count))
@@ -175,6 +188,8 @@ class MissionSeedBuilder:
         decision: dict[str, Any],
         deliverable: dict[str, Any],
     ) -> list[dict[str, Any]]:
+        """mission_seed 기반 normal 미션의 task instruction 초안을 만든다."""
+
         primary = material_blueprints[0]["material_name"]
         supporting = material_blueprints[1]["material_name"]
         factors = (decision.get("factors") or [])[:3]
@@ -239,6 +254,8 @@ class MissionSeedBuilder:
         collaboration: dict[str, Any],
         deliverable: dict[str, Any],
     ) -> list[str]:
+        """seed가 어떤 practice profile 항목에서 왔는지 추적할 id 목록을 남긴다."""
+
         refs: list[str] = []
         for item in [decision, *practice_tasks, *material_blueprints, collaboration, deliverable]:
             for ref in item.get("source_refs") or []:

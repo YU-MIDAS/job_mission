@@ -1,3 +1,5 @@
+# selector 결과 또는 이전 규칙을 LLM이 따라야 할 system_decisions로 확정한다.
+
 from __future__ import annotations
 
 from typing import Any
@@ -6,6 +8,8 @@ from .config import EXCLUDED_MATERIAL_TYPES, MATERIAL_TYPES, PILOT_JOB_CONFIGS, 
 
 
 class SystemDecisionError(RuntimeError):
+    """수행직무, task type, 난이도 등 system_decisions 구성이 실패했을 때의 오류."""
+
     pass
 
 
@@ -160,12 +164,16 @@ PILOT_MISSION_DESIGN_FALLBACK: dict[str, str] = {
 
 
 class SystemDecisionBuilder:
+    """선택된 수행직무와 난이도를 LLM이 따라야 할 system_decisions로 확정한다."""
+
     def build(
         self,
         job_profile: dict[str, Any],
         requested_difficulty: str,
         pilot_job_config: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+        """LLM selector를 쓰지 않는 옵션/이전 규칙 경로에서 규칙 기반 결정을 만든다."""
+
         if requested_difficulty not in {"easy", "normal", "hard"}:
             raise SystemDecisionError(f"invalid difficulty: {requested_difficulty}")
         job_cd = job_profile["job_identity"]["job_cd"]
@@ -229,6 +237,8 @@ class SystemDecisionBuilder:
         requested_difficulty: str,
         selector_result: dict[str, Any],
     ) -> dict[str, Any]:
+        """기본 경로에서 MissionDecisionSelector 결과를 system_decisions로 변환한다."""
+
         if requested_difficulty not in {"easy", "normal", "hard"}:
             raise SystemDecisionError(f"invalid difficulty: {requested_difficulty}")
         exec_jobs = job_profile["work"]["exec_jobs"]
@@ -289,6 +299,8 @@ class SystemDecisionBuilder:
         trace: list[dict[str, Any]],
         warnings: list[dict[str, str]],
     ) -> dict[str, Any]:
+        """설정값, 키워드 점수, fallback 순서로 목표 수행직무를 하나 고른다."""
+
         exec_jobs = profile["work"]["exec_jobs"]
         by_id = {item["exec_job_id"]: item for item in exec_jobs}
         preferred_id = config.get("preferred_exec_job_id")
@@ -367,6 +379,8 @@ class SystemDecisionBuilder:
         trace: list[dict[str, Any]],
         warnings: list[dict[str, str]],
     ) -> str:
+        """수행직무 문장과 활동 evidence를 바탕으로 대표 task type을 정한다."""
+
         preferred = config.get("preferred_primary_task_type")
         if preferred:
             if preferred not in TASK_TYPES:
@@ -418,6 +432,8 @@ class SystemDecisionBuilder:
         return best_task
 
     def _secondary_task_types(self, text: str, primary_task_type: str) -> list[str]:
+        """대표 task type을 보조할 수 있는 부가 task type을 최대 2개까지 고른다."""
+
         selected: list[str] = []
         if primary_task_type == "research_and_analysis" and any(word in text for word in ("기획", "개발", "제안", "수립")):
             selected.append("planning_and_proposal")
@@ -441,6 +457,8 @@ class SystemDecisionBuilder:
         trace: list[dict[str, Any]],
         warnings: list[dict[str, str]],
     ) -> list[str]:
+        """난이도와 evidence 힌트를 기준으로 LLM이 만들 수 있는 자료 유형을 제한한다."""
+
         max_count = {"easy": 1, "normal": 2, "hard": 3}[difficulty]
         configured = list((config.get("materials") or {}).get(difficulty) or [])
         allowed = [item for item in configured if item in MATERIAL_TYPES]
@@ -489,6 +507,8 @@ class SystemDecisionBuilder:
         selected_exec_job: dict[str, Any],
         trace: list[dict[str, Any]],
     ) -> dict[str, str]:
+        """직무 profile 신호를 미션 설계 의도 유형으로 압축한다."""
+
         job_cd = profile["job_identity"]["job_cd"]
         signal_text = self._mission_design_signal_text(profile, selected_exec_job)
         scores = {
@@ -545,6 +565,8 @@ class SystemDecisionBuilder:
         return " ".join(parts).lower()
 
     def _difficulty(self, difficulty: str) -> dict[str, Any]:
+        """난이도 코드별 시간, 자료 수, task 수 정책을 반환한다."""
+
         if difficulty == "easy":
             return {
                 "level": "easy",

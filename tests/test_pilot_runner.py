@@ -1,3 +1,5 @@
+# PilotRunner의 기본 생성 경로, 옵션 경로, 실패 처리, 진행 메시지를 검증한다.
+
 from __future__ import annotations
 
 import io

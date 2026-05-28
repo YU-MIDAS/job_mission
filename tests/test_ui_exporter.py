@@ -1,3 +1,5 @@
+# QA용/학습자용 HTML exporter payload와 노출 필드 정책을 검증한다.
+
 from __future__ import annotations
 
 import json

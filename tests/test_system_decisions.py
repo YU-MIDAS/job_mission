@@ -1,3 +1,5 @@
+# selector 결과 또는 규칙 기반 system_decisions 생성 로직을 검증한다.
+
 from __future__ import annotations
 
 import sys

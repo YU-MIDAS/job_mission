@@ -1,3 +1,5 @@
+# LLM 출력이 따라야 할 mission_output 제약과 structured output schema를 만든다.
+
 from __future__ import annotations
 
 from typing import Any
@@ -6,7 +8,11 @@ from .config import EXCLUDED_MATERIAL_TYPES, MATERIAL_TYPES
 
 
 class SchemaConstraintsBuilder:
+    """LLM 출력이 따라야 할 mission_output 규칙과 strict JSON schema를 만든다."""
+
     def build(self, evidence_names: list[str] | None = None) -> dict[str, Any]:
+        """prompt/validator가 공유하는 제약 조건 패키지를 구성한다."""
+
         evidence_names = evidence_names or []
         return {
             "schema_version": "schema_constraints.v1",
@@ -57,6 +63,8 @@ class SchemaConstraintsBuilder:
         }
 
     def structured_output_schema(self, evidence_names: list[str] | None = None) -> dict[str, Any]:
+        """OpenAI structured output에 전달할 strict mission_output schema를 반환한다."""
+
         evidence_names = evidence_names or []
         return {
             "type": "object",
@@ -90,6 +98,8 @@ class SchemaConstraintsBuilder:
         }
 
     def _object(self, properties: dict[str, Any]) -> dict[str, Any]:
+        """모든 필드를 required로 두는 strict object schema 조각을 만든다."""
+
         return {
             "type": "object",
             "additionalProperties": False,
@@ -98,15 +108,21 @@ class SchemaConstraintsBuilder:
         }
 
     def _string_array(self, enum_values: list[str] | None = None) -> dict[str, Any]:
+        """문자열 배열 schema를 만들고, 필요하면 enum으로 값을 제한한다."""
+
         item_schema: dict[str, Any] = {"type": "string"}
         if enum_values:
             item_schema["enum"] = enum_values
         return {"type": "array", "items": item_schema}
 
     def _number_array(self) -> dict[str, Any]:
+        """숫자 배열 schema 조각을 만든다."""
+
         return {"type": "array", "items": {"type": "number"}}
 
     def _source_ref_schema(self) -> dict[str, Any]:
+        """XML 원천 위치를 표시하는 source_ref schema를 만든다."""
+
         return self._object(
             {
                 "file": {"type": "string"},
@@ -116,6 +132,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _job_identity_schema(self) -> dict[str, Any]:
+        """job_identity 필드의 structured output schema를 만든다."""
+
         return self._object(
             {
                 "job_cd": {"type": "string"},
@@ -127,6 +145,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _target_exec_job_schema(self) -> dict[str, Any]:
+        """선택된 수행직무 target_exec_job schema를 만든다."""
+
         return self._object(
             {
                 "exec_job_id": {"type": "string"},
@@ -137,6 +157,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _mission_facts_schema(self) -> dict[str, Any]:
+        """자료와 task가 공유해서 참조할 mission_facts schema를 만든다."""
+
         return self._object(
             {
                 "org_name": {"type": "string"},
@@ -150,6 +172,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _difficulty_schema(self) -> dict[str, Any]:
+        """난이도 정책이 LLM 출력에서 변형되지 않도록 difficulty schema를 만든다."""
+
         return self._object(
             {
                 "level": {"enum": ["easy", "normal", "hard"]},
@@ -166,6 +190,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _mission_schema(self, evidence_names: list[str]) -> dict[str, Any]:
+        """mission 본문 전체의 structured output schema를 만든다."""
+
         return self._object(
             {
                 "title": {"type": "string"},
@@ -180,6 +206,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _scenario_schema(self) -> dict[str, Any]:
+        """role/context/goal/constraints/glossary로 구성된 scenario schema를 만든다."""
+
         return self._object(
             {
                 "role": {"type": "string"},
@@ -199,6 +227,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _material_schema(self, evidence_names: list[str]) -> dict[str, Any]:
+        """자료 하나가 가져야 할 필드와 evidence_source enum schema를 만든다."""
+
         return self._object(
             {
                 "material_id": {"type": "string"},
@@ -216,6 +246,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _material_data_schema(self) -> dict[str, Any]:
+        """chart/table/memo 등 모든 자료 유형이 공유하는 data payload schema를 만든다."""
+
         generic_item = self._object(
             {
                 "text": {"type": "string"},
@@ -298,6 +330,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _confidence_schema(self) -> dict[str, Any]:
+        """LLM draft 단계의 synthetic material confidence schema를 만든다."""
+
         return self._object(
             {
                 "score": {"type": "number"},
@@ -307,6 +341,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _task_schema(self) -> dict[str, Any]:
+        """task instruction과 required_materials schema를 만든다."""
+
         return self._object(
             {
                 "task_id": {"type": "string"},
@@ -317,6 +353,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _submission_format_schema(self) -> dict[str, Any]:
+        """제출 형식과 길이 힌트 schema를 만든다."""
+
         return self._object(
             {
                 "type": {"type": "string"},
@@ -327,6 +365,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _evaluation_schema(self) -> dict[str, Any]:
+        """expected_insights와 rubric으로 구성된 evaluation schema를 만든다."""
+
         return self._object(
             {
                 "expected_insights": self._string_array(),
@@ -335,6 +375,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _rubric_item_schema(self) -> dict[str, Any]:
+        """rubric 항목 하나의 criterion/points/evidence schema를 만든다."""
+
         return self._object(
             {
                 "criterion": {"type": "string"},
@@ -345,6 +387,8 @@ class SchemaConstraintsBuilder:
         )
 
     def _evidence_chain_draft_schema(self) -> dict[str, Any]:
+        """LLM이 임시로 남기는 evidence_chain_draft schema를 만든다."""
+
         return self._object(
             {
                 "source_exec_job": self._object({"id": {"type": "string"}, "text": {"type": "string"}}),
